@@ -1,0 +1,30 @@
+nav{
+    background-color: #261C11;  
+}
+
+.navbar a{
+    color: white;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+main{
+    background-color: #FFFFF3;    
+}
+
+
+footer{
+    background-color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+.custom-btn {
+    background-color: #588157;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 130px;
+}
