@@ -53,6 +53,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+<<<<<<< HEAD
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="#">News</a>
@@ -183,16 +184,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     {{-- Search bar here. Show it only to the login user. --}}
+=======
+>>>>>>> 2b91d379f25d51bac626eafcd3b16e4f59e49bd7
                     
-
-                    <ul class="navbar-nav ms-auto">
-                        <form action="#" method="GET" class="position-relative" style="width: 300px;">
-                            <input type="search" name="search" class="form-control form-control-sm ps-4" placeholder="Search..." aria-label="Search">
-                            <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
-                        </form>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="#">News</a>
@@ -204,6 +198,24 @@
                             <a class="nav-link" href="#">FAQ/Contact</a>
                         </li>
                     </ul>
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ms-auto">
+                        <!-- 常にアイコンを表示 -->
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <div style="width: 40px; height: 40px; background-color: #007BFF; color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                                        <i class="fas fa-user"></i>
+                                    </div>
+                                </a>
+                                <!-- ドロップダウンメニュー -->
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="#">プロフィール</a></li>
+                                    <li><a class="dropdown-item" href="#">設定</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">ログアウト</a></li>
+                                </ul>
+                            </li>
+                        </ul>
 
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
@@ -274,4 +286,12 @@
 
     
 </body>
+<<<<<<< HEAD
+=======
+
+
+
+
+
+>>>>>>> 2b91d379f25d51bac626eafcd3b16e4f59e49bd7
 </html>
