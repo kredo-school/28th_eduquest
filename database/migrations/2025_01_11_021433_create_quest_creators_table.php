@@ -1,9 +1,7 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 return new class extends Migration
 {
     /**
@@ -13,10 +11,11 @@ return new class extends Migration
     {
         Schema::create('quest_creators', function (Blueprint $table) {
             $table->id();
-            $table->string('creator_name')->nullable();
-            $table->string('job_title')->nullable();
+            $table->string('creator_name')->nullable()->nullable();
+            $table->string('job_title')->nullable()->nullable();
             $table->text('description', 100)->nullable();
-            $table->longText('creator_image')->nullable();
+            $table->text('qualifications')->nullable()->nullable();
+            $table->longText('creator_image')->nullable()->nullable();
             $table->text('qualifications')->nullable();
             $table->string('youtube') -> nullable();
             $table->string('facebook') -> nullable();
@@ -24,11 +23,9 @@ return new class extends Migration
             $table->string('linkedin') -> nullable();
             $table->unsignedBigInteger('user_id') -> nullable();
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
     /**
      * Reverse the migrations.
      */

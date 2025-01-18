@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
@@ -20,7 +22,7 @@ class QuestCreatorController extends Controller
             'job_title' => 'required',
             'description' => 'required|max:100',
             'creator_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'qualifications' => 'nullable|text', 
+            'qualifications' => 'nullable|string', 
             'youtube' => 'nullable|string',
             'facebook' => 'nullable|string',
             'x_twitter' => 'nullable|string',
@@ -32,7 +34,7 @@ class QuestCreatorController extends Controller
         $this->questcreator->creator_name = $request->creator_name;
         $this->questcreator->job_title = $request->job_title;
         $this->questcreator->description = $request->description;
-        // $this->questcreator->creator_image = 'data:image/' . $request->creator_image->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
+        $this->questcreator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
         $this->questcreator->qualifications = $request->qualifications;
         $this->questcreator->youtube = $request->youtube;
         $this->questcreator->facebook = $request->facebook;
@@ -40,13 +42,9 @@ class QuestCreatorController extends Controller
         $this->questcreator->linkedin = $request->linkedin;
         $this->questcreator->save();
 
-        if ($request->hasFile('creator_image')) {
-            $imagePath = $request->file('creator_image')->store('public/images'); // 'public/images' フォルダに保存
-            $questCreator->creator_image = $imagePath; // パスをデータベースに保存
-        }
-
         #3. Go back to homepage　↓MyPage完成後、Redirect先変更！！
-        return redirect()->route('index');
+        // return redirect()->route('index');
+        return view('creatorMyPage'); 
 
 
 
