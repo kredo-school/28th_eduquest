@@ -44,13 +44,11 @@ class QuestCreatorController extends Controller
 
         #3. Go back to homepage　↓MyPage完成後、Redirect先変更！！
         // return redirect()->route('index');
-        return view('creatorMyPage'); 
-
-
+        return view('questcreators.creatorMyPage'); 
 
     }
 
-    public function viewTestSwitch(){
-        return view('creatorMyPage');
+    public function viewCreatorMyPage(){
+        return view('questcreators.creatorMyPage');
     }
 }
