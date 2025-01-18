@@ -1,21 +1,22 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
+        <div class="col-md-6">
+            <div class="card sign-in card">
+                {{-- Sign in --}}
+                    <div class="card-body sign-in-card-body text-center fw-bold bg-white">
+                        <img src="..\images\character_yusha_01_green.png"
+                            alt="yusya_man" style="width: 25px; height: 25px; margin: 5px;">{{ __('Sign In') }}<img
+                            src="..\images\character_yusha_woman_red.png" alt="yusya_woman"
+                            style="width: 25px; height: 25px; margin: 5px;">
+                    
+                {{-- Email --}}
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="example@example.com">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -25,11 +26,12 @@
                             </div>
                         </div>
 
+                {{-- password --}}
                         <div class="row mb-3">
                             <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password"placeholder="Enter a password">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -39,29 +41,27 @@
                             </div>
                         </div>
 
+                {{-- Remember Me --}}
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                        {{('Remember Me')}}
                                     </label>
                                 </div>
                             </div>
                         </div>
 
+                {{-- Sign In Buttons--}}
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                              <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+                                <button type="submit"
+                                class="btn w-100 me-4 bg-white text-dark fw-bold rounded-pill border border-dark">
+                                <img src="..\images\mark_diamond_red.png" alt="diamond"
+                                    style="width: 20px; height: 20px; margin: 5px;">
+                                {{ __('Sign In') }}
+                            </button>
                             </div>
                         </div>
                     </form>
