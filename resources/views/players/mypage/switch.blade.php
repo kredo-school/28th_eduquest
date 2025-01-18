@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @section('title', 'Switch to Quest Creator')
+
 @section('content')
 <div class="row text-center">
     {{-- Icon + Account Menu --}}
@@ -8,9 +10,8 @@
     </div>
     {{-- Form --}}
     <div class="col-9">
-        <form action="xxxx" method="post" enctype="multipart/form-data">
+        <form action="{{ route('questcreator.store')}}" method="post" enctype="multipart/form-data">
         @csrf
-        @method('PATCH')
             <h2>Quest Creator’s Public Profile</h2>
             {{-- creator image --}}
             <div class="mb-3">
@@ -24,53 +25,66 @@
             <div class="row mb-3">
                 <label for="first_name" class="col-sm-3 col-form-label">Name</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                    <input type="text" class="form-control" id="name" name="creator_name" placeholder="Enter your name">
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label for="job_title" class="col-sm-3 col-form-label">Job Title</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="Enter job title">
+                    <input type="text" class="form-control" id="jobTitle" name="job_title" placeholder="Enter job title">
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="introduction" class="col-sm-3 col-form-label">Introduction</label>
+                <label for="description" class="col-sm-3 col-form-label">Introduction</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" id="introduction" rows="3" placeholder="Write a brief introduction"></textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="Write a brief introduction"></textarea>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label for="qualification" class="col-sm-3 col-form-label ">Qualification</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="qualification" placeholder="Enter your qualifications">
+                    <input type="text" class="form-control" id="qualification" name="qualifications" placeholder="Enter your qualifications">
                 </div>
             </div>
+
             <div class="row mb-3">
-                <label for="snslink" class="col-sm-3 col-form-label">SNS Link</label>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" id="facebook" placeholder="Enter your SNS">
-                    
-                </div>
-                <div class="mb-3">
-                    <label for="snsLinks" class="form-label">SNS Links</label>
-                    <div class="d-flex gap-3">
-                        <!-- YouTube -->
-                        <div class="input-group">
-                            <span class="input-group-text bg-white border-end-0">
-                                <i class="bi bi-youtube"></i>
-                            </span>
-                            <input type="text" class="form-control border-start-0" id="youtubeLink" name="youtubeLink" placeholder="YouTube link">
-                        </div>
                 
+                <div class="mb-3">
+                    <div class="d-flex gap-3">
+                        <label for="snsLinks" class="col-sm-3 form-label">SNS Links</label>
+                            <div class="col-sm-9">
+                                <!-- YouTube -->
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="bi bi-youtube"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" id="youtubeLink" name="youtube" placeholder="YouTube link">
+                                </div>
+                                <!-- Facebook -->
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="bi bi-facebook"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" id="facebookLink" name="facebook" placeholder="Facebook link">
+                                </div>
+                                <!-- Twitter -->
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="bi bi-instagram"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" id="x_twitterLink" name="x_twitter" placeholder="x_twitter link">
+                                </div>
+                                <!-- LinkedIn -->
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0">
+                                        <i class="bi bi-linkedin"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-start-0" id="linkedinLink" name="linkedin" placeholder="LinkedIn link">
+                                </div>
+                            </div>
                     </div>
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" id="linkedin" placeholder="Enter your SNS">
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" id="twitter" placeholder="Enter your SNS">
                 </div>
             </div>
             <!-- Register Button -->
