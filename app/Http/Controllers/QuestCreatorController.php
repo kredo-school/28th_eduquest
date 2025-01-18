@@ -20,12 +20,20 @@ class QuestCreatorController extends Controller
             'creator_name' => 'required',
             'job_title' => 'required',
             'description' => 'required|max:100',
-            'creator_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048','qualifications' => 'nullable|string',
+            'creator_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'qualifications' => 'nullable|string',
             'youtube' => 'nullable|string',
             'facebook' => 'nullable|string',
             'x_twitter' => 'nullable|string',
             'linkedin' => 'nullable|string'
         ]);
+
+        //現在のユーザーを取得
+        $user = Auth::user();
+
+        //role_idを2に更新
+        $user->role_id = 2;
+        $user->save();
 
         $this->questcreator->user_id = Auth::user()->id;
         $this->questcreator->creator_name = $request->creator_name;
@@ -38,13 +46,13 @@ class QuestCreatorController extends Controller
         $this->questcreator->save();
 
         //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
-        return view('creatorMyPage'); 
+        return view('questcreators.creatorMyPage'); 
     }
 
     
   
     // すでに他のメソッドが存在する中に追加
-    public function creatorMyPage()
+    public function viewCreatorMyPage()
     {
         // views/questcreators/creatorMyPage.blade.php を参照
         return view('questcreators.creatorMyPage');

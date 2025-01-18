@@ -23,7 +23,15 @@ class User extends Authenticatable
         'first_name',
         'family_name',
         'password',
+        'role_id',
     ];
+
+    // The Method that sets role_id
+    public function setRole($roleid)
+    {
+        $this->role_id = $roleid;
+        $this->save();
+    }
 
     /**
      * The attributes that should be hidden for serialization.
