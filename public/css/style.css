@@ -7,6 +7,11 @@ nav{
     font-family: 'DotGothic16', sans-serif;
 }
 
+main{
+    background-color: rgb(248, 239, 204);
+    font-family: 'DotGothic16', sans-serif;
+}
+
 footer{
     background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
@@ -22,4 +27,13 @@ footer{
     padding-bottom: 10px;
     text-align: center;
     width: 130px;
+}
+
+/* Resistration card body by Yudai */
+
+.resistration-card-body {
+    background-image: url('../images/resistration_bg.jpg'); /* 画像のパスを適切に設定 */ 
+    background-size: cover; /* 画像のサイズをカバーに設定 */ 
+    background-position: center; /* 画像を中央に配置 */ 
+    background-repeat: no-repeat; /* 画像の繰り返しを無効に */ 
 }
