@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\News;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    private $news;
+
+    public function __construct(News $news)
     {
-        $this->middleware('auth');
+        $this->news = $news;
     }
 
     /**
@@ -21,8 +20,23 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+
+    # Show the news in home page
+     public function index()
     {
-        return view('home');
+        $news_lists = $this->getNews();
+
+        return view('players.home')->with('news_lists', $news_lists);
+    }
+
+    /**
+     * Get all news.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getNews()
+    {
+        // Retrieve all news, ordered by the latest created date
+        return $this->news->orderBy('created_at', 'desc')->get();
     }
 }
