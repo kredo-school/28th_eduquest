@@ -1,16 +1,49 @@
-nav{
-    background-color: #261C11;  
-}
+/*---------[header]/[footer]----------*/
 
+nav{
+    background-color: #261C11;
+}
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
 }
-
 footer{
     background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
 }
+
+
+/*--------[News] [Category] [FAQ]--------*/
+
+.nav-item a:hover,
+.nav-item a:focus{
+    color: #fff !important;
+}
+
+.nav-item a:active {
+    color: #aaa !important;
+    transform: translateY(2px);
+}
+
+
+/*-------[Categoryのドロップダウンメニュー]-----------*/
+
+.nav-item-dropdown a{
+    color: #261C11 !important;
+    font-family: 'DotGothic16', sans-serif;
+}
+.nav-item-dropdown a:hover,
+.nav-item-dropdown a:focus {
+    color: #261C11 !important;
+    background-color: transparent;
+}
+.nav-item-dropdown a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
+
+
+/*-----------[Sign in] [Register]---------------*/
 
 .custom-btn {
     background-color: #588157;
@@ -22,4 +55,62 @@ footer{
     padding-bottom: 10px;
     text-align: center;
     width: 130px;
+}
+
+
+/*-----------[アイコンのドロップダウンメニュー]----------*/
+
+.dropdown-menu {
+    font-family: 'DotGothic16', sans-serif;
+    color: #261C11;
+}
+
+.nav-item-2 a{
+    color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+.nav-item-2 a:hover,
+.nav-item-2 a:focus {
+    color: #261C11;
+    background-color: transparent;
+}
+
+.nav-item-2 a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
+
+/*hr*/
+.dropdown-menu .dropdown-divider {
+    border-color: #aaa;
+    opacity: 0.5;
+    margin: 0.5rem 0;
+}
+
+.sword{
+    /*ドロップダウンの剣*/
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 10px;
+}
+
+/*-----[アイコン]--------*/
+
+.icon {
+    /*image追加していない時(ユーザーマーク)*/
+    width:3rem;
+    height:3rem;
+    background-color: #aaa;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-icon {
+    /*imageを追加した時のアイコン*/
+    width:3rem;
+    height:3rem;
+    object-fit: cover;
 }
