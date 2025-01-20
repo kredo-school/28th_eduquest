@@ -21,7 +21,7 @@
                 <label for="image" class="col-sm-3 form-label">Creator Image</label>
                 <div class="col-sm-6 text-center mb-3">
                     <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: auto; border: 2px solid #ccc;">
-                        <img src="#" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img src="{{ $creator->creator_image ?? asset('images/default-profile.png') }}" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
             </div>

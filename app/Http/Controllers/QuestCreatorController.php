@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
 
+
 class QuestCreatorController extends Controller
 {
     private $questcreator;
@@ -19,7 +20,7 @@ class QuestCreatorController extends Controller
         $request->validate([
             'creator_name' => 'required',
             'job_title' => 'required',
-            'description' => 'required|max:100',
+            'description' => 'nullable|string|max:255',
             'creator_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'qualifications' => 'nullable|string',
             'youtube' => 'nullable|string',
@@ -38,6 +39,7 @@ class QuestCreatorController extends Controller
         $this->questcreator->user_id = Auth::user()->id;
         $this->questcreator->creator_name = $request->creator_name;
         $this->questcreator->job_title = $request->job_title;
+        $this->questcreator->description = $request->description;
         $this->questcreator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
         $this->questcreator->youtube = $request->youtube;
         $this->questcreator->facebook = $request->facebook;
