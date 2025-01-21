@@ -10,6 +10,10 @@
             border-radius: 20px;
             font-size: 6px;
             margin-left: 30px;
+            margin-bottom: 50px; /* 下の余白をなくす */
+            display: flex;
+            flex-direction: column; /* 縦方向に並べる */
+            height: 100%; /* 高さを100%に調整 */
         }
 /* 2　剣持った画像の事 */
     .player-image{
@@ -32,17 +36,12 @@
     }
 </style>
    
-<div class="row text-center">
-
-
-
-
 
 
 {{-- 1　Icon + Account Menu --}}
-<div class="row text-center">
-    <div class="side-bar col-2 bg-white">
-{{-- 2 --}}
+<div class="row">
+    <div class="side-bar col-3 bg-white text-center">
+        {{-- 2 --}}
         <div>
             <img src="{{ asset('images/User icon.png')}}" alt="playerimage" class="player-image">
         </div>
@@ -51,13 +50,13 @@
                     @error('avatar')
                         <p class="text-danger small">{{ $message }}</p>
                     @enderror
-{{-- 3 --}}
+            {{-- 3 --}}
             <div class="Accetable" style="text-align: center">
                 <p>Accetable formats:jpeg,jpg,png,gif only.</p>
                 <p>Max file size: 1048kB</p>
             </div>
         </div>
-{{-- 4 --}}
+        {{-- 4 --}}
         <div style="text-align: left">
             <img src={{ asset('images/sword.png') }} alt="sword" class="sword">
             <a href="#" class="text-decoration-none fs-6 text-dark">Account Securlty</a>
@@ -78,13 +77,8 @@
 
 
 
-
-
-
-
-
-{{-- Form --}}
-    <div class="col-9">
+    {{-- Form --}}
+    <div class="col-8">
         <form action="{{ route('questcreator.store') }}" method="post" enctype="multipart/form-data">
         @csrf
             {{-- Title --}}
