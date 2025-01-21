@@ -11,11 +11,11 @@ return new class extends Migration
     {
         Schema::create('quest_creators', function (Blueprint $table) {
             $table->id();
-            $table->string('creator_name')->nullable()->nullable();
-            $table->string('job_title')->nullable()->nullable();
+            $table->string('creator_name')->nullable();
+            $table->string('job_title')->nullable();
             $table->text('description', 100)->nullable();
-            $table->text('qualifications')->nullable()->nullable();
-            $table->longText('creator_image')->nullable()->nullable();
+            $table->text('qualifications')->nullable();
+            $table->longText('creator_image')->nullable();
             $table->text('qualifications')->nullable();
             $table->string('youtube') -> nullable();
             $table->string('facebook') -> nullable();

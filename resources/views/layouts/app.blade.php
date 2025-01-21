@@ -17,8 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -30,27 +28,32 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
                     {{-- Search bar here. Show it only to the login user. --}}
-                    
-
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav mx-auto">
                         <form action="#" method="GET" class="position-relative" style="width: 300px;">
                             <input type="search" name="search" class="form-control form-control-sm ps-4" placeholder="Search..." aria-label="Search">
                             <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
                         </form>
                     </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-3">
                         <li class="nav-item">
                             <a class="nav-link" href="#">News</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Category</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link  d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Category
+                            </a>
+                            <!-- category ドロップダウンメニュー -->
+                            <ul class="dropdown-menu dropdown-menu-end nav-item-dropdown" aria-labelledby="categoryDropdown">
+                                @php
+                                    // データベースからカテゴリーデータを取得
+                                    $categories = DB::table('categories')->get();
+                                @endphp
+                                @foreach ($categories as $category)
+                                    <li><a class="dropdown-item" href="#"><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">{{ $category->category_name }}</a></li>
+                                @endforeach
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">FAQ/Contact</a>
@@ -153,16 +156,13 @@
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Page and Dashbord</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
-                                        
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">How-to Guide</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest List</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest Data Overview</a></li>
-
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
-
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
                                         <li>
@@ -179,9 +179,7 @@
                                         </li>
                                     </ul>
                                 </li>
-
                             @endif
-
                         @endauth
                     </ul>
                 </div>
