@@ -125,7 +125,11 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container">
+                <div class="row justify-content-center">
+                    @yield('content')
+                </div>
+            </div>
         </main>
 
         <footer class="text-white py-4">
