@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ChapterlistController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -8,4 +10,4 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
