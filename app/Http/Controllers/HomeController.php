@@ -26,10 +26,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $quest_creator = $user->quest_creator;
-    
-        return view('home')->with('user', $user)
-                           ->with('quest_creator', $quest_creator);
+        //
     }
 }

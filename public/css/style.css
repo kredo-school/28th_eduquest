@@ -1,14 +1,17 @@
-/*header footer*/
+/*header*/
 nav{
     background-color: #261C11;  
 }
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
-}
-footer{
-    background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
+}
+
+/*App title EduQuest*/
+.h5:hover,
+.h5:focus{
+    color: #fff !important;
 }
 
 /*News Category FAQ*/
@@ -97,6 +100,15 @@ footer{
     width:3rem;
     height:3rem;
     object-fit: cover;
+}
+
+main{
+    background-color: #fffff3;
+}
+
+footer{
+    background-color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
 }
 
 
