@@ -1,55 +1,46 @@
+/*header footer*/
 nav{
     background-color: #261C11;  
 }
-
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
 }
-
-.custom-btn {
-    background-color: #588157;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    width: 130px;
-    border: none;
-    outline: none;
+main{
+    background-color: #FFFFF3;
+    font-family: 'DotGothic16', sans-serif;
 }
-
-.title-icon {
-    height: 3em; /* h2のフォントサイズに合わせる */
-    width: auto; /* アスペクト比を保持 */
-    vertical-align: middle; /* テキストとの縦位置を調整 */
-}
-
 footer{
     background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
 }
 
-.custom-btn {
-    background-color: #588157;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    width: 130px;
+/*News Category FAQ*/
+.nav-item a:hover,
+.nav-item a:focus{
+    color: #fff !important;
+}
+.nav-item a:active {
+    color: #aaa !important;
+    transform: translateY(2px);
 }
 
-main{
-    background-color: #FFFFF3;
+/*カテゴリーのドロップダウン*/
+.nav-item-dropdown a{
+    color: #261C11 !important;
     font-family: 'DotGothic16', sans-serif;
 }
+.nav-item-dropdown a:hover, 
+.nav-item-dropdown a:focus {
+    color: #261C11 !important;
+    background-color: transparent;
+}
+.nav-item-dropdown a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
 
-style.css内、custom-btnは一部追加、title-iconを追加
+/*Sign in と Register*/
 .custom-btn {
     background-color: #588157;
     color: white;
@@ -60,8 +51,6 @@ style.css内、custom-btnは一部追加、title-iconを追加
     padding-bottom: 10px;
     text-align: center;
     width: 130px;
-    border: none;
-    outline: none;
 }
 .title-icon {
     height: 3em; /* h2のフォントサイズに合わせる */

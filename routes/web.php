@@ -8,10 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'showNews'])->name('news');
 Route::get('/test', [UserController::class, 'viewTestSwitch']);
 Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'creatorMyPage'])->name('creatorMyPage');
-
-# Show the News Modal Window　in Home Page
-Route::get('/home', [HomeController::class, 'index'])->name('home');
