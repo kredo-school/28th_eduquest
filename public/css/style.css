@@ -47,3 +47,104 @@ style.css内、custom-btnは一部追加、title-iconを追加
     width: auto; /* アスペクト比を保持 */
     vertical-align: middle; /* テキストとの縦位置を調整 */
 }
+
+
+
+
+
+
+
+/*---------------------[75:Create Quest]-----------------------------------*/
+
+/* form全体のデザイン */
+form {
+    font-family: 'DotGothic16';
+}
+
+.form-group {
+    margin: 20px auto;
+}
+
+.chapter-container {
+    margin: 4rem auto;
+}
+
+/* 旗の画像とタイトル */
+.title-container {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem auto;
+}
+
+.title-container img {
+    width: 2.5rem;
+    height: 3rem;
+}
+
+/* カテゴリー選択ラベルのスタイル */
+.category-option {
+    display: inline-block;
+    text-align: center;
+    margin: 10px 2px;
+    padding: 10px 20px;
+    background-color: #528966;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* チェックボックスを非表示にする */
+.category-option input {
+    display: none;
+}
+
+/* チェックボックスが選択されたときのスタイル */
+.category-option input:checked + span {
+    background-color: #93d8d0;  /* 選択時の背景色 */
+    color: white;
+}
+
+/* ホバー時のスタイル */
+.category-option:hover {
+    background-color: #e0e0e0;
+}
+
+/* テキスト（カテゴリー名）のスタイル */
+.category-option span {
+    font-size: 1rem;
+    color: #333;
+}
+
+.bg-img-container img {
+    width: 40rem;
+    height: auto;
+}
+
+.btn-add-chapter {
+    border-bottom: 1px solid #333;
+    background: none;
+    border: none;
+}
+
+.chapter-title h5 {
+    background: #333;
+    color: white;
+    width: 6rem;
+}
+
+.btn-design {
+    text-decoration: none;
+    color: #333;
+    background: white;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #333;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-design img {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 5px;
+}
