@@ -7,9 +7,9 @@
                 {{-- Sign in --}}
                     <div class="card-body sign-in-card-body text-center fw-bold bg-white">
                         <img src="..\images\character_yusha_01_green.png"
-                            alt="yusya_man" style="width: 25px; height: 25px; margin: 5px;">{{ __('Sign In') }}<img
+                            alt="yusya_man" style="min-width: 25px; min-height: 25px; width: 25px; height: 25px; margin: 5px; object-fit: contain;">{{ __('Sign In') }}<img
                             src="..\images\character_yusha_woman_red.png" alt="yusya_woman"
-                            style="width: 25px; height: 25px; margin: 5px;">
+                            style="min-width: 25px; min-height: 25px; width: 25px; height: 25px; margin: 5px; object-fit: contain;">
                     
                 {{-- Email --}}
                         <div class="row mb-3">
@@ -44,9 +44,9 @@
                 {{-- Remember Me --}}
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="remember">
+                                <div class="form-check d-flex align-items-center gap-2">
+                                    <input class="form-check-input m-0" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <label class="form-check-label m-0" for="remember">
                                         {{('Remember Me')}}
                                     </label>
                                 </div>
