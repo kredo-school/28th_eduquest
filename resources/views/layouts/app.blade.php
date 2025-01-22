@@ -82,7 +82,7 @@
                                         <div class="rounded-circle icon">
                                             {{-- avatar/icon --}}
                                             @if( Auth::user()->image )
-                                            <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
+                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
                                             @else
                                                 <i class="fas fa-user"></i>
                                             @endif
@@ -94,7 +94,7 @@
                                             <div class="rounded-circle icon">
                                                 {{-- avatar/icon --}}
                                                 @if( Auth::user()->image )
-                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
+                                                    <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
