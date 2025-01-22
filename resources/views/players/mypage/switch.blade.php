@@ -34,6 +34,18 @@
         height: 40px;
         width: 40px;
     }
+
+    .custom-switch-btn {
+    background-color: #588157;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 130px;
+}
 </style>
    
 
@@ -173,7 +185,7 @@
             </div>
             <!-- Register Button -->
             <div class="text-center mt-4">
-                <button type="submit" class="custom-btn">Register</button>
+                <button type="submit" class="custom-switch-btn">Register</button>
             </div>
         </form>
     </div>
