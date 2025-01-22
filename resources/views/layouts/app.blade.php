@@ -150,12 +150,5 @@
         </footer>
     
     </div>
-
-    
 </body>
-
-
-
-
-
 </html>
