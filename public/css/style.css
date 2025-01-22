@@ -127,11 +127,23 @@ form {
     border: none;
 }
 
+/*chapter番号のデザイン*/
 .chapter-title h5 {
     background: #333;
     color: white;
-    width: 6rem;
+    text-align: center;
+    padding: 5px 10px;
+    width: 130px;
+    height: auto;
 }
+
+.chapter-bg {
+    background: white;
+    width: 150px;
+    border: 1px solid #333;
+}
+
+
 
 .btn-design {
     text-decoration: none;

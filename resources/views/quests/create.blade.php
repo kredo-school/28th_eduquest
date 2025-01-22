@@ -72,7 +72,9 @@
                         <div class="row">
                             <!-- Left Side: 小項目タイトルと説明 -->
                             <div class="col-md-6 chapter-title">
-                                <h5><i class="fa-solid fa-play"></i>Chapter 1</h5>
+                                <div class="chapter-bg">
+                                    <h5><i class="fa-solid fa-play m-1"></i>Chapter 1</h5>
+                                </div>
                                 <div class="form-group">
                                     <label for="sub_item_title_1">Title:</label>
                                     <input type="text" class="form-control" id="sub_item_title_1" name="sub_items[1][title]" required>
