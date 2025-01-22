@@ -49,6 +49,30 @@ footer{
     width: 130px;
 }
 
+main{
+    background-color: #FFFFF3;
+}
+
+style.css内、custom-btnは一部追加、title-iconを追加
+.custom-btn {
+    background-color: #588157;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 130px;
+    border: none;
+    outline: none;
+}
+.title-icon {
+    height: 3em; /* h2のフォントサイズに合わせる */
+    width: auto; /* アスペクト比を保持 */
+    vertical-align: middle; /* テキストとの縦位置を調整 */
+}
+
 /*アイコンのドロップダウンメニュー*/
 .dropdown-menu {
     font-family: 'DotGothic16', sans-serif;
