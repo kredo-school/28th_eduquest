@@ -18,3 +18,4 @@ Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'
 Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
 
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
+

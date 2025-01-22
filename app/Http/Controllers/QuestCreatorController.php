@@ -50,14 +50,14 @@ class QuestCreatorController extends Controller
         //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
         return view('questcreators.creatorMyPage'); 
     }
-
-    
   
-    // すでに他のメソッドが存在する中に追加
+        // すでに他のメソッドが存在する中に追加
     public function viewCreatorMyPage()
     {
         // views/questcreators/creatorMyPage.blade.php を参照
-        return view('questcreators.creatorMyPage');
+        $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+
+        return view('questcreators.creatorMyPage', compact('creator'));
     }
 
 
