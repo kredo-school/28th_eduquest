@@ -17,6 +17,9 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+<<<<<<<<< Temporary merge branch 1
+=========
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
@@ -82,8 +85,8 @@
                                     <a href="#" class="nav-link d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="rounded-circle icon">
                                             {{-- avatar/icon --}}
-                                            @if( $user->image )
-                                            <img src="{{ $user->image }}" alt="" class="rounded-circle img-icon">
+                                            @if( Auth::user()->image )
+                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
                                             @else
                                                 <i class="fas fa-user"></i>
                                             @endif
@@ -94,15 +97,15 @@
                                         <div class="d-flex align-items-center p-3">
                                             <div class="rounded-circle icon">
                                                 {{-- avatar/icon --}}
-                                                @if( $user->image )
-                                                <img src="{{ $user->image }}" alt="" class="rounded-circle img-icon">
+                                                @if( Auth::user()->image )
+                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
                                             </div>
                                             <div class="ms-3">
-                                                <li class="mb-0 fw-bold">{{  $user->first_name }} {{ $user->family_name }}</li>
-                                                <li class="mb-0 text-muted">{{ $user->email }}</li>
+                                                <li class="mb-0 fw-bold">{{  Auth::user()->first_name }} {{ Auth::user()->family_name }}</li>
+                                                <li class="mb-0 text-muted">{{ Auth::user()->email }}</li>
                                             </div>
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
@@ -133,8 +136,8 @@
                                     <a href="#" class="nav-link d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="rounded-circle icon">
                                             {{-- avatar/icon --}}
-                                            @if($user->quest_creator->creator_image)
-                                                <img src="{{ $user->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
+                                            @if(Auth::user()->quest_creator->creator_image)
+                                                <img src="{{ Auth::user()->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
                                             @else
                                                 <i class="fas fa-user"></i>
                                             @endif
@@ -145,15 +148,15 @@
                                         <div class="d-flex align-items-center p-3">
                                             <div>
                                                 {{-- avatar/icon --}}
-                                                @if($user->quest_creator->creator_image)
-                                                    <img src="{{ $user->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
+                                                @if(Auth::user()->quest_creator->creator_image)
+                                                    <img src="{{ Auth::user()->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
                                             </div>
                                             <div class="ms-3">
-                                                <li class="mb-0 fw-bold">{{  $user->quest_creator->creator_name }}</li>
-                                                <li class="mb-0 text-muted">{{ $user->email }}</li>
+                                                <li class="mb-0 fw-bold">{{  Auth::user()->quest_creator->creator_name }}</li>
+                                                <li class="mb-0 text-muted">{{ Auth::user()->email }}</li>
                                             </div>
                                         </div>
                                         <li><hr class="dropdown-divider"></li>

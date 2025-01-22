@@ -1,14 +1,17 @@
-/*header footer*/
+/*header*/
 nav{
     background-color: #261C11;  
 }
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
+    
 }
-footer{
-    background-color: #261C11;
-    font-family: 'DotGothic16', sans-serif;
+
+/*App title EduQuest*/
+.h5:hover,
+.h5:focus{
+    color: #fff !important;
 }
 
 /*News Category FAQ*/
@@ -47,26 +50,15 @@ footer{
     padding-bottom: 10px;
     text-align: center;
     width: 130px;
+    border: none;
+    outline: none;
+
 }
 
 main{
     background-color: #FFFFF3;
 }
 
-style.css内、custom-btnは一部追加、title-iconを追加
-.custom-btn {
-    background-color: #588157;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    width: 130px;
-    border: none;
-    outline: none;
-}
 .title-icon {
     height: 3em; /* h2のフォントサイズに合わせる */
     width: auto; /* アスペクト比を保持 */
@@ -121,6 +113,12 @@ style.css内、custom-btnは一部追加、title-iconを追加
     width:3rem;
     height:3rem;
     object-fit: cover;
+}
+
+
+footer{
+    background-color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
 }
 
 
