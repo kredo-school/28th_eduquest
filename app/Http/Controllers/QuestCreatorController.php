@@ -49,7 +49,4 @@ class QuestCreatorController extends Controller
         return view('questcreators.creatorMyPage', compact('creator'));
     }
 
-    public function mypage(){
-        return view('creator.mypage');
-    }
 }

@@ -1,19 +1,6 @@
 <?php
 
 namespace App\Models;
-<<<<<<<<< Temporary merge branch 1
-use Illuminate\Database\Eloquent\Model;
-class QuestCreator extends Model
-{
-    protected $fillable = ['creator_name', 'creator_image'];
-    // Userとのリレーション（多対一の関係）
-    public function user()
-    {
-        return $this->belongsTo(User::class); // Userモデルと関連付け
-    }
-}
-=========
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
@@ -45,4 +32,3 @@ class QuestCreator extends Model
         return $this->belongsTo(User::class); // Userモデルと関連付け
     }
 }
->>>>>>>>> Temporary merge branch 2
