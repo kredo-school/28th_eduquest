@@ -1,12 +1,6 @@
 @extends('layouts.app')
-
-@section('name')
     @section('style')
-        <style>
-            body {
-                font-family: 'DotGothic16', sans-serif;
-            }
-        </style>
+        
     @endsection
     @section('content')
     <div class="container mt-1">
@@ -90,55 +84,60 @@
             <div class="col-md-6">
                 <!-- Rating -->
                 <div class="mt-4">
-                    <h5 class="fw-bold">Rating</h5>
-                    <div class="d-flex align-items-center mb-3">
-                        <span class="me-2">Average Rating:</span>
-                        <span class="fs-3 fw-bold me-2">2.0</span>
-                        <span>★★☆☆☆</span>
-                    </div>
-                    <div>
-                        <!-- 1つ星 -->
-                        <div class="d-flex align-items-center mb-2">
-                            <p class="mb-0 me-3">★</p>
-                            <div class="progress flex-grow-1">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5 class="fw-bold">Rating</h5>
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="me-2">Average Rating:</span>
+                                <span class="fs-3 fw-bold me-2">2.0</span>
+                                <span>★★☆☆☆</span>
                             </div>
-                            <span class="ms-2">40%</span>
                         </div>
-                        <!-- 2つ星 -->
-                        <div class="d-flex align-items-center mb-2">
-                            <p class="mb-0 me-3">★★</p>
-                            <div class="progress flex-grow-1">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="col-md-6">
+                            <!-- 1つ星 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <p class="mb-0 me-3">★</p>
+                                <div class="progress flex-grow-1">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="ms-2">40%</span>
                             </div>
-                            <span class="ms-2">30%</span>
-                        </div>
-                        <!-- 3つ星 -->
-                        <div class="d-flex align-items-center mb-2">
-                            <p class="mb-0 me-3">★★★</p>
-                            <div class="progress flex-grow-1">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <!-- 2つ星 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <p class="mb-0 me-3">★★</p>
+                                <div class="progress flex-grow-1">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="ms-2">30%</span>
                             </div>
-                            <span class="ms-2">20%</span>
-                        </div>
-                        <!-- 4つ星 -->
-                        <div class="d-flex align-items-center mb-2">
-                            <p class="mb-0 me-3">★★★★</p>
-                            <div class="progress flex-grow-1">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            <!-- 3つ星 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <p class="mb-0 me-3">★★★</p>
+                                <div class="progress flex-grow-1">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="ms-2">20%</span>
                             </div>
-                            <span class="ms-2">10%</span>
-                        </div>
-                        <!-- 5つ星 -->
-                        <div class="d-flex align-items-center mb-2">
-                            <p class="mb-0 me-3">★★★★★</p>
-                            <div class="progress flex-grow-1">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            <!-- 4つ星 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <p class="mb-0 me-3">★★★★</p>
+                                <div class="progress flex-grow-1">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="ms-2">10%</span>
                             </div>
-                            <span class="ms-2">0%</span>
+                            <!-- 5つ星 -->
+                            <div class="d-flex align-items-center mb-2">
+                                <p class="mb-0 me-3">★★★★★</p>
+                                <div class="progress flex-grow-1">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <span class="ms-2">0%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
+                 <!-- レビュー -->
                 <div class="mt-4">
                     <h5>Review</h5>
                     <div class="card mb-3">

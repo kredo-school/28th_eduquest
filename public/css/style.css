@@ -118,4 +118,8 @@ footer{
     font-family: 'DotGothic16', sans-serif;
 }
 
+ body {
+    font-family: 'DotGothic16', sans-serif, Arial !important;
+}
+ 
 
