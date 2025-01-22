@@ -1,25 +1,20 @@
-/*header footer*/
+/*header*/
 nav{
     background-color: #261C11;  
 }
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
-}
-main{
-    background-color: #FFFFF3;
-    font-family: 'DotGothic16', sans-serif;
-}
-footer{
-    background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
 }
 
-/*News Category FAQ*/
+/*App title EduQuest*/
 .h5:hover,
 .h5:focus{
     color: #fff !important;
 }
+
+/*News Category FAQ*/
 .nav-item a:hover,
 .nav-item a:focus{
     color: #fff !important;
@@ -56,11 +51,8 @@ footer{
     text-align: center;
     width: 130px;
 }
-.title-icon {
-    height: 3em; /* h2のフォントサイズに合わせる */
-    width: auto; /* アスペクト比を保持 */
-    vertical-align: middle; /* テキストとの縦位置を調整 */
-}
+
+/*アイコンのドロップダウンメニュー*/
 .dropdown-menu {
     font-family: 'DotGothic16', sans-serif;
     color: #261C11;
@@ -69,7 +61,8 @@ footer{
     color: #261C11;
     font-family: 'DotGothic16', sans-serif;
 }
-.nav-item-2 a:hover,
+
+.nav-item-2 a:hover, 
 .nav-item-2 a:focus {
     color: #261C11;
     background-color: transparent;
@@ -79,23 +72,27 @@ footer{
     transform: translateY(2px);
 }
 .dropdown-menu .dropdown-divider {
+    /*hr*/
     border-color: #aaa;
     opacity: 0.5;
     margin: 0.5rem 0;
 }
 .sword{
+    /*ドロップダウンの剣の画像*/
     width: 1.5rem;
-    height: 1.5rem;
+    height: 1.5rem; 
     margin-right: 10px;
 }
+
+/*icon*/
 .icon {
     /*image追加してなかった時のicon*/
     width:3rem;
     height:3rem;
-    background-color: #aaa;
+    background-color: #aaa; 
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: center; 
     align-items: center;
 }
 .img-icon {
@@ -104,3 +101,15 @@ footer{
     height:3rem;
     object-fit: cover;
 }
+
+main{
+    background-color: #fffff3;
+}
+
+footer{
+    background-color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+
+

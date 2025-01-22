@@ -64,7 +64,16 @@
 {{-- Quest list each Categories だけど、CategoryとQuestデータ貯まるまで枠だけ--}}
 <div class="row gx-5">
     <h2 class="h3 mt-3">Quest List</h2>
-
+    <div class="row d-flex frex-wrap">
+        @foreach ($quests as $quest)
+            <div class="p-2" style='width: 200px;'>
+                <a href="">
+                    <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail" class="img-fluid mb-2">
+                    <div>{{ $quest->quest_title }}</div>
+                </a>
+            </div>  
+        @endforeach
+    </div>
 </div>
     
 @endsection

@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\News;
+use App\Models\Quest;
 
 class HomeController extends Controller
 {
     private $news;
+    private $quest;
 
-    public function __construct(News $news)
+    public function __construct(News $news, Quest $quest)
     {
         $this->news = $news;
+        $this->quest = $quest;
     }
 
     /**
@@ -28,9 +31,11 @@ class HomeController extends Controller
     # Show the news in home page
     public function showNews()
     {
-        $news_lists = $this->getNews();
+        $news = $this->getNews();
+        $quests = $this->getQuests();
 
-        return view('players.home')->with('news_lists', $news_lists);
+        return view('players.home', compact('news', 'quests'));
+        
     }
 
     /**
@@ -41,6 +46,25 @@ class HomeController extends Controller
     private function getNews()
     {
         // Retrieve all news, ordered by the latest created date
-        return $this->news->orderBy('created_at', 'desc')->get();
+        $all_news = $this->news->latest()->get();
+        $news_list = [];
+
+        foreach ($all_news as $news) {
+            $news_lists[] = $news;
+        }
+        
+        return $news_list;
+    }
+
+    private function getQuests()
+    {
+        $all_quests = $this->quest->latest()->get();
+        $quest_lists = [];
+
+        foreach ($all_quests as $quest) {
+            $quest_lists[] = $quest;
+        }
+
+        return $quest_lists;
     }
 }

@@ -29,6 +29,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    
                     {{-- Search bar here. Show it only to the login user. --}}
                     <ul class="navbar-nav mx-auto">
                         <form action="#" method="GET" class="position-relative" style="width: 300px;">
@@ -36,6 +37,7 @@
                             <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
                         </form>
                     </ul>
+                   
                     <ul class="navbar-nav me-3">
                         <li class="nav-item">
                             <a class="nav-link" href="#">News</a>
@@ -80,7 +82,7 @@
                                         <div class="rounded-circle icon">
                                             {{-- avatar/icon --}}
                                             @if( Auth::user()->image )
-                                            <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
+                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
                                             @else
                                                 <i class="fas fa-user"></i>
                                             @endif
@@ -156,13 +158,16 @@
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Page and Dashbord</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
+                                        
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">How-to Guide</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest List</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest Data Overview</a></li>
+
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
+
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
                                         <li>
@@ -179,7 +184,9 @@
                                         </li>
                                     </ul>
                                 </li>
+
                             @endif
+
                         @endauth
                     </ul>
                 </div>
