@@ -4,7 +4,7 @@
     @section('content')
     <div class="container mt-1">
         <!-- 上部背景 -->
-        <div class="p-4" style="background: url('{{ asset('images/Group 209.png') }}') no-repeat center center; background-size:cover;">
+        <div class="p-4" style="background: url('{{ asset('images/Group 209.png') }}') no-repeat center center; background-size:cover; height: 168px;">
             <div class="text-center">
                 <h1>Quest Name</h1>
                 <p>Quest description<...../p>
