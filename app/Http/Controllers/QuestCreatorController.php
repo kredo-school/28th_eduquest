@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
+use App\Models\Category;
 
 class QuestCreatorController extends Controller
 {
@@ -57,6 +58,7 @@ class QuestCreatorController extends Controller
         // views/questcreators/creatorMyPage.blade.php を参照
         return view('questcreators.creatorMyPage');
     }
+    
 
 
 

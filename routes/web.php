@@ -14,4 +14,5 @@ Route::get('/test', [UserController::class, 'viewTestSwitch']);
 Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
 
+
 Route::get('/create',[QuestController::class,'create'])->name('quests.create');

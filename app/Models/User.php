@@ -56,7 +56,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function questCreators(){
+    public function quest_creator()
+    {
         return $this->hasOne(QuestCreator::class);
     }
 }
