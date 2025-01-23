@@ -49,4 +49,11 @@ class QuestCreatorController extends Controller
         return view('questcreators.creatorMyPage', compact('creator'));
     }
 
+    
+    // すでに他のメソッドが存在する中に追加
+    public function viewEditCreatorProfile(){
+        return view('questcreators.profile.edit');
+    }
+
+    
 }

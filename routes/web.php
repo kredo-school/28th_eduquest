@@ -19,3 +19,5 @@ Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterLis
 
 Route::get('/creator', [App\Http\Controllers\QuestCreatorController::class, 'mypage']);
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
+
+Route::get('/creator/profile/edit',[QuestCreatorController::class,'viewEditCreatorProfile'])->name('questcreators.profile.edit');
