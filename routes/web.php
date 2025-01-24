@@ -15,3 +15,9 @@ Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
 
 Route::get('/create',[QuestController::class,'create'])->name('quests.create');
+
+// クエスト一覧表示
+Route::get('/quests', [QuestController::class, 'list'])->name('quests.list');
+
+// クエスト削除
+Route::delete('/quests/{quest}', [QuestController::class, 'destroy'])->name('quests.destroy');

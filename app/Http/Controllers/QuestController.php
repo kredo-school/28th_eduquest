@@ -25,4 +25,24 @@ class QuestController extends Controller
         return view('quests.create')->with('categories', $categories);
     }
 
+    /**
+     * クエスト一覧を表示
+     */
+    public function list()
+    {
+        $quests = Quest::all();
+        return view('quests.list', compact('quests'));
+    }
+
+    /**
+     * クエストを削除
+     */
+    public function destroy($id)
+    {
+        $quest = Quest::findOrFail($id);
+        $quest->delete();
+        
+        return redirect()->route('quests.list')
+            ->with('success', 'クエストが正常に削除されました。');
+    }
 }
