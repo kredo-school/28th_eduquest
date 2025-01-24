@@ -136,27 +136,26 @@
                 {{-- Creator Profile --}}
                 <div class="creator-profile col-4 p-4">
                         <div class="d-flex justify-content-center">
-                            <h3 class="creator-name fs-1 mx-auto my-3">John Doe</h3>
+                            <h3 class="creator-name fs-1 mx-auto my-3">{{ $questcreator->creator_name}}</h3>
                         </div>
-                        <img src={{ asset('images/creator-example.jpg') }} alt="Creator Example" class="creator-avator my-3">
+                        <img src={{ $questcreator->creator_image }} alt="Creator Example" class="creator-avator my-3">
                         <div class="job-title">
                             <p>Job title:</p>
-                            <p class="fs-5">Web Designer / Graffic Designer</p>
+                            <p class="fs-5">{{ $questcreator->job_title}}</p>
                         </div>
                         <div class="Qualification">
                             <p>Qualification:</p>
-                            <p class="fs-5">HTML /CSS /Photoshop /Illast..</p>
+                            <p class="fs-5">{{ $questcreator->qualifications}}</p>
                         </div>
                         <div class="Introduction">
                             <p>Introduction:</p>
                             <p class="fs-5">{{ $questcreator->description}}</p>
                         </div>
                         <div class="sns-links text-center fs-3 p-3">
-                            <i class="bi bi-youtube mx-3"></i>
-                            <i class="bi bi-twitter-x mx-3"></i>
-                            <i class="bi bi-facebook mx-3"></i>
-                            <i class="bi bi-instagram mx-3"></i>
-                            <i class="bi bi-linkedin mx-3"></i>
+                            <a href="{{ $questcreator->youtube}}" class="{{ $questcreator->youtube ? 'text-danger' : 'text-secondary' }}"><i class="bi bi-youtube mx-3"></i></a>
+                            <a href="{{ $questcreator->x_twitter}}"  class="{{ $questcreator->x_twitter ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-twitter-x mx-3"></i></a>
+                            <a href="{{ $questcreator->facebook}}" class="{{ $questcreator->facebook ? 'text-primary' : 'text-secondary' }}"><i class="bi bi-facebook mx-3"></i></a>
+                            <a href="{{ $questcreator->linkedin}}" class="{{ $questcreator->linkedin ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-linkedin mx-3"></i></a>
                         </div>
                         <div class="view-more text-center p-3" >
                             <a href="#" class="text-decoration-none fs-3">View more > </a>

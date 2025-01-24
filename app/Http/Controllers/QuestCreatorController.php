@@ -33,20 +33,23 @@ class QuestCreatorController extends Controller
         $this->questcreator->job_title = $request->job_title;
         $this->questcreator->description = $request->description;
         $this->questcreator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
+        $this->questcreator->qualifications = $request->qualification;
         $this->questcreator->youtube = $request->youtube;
         $this->questcreator->facebook = $request->facebook;
         $this->questcreator->x_twitter = $request->x_twitter;
         $this->questcreator->linkedin = $request->linkedin;
         $this->questcreator->save();
         //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
-        return view('questcreators.creatorMyPage');
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        return view('questcreators.creatorMyPage',compact('questcreator'));
+        
     }
     // すでに他のメソッドが存在する中に追加
     public function viewCreatorMyPage(){
         // views/questcreators/creatorMyPage.blade.php を参照
-        $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 
-        return view('questcreators.creatorMyPage', compact('creator'));
+        return view('questcreators.creatorMyPage', compact('questcreator'));
     }
 
 }

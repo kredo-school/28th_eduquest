@@ -20,6 +20,7 @@ class QuestCreator extends Model
       'creator_name',
       'job_title',
       'description',
+      'qualifications',
       'creator_image',
       'youtube',
       'facebook',
