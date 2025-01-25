@@ -38,8 +38,14 @@ class QuestCreatorController extends Controller
         $this->questcreator->x_twitter = $request->x_twitter;
         $this->questcreator->linkedin = $request->linkedin;
         $this->questcreator->save();
-        //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
-        return view('questcreators.creatorMyPage');
+
+        // リダイレクト先が指定されている場合はそこにリダイレクト
+        if ($request->has('redirect_to')) {
+            return redirect($request->redirect_to);
+        }
+
+        // デフォルトのリダイレクト先
+        return redirect()->route('questcreators.profile.view');
     }
     // すでに他のメソッドが存在する中に追加
     public function viewCreatorMyPage(){
@@ -55,5 +61,43 @@ class QuestCreatorController extends Controller
         return view('questcreators.profile.edit');
     }
 
-    
+    public function viewCreatorProfile(){
+        $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        return view('questcreators.profile.view', compact('creator'));
+    }
+
+    public function update(Request $request)
+    {
+        $request->validate([
+            'creator_name' => 'required',
+            'job_title' => 'required',
+            'description' => 'nullable|string|max:255',
+            'creator_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'qualification' => 'nullable|string',
+            'youtube' => 'nullable|string',
+            'facebook' => 'nullable|string',
+            'x_twitter' => 'nullable|string',
+            'linkedin' => 'nullable|string'
+        ]);
+
+        $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        
+        $creator->creator_name = $request->creator_name;
+        $creator->job_title = $request->job_title;
+        $creator->description = $request->description;
+        $creator->qualification = $request->qualification;
+        
+        if ($request->hasFile('creator_image')) {
+            $creator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
+        }
+        
+        $creator->youtube = $request->youtube;
+        $creator->facebook = $request->facebook;
+        $creator->x_twitter = $request->x_twitter;
+        $creator->linkedin = $request->linkedin;
+        
+        $creator->save();
+
+        return redirect()->route('questcreators.profile.view')->with('success', 'Profile updated successfully');
+    }
 }

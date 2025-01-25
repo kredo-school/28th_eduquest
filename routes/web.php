@@ -21,3 +21,5 @@ Route::get('/creator', [App\Http\Controllers\QuestCreatorController::class, 'myp
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
 
 Route::get('/creator/profile/edit',[QuestCreatorController::class,'viewEditCreatorProfile'])->name('questcreators.profile.edit');
+Route::get('/creator/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
+Route::put('/questcreator/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
