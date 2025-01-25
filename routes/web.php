@@ -20,7 +20,7 @@ Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterLis
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
 
 // クエスト一覧表示
-Route::get('/quests', [QuestController::class, 'list'])->name('quests.list');
+Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
 
 // クエスト削除
 Route::delete('/quests/{quest}', [QuestController::class, 'destroy'])->name('quests.destroy');

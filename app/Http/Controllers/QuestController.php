@@ -28,9 +28,15 @@ class QuestController extends Controller
     /**
      * クエスト一覧を表示
      */
-    public function list()
+    public function index()
     {
-        $quests = Quest::all();
+        // 現在ログインしているユーザーのIDを取得
+        $userId = auth()->id();
+
+        // ユーザーに紐づいたクエストのみを取得
+        $quests = Quest::where('quest_creator_id', $userId)->get();
+
+        // ビューにクエストを渡す
         return view('quests.list', compact('quests'));
     }
 
