@@ -14,4 +14,6 @@ Route::get('/test', [UserController::class, 'viewTestSwitch']);
 Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
 
-Route::get('/create',[QuestController::class,'create'])->name('quests.create');
+Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
+Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
+Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');

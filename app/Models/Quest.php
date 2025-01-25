@@ -24,7 +24,8 @@ class Quest extends Model
     }
 
     //Quest has many quest_category
-    public function questCategory(){
+    public function questCategory()
+    {
         return $this->hasMany(QuestCategory::class);
     }
 }

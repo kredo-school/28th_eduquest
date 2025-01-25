@@ -152,7 +152,8 @@
     
     </div>
 
-    
+     <!-- スクリプト -->
+     @yield('scripts')
 </body>
 
 
