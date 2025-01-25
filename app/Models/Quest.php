@@ -10,4 +10,9 @@ class Quest extends Model
     {
         return $this->belongsTo(QuestCreator::class);
     }
+
+    public function categoryQuests()
+    {
+        return $this->hasMany(CategoryQuest::class, 'quest_id');
+    }
 }

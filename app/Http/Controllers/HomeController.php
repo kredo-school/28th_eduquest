@@ -6,16 +6,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Quest;
+use App\Models\Category;
 
 class HomeController extends Controller
 {
     private $news;
     private $quest;
+    private $category;
 
-    public function __construct(News $news, Quest $quest)
+    public function __construct(News $news, Quest $quest, Category $category)
     {
         $this->news = $news;
         $this->quest = $quest;
+        $this->category = $category;
     }
 
     /**
@@ -28,13 +31,14 @@ class HomeController extends Controller
     {
         //
     }
-    # Show the news in home page
-    public function showNews()
+    # Show the news & categoriesin home page
+    public function show()
     {
-        $news = $this->getNews();
-        $quests = $this->getQuests();
+        $news_lists = $this->getNews();
+        // $quests_lists = $this->getQuests();
+        $categories = $this->category->with('categoryQuests.quest')->get();
 
-        return view('players.home', compact('news', 'quests'));
+        return view('players.home', compact('news_lists', 'categories'));
         
     }
 
@@ -50,21 +54,9 @@ class HomeController extends Controller
         $news_list = [];
 
         foreach ($all_news as $news) {
-            $news_lists[] = $news;
+            $news_list[] = $news;
         }
         
         return $news_list;
-    }
-
-    private function getQuests()
-    {
-        $all_quests = $this->quest->latest()->get();
-        $quest_lists = [];
-
-        foreach ($all_quests as $quest) {
-            $quest_lists[] = $quest;
-        }
-
-        return $quest_lists;
     }
 }

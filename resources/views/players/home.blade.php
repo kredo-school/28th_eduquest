@@ -38,6 +38,57 @@
         width: 100%; /* ボタンが親要素の幅いっぱいに広がる */
     }
 
+    .quests-row {
+        background-color: #FCFCE7;
+    }
+
+    .horizontal-scroll {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        gap: 1rem;
+    }
+
+    .quest-item {
+        flex: 0 0 auto;
+        width: 200px;
+    }
+
+    .aspect-ratio-16-9 {
+        position: relative;    /* 内部の <img> を絶対配置するため */
+        width: 100%;           /* 横幅を自由に使いたい場合 */
+        padding-bottom: 56.25%; /* 16:9 = 9/16 = 0.5625 → 56.25% */
+        overflow: hidden;      /* 子要素がはみ出ないように */
+    }
+
+    .aspect-ratio-16-9 img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* or object-fit: contain; など */
+    }
+
+    .no-image-text {
+        /* 親の .aspect-ratio-16-9 を相対配置にしているので、ここで絶対配置すれば中央寄せ可能 */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+        text-align: center;
+        color: #666;       /* 任意。見やすい色を */
+        font-size: 0.9rem; /* 任意。大きさを調整 */
+        width: 80%;        /* テキストが長い場合のために少し余裕を持たせる */
+    }
+
+    .flag_green{
+    width: 1.5rem;
+    height: 1.5rem; 
+    margin-right: 10px;
+}
+
+
 </style>
 
 {{-- Top left：Profile Overview gx-5--}}
@@ -61,19 +112,53 @@
 {{-- News modal--}}
 @include('players.modals.news')
 
-{{-- Quest list each Categories だけど、CategoryとQuestデータ貯まるまで枠だけ--}}
+{{-- Ranking --}}
 <div class="row gx-5">
-    <h2 class="h3 mt-3">Quest List</h2>
-    <div class="row d-flex frex-wrap">
-        @foreach ($quests as $quest)
-            <div class="p-2" style='width: 200px;'>
-                <a href="">
-                    <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail" class="img-fluid mb-2">
-                    <div>{{ $quest->quest_title }}</div>
-                </a>
-            </div>  
-        @endforeach
-    </div>
+    <div class="h2 h3 mt-3"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Ranking</div>
+
+</div>
+
+
+{{-- Quest list each Categories--}}
+<div class="row gx-5">
+    <h2 class="h3 mt-3"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Quest List</h2>
+
+    @foreach ($categories as $category)
+        {{--  Category Title  --}}
+        <div class="mt-3">
+            <h4>{{ $category->category_name }}</h4>
+        
+        
+        {{-- Container --}}
+        <div class="horizontal-scroll quests-row p-2">
+            @forelse ($category->categoryQuests as $catQuest)
+                <div class="card quest-item" style="width: 200px;">
+                    @if ($catQuest->quest->thumbnail)
+                        <a href="#">
+                            <div class="aspect-ratio-16-9">
+                                <img src="{{ $catQuest->quest->thumbnail }}" alt="Quest Thumbnail">
+                            </div>
+
+                            <div class="card-body">
+                                <div>{{ $catQuest->quest->quest_title }}</div>
+                            </div>
+                        </a>
+                    @else
+                        <a href="#">
+                            <div class="no-image-text">
+                                {{ $catQuest->quest->quest_title ?? 'No image' }}
+                            </div>
+                            <div class="card-body">
+                                <div>{{ $catQuest->quest->quest_title }}</div>
+                            </div>
+                        </a>
+                    @endif  
+                </div>
+            @empty
+                <p>No quests in this category</p>
+            @endforelse
+        </div>
+    @endforeach    
 </div>
     
 @endsection

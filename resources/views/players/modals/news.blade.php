@@ -1,7 +1,7 @@
 <!-- Display latest news title and date on the button -->
 <div class="row gx-5">
     <div class="col-5 text-start">
-        @if ($news_lists->isNotEmpty())
+        @if (!empty($news_lists)) 
             <button type="button" class="btn btn-light btn-custom-border w-100 text-start" data-bs-toggle="modal" data-bs-target="#newsModal">
                 NEWS   - {{ date('M d, Y', strtotime($news_lists[0]->created_at)) }} | {{ $news_lists[0]->title }}
             </button>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="modal-body">
                         {{-- News list --}}
-                        @if ($news_lists->isEmpty())
+                        @if (empty($news_lists)) 
                             <p class="text-center">No news available.</p>
                         @else
                             <ul class="list-group">
