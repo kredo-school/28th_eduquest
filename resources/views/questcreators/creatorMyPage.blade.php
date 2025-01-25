@@ -170,7 +170,7 @@
                         <img src={{ asset('images/alphabet_e.png') }} alt="E" class="alphabet-e">
                         <img src={{ asset('images/alphabet_s.png') }} alt="S" class="alphabet-s">
                         <img src={{ asset('images/alphabet_t.png') }} alt="T" class="alphabet-t">
-                        <span class="fs-1">: 24</span>
+                        <span class="fs-1">: {{ $questCount }}</span>
                     </div>
                     <button type="button" class="mgt-btn btn btn-light">Go To Management Page</button>
 

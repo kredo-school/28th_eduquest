@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
+use App\Models\Quest;
 
 class QuestCreatorController extends Controller
 {
@@ -49,7 +50,11 @@ class QuestCreatorController extends Controller
         // views/questcreators/creatorMyPage.blade.php を参照
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 
-        return view('questcreators.creatorMyPage', compact('questcreator'));
+        $questCount = Quest::count();
+
+        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
+
+
 
 }
