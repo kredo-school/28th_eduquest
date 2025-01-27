@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('quest_id');
             $table->unsignedBigInteger('status')
-                    ->comment('0:watch later 1:in progress 2:completed');
-            $table->date('date_started') -> nullable();
-            $table->date('date_ended') -> nullable();
-            $table->unsignedBigInteger('quest_chapter_id') -> nullable();
+                ->comment('0:watch later 1:in progress 2:completed');
+            $table->date('date_started')->nullable();
+            $table->date('date_ended')->nullable();
+            $table->unsignedBigInteger('quest_chapter_id')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

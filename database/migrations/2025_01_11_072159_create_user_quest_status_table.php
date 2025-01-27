@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_quest_id');
             $table->unsignedBigInteger('status')
-                    ->comment('0:watch later 1:in progress 2:completed');
+                ->comment('0:watch later 1:in progress 2:completed');
             $table->dateTime('status_date');
             $table->timestamps();
 

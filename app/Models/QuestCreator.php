@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 class QuestCreator extends Model
@@ -15,27 +15,26 @@ class QuestCreator extends Model
      * The attributes that are mass assignable.
      *
      * @var list<string>
-     * 
      */
-   protected $fillable = [
-      'user_id',
-      'creator_name',
-      'job_title',
-      'description',
-      'creator_image',
-      'youtube',
-      'facebook',
-      'x_twitter',
-      'linkedin',
-   ];
+    protected $fillable = [
+        'user_id',
+        'creator_name',
+        'job_title',
+        'description',
+        'creator_image',
+        'youtube',
+        'facebook',
+        'x_twitter',
+        'linkedin',
+    ];
 
-
-     public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
-     }
+    }
 
-     public function quests()
-     {
-         return $this->hasMany(Quest::class, 'quest_creator_id');
-     }
+    public function quests()
+    {
+        return $this->hasMany(Quest::class, 'quest_creator_id');
+    }
 }

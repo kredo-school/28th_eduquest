@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('family_name');
             $table->string('password');
             $table->unsignedBigInteger('role_id')
-                    ->default(1)
-                    ->comment('0:admin 1:player 2:quest_creator');
-            $table->longText('image') -> nullable();
+                ->default(1)
+                ->comment('0:admin 1:player 2:quest_creator');
+            $table->longText('image')->nullable();
 
             $table->timestamps();
         });

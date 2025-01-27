@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reviews_ratings', function (Blueprint $table) {
             $table->id();
-            $table->integer('rating') -> nullable();
-            $table->text('review', 140) -> nullable();
+            $table->integer('rating')->nullable();
+            $table->text('review', 140)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('quest_id');
             $table->timestamps();

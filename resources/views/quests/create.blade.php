@@ -68,7 +68,7 @@
 
                             <!-- ファイル選択の非表示入力-->
                             <input type="file" class="form-control-file" id="video_image" name="thumbnail" onchange="previewImage(event)" style="display: none;" required>
-                            @error('video_image')
+                            @error('thumbnail')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
@@ -101,6 +101,7 @@
                 </div>
             </div>
 
+        
             <!-------------------[Create a Chapter: チャプター作成]-------------------------->
             <div class="chapter-container">
                     <div class="row">
@@ -376,8 +377,8 @@
                 descriptionField.name = `sub_items[${newCount}][description]`;
 
                 const videoField = subItem.querySelector('input[type="url"]');  // Video URLのフィールド
-                videoField.id = `video_url_${newCount}`;
-                videoField.name = `sub_items[${newCount}][video_url]`;
+                videoField.id = `sub_item_video${newCount}`;
+                videoField.name = `sub_items[${newCount}][video]`;
                 videoField.setAttribute('onchange', `loadThumbnail(${newCount})`);    
 
                 const thumbnail = subItem.querySelector('img');      // サムネイル画像

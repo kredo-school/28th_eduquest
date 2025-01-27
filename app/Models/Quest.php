@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Quest extends Model
@@ -23,7 +22,7 @@ class Quest extends Model
         return $this->belongsTo(User::class);
     }
 
-    //Quest has many quest_category
+    // Quest has many quest_category
     public function questCategory()
     {
         return $this->hasMany(QuestCategory::class);
@@ -36,6 +35,6 @@ class Quest extends Model
 
     public function chapters()
     {
-        return $this->hasMany(QuestsChapter::class, 'quest_id');
+        return $this->hasMany(QuestChapter::class, 'quest_id');
     }
 }
