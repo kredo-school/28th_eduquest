@@ -55,10 +55,20 @@ class QuestCreatorController extends Controller
     public function viewCreatorProfile(){
 
         $questcreator = QuestCreator::where('user_id', Auth::id())->first();
-if (!$questcreator) {
-    dd('No data found for this user');
-}
-return view('questcreators.profile.view', compact('questcreator'));
+        if (!$questcreator) {
+            dd('No data found for this user');
+        }
+        return view('questcreators.profile.view', compact('questcreator'));
 
     }
+
+    public function editCreatorProfile()
+    {
+        //　ユーザーのプロフィールデータを取得
+        $creatorProfile = auth()->user()->profile;
+
+        // editページにプロフィールデータを渡す
+        return view('questcreators.profile.edit')->with('creatorProfile');
+    }
+
 }
