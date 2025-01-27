@@ -32,9 +32,9 @@
                             <label for="total_hours">Video Length;</label>
                             <select class="form-control" id="total_hours" name="total_hours" required>
                                 @for($i = 0.5; $i <= 10; $i += 0.5)
-                                    <option value="{{ $i }}">{{ $i }} 時間</option>
+                                    <option value="{{ $i }}" {{ old('total_hours') == $i ? 'selected' : '' }}>{{ $i }} 時間</option>
                                 @endfor
-                            </select>
+                            </select>                            
                             @error('total_hours')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -57,7 +57,8 @@
                             
                             <!-- 画像プレビューエリア-->
                             <div id="image_preview_container" class="image-preview-container mt-3">
-                                <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: none;">
+                                <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
+                                    src="{{ old('thumbnail') ? asset('storage/' . old('thumbnail')) : '' }}">
                             </div>
 
                             <!-- アップロードボタン-->
@@ -66,7 +67,7 @@
                             </button>
 
                             <!-- ファイル選択の非表示入力-->
-                            <input type="file" class="form-control-file" id="video_image" name="video_image" onchange="previewImage(event)" style="display: none;" required>
+                            <input type="file" class="form-control-file" id="video_image" name="thumbnail" onchange="previewImage(event)" style="display: none;" required>
                             @error('video_image')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -80,8 +81,8 @@
                         </div>
                             @foreach($categories as $category)
                                 <div class="category-option">
-                                    <input type="checkbox" name="category[]" value="{{ $category->id }}" id="category{{ $category->id }}" class="category-checkbox">
-                                        @if(in_array($category->id, old('category', []))) checked @endif
+                                    <input type="checkbox" name="category[]" value="{{ $category->id }}" id="category{{ $category->id }}" class="category-checkbox" {{ in_array($category->id, old('category', [])) ? 'checked' : '' }}>
+                                        @if(in_array($category->id, old('category', []))) @endif
                                     <label for="category{{ $category->id }}">{{ $category->category_name }}</label>
                                 </div>
                             @endforeach
@@ -117,23 +118,29 @@
                                     <div class="col-md-6 chapter-title">
                                     <div class="form-group">
                                         <label for="sub_item_title_1">Title:</label>
-                                        <input type="text" class="form-control" id="sub_item_title_1" name="sub_items[1][title]" required>
+                                        <input type="text" class="form-control" id="sub_item_title_1" name="sub_items[1][quest_chapter_title]" value="{{ old('sub_items.1.quest_chapter_title') }}" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="sub_item_description_1">Description:</label>
-                                        <textarea class="form-control" id="sub_item_description_1" name="sub_items[1][description]" rows="4" required></textarea>
+                                        <textarea class="form-control" id="sub_item_description_1" name="sub_items[1][description]" rows="4" required>{{ old('sub_items.1.description') }}</textarea>
                                     </div>
                                 </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="url">Video Link:</label>
-                                            <input type="video_url" class="form-control" id="video_url" name="video_url" placeholder="Enter Video URL" onchange="loadVideo()">
 
-                                            <!-- 動画埋め込みプレイヤー-->
-                                            <div id="video_preview_container" class="video-preview-container mt-3" style="display: block;">
-                                                <iframe id="video_preview" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                                            <!---- 動画インプット欄---------->
+                                            <label for="video">YouTube Video URL:</label>
+                                            <input type="url" class="form-control" id="video" name="video" value="{{ old('video') }}" placeholder="Enter YouTube video URL" required onchange="updateVideoPreview()">
+
+                                            <!----- 動画プレビューコンテナ----->
+                                            <div class="video-preview-container">
+                                                <iframe id="video_preview" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                            </div>                                            
+
+                                            <!------ 削除ボタン------------->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">Delete<img src="{{ asset('images/Red Slime.png')}}" style="width: 1.5rem; height: 1.3rem;"></button>
                                             </div>
-                                            <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">Delete<img src="{{ asset('images/Red Slime.png')}}" style="width: 1.5rem; height: 1.3rem;"></button>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +173,7 @@
         @section('scripts')
         <script>
 
-        // -----------------[画像プレビュー]--------------------
+        // -----------------------------------[サムネイル表示]--------------------------------------
 
             function previewImage(event) {
             const imagePreview = document.getElementById('image_preview');
@@ -177,8 +184,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                 imagePreview.src = e.target.result;
-                // imagePreview.style.display = 'block'; // 修正前
-                imagePreview.style.display = 'inline'; // 修正後
+                imagePreview.style.display = 'block';
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -198,8 +204,58 @@
                 thumbnailImage.style.display = 'block';
             }
         }
+       // --------------------------------------------------------------------------------------
 
-       // --------------------------[カテゴリー選択表示]-----------------------------
+
+
+
+       // -----------------------------------[動画表示]-------------------------------------------
+
+       function updateVideoPreview() {
+            const videoUrlInput = document.getElementById('video');
+            const videoPreview = document.getElementById('video_preview');
+            const videoUrl = videoUrlInput.value;
+
+            if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+                const videoId = getYouTubeVideoId(videoUrl);
+
+                if (videoId) {
+                    videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
+                } else {
+                    alert('Invalid YouTube URL');
+                }
+            } else {
+                alert('Please enter a valid YouTube URL');
+            }
+        }
+
+        // old()関数を使って送信後に保持した動画URLを表示するための修正
+        document.addEventListener('DOMContentLoaded', function (){
+            const videoUrl = "{{ old('sub_items.1.video')}}";
+            if (videoUrl) {
+                updateVideoPreview();  // プレビューを更新する
+            }
+        })
+
+
+        function getYouTubeVideoId(url) {
+            let videoId = null;
+
+            if (url.includes('youtube.com')) {
+                const urlParams = new URLSearchParams(new URL(url).search);
+                videoId = urlParams.get('v');
+            } else if (url.includes('youtu.be')) {
+                videoId = url.split('/').pop();
+            }
+
+            return videoId;
+        }
+
+       // --------------------------------------------------------------------------------------
+
+
+
+       // -----------------------------------[カテゴリー選択表示]--------------------------------------
         document.addEventListener('DOMContentLoaded', function () {
             const categoryOptions = document.querySelectorAll('.category-option');
             let selectedCount = 0;
@@ -238,8 +294,11 @@
                 });
             });
         });
+         // --------------------------------------------------------------------------------------
 
 
+
+        // --------------------------[add more chapters]-------------------------------------------
         let subItemCount = document.querySelectorAll('.sub_item').length; // 初期の番号管理。ページに既に存在する小項目(sub_item)の数を数え、それに基づいて次に追加する番号を決定する。
 
         // 小項目を追加
@@ -261,7 +320,7 @@
                         <div class="col-md-6 chapter-title">
                             <div class="form-group">
                                 <label for="sub_item_title_${subItemCount}">Title:</label>
-                                <input type="text" class="form-control" id="sub_item_title_${subItemCount}" name="sub_items[${subItemCount}][title]" required>
+                                <input type="text" class="form-control" id="sub_item_title_${subItemCount}" name="sub_items[${subItemCount}][quest_chapter_title]" required>
                             </div>
                             <div class="form-group">
                                 <label for="sub_item_description_${subItemCount}">Description:</label>
@@ -270,8 +329,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="video_url_${subItemCount}">Video Link:</label>
-                                <input type="url" class="form-control" id="video_url_${subItemCount}" name="sub_items[${subItemCount}][video_url]" onchange="loadVideo(${subItemCount})">
+                                <label for="video_${subItemCount}">Video Link:</label>
+                                <input type="url" class="form-control" id="video_${subItemCount}" name="sub_items[${subItemCount}][video]" onchange="loadVideo(${subItemCount})">
                                 <!-- 動画埋め込みプレイヤー -->
                                 <div id="video_preview_container_${subItemCount}" class="video-preview-container mt-3" style="display: block;">
                                     <iframe id="video_preview_${subItemCount}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
@@ -347,46 +406,7 @@
             });
             return maxCount;   // 最大のチャプター番号を返す
         }
-
-
-
-        // YouTube埋め込みプレイヤーを表示
-        function loadYouTubeVideo() {
-            const youtubeUrlInput = document.getElementById('video_url');
-            const youtubePreviewContainer = document.getElementById('video_preview_container');
-            const youtubePreview = document.getElementById('video_preview');
-
-            const url = youtubeUrlInput.value; // 入力されたYouTubeのURL
-
-            // YouTubeの動画IDを取得
-            if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                const videoId = getYouTubeVideoId(url);
-
-                if (videoId) {
-                    // 埋め込みURLを生成
-                    youtubePreview.src = `https://www.youtube.com/embed/${videoId}`;
-                    youtubePreviewContainer.style.display = 'block'; // プレイヤーを表示
-                } else {
-                    alert('Invalid YouTube URL');
-                }
-            } else {
-                alert('Please enter a valid YouTube URL');
-            }
-        }
-
-        // YouTube動画IDを取得するヘルパー関数
-        function getYouTubeVideoId(url) {
-            let videoId = null;
-
-            if (url.includes('youtube.com')) {
-                const urlParams = new URLSearchParams(new URL(url).search);
-                videoId = urlParams.get('v'); // "v"パラメータからIDを取得
-            } else if (url.includes('youtu.be')) {
-                videoId = url.split('/').pop(); // youtu.beの最後の部分がID
-            }
-
-            return videoId;
-        }
+        // ------------------------------------------------------------------------
 
         </script>
 

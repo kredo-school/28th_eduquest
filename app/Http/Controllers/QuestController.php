@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Quest;
 use App\Models\Category;
 use App\Models\QuestCategory;
+use App\Models\QuestChapter;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class QuestController extends Controller
 {
     private $questcreator;
+    private $quest;
 
     public function __construct(Quest $quest){
         $this->quest = $quest;
@@ -51,6 +53,10 @@ class QuestController extends Controller
             'thumbnail' => 'required|image',
             'category' => 'required|array|min:1|max:3',   //カテゴリーの選択を必須(最大3つ)(最低1つ)
             'category.*' => 'exists:categories,id', //カテゴリーIDが有効か確認
+            'sub_items' => 'required|array|min:1',  //少なくとも1つのチャプター
+            'sub_items.*.title' => 'required|string|max:255',
+            'sub_items.*.description' => 'required|string|max:1000',
+            'sub_items.*.video' => 'required|url',  // 動画URL
         ]);
 
         // 画像の保存
@@ -62,7 +68,20 @@ class QuestController extends Controller
             'description' => $request->description,
             'total_hours' => $request->total_hours,
             'thumbnail' => $thumbnailPath,  // 保存した画像のパス
+            'quest_creator_id' => Auth::id(),   // ログイン中のユーザーID設定
         ]);
+
+
+        //チャプターの保存
+        foreach ($request->sub_items as $subItem) {
+            QuestChapter::create([
+                'quest_chapter_title' => $subItem['title'],
+                'description' => $subItem['description'],
+                'video' => $subItem['video'],
+                'quest_id' => $quest->id,   // 作成したQuestのIDを関連付け
+            ]);
+        }
+        
 
         //選択されたカテゴリーを関連付ける
         foreach ($request->category as $categoryId) {
