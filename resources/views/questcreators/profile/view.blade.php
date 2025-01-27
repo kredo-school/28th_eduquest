@@ -41,6 +41,11 @@
             color: #afafaf; 
         }
 
+        .edit-button-container a {
+            color: black;
+            background: white;
+        }
+
 
         /* quest-management */
 
@@ -156,8 +161,8 @@
                             <a href="{{ $questcreator->facebook}}" class="{{ $questcreator->facebook ? 'text-primary' : 'text-secondary' }}"><i class="bi bi-facebook mx-3"></i></a>
                             <a href="{{ $questcreator->linkedin}}" class="{{ $questcreator->linkedin ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-linkedin mx-3"></i></a>
                         </div>
-                        <div class="view-more text-center p-3" >
-                            <a href="#" class="text-decoration-none fs-3">View more > </a>
+                        <div class="edit-button-container text-center p-3" >
+                            <a href="#" class="text-decoration-none fs-3">Edit</a>
                         </div>
                 </div>
 
