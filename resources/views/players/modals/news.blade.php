@@ -3,7 +3,7 @@
     <div class="col-5 text-start">
         @if (!empty($news_lists)) 
             <button type="button" class="btn btn-light btn-custom-border w-100 text-start" data-bs-toggle="modal" data-bs-target="#newsModal">
-                NEWS   - {{ date('M d, Y', strtotime($news_lists[0]->created_at)) }} | {{ $news_lists[0]->title }}
+                NEWS   - <span style="font-size: 13px;">{{ date('M d, Y', strtotime($news_lists[0]->created_at)) }}</span> | {{ $news_lists[0]->title }}
             </button>
         @else
             <button type="button" class="btn btn-light btn-custom-border w-100 text-start" disabled>
@@ -16,7 +16,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="newsModalLabel">News List</h5>
+                        <h5 class="modal-title" id="newsModalLabel"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green"> News List</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -27,9 +27,9 @@
                             <ul class="list-group">
                                 @foreach ($news_lists as $news)
                                     <li class="list-group-item">
-                                        <strong>{{ date('M d, Y', strtotime($news->created_at)) }}</strong>: 
-                                        {{ $news->title }}
-                                        <p>{{ $news->content }}</p>
+                                        <strong><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="flag_green"> {{ date('M d, Y', strtotime($news->created_at)) }} : {{ $news->title }}</strong>
+                                        
+                                        <p class="ms-4">{{ $news->content }}</p>
                                     </li>
                                 @endforeach
                             </ul>

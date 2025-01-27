@@ -36,7 +36,7 @@ class HomeController extends Controller
     {
         $news_lists = $this->getNews();
         // $quests_lists = $this->getQuests();
-        $categories = $this->category->with('categoryQuests.quest')->get();
+        $categories = $this->category->with('categoryQuests.quest.questCreator')->get();
 
         return view('players.home', compact('news_lists', 'categories'));
         
