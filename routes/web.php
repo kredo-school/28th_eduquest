@@ -17,3 +17,4 @@ Route::get('/creator', [QuestCreatorController::class, 'viewCreatorMyPage'])->na
 
 Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
+Route::get('/creator/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');

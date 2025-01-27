@@ -52,4 +52,13 @@ class QuestCreatorController extends Controller
         return view('questcreators.creatorMyPage', compact('questcreator'));
     }
 
+    public function viewCreatorProfile(){
+
+        $questcreator = QuestCreator::where('user_id', Auth::id())->first();
+if (!$questcreator) {
+    dd('No data found for this user');
+}
+return view('questcreators.profile.view', compact('questcreator'));
+
+    }
 }
