@@ -31,8 +31,10 @@ class HomeController extends Controller
     {
         //
     }
+
+    // ★★★★★ 1/28 要確認！！！　★★★★★
     # Show the news & categoriesin home page
-    public function show()
+    public function show($id)
     {
         $news_lists = $this->getNews();
         // $quests_lists = $this->getQuests();

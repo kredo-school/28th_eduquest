@@ -10,7 +10,7 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'show']);
+Route::get('/home/{id}', [HomeController::class, 'show']);
 Route::get('/switch', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
 Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'creatorMyPage'])->name('creatorMyPage');
