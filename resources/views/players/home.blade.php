@@ -146,10 +146,10 @@
 @include('players.modals.news')
 
 {{-- Ranking --}}
-<div class="row gx-5">
+{{-- <div class="row gx-5">
     <div class="h2 h3 mt-3"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Ranking</div>
 
-</div>
+</div> --}}
 
 
 {{-- Quest list each Categories--}}
