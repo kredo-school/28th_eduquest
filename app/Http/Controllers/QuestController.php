@@ -36,6 +36,7 @@ class QuestController extends Controller
 }
 
 
+
     public function create(Request $request)
     {
         $categories = Category::all(); //カテゴリーデータを全て取得
