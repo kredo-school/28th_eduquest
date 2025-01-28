@@ -72,6 +72,15 @@
             color: #afafaf; 
         }
 
+        .edit-button-container{
+            text-decoration: none;
+            color: #333;
+            background: white;
+            padding: 0.35rem 2.2rem;
+            border: 1px solid #333;
+            border-radius: 30px 30px 30px 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
         .edit-button-container a {
             text-decoration: none;
             color: #333;
@@ -289,11 +298,8 @@
             </div>
             <!-- Register Button -->
             <div class="text-center mt-4">
-                <div class="edit-button-container text-center p-3" >
-                    <a href="{{ route('questcreators.profile.view')}}" class="text-decoration-none fs-3">Edit</a>
-                </div>
-                <button type="submit" class="text-decoration-none fs-3">Update</button>
-                <button type="button" class="custom-btn" onclick="window.location.href='{{ route('questcreators.profile.view') }}'">Cancel</button>
+                <button type="submit" class="edit-button-container fs-3">Update</button>
+                <button type="button" class="edit-button-container fs-3" onclick="window.location.href='{{ route('questcreators.profile.view') }}'">Cancel</button>
             </div>
         </form>
     </div>

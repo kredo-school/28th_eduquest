@@ -116,7 +116,7 @@ class QuestCreatorController extends Controller
     $questcreator->save();
 
     // 更新後にリダイレクト
-    return redirect()->route('questcreators.creatorMyPage')
+    return redirect()->route('questcreators.profile.view')
         ->with('success', 'Profile updated successfully!');
     }
 
