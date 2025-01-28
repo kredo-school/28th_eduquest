@@ -167,7 +167,7 @@
                             <a href="{{ $questcreator->linkedin}}" class="{{ $questcreator->linkedin ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-linkedin mx-3"></i></a>
                         </div>
                         <div class="edit-button-container text-center p-3" >
-                            <a href="#" class="text-decoration-none fs-3">Edit</a>
+                            <a href="{{ route('questscreators.profile.edit')}}" class="text-decoration-none fs-3">Edit</a>
                         </div>
                 </div>
 

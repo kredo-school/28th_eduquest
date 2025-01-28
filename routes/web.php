@@ -19,3 +19,4 @@ Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterLis
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
 Route::get('/creator/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
 Route::get('/creator/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questscreators.profile.edit');
+Route::put('/questcreator/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
