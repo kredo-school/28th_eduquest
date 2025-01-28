@@ -9,9 +9,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
-// Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/home', [HomeController::class, 'show']);
-Route::get('/test', [UserController::class, 'viewTestSwitch']);
+Route::get('/switch', [UserController::class, 'viewSwitchToCreator']);
 Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'creatorMyPage'])->name('creatorMyPage');
 Route::get('/player/questlist', [QuestController::class, 'showList'])->name('questlist');

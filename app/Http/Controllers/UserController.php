@@ -16,7 +16,7 @@ class UserController extends Controller
     }
     
     #Switch to Quest Creatorの画面を表示
-    public function viewTestSwitch()
+    public function viewSwitchToCreator()
     {
         return view('players.mypage.switch');    
     }
