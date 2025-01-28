@@ -101,6 +101,7 @@
                             <img src="{{ asset('images/flag_02_blue.png') }}">
                             <h2>Edit Chapter</h2>
                         </div>
+                        
                         <div id="sub_item_section">
                             <div class="sub_item mb-4" data-id="1">
                                 <div class="chapter-bg">
