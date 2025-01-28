@@ -1,58 +1,115 @@
+/*header*/
 nav{
     background-color: #261C11;  
 }
-
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+/*App title EduQuest*/
+.h5:hover,
+.h5:focus{
+    color: #fff !important;
+}
+
+/*News Category FAQ*/
+.nav-item a:hover,
+.nav-item a:focus{
+    color: #fff !important;
+}
+.nav-item a:active {
+    color: #aaa !important;
+    transform: translateY(2px);
+}
+
+/*カテゴリーのドロップダウン*/
+.nav-item-dropdown a{
+    color: #261C11 !important;
+    font-family: 'DotGothic16', sans-serif;
+}
+.nav-item-dropdown a:hover, 
+.nav-item-dropdown a:focus {
+    color: #261C11 !important;
+    background-color: transparent;
+}
+.nav-item-dropdown a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
+
+/*Sign in と Register*/
+.custom-btn {
+    background-color: #588157;
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 130px;
+}
+
+/*アイコンのドロップダウンメニュー*/
+.dropdown-menu {
+    font-family: 'DotGothic16', sans-serif;
+    color: #261C11;
+}
+.nav-item-2 a{
+    color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+.nav-item-2 a:hover, 
+.nav-item-2 a:focus {
+    color: #261C11;
+    background-color: transparent;
+}
+.nav-item-2 a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
+.dropdown-menu .dropdown-divider {
+    /*hr*/
+    border-color: #aaa;
+    opacity: 0.5;
+    margin: 0.5rem 0;
+}
+.sword{
+    /*ドロップダウンの剣の画像*/
+    width: 1.5rem;
+    height: 1.5rem; 
+    margin-right: 10px;
+}
+
+/*icon*/
+.icon {
+    /*image追加してなかった時のicon*/
+    width:3rem;
+    height:3rem;
+    background-color: #aaa; 
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.img-icon {
+    /*image追加した時のicon*/
+    width:3rem;
+    height:3rem;
+    object-fit: cover;
+}
+
+main{
+    background-color: #fffff3;
 }
 
 footer{
     background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
 }
-
-.custom-btn {
-    background-color: #588157;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    width: 130px;
-}
-
-main{
-    background-color: #FFFFF3;
-}
-
-style.css内、custom-btnは一部追加、title-iconを追加
-.custom-btn {
-    background-color: #588157;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    width: 130px;
-    border: none;
-    outline: none;
-}
-
-.title-icon {
-    height: 3em; /* h2のフォントサイズに合わせる */
-    width: auto; /* アスペクト比を保持 */
-    vertical-align: middle; /* テキストとの縦位置を調整 */
-}
-
-
-
-
-
 
 
 /*-----------------------------------------[75:Create Quest]--------------------------------------*/

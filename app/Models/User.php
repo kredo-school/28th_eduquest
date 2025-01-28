@@ -6,11 +6,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -23,15 +26,7 @@ class User extends Authenticatable
         'first_name',
         'family_name',
         'password',
-        'role_id',
     ];
-
-    // The Method that sets role_id
-    public function setRole($roleid)
-    {
-        $this->role_id = $roleid;
-        $this->save();
-    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -56,7 +51,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function questCreators(){
-        return $this->hasOne(QuestCreator::class);
+    public function quest_creator()
+    {
+        return $this->hasOne(QuestCreator::class);//Userが１つのクエストクリエイターを持つ
     }
 }
