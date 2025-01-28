@@ -43,17 +43,20 @@
                             <a class="nav-link" href="#">News</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link  d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Category
                             </a>
                             <!-- category ドロップダウンメニュー -->
                             <ul class="dropdown-menu dropdown-menu-end nav-item-dropdown" aria-labelledby="categoryDropdown">
-                                @php
-                                    // データベースからカテゴリーデータを取得
-                                    $categories = DB::table('categories')->get();
-                                @endphp
-                                @foreach ($categories as $category)
-                                    <li><a class="dropdown-item" href="#"><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">{{ $category->category_name }}</a></li>
+                                @foreach($categories as $category)
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center gap-2" href="{{ route('quests.category', $category) }}">
+                                            <img src="{{ asset('..\images\Sword Icon 02.png') }}" alt="Quest icon" style="width: 20px; height: 20px;">
+                                            <span style="font-family: 'Courier New', monospace;">
+                                                {{ $category->category_name }}
+                                            </span>
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -105,7 +108,7 @@
                                             </div>
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My page</a></li>
+                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword">My page</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Go to Quest Creator page</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Quests</a></li>
@@ -193,11 +196,7 @@
             </div>
         </nav>
         <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    @yield('content')
-                </div>
-            </div>
+            @yield('content')
         </main>
         <footer class="text-white py-4">
             <div class="container">
