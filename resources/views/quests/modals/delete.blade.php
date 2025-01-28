@@ -13,16 +13,34 @@
         background-color: #FFFFF3;
     }
 
+    .img-lg{
+        height: 80px;
+        width: 80px;
+    }
+
     .btn img {
-        margin-right: 0;
-        padding-right: 0;
+        margin-right: 5px;
         vertical-align: middle;
     }
 
     .btn {
         display: inline-flex;
         align-items: center;
-        gap: 0; 
+    }
+
+    .modal-footer{
+        display: flex;
+        justify-content: center;
+        border: none;
+    }
+
+    .warning-box{
+        border: 1px solid #c0c0c0;
+        padding: 20px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
 
 </style>
@@ -34,15 +52,15 @@
             <div class="modal-header">
                 <h3 class="h4 text-light">Delete Your Quest</h3>
             </div>
-            <div class="modal-body">
-                <p class="text-danger">Warning!</p>
-                <p>Are you sure you want to delete your quest?</p>
-                <div>
+            <div class="modal-body text-center">
+                <p class="text-danger fw-bold fs-4">Warning!</p>
+                <p class="fs-5">Are you sure you want to delete your quest?</p>
+                <div class="warning-box">
                     <img src="{{ $quest->thumbnail }}" alt="quest-image" class="img-lg">
                     <p class="mt-1 text-muted">{{ $quest->quest_title }}</p>
                 </div>
             </div>
-            <div class="modal-footer border-0">
+            <div class="modal-footer">
                 <form action="{{ route('quests.destroy', $quest->id )}}" method="post" class="d-flex justify-content-center gap-3">
                     @csrf 
                     @method('DELETE')
