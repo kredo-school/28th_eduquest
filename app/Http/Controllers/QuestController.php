@@ -22,19 +22,12 @@ class QuestController extends Controller
 
     public function index()
 {
-    // 現在ログインしているユーザーのIDを取得
-    $userId = auth()->id();
+    // クエストのデータを取得
+    $quests = Quest::all();  // クエストのすべてのデータを取得
 
-    // ユーザーに紐づいたクエストのみを取得
-    $userQuests = Quest::where('quest_creator_id', $userId)->get();
-
-    // すべてのクエストを取得
-    $allQuests = Quest::all();
-
-    // ビューに両方のクエストを渡す
-    return view('quests.index', compact('userQuests', 'allQuests'));
+    // quests.list ビューに quests を渡す
+    return view('quests.list')->with('quests', $quests);
 }
-
 
 
     public function create(Request $request)
@@ -102,16 +95,18 @@ class QuestController extends Controller
             ]);
         }
 
-        return redirect()->route('quests.index');
+        return redirect()->route('quests.list');
     }
 
     public function edit($id) {
 
         $quest = Quest::findOrFail($id);  // QuestをIDで取得
         $categories = Category::all();    // カテゴリーデータを全て取得
+        $chapters = $quest->chapters;
 
         return view('quests.edit')->with('quest', $quest)
-                                  ->with('categories', $categories);
+                                  ->with('categories', $categories)
+                                  ->with('chapters', $chapters);
     }
 
 
@@ -162,7 +157,7 @@ class QuestController extends Controller
     // カテゴリーの更新
     $quest->categories()->sync($request->category);   // 中間テーブルでカテゴリーを更新
     
-    return redirect()->route('quests.index');
+    return redirect()->route('quests.list');
     }
 
     

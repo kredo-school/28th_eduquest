@@ -3,8 +3,9 @@
 <div class="container mt-5">
     <div class="create-container">
         <!-- Form Start -->
-        <form action="" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('quests.update', $quest->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <!-------------------[Create a Quest: クエスト作成]-------------------------->
             <div class="quest-container">
@@ -16,7 +17,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="quest_title">Title:</label>
-                            <input type="text" class="form-control" id="quest_title" name="quest_title" value="" required>
+                            <input type="text" class="form-control" id="quest_title" name="quest_title" value="{{ old('quest_title', $quest->quest_title)}}" required>
                             @error('quest_title')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -27,7 +28,7 @@
                             <label for="total_hours">Video Length;</label>
                             <select class="form-control" id="total_hours" name="total_hours" required>
                                 @for($i = 0.5; $i <= 10; $i += 0.5)
-                                    <option value="{{ $i }}" {{ old('total_hours') == $i ? 'selected' : '' }}>{{ $i }} 時間</option>
+                                <option value="{{ $i }}" {{ old('total_hours', $quest->total_hours) == $i ? 'selected' : '' }}>{{ $i }} 時間</option>
                                 @endfor
                             </select>                            
                             @error('total_hours')
@@ -40,7 +41,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4" required>{{ old('description', $quest->description) }}</textarea>
                             @error('description')
                                 <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -52,7 +53,7 @@
                             
                             <!-- 画像プレビューエリア-->
                             <div id="image_preview_container" class="image-preview-container mt-3">
-                                <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: none;">
+                                <img id="image_preview" src="{{ old('thumbnail', $quest->thumbnail ? asset('storage/' . $quest->thumbnail) : '') }}" style="max-width: 100%; display: {{ old('thumbnail', $quest->thumbnail) ? 'block' : 'none' }};">
                             </div>
 
                             <!-- アップロードボタン-->
@@ -75,7 +76,7 @@
                         </div>
                             @foreach($categories as $category)
                                 <div class="category-option">
-                                    <input type="checkbox" name="category[]" value="{{ $category->id }}" id="category{{ $category->id }}" class="category-checkbox" {{ in_array($category->id, old('category', [])) ? 'checked' : '' }}>
+                                    <input type="checkbox" name="category[]" value="{{ $category->id }}" id="category{{ $category->id }}" class="category-checkbox" {{ in_array($category->id, old('category', $quest->categories->pluck('id')->toArray())) ? 'checked' : '' }}>
                                     <label for="category{{ $category->id }}">{{ $category->category_name }}</label>
                                 </div>
                             @endforeach

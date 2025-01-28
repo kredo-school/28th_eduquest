@@ -20,10 +20,11 @@ Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'
 
 Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
 
-Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
+Route::get('/quests/list', [QuestController::class, 'index'])->name('quests.index');
+
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
 Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
 Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
 Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
-Route::post('/quests/{id}', [QuestController::class, 'update'])->name('quests.update');
+Route::post('/quests/{id}/update', [QuestController::class, 'update'])->name('quests.update');
 Route::delete('/quests/{quest}', [QuestController::class, 'destroy'])->name('quests.destroy');

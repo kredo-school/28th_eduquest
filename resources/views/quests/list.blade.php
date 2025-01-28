@@ -8,7 +8,7 @@
             <img src="{{ asset('images/title-icon.png') }}" alt="Title Icon" class="title-icon">
             <h2>Created Quest List</h2>
         </div>
-        <a href="#" class="btn btn-create">
+        <a href="{{ route('quests.create')}}" class="btn btn-create">
             Create New Quest
             <img src="{{ asset('images/create-icon.png') }}" alt="Create Icon">
         </a>
@@ -26,7 +26,7 @@
                     </div>
                 </a>
                 <div class="quest-actions">
-                    <a href="#" class="btn btn-edit">
+                    <a href="{{ route('quests.edit', ['id' => $quest->id])}}" class="btn btn-edit">
                         Edit
                         <img src="{{ asset('images/edit-icon.png') }}" alt="Edit Icon">
                     </a>
