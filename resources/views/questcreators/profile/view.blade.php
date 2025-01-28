@@ -45,7 +45,7 @@
             text-decoration: none;
             color: #333;
             background: white;
-            padding: 0.5rem 2.5rem;
+            padding: 0.35rem 2.2rem;
             border: 1px solid #333;
             border-radius: 30px 30px 30px 30px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
