@@ -22,9 +22,23 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
-                </a>
+                @guest
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
+                    </a>
+                @endguest
+                @auth
+                    @if ( auth()->user()->role_id === 1 || auth()->user()->role_id === 2)
+                        <a class="navbar-brand" href="{{ url('/home') }}">
+                            <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
+                        </a>
+                    @else <!-- adminの遷移先が違うなら、要修正。変わらないなら削除。 -->
+                        <a class="navbar-brand" href="{{ url('/home') }}">
+                            <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
+                        </a>
+                    @endif
+                @endauth
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>

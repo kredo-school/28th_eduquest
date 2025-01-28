@@ -61,7 +61,8 @@
     .quest-item {
         flex: 0 0 auto;
         width: 200px;
-        background-color: #EDEBEB;
+        background-color: #fff;
+        /*  #EDEBEB */
     }
 
     .quest-item a {
@@ -74,7 +75,7 @@
         width: 100%;
         padding-bottom: 56.25%;
         overflow: hidden;
-        background-color: #EDEBEB;
+        background-color: #fff;
     }
 
     .aspect-ratio-16-9-inner {
@@ -89,7 +90,7 @@
     .aspect-ratio-16-9-inner img {
         width: 100%;
         height: 100%;
-        object-fit: contain;
+        object-fit: cover;
     }
     
     .no-image-box {
@@ -183,7 +184,11 @@
                                     </span>
                                 @endforeach
                             </div>
-                            {{-- Creator Icon + Title --}}
+
+                            {{-- Quest Title --}}
+                            <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
+
+                            {{-- Creator Icon + Creator name--}}
                             <div class="card-body" style="display: flex; align-items: center;">
                                 @php
                                     $creator = $catQuest->quest->questCreator;
@@ -194,12 +199,11 @@
                                     alt="Creator Icon"
                                     style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
                                     >
+                                    <span class="ms-1">{{ $creator->creator_name }}</span>
                                 @else
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                                    <span class="ms-1">{{ $creator->creator_name }}</span>
                                 @endif
-                                <div style="margin-left: 8px;">
-                                    <div>{{ $catQuest->quest->quest_title }}</div>
-                                </div>
                             </div>
                         </a>
                     @else
@@ -217,7 +221,10 @@
                                     </span>
                                 @endforeach
                             </div>
-                            {{-- Creator Icon + Title --}}
+                            {{-- Quest Title --}}
+                            <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
+
+                            {{-- Creator Icon --}}
                             <div class="card-body" style="display: flex; align-items: center;">
                                 @php
                                     $creator = $catQuest->quest->questCreator;
@@ -228,10 +235,12 @@
                                     alt="Creator Icon"
                                     style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
                                     >
+                                    <span class="ms-1">{{ $creator->creator_name }}</span>
+
                                 @else
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                                    <span class="ms-1">{{ $creator->creator_name }}</span>
                                 @endif
-                                <div>{{ $catQuest->quest->quest_title }}</div>
                             </div>
                         </a>
                     @endif
