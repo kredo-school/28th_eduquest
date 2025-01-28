@@ -22,6 +22,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'player_nickname',
+        'player_nickname',
         'email',
         'first_name',
         'family_name',
@@ -64,7 +65,7 @@ class User extends Authenticatable
         return $this->hasOne(QuestCreator::class);//Userが１つのクエストクリエイターを持つ
     }
 
-    public function questCreators()
+    public function quest_creators()
     {
         return $this->hasOne(QuestCreator::class);
     }

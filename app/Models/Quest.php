@@ -38,3 +38,4 @@ class Quest extends Model
         return $this->hasMany(QuestChapter::class, 'quest_id');
     }
 }
+

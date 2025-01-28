@@ -100,3 +100,4 @@ class QuestController extends Controller
         }
     }
 }
+

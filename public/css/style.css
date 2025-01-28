@@ -5,6 +5,7 @@ nav{
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
+    font-family: 'DotGothic16', sans-serif;
 }
 
 /*App title EduQuest*/
@@ -49,26 +50,15 @@ nav{
     padding-bottom: 10px;
     text-align: center;
     width: 130px;
+    border: none;
+    outline: none;
+
 }
 
 main{
     background-color: #FFFFF3;
 }
 
-style.css内、custom-btnは一部追加、title-iconを追加
-.custom-btn {
-    background-color: #588157;
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    margin-right: 15px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    width: 130px;
-    border: none;
-    outline: none;
-}
 
 .title-icon {
     height: 3em; /* h2のフォントサイズに合わせる */
@@ -374,9 +364,6 @@ input[type="file"] {
     object-fit: cover;
 }
 
-main{
-    background-color: #fffff3;
-}
 
 footer{
     background-color: #261C11;
@@ -384,3 +371,5 @@ footer{
 }
 
 
+
+>>>>>>>>> Temporary merge branch 2
