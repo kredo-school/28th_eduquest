@@ -30,7 +30,8 @@ class QuestController extends Controller
 
     public function viewCreateQuest()
     {
-        return view('quests.create');
+        $categories = Category::all();
+        return view('quests.create')->with('categories', $categories);
     }
 
 

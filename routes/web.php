@@ -14,6 +14,9 @@ Route::get('/test', [UserController::class, 'viewTestSwitch']);
 Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
 
-Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
-Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
-Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
+Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
+
+Route::get('/creator', [App\Http\Controllers\QuestCreatorController::class, 'mypage']);
+Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
+
+Route::get('/creator/profile/edit',[QuestCreatorController::class,'viewEditCreatorProfile'])->name('questcreators.profile.edit');
