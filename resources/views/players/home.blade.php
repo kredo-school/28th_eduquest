@@ -164,85 +164,59 @@
         
         {{-- Quests Scroll --}}
         <div class="horizontal-scroll quests-row px-3">
-            @forelse ($category->categoryQuests as $catQuest)
-                <div class="card quest-item mx-1" style="width: 200px;">
-                    @if ($catQuest->quest->thumbnail)
-                        <a href="#">
-                            {{-- Thumbnail --}}
-                            <div class="aspect-ratio-16-9">
-                                <div class="aspect-ratio-16-9-inner">
-                                    <img src="{{ $catQuest->quest->thumbnail }}" alt="Quest Thumbnail">
-                                </div>
-                            </div>
-
-                            {{-- Categories --}}
-                            <div>
-                                @foreach ($catQuest->quest->categoryQuests as $qCat)
-                                    <span class="category-badge">
-                                        {{ $qCat->category->category_name }}
-                                    </span>
-                                @endforeach
-                            </div>
-
-                            {{-- Creator Icon + Title --}}
-                            <div class="card-body" style="display: flex; align-items: center;">
-                                @php
-                                    $creator = $catQuest->quest->questCreator;
-                                @endphp
-
-                                @if($creator && $creator->creator_image)
-                                    <img 
-                                    src="{{ $creator->creator_image }}" 
-                                    alt="Creator Icon" 
-                                    style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
-                                    >
-                                @else
-                                    <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
-                                @endif                            
-                                
-                                <div style="margin-left: 8px;">
-                                    <div>{{ $catQuest->quest->quest_title }}</div>
-                                </div>
-                            </div>
-                        </a>
+            <!-- Thumbnail with spacing -->
+            <div class="px-2 pt-2">
+                <div class="quest-thumbnail-container position-relative bg-white" style="padding-top: 56.25%;">
+                    @if($catQuest->quest->thumbnail)
+                        <img src="{{ $catQuest->quest->thumbnail }}" 
+                             class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" 
+                             alt="{{ $catQuest->quest->quest_title }}"
+                             style="object-position: center;">
                     @else
-                        <a href="#">
-                            <div class="aspect-ratio-16-9 no-image-box">
-                                <span class="no-image-text-center">
-                                    No Image
-                                </span>
-                            </div>
-                            {{-- Categories --}}
-                            <div>
-                                @foreach ($catQuest->quest->categoryQuests as $qCat)
-                                    <span class="category-badge">
-                                        {{ $qCat->category->category_name }}
-                                    </span>
-                                @endforeach
-                            </div>
-                            {{-- Creator Icon + Title --}}
-                            <div class="card-body" style="display: flex; align-items: center;">
-                                @php
-                                    $creator = $catQuest->quest->questCreator;
-                                @endphp
-
-                                @if($creator && $creator->creator_image)
-                                    <img 
-                                    src="{{ $creator->creator_image }}" 
-                                    alt="Creator Icon" 
-                                    style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
-                                    >
-                                @else
-                                    <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
-                                @endif 
-                                <div>{{ $catQuest->quest->quest_title }}</div>
-                            </div>
-                        </a>
-                    @endif  
+                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light">
+                            <span class="text-muted" style="font-family: 'DotGothic16', sans-serif;">Thumbnail</span>
+                        </div>
+                    @endif
                 </div>
-            @empty
-                <p>No quests in this category</p>
-            @endforelse
+            </div>
+            
+            <!-- Category Badge -->
+            <div class="px-2 py-2">
+                @foreach ($catQuest->quest->categoryQuests as $qCat)
+                    <span class="category-badge">
+                        {{ $qCat->category->category_name }}
+                    </span>
+                @endforeach
+                {{-- @if($quest->categories->first())
+                    <a href="{{ route('quests.category', $quest->categories->first()) }}" 
+                       class="text-decoration-none">
+                        <span class="badge" style="background-color: #4a7555; font-size: 0.8rem; font-family: 'DotGothic16', sans-serif;">
+                            {{ $quest->categories->first()->category_name }}
+                        </span>
+                    </a>
+                @else
+                    <span class="badge" style="background-color: #4a7555; font-size: 0.8rem; font-family: 'DotGothic16', sans-serif;">
+                        Categories
+                    </span>
+                @endif --}}
+            </div>
+
+            <!-- Quest Info -->
+            <div class="card-body px-2">
+                @php
+                    $creator = $catQuest->quest->questCreator;
+                @endphp
+                <h5 class="card-title mb-2" style="font-family: 'DotGothic16', sans-serif; font-size: 0.9rem;">{{ $catQuest->quest->quest_title }}</h5>
+                
+                <!-- Creator Info -->
+                <div class="d-flex align-items-center gap-2">
+                    <div class="rounded-circle overflow-hidden" style="width: 30px; height: 30px;">
+                        <img src="{{ url('images/character_yusha_01_green.png') }}" alt="Creator Avatar" class="w-100 h-100 object-fit-cover">
+                    </div>
+                    <span style="font-family: 'DotGothic16', sans-serif; font-size: 0.8rem;">{{ $quest->creator->creator_name ?? 'Unknown' }}</span>
+                </div>
+            </div>
+           
         </div>
     @endforeach    
 </div>
