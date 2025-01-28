@@ -126,6 +126,7 @@
             font-size:30px;
             z-index: 1000;
         }
+        
     </style>
     <head>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
