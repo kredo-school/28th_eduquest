@@ -15,7 +15,7 @@
             <div class="quest-container">
                 <div class="title-container">
                     <img src="../images/flag_02_green.png">
-                    <h2>Create a Quest</h2>
+                    <h2>Create Quest</h2>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -106,7 +106,7 @@
                     <div class="row">
                         <div class="title-container">
                             <img src="../images/flag_02_blue.png">
-                            <h2>Create a Chapter</h2>
+                            <h2>Create Chapter</h2>
                         </div>
                         <div id="sub_item_section">
                             <div class="sub_item mb-4" data-id="1">

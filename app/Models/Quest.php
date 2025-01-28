@@ -26,7 +26,7 @@ class Quest extends Model
     //Quest has many quest_category
     public function questCategory()
     {
-        return $this->hasMany(QuestCategory::class);
+        return $this->hasMany(QuestCategory::class, 'quest_id');
     }
 
     public function creator()
@@ -36,6 +36,6 @@ class Quest extends Model
 
     public function chapters()
     {
-        return $this->hasMany(QuestsChapter::class, 'quest_id');
+        return $this->hasMany(QuestChapter::class, 'quest_id');
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
 
+
 class QuestCreatorController extends Controller
 {
     private $questcreator;
