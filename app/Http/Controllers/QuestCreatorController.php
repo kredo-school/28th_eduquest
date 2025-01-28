@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
 
+
 class QuestCreatorController extends Controller
 {
     private $questcreator;
@@ -20,8 +21,9 @@ class QuestCreatorController extends Controller
         $request->validate([
             'creator_name' => 'required',
             'job_title' => 'required',
-            'description' => 'required|max:100',
-            'creator_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048','qualifications' => 'nullable|string',
+            'description' => 'nullable|string|max:255',
+            'creator_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'qualifications' => 'nullable|string',
             'youtube' => 'nullable|string',
             'facebook' => 'nullable|string',
             'x_twitter' => 'nullable|string',

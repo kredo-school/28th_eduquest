@@ -51,6 +51,22 @@ nav{
     width: 130px;
 }
 
+/* ↓何用のCSSかは要チェック */
+.title-icon {
+    height: 3em; /* h2のフォントサイズに合わせる */
+    width: auto; /* アスペクト比を保持 */
+    vertical-align: middle; /* テキストとの縦位置を調整 */
+}
+
+/* ↓何用のCSSかは要チェック */
+/* Resistration card body by Yudai */
+
+.resistration-card-body {
+    background-image: url('../images/resistration_bg.jpg'); /* 画像のパスを適切に設定 */ 
+    background-size: cover; /* 画像のサイズをカバーに設定 */ 
+    background-position: center; /* 画像を中央に配置 */ 
+    background-repeat: no-repeat; /* 画像の繰り返しを無効に */ 
+}
 /*アイコンのドロップダウンメニュー*/
 .dropdown-menu {
     font-family: 'DotGothic16', sans-serif;
@@ -113,3 +129,4 @@ footer{
 
 
 
+>>>>>>>>> Temporary merge branch 2
