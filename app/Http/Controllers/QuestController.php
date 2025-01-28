@@ -21,13 +21,19 @@ class QuestController extends Controller
 
 
     public function index()
-    {
-        //クエスト一覧を取得(クエストテーブルのデータを全て取得)
-        $quests = Quest::all();
+{
+    // 現在ログインしているユーザーのIDを取得
+    $userId = auth()->id();
 
-        //quests.indexへクエストテーブルのデータと共に遷移
-        return view('quests.index')->with('quests', $quests);
-    }
+    // ユーザーに紐づいたクエストのみを取得
+    $userQuests = Quest::where('quest_creator_id', $userId)->get();
+
+    // すべてのクエストを取得
+    $allQuests = Quest::all();
+
+    // ビューに両方のクエストを渡す
+    return view('quests.index', compact('userQuests', 'allQuests'));
+}
 
 
     public function create(Request $request)
@@ -156,5 +162,19 @@ class QuestController extends Controller
     $quest->categories()->sync($request->category);   // 中間テーブルでカテゴリーを更新
     
     return redirect()->route('quests.index');
+    }
+
+    
+
+    /**
+     * クエストを削除
+     */
+    public function destroy($id)
+    {
+        $quest = Quest::findOrFail($id);
+        $quest->delete();
+        
+        return redirect()->route('quests.list')
+            ->with('success', 'クエストが正常に削除されました。');
     }
 }
