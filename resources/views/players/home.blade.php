@@ -130,6 +130,7 @@
     <div class="col-5 text-start">
         <div class="row align-items-start mb-3 bg-white shadow-sm round-10 py-2 border-color">
             <div class="col-auto">
+                {{-- えー、リンクつける？ --}}
                 @if (Auth::user()->image)
                     <img src="{{ Auth::user()->image }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">                            
                 @else
@@ -169,80 +170,101 @@
             @forelse ($category->categoryQuests as $catQuest)
                 <div class="card quest-item mx-1" style="width: 200px;">
                     @if ($catQuest->quest->thumbnail)
-                        <a href="#">
-                            {{-- Thumbnail --}}
-                            <div class="aspect-ratio-16-9">
+                        {{-- Thumbnail --}}
+                        <div class="aspect-ratio-16-9">
+                            {{-- あとでリンク追加必要！！！ --}}
+                            <a href="#">
                                 <div class="aspect-ratio-16-9-inner">
                                     <img src="{{ $catQuest->quest->thumbnail }}" alt="Quest Thumbnail">
                                 </div>
-                            </div>
-                            {{-- Categories --}}
-                            <div>
-                                @foreach ($catQuest->quest->categoryQuests as $qCat)
-                                    <span class="category-badge">
-                                        {{ $qCat->category->category_name }}
-                                    </span>
-                                @endforeach
-                            </div>
+                            </a>
+                        </div>
+                        {{-- Categories --}}
+                        <div>
+                            @foreach ($catQuest->quest->categoryQuests as $qCat)
+                                <span class="category-badge">
+                                    {{ $qCat->category->category_name }}
+                                </span>
+                            @endforeach
+                        </div>
 
-                            {{-- Quest Title --}}
+                        {{-- Quest Title --}}
+                        {{-- あとでリンク追加必要！！！ --}}
+                        <a href="#">
                             <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
+                        </a>
 
-                            {{-- Creator Icon + Creator name--}}
-                            <div class="card-body" style="display: flex; align-items: center;">
-                                @php
-                                    $creator = $catQuest->quest->questCreator;
-                                @endphp
-                                @if($creator && $creator->creator_image)
+                        {{-- Creator Icon + Creator name--}}
+                        <div class="card-body" style="display: flex; align-items: center;">
+                            @php
+                                $creator = $catQuest->quest->questCreator;
+                            @endphp
+                            @if($creator && $creator->creator_image)
+                                {{-- あとでリンク追加必要！！！ --}}
+                                <a href="#">
                                     <img
                                     src="{{ $creator->creator_image }}"
                                     alt="Creator Icon"
                                     style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
                                     >
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
-                                @else
+                                </a>
+                            @else
+                                {{-- あとでリンク追加必要！！！ --}}
+                                <a href="#">
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
-                                @endif
-                            </div>
-                        </a>
-                    @else
+                                </a>
+                            @endif
+                        </div>  
+                    @else  
+                        {{-- あとでリンク追加必要！ --}}
                         <a href="#">
                             <div class="aspect-ratio-16-9 no-image-box">
-                                <span class="no-image-text-center">
-                                    No Image
-                                </span>
-                            </div>
-                            {{-- Categories --}}
-                            <div>
-                                @foreach ($catQuest->quest->categoryQuests as $qCat)
-                                    <span class="category-badge">
-                                        {{ $qCat->category->category_name }}
+                                
+                                    <span class="no-image-text-center">
+                                        No Image
                                     </span>
-                                @endforeach
                             </div>
-                            {{-- Quest Title --}}
+                        </a>
+                        {{-- Categories --}}
+                        <div>
+                            @foreach ($catQuest->quest->categoryQuests as $qCat)
+                                <span class="category-badge">
+                                    {{ $qCat->category->category_name }}
+                                </span>
+                            @endforeach
+                        </div>
+                        {{-- Quest Title --}}
+                        {{-- あとでリンク追加必要！！！ --}}
+                        <a href="#">
                             <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
+                        </a>
 
-                            {{-- Creator Icon --}}
-                            <div class="card-body" style="display: flex; align-items: center;">
-                                @php
-                                    $creator = $catQuest->quest->questCreator;
-                                @endphp
-                                @if($creator && $creator->creator_image)
+                        {{-- Creator Icon --}}
+                        <div class="card-body" style="display: flex; align-items: center;">
+                            @php
+                                $creator = $catQuest->quest->questCreator;
+                            @endphp
+                            @if($creator && $creator->creator_image)
+                                {{-- あとでリンク追加必要！！！ --}}
+                                <a href="#">
                                     <img
                                     src="{{ $creator->creator_image }}"
                                     alt="Creator Icon"
                                     style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
                                     >
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
+                                </a>
 
-                                @else
+                            @else
+                                {{-- あとでリンク追加必要！！！ --}}
+                                <a href="#">
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
-                                @endif
-                            </div>
-                        </a>
+                                </a>
+                            @endif
+                        </div>
                     @endif
                 </div>
             @empty
