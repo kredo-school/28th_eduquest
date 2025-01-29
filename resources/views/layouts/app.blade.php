@@ -147,8 +147,8 @@
                                     <a href="#" class="nav-link d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="rounded-circle icon">
                                             {{-- avatar/icon --}}
-                                            @if(Auth::user()->quest_creator->creator_image)
-                                                <img src="{{ Auth::user()->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
+                                            @if(Auth::user()->questCreators->creator_image)
+                                                <img src="{{ Auth::user()->questCreators->creator_image }}" alt="" class="rounded-circle img-icon">
                                             @else
                                                 <i class="fas fa-user"></i>
                                             @endif
@@ -159,14 +159,14 @@
                                         <div class="d-flex align-items-center p-3">
                                             <div>
                                                 {{-- avatar/icon --}}
-                                                @if(Auth::user()->quest_creator->creator_image)
-                                                    <img src="{{ Auth::user()->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
+                                                @if(Auth::user()->questCreators->creator_image)
+                                                    <img src="{{ Auth::user()->questCreators->creator_image }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
                                             </div>
                                             <div class="ms-3">
-                                                <li class="mb-0 fw-bold">{{  Auth::user()->quest_creator->creator_name }}</li>
+                                                <li class="mb-0 fw-bold">{{  Auth::user()->questCreators->creator_name }}</li>
                                                 <li class="mb-0 text-muted">{{ Auth::user()->email }}</li>
                                             </div>
                                         </div>
