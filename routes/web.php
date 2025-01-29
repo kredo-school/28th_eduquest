@@ -13,12 +13,11 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
 
-
+    // for Player
     Route::get('/home', [HomeController::class, 'show']);
     Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
-    Route::get('/creatorMyPage', [QuestCreatorController::class, 'creatorMyPage'])->name('creatorMyPage');
-    Route::get('/player/questlist', [QuestController::class, 'showList'])->name('questlist');
+
 
 });
 
