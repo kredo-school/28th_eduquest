@@ -201,7 +201,7 @@
         <form action="{{ route('questcreator.update') }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input type="hidden" name="redirect_to" value="{{ route('questcreators.profile.view') }}">
+        <input type="hidden" name="redirect_to" value="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}">
             {{-- Title --}}
             <div class="text-start mb-5 d-flex align-items-center">
                 <img src="{{ asset('images/madoshi_02_green.png') }}" alt="Icon" class="me-2 title-icon">
@@ -299,7 +299,7 @@
             <!-- Register Button -->
             <div class="text-center mt-4">
                 <button type="submit" class="edit-button-container fs-3">Update</button>
-                <button type="button" class="edit-button-container fs-3" onclick="window.location.href='{{ route('questcreators.profile.view') }}'">Cancel</button>
+                <button type="button" class="edit-button-container fs-3" onclick="window.location.href='{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}'">Cancel</button>
             </div>
         </form>
     </div>
