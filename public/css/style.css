@@ -51,6 +51,14 @@ nav{
     width: 130px;
 }
 
+/* Resistration card body by Yudai */
+
+.resistration-card-body {
+    background-image: url('../images/resistration_bg.jpg'); /* 画像のパスを適切に設定 */ 
+    background-size: cover; /* 画像のサイズをカバーに設定 */ 
+    background-position: center; /* 画像を中央に配置 */ 
+    background-repeat: no-repeat; /* 画像の繰り返しを無効に */ 
+}
 /*アイコンのドロップダウンメニュー*/
 .dropdown-menu {
     font-family: 'DotGothic16', sans-serif;
@@ -110,6 +118,5 @@ footer{
     background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
 }
-
 
 
