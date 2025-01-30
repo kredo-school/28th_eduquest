@@ -222,6 +222,7 @@
         </footer>
     </div>
 
-    
+    <!-- Javascriptに必要なコード-->
+    @yield('scripts')
 </body>
 </html>

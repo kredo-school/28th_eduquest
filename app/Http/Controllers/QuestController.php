@@ -20,6 +20,18 @@ class QuestController extends Controller
     }
 
 
+<<<<<<< HEAD
+=======
+    public function index()
+{
+    // クエストのデータを取得
+    $quests = Quest::all();  // クエストのすべてのデータを取得
+
+    // quests.list ビューに quests を渡す
+    return view('quests.list')->with('quests', $quests);
+}
+
+>>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
 
     public function create(Request $request)
     {
@@ -56,8 +68,6 @@ class QuestController extends Controller
 
     public function store(Request $request)
     {
-        //バリデーション
-        // dd($request);
         $request->validate([
             'quest_title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
@@ -96,9 +106,9 @@ class QuestController extends Controller
 
         foreach ($request->sub_items as $index => $subItem) {
             QuestChapter::create([
-                'quest_chapter_title' => $subItem['title'], 
+                'quest_chapter_title' => $subItem['quest_chapter_title'], 
                 'description' => $subItem['description'] ?? null, 
-                'video' => $subItem['video_url'] ?? null, 
+                'video' => $subItem['video'] ?? null,
                 'quest_id' => $quest->id,             
             ]);
         }
@@ -119,13 +129,16 @@ class QuestController extends Controller
 
         $quest = Quest::findOrFail($id);  // QuestをIDで取得
         $categories = Category::all();    // カテゴリーデータを全て取得
+        $chapters = $quest->chapters;
 
         return view('quests.edit')->with('quest', $quest)
-                                  ->with('categories', $categories);
+                                  ->with('categories', $categories)
+                                  ->with('chapters', $chapters);
     }
 
 
     public function update(Request $request, $id) {
+
 
         $quest = Quest::findOrFail($id);
 
@@ -163,8 +176,8 @@ class QuestController extends Controller
     foreach ($request->sub_items as $subItem) {
         QuestChapter::create([
             'quest_chapter_title' => $subItem['quest_chapter_title'],
-            'description' => $subItem['description'],
-            'video' => $subItem['video'],
+            'description' => $subItem['description'] ?? null,
+            'video' => $subItem['video'] ?? null,
             'quest_id' => $quest->id,
         ]);
     }
@@ -174,4 +187,19 @@ class QuestController extends Controller
     
     return redirect()->route('quests.index');
     }
+
+    
+
+    /**
+     * クエストを削除
+     */
+    public function destroy($id)
+    {
+        $quest = Quest::findOrFail($id);
+        $quest->delete();
+        
+        return redirect()->route('quests.index')
+            ->with('success', 'クエストが正常に削除されました。');
+    }
+
 }
