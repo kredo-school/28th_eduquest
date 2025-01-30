@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Quest;
 use App\Models\Category;
 
+
 class QuestController extends Controller
 {
     private $questcreator;
@@ -48,6 +49,6 @@ class QuestController extends Controller
         $quest = Quest::findOrFail($id);
         $quest->delete();
         
-        return redirect()->route('quests.list');
+        return redirect()->route('quests.index');
     }
 }

@@ -32,7 +32,8 @@
                     </a>
                     {{-- delete --}}
                     <button class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#delete-quest{{ $quest->id }}">
-                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon" class="delete-icon">Delete
+                        Delete
+                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon" class="delete-icon">
                     </button>
                     @include('quests.modals.delete')
                 </div>

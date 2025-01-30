@@ -18,10 +18,6 @@ class Quest extends Model
         'quest_creator_id',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
     //Quest has many quest_category
     public function questCategory(){
