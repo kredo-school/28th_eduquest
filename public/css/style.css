@@ -1,17 +1,45 @@
+/*header*/
 nav{
     background-color: #261C11;  
 }
-
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
+    
 }
 
-footer{
-    background-color: #261C11;
+/*App title EduQuest*/
+.h5:hover,
+.h5:focus{
+    color: #fff !important;
+}
+
+/*News Category FAQ*/
+.nav-item a:hover,
+.nav-item a:focus{
+    color: #fff !important;
+}
+.nav-item a:active {
+    color: #aaa !important;
+    transform: translateY(2px);
+}
+
+/*カテゴリーのドロップダウン*/
+.nav-item-dropdown a{
+    color: #261C11 !important;
     font-family: 'DotGothic16', sans-serif;
 }
+.nav-item-dropdown a:hover, 
+.nav-item-dropdown a:focus {
+    color: #261C11 !important;
+    background-color: transparent;
+}
+.nav-item-dropdown a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
 
+/*Sign in と Register*/
 .custom-btn {
     background-color: #588157;
     color: white;
@@ -22,4 +50,192 @@ footer{
     padding-bottom: 10px;
     text-align: center;
     width: 130px;
+    border: none;
+    outline: none;
+
 }
+
+main{
+    background-color: #FFFFF3;
+}
+
+.title-icon {
+    height: 3em; /* h2のフォントサイズに合わせる */
+    width: auto; /* アスペクト比を保持 */
+    vertical-align: middle; /* テキストとの縦位置を調整 */
+}
+
+
+
+
+
+
+
+/*---------------------[75:Create Quest]-----------------------------------*/
+
+/* form全体のデザイン */
+form {
+    font-family: 'DotGothic16';
+}
+
+.form-group {
+    margin: 20px auto;
+}
+
+.chapter-container {
+    margin: 4rem auto;
+}
+
+/* 旗の画像とタイトル */
+.title-container {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem auto;
+}
+
+.title-container img {
+    width: 2.5rem;
+    height: 3rem;
+}
+
+/* カテゴリー選択ラベルのスタイル */
+.category-option {
+    display: inline-block;
+    text-align: center;
+    margin: 10px 2px;
+    padding: 10px 20px;
+    background-color: #528966;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* チェックボックスを非表示にする */
+.category-option input {
+    display: none;
+}
+
+/* チェックボックスが選択されたときのスタイル */
+.category-option input:checked + span {
+    background-color: #93d8d0;  /* 選択時の背景色 */
+    color: white;
+}
+
+/* ホバー時のスタイル */
+.category-option:hover {
+    background-color: #e0e0e0;
+}
+
+/* テキスト（カテゴリー名）のスタイル */
+.category-option span {
+    font-size: 1rem;
+    color: #333;
+}
+
+.bg-img-container img {
+    width: 40rem;
+    height: auto;
+}
+
+.btn-add-chapter {
+    border-bottom: 1px solid #333;
+    background: none;
+    border: none;
+}
+
+/*chapter番号のデザイン*/
+.chapter-title h5 {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    width: 130px;
+    height: auto;
+}
+
+.chapter-bg {
+    background: white;
+    width: 150px;
+    border: 1px solid #333;
+}
+
+
+
+.btn-design {
+    text-decoration: none;
+    color: #333;
+    background: white;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #333;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-design img {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 5px;
+}
+
+/*アイコンのドロップダウンメニュー*/
+.dropdown-menu {
+    font-family: 'DotGothic16', sans-serif;
+    color: #261C11;
+}
+.nav-item-2 a{
+    color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+.nav-item-2 a:hover, 
+.nav-item-2 a:focus {
+    color: #261C11;
+    background-color: transparent;
+}
+.nav-item-2 a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
+.dropdown-menu .dropdown-divider {
+    /*hr*/
+    border-color: #aaa;
+    opacity: 0.5;
+    margin: 0.5rem 0;
+}
+.sword{
+    /*ドロップダウンの剣の画像*/
+    width: 1.5rem;
+    height: 1.5rem; 
+    margin-right: 10px;
+}
+
+/*icon*/
+.icon {
+    /*image追加してなかった時のicon*/
+    width:3rem;
+    height:3rem;
+    background-color: #aaa; 
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.img-icon {
+    /*image追加した時のicon*/
+    width:3rem;
+    height:3rem;
+    object-fit: cover;
+}
+
+main{
+    background-color: #fffff3;
+}
+
+footer{
+    background-color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+
+
