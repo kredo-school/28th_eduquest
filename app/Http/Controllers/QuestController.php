@@ -20,15 +20,6 @@ class QuestController extends Controller
     }
 
 
-    public function index()
-    {
-        //クエスト一覧を取得(クエストテーブルのデータを全て取得)
-        $quests = Quest::all();
-
-        //quests.indexへクエストテーブルのデータと共に遷移
-        return view('quests.index')->with('quests', $quests);
-    }
-
 
     public function create(Request $request)
     {
@@ -49,6 +40,7 @@ class QuestController extends Controller
 
         // ビューにクエストを渡す
         return view('quests.list', compact('quests'));
+
     }
 
     /**

@@ -20,7 +20,7 @@ Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'
 
 Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
 
-
+// クエスト作成・編集
 Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
 Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
 Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
