@@ -51,8 +51,21 @@ class User extends Authenticatable
         ];
     }
 
+    // クエストクリエイターとのリレーション
     public function quest_creator()
     {
         return $this->hasOne(QuestCreator::class);//Userが１つのクエストクリエイターを持つ
+    }
+
+    // クエストとのリレーション
+    public function quest()
+    {
+        return $this->belongsTo(Quest::class);
+    }
+
+    // レビューレーティングとのリレーション
+    public function reviews_ratings()
+    {
+        return $this->hasMany(ReviewsRating::class);
     }
 }
