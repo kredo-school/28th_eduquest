@@ -14,8 +14,11 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function(){
 
     // for Player
+    # To go to Home page
     Route::get('/home', [HomeController::class, 'show']);
+    # To go to Switch to Quest Creator page
     Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
+    # To store Creator Info in Switch ~ Creator page
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 
 
