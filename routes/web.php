@@ -23,6 +23,7 @@ Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
 
 // クエスト削除
 Route::delete('/quests/{quest}', [QuestController::class, 'destroy'])->name('quests.destroy');
+
 Route::get('/creator/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
 Route::get('/creator/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questscreators.profile.edit');
 Route::put('/questcreator/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
