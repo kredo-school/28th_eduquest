@@ -23,5 +23,5 @@ Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.c
 Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
 
 // クエスト削除
-Route::delete('/quests/{quest}', [QuestController::class, 'destroy'])->name('quests.destroy');
+Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
 

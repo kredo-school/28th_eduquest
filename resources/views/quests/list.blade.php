@@ -30,41 +30,17 @@
                         Edit
                         <img src="{{ asset('images/edit-icon.png') }}" alt="Edit Icon">
                     </a>
-                    <button class="btn btn-delete" onclick="confirmDelete({{ $quest->id }})">
-                        Delete
-                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon">
+                    {{-- delete --}}
+                    <button class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#delete-quest{{ $quest->id }}">
+                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon" class="delete-icon">Delete
                     </button>
+                    @include('quests.modals.delete')
                 </div>
             </div>
         @endforeach
     </div>
 </div>
 
-<!-- 削除確認用のJavaScript -->
-<script>
-function confirmDelete(questId) {
-    if (confirm('本当にこのクエストを削除してもよろしいですか？')) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = `/quests/${questId}`;
-        
-        const csrfToken = document.createElement('input');
-        csrfToken.type = 'hidden';
-        csrfToken.name = '_token';
-        csrfToken.value = '{{ csrf_token() }}';
-        
-        const methodField = document.createElement('input');
-        methodField.type = 'hidden';
-        methodField.name = '_method';
-        methodField.value = 'DELETE';
-        
-        form.appendChild(csrfToken);
-        form.appendChild(methodField);
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
-</script>
 
 <style>
 .quest-list {
@@ -111,6 +87,7 @@ function confirmDelete(questId) {
 .btn {
     display: flex;
     justify-content: space-between;
+    justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -122,9 +99,14 @@ function confirmDelete(questId) {
     box-shadow: 2px 2px 0 #000;
     transition: transform 0.1s;
     width: 150px;
+    width: 150px;
 }
 
 .btn img {
+    margin-left: 0.5rem;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
     margin-left: 0.5rem;
     width: 30px;
     height: 30px;
@@ -137,6 +119,11 @@ function confirmDelete(questId) {
 
 .btn-delete {
     background-color: #fff;
+}
+
+.delete-icon{
+    height: 20px;
+    width: 20px;
 }
 
 .btn:hover {

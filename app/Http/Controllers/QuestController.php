@@ -48,7 +48,6 @@ class QuestController extends Controller
         $quest = Quest::findOrFail($id);
         $quest->delete();
         
-        return redirect()->route('quests.list')
-            ->with('success', 'クエストが正常に削除されました。');
+        return redirect()->route('quests.list');
     }
 }
