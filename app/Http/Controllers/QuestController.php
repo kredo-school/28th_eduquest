@@ -52,3 +52,4 @@ class QuestController extends Controller
             ->with('success', 'クエストが正常に削除されました。');
     }
 }
+

@@ -1,11 +1,9 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
-
 class QuestCreator extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -22,16 +20,16 @@ class QuestCreator extends Model
       'creator_name',
       'job_title',
       'description',
+      'qualifications',
       'creator_image',
       'youtube',
       'facebook',
       'x_twitter',
       'linkedin',
-   ];
-
-
-     public function user(){
-        return $this->belongsTo(User::class);
-     }
+   ];   
+    // Userとのリレーション（多対一の関係）
+    public function user()
+    {
+        return $this->belongsTo(User::class); // Userモデルと関連付け
+    }
 }
-

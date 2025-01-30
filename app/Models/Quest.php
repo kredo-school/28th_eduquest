@@ -28,3 +28,4 @@ class Quest extends Model
         return $this->hasMany(QuestCategory::class);
     }
 }
+
