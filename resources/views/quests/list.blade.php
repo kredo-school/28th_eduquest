@@ -1,16 +1,25 @@
 @extends('layouts.app')
 @section('title', 'View All Quests')
 @section('content')
+<style>
+    .custom-icon {
+    color: #80ae80; /* 薄い黄緑色 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+</style>
 
 <div class="container">
     <div class="header">
         <div class="title-container ms-0">
-            <img src="{{ asset('images/title-icon.png') }}" alt="Title Icon" class="title-icon">
+            <img src="{{ asset('images/Group 274.png') }}" alt="Title Icon" class="title-icon">
             <h2>Created Quest List</h2>
         </div>
         <a href="{{ route('quests.create')}}" class="btn btn-create">
             Create New Quest
-            <img src="{{ asset('images/create-icon.png') }}" alt="Create Icon">
+            <img src="{{ asset('images/38.png') }}" alt="Create Icon">
         </a>
     </div>
     <div class="quest-list">
@@ -26,14 +35,16 @@
                     </div>
                 </a>
                 <div class="quest-actions">
-                    <a href="{{ route('quests.edit', ['id' => $quest->id])}}" class="btn btn-edit">
+                    <a href="{{ route('quests.edit', $quest->id) }}" class="btn btn-edit">
                         Edit
                         <img src="{{ asset('images/edit-icon.png') }}" alt="Edit Icon">
                     </a>
-                    <button class="btn btn-delete" onclick="confirmDelete({{ $quest->id }})">
+                    {{-- delete --}}
+                    <button class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#delete-quest{{ $quest->id }}">
                         Delete
-                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon">
+                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon" class="delete-icon">
                     </button>
+                    @include('quests.modals.delete')
                 </div>
             </div>
         @endforeach

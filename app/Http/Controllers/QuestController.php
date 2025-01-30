@@ -39,8 +39,6 @@ class QuestController extends Controller
 
     public function store(Request $request)
     {
-        //バリデーション
-        // dd($request);
         $request->validate([
             'quest_title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
@@ -79,9 +77,9 @@ class QuestController extends Controller
 
         foreach ($request->sub_items as $index => $subItem) {
             QuestChapter::create([
-                'quest_chapter_title' => $subItem['title'], 
+                'quest_chapter_title' => $subItem['quest_chapter_title'], 
                 'description' => $subItem['description'] ?? null, 
-                'video' => $subItem['video_url'] ?? null, 
+                'video' => $subItem['video'] ?? null,
                 'quest_id' => $quest->id,             
             ]);
         }
@@ -95,7 +93,7 @@ class QuestController extends Controller
             ]);
         }
 
-        return redirect()->route('quests.list');
+        return redirect()->route('quests.index');
     }
 
     public function edit($id) {
@@ -111,6 +109,7 @@ class QuestController extends Controller
 
 
     public function update(Request $request, $id) {
+
 
         $quest = Quest::findOrFail($id);
 
@@ -148,8 +147,8 @@ class QuestController extends Controller
     foreach ($request->sub_items as $subItem) {
         QuestChapter::create([
             'quest_chapter_title' => $subItem['quest_chapter_title'],
-            'description' => $subItem['description'],
-            'video' => $subItem['video'],
+            'description' => $subItem['description'] ?? null,
+            'video' => $subItem['video'] ?? null,
             'quest_id' => $quest->id,
         ]);
     }
@@ -157,7 +156,7 @@ class QuestController extends Controller
     // カテゴリーの更新
     $quest->categories()->sync($request->category);   // 中間テーブルでカテゴリーを更新
     
-    return redirect()->route('quests.list');
+    return redirect()->route('quests.index');
     }
 
     
@@ -170,7 +169,8 @@ class QuestController extends Controller
         $quest = Quest::findOrFail($id);
         $quest->delete();
         
-        return redirect()->route('quests.list')
+        return redirect()->route('quests.index')
             ->with('success', 'クエストが正常に削除されました。');
     }
+
 }
