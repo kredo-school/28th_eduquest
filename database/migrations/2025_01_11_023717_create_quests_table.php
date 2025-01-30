@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('quest_title');
             $table->text('description', 300);
-            $table->longText('thumbnail');
+            $table->string('thumbnail');
             $table->float('total_hours', 3, 1);
             $table->unsignedBigInteger('quest_creator_id');
             $table->timestamps();
