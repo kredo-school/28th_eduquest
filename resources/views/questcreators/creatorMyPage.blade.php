@@ -41,7 +41,7 @@
                 {{-- Quest Management --}}
                 <div class="quest-management col-7 p-4">
                     <h3 class="fs-1 m-3">Quest Management</h3>
-                    <div class="quest-total col-4 my-5">
+                    <div class="quest-total col-5 my-5">
                         <img src={{ asset('images/alphabet_q.png') }} alt="Q" class="alphabet-q">
                         <img src={{ asset('images/alphabet_u.png') }} alt="U" class="alphabet-u">
                         <img src={{ asset('images/alphabet_e.png') }} alt="E" class="alphabet-e">
@@ -49,7 +49,7 @@
                         <img src={{ asset('images/alphabet_t.png') }} alt="T" class="alphabet-t">
                         <span class="fs-1">: {{ $questCount }}</span>
                     </div>
-                    <button type="button" class="mgt-btn btn btn-light">Go To Management Page</button>
+                    <button type="button" class="mgt-btn">Go To Management Page</button>
 
                     {{-- background-design --}}
                     <img src={{ asset('images/character_monster_dragon_03_red.png') }} alt="Red Dragon" class="red-dragon">

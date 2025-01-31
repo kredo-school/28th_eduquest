@@ -46,19 +46,22 @@ nav{
     text-align: center;
     width: 130px;
 }
+
 /* ↓何用のCSSかは要チェック */
 .title-icon {
     height: 3em; /* h2のフォントサイズに合わせる */
     width: auto; /* アスペクト比を保持 */
     vertical-align: middle; /* テキストとの縦位置を調整 */
 }
+
 /* ↓何用のCSSかは要チェック */
 /* Resistration card body by Yudai */
+
 .resistration-card-body {
-    background-image: url('../images/resistration_bg.jpg'); /* 画像のパスを適切に設定 */
-    background-size: cover; /* 画像のサイズをカバーに設定 */
-    background-position: center; /* 画像を中央に配置 */
-    background-repeat: no-repeat; /* 画像の繰り返しを無効に */
+    background-image: url('../images/resistration_bg.jpg'); /* 画像のパスを適切に設定 */ 
+    background-size: cover; /* 画像のサイズをカバーに設定 */ 
+    background-position: center; /* 画像を中央に配置 */ 
+    background-repeat: no-repeat; /* 画像の繰り返しを無効に */ 
 }
 /*アイコンのドロップダウンメニュー*/
 .dropdown-menu {
@@ -108,7 +111,7 @@ nav{
     object-fit: cover;
 }
 main{
-    background-color: #FFFFF3;
+    background-color: #fffff3;
     font-family: 'DotGothic16', sans-serif;
 }
 footer{
@@ -116,6 +119,177 @@ footer{
     font-family: 'DotGothic16', sans-serif;
 }
 
+
+/* ↓↓↓ for home.blade.php ↓↓↓ */
+.image-md{
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+}
+
+.icon-md{
+    font-size: 3.5rem;
+}
+
+.border-color{
+    border: 1px solid #3C2C1B;
+}
+
+.round-10{
+    border-radius: 10px;
+}
+
+.btn-custom-border {
+    border-color: #3C2C1B !important;
+}
+
+/* 左寄せを強調 */
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 左寄せ */
+}
+
+.news-button {
+    margin-top: 15px; /* ボタンの間隔を調整 */
+    width: 100%; /* ボタンが親要素の幅いっぱいに広がる */
+}
+
+.truncate-2-lines {
+    display: -webkit-box;              /* 必須: ブロック要素化 + flexboxベース */
+    -webkit-box-orient: vertical;      /* 縦方向にボックスを並べる */
+    -webkit-line-clamp: 2;            /* 2行で切り捨て */
+    overflow: hidden;                  /* はみ出した部分を非表示に */
+    text-overflow: ellipsis;          /* 省略記号をつける(Chrome等で有効) */
+}
+
+
+.quests-row {
+    background-color: #FCFCE7;
+}
+
+.horizontal-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    /* gap: 1rem; */
+}
+
+.quest-item {
+    flex: 0 0 auto;
+    width: 200px;
+    background-color: #fff;
+    /*  #EDEBEB */
+}
+
+.quest-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.aspect-ratio-16-9 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.aspect-ratio-16-9-inner {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    overflow: hidden; /* 念のため */
+}
+
+.aspect-ratio-16-9-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-image-box {
+    background-color: #ccc;
+    position: relative;
+}
+
+.no-image-box .no-image-text-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000;
+    font-weight: bold;
+}
+
+.flag_green {
+width: 1.5rem;
+height: 1.5rem; 
+margin-right: 10px;
+}  
+
+.category-badge {
+background-color: #588157; 
+color: #fff;  
+margin-left: 5px;    
+padding: 2px 6px;         /* 内側の余白 */
+border-radius: 3px;       /* 角丸 */
+font-size: 0.7rem;        /* 大きさ微調整 */
+margin-right: 4px;        /* バッジ同士の隙間 */
+}
+/* ↑↑↑ for home.blade.php ↑↑↑ */
+
+
+/* ↓↓↓ for switch.blade.php ↓↓↓ */
+/* 1　左のバー */
+.side-bar{
+    border: 2px solid #261C11;
+    border-radius: 20px;
+    font-size: 6px;
+    margin-left: 30px;
+    /* margin-bottom: 50px;  */
+    display: flex;
+    flex-direction: column; /* 縦方向に並べる */
+    /* height: 100%;  */
+}
+/* 2　剣持った画像の事 */
+.player-image{
+    height: 100px;
+    width: 100px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+/* 3　ファイルを選択の下の2行の事 */
+.Accetable{
+    font-size: 10px;
+    line-height: 1.2; /* 行間を狭める */
+    margin-bottom: 5px; /* パラグラフ間の余白も調整 */
+    margin-top: 10px;
+}
+/* 4　3つある剣の画像の事 */
+.homeSword{
+    height: 40px;
+    width: 40px;
+}
+
+.slime {
+    height: 40px;
+}
+
+.custom-switch-btn {
+background-color: #588157;
+color: white;
+text-decoration: none;
+display: inline-block;
+margin-right: 15px;
+padding-top: 10px;
+padding-bottom: 10px;
+text-align: center;
+width: 130px;
+}
+/* ↑↑↑ for switch.blade.php ↑↑↑ */
 
 /* For Creator-Mypage start */
 

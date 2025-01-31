@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('description', 100)->nullable();
             $table->text('qualifications')->nullable();
             $table->longText('creator_image')->nullable();
+            $table->text('qualifications')->nullable();
             $table->string('youtube') -> nullable();
             $table->string('facebook') -> nullable();
             $table->string('x_twitter') -> nullable();

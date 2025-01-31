@@ -13,6 +13,7 @@ class QuestCreatorController extends Controller
     }
     public function store(Request $request)
     {
+        #1. Validate your data first
         $request->validate([
             'creator_name' => 'required',
             'job_title' => 'required',
@@ -22,19 +23,21 @@ class QuestCreatorController extends Controller
             'youtube' => 'nullable|string',
             'facebook' => 'nullable|string',
             'x_twitter' => 'nullable|string',
-            'linkedin' => 'nullable|string'
+            'linkedin' => 'nullable|string' 
         ]);
         //現在のユーザーを取得
         $user = Auth::user();
         //role_idを2に更新
         $user->role_id = 2;
         $user->save();
+
+        #2. Save the questcreator
         $this->questcreator->user_id = Auth::user()->id;
         $this->questcreator->creator_name = $request->creator_name;
         $this->questcreator->job_title = $request->job_title;
         $this->questcreator->description = $request->description;
         $this->questcreator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
-        $this->questcreator->qualifications = $request->qualification;
+        $this->questcreator->qualifications = $request->qualifications;
         $this->questcreator->youtube = $request->youtube;
         $this->questcreator->facebook = $request->facebook;
         $this->questcreator->x_twitter = $request->x_twitter;
@@ -55,7 +58,4 @@ class QuestCreatorController extends Controller
 
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
-
-
-
 }
