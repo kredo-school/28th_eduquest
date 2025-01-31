@@ -1,37 +1,16 @@
 @extends('layouts.app')
 @section('title', 'View All Quests')
 @section('content')
-<<<<<<< HEAD
-=======
-<style>
-    .custom-icon {
-    color: #80ae80; /* 薄い黄緑色 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    }
-
-</style>
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
 
 <div class="container">
     <div class="header">
         <div class="title-container ms-0">
-<<<<<<< HEAD
-            <img src="{{ asset('images/title-icon.png') }}" alt="Title Icon" class="title-icon">
-            <h2>Created Quest List</h2>
-        </div>
-        <a href="#" class="btn btn-create">
-            Create New Quest
-            <img src="{{ asset('images/create-icon.png') }}" alt="Create Icon">
-=======
             <img src="{{ asset('images/Group 274.png') }}" alt="Title Icon" class="title-icon">
             <h2>Created Quest List</h2>
         </div>
         <a href="{{ route('quests.create')}}" class="btn btn-create">
             Create New Quest
             <img src="{{ asset('images/38.png') }}" alt="Create Icon">
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
         </a>
     </div>
     <div class="quest-list">
@@ -47,11 +26,7 @@
                     </div>
                 </a>
                 <div class="quest-actions">
-<<<<<<< HEAD
-                    <a href="#" class="btn btn-edit">
-=======
                     <a href="{{ route('quests.edit', $quest->id) }}" class="btn btn-edit">
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
                         Edit
                         <img src="{{ asset('images/edit-icon.png') }}" alt="Edit Icon">
                     </a>
@@ -67,34 +42,6 @@
     </div>
 </div>
 
-<<<<<<< HEAD
-=======
-<!-- 削除確認用のJavaScript -->
-<script>
-function confirmDelete(questId) {
-    if (confirm('本当にこのクエストを削除してもよろしいですか？')) {
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = `/quests/${questId}`;
-        
-        const csrfToken = document.createElement('input');
-        csrfToken.type = 'hidden';
-        csrfToken.name = '_token';
-        csrfToken.value = '{{ csrf_token() }}';
-        
-        const methodField = document.createElement('input');
-        methodField.type = 'hidden';
-        methodField.name = '_method';
-        methodField.value = 'DELETE';
-        
-        form.appendChild(csrfToken);
-        form.appendChild(methodField);
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
-</script>
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
 
 <style>
 .quest-list {
@@ -141,10 +88,7 @@ function confirmDelete(questId) {
 .btn {
     display: flex;
     justify-content: space-between;
-<<<<<<< HEAD
     justify-content: space-between;
-=======
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
     align-items: center;
     padding: 0.5rem 1rem;
     border-radius: 20px;
@@ -156,10 +100,6 @@ function confirmDelete(questId) {
     box-shadow: 2px 2px 0 #000;
     transition: transform 0.1s;
     width: 150px;
-<<<<<<< HEAD
-    width: 150px;
-=======
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
 }
 
 .btn img {
@@ -167,13 +107,6 @@ function confirmDelete(questId) {
     width: 30px;
     height: 30px;
     object-fit: contain;
-<<<<<<< HEAD
-    margin-left: 0.5rem;
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-=======
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
 }
 
 .btn-edit {
@@ -184,14 +117,11 @@ function confirmDelete(questId) {
     background-color: #fff;
 }
 
-<<<<<<< HEAD
 .delete-icon{
     height: 20px;
     width: 20px;
 }
 
-=======
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
 .btn:hover {
     transform: translateY(-2px);
 }

@@ -20,18 +20,6 @@ class QuestController extends Controller
     }
 
 
-<<<<<<< HEAD
-=======
-    public function index()
-{
-    // クエストのデータを取得
-    $quests = Quest::all();  // クエストのすべてのデータを取得
-
-    // quests.list ビューに quests を渡す
-    return view('quests.list')->with('quests', $quests);
-}
-
->>>>>>> febbae17455fd8e838033227b3dfc861ae071d4b
 
     public function create(Request $request)
     {
@@ -55,16 +43,6 @@ class QuestController extends Controller
 
     }
 
-    /**
-     * クエストを削除
-     */
-    public function destroy($id)
-    {
-        $quest = Quest::findOrFail($id);
-        $quest->delete();
-        
-        return redirect()->route('quests.index');
-    }
 
     public function store(Request $request)
     {
@@ -201,5 +179,6 @@ class QuestController extends Controller
         return redirect()->route('quests.index')
             ->with('success', 'クエストが正常に削除されました。');
     }
+
 
 }
