@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PlayerController;
 
 Route::get('/', function () {
     $quests = \App\Models\Quest::with(['categories', 'creator'])
@@ -15,7 +16,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-<<<<<<< HEAD
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'show']);
 Route::get('/test', [UserController::class, 'viewTestSwitch']);
@@ -36,19 +36,6 @@ Route::get('/quests/category/{category}', function($category) {
     
     return view('welcome', compact('quests', 'currentCategory'));
 })->name('quests.category');
-=======
 
-Route::group(['middleware' => 'auth'], function(){
-
-    // for Player
-    # To go to Home page
-    Route::get('/home', [HomeController::class, 'show']);
-    # To go to Switch to Quest Creator page
-    Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
-    # To store Creator Info in Switch ~ Creator page
-    Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
-
-
-});
-
->>>>>>> 508f1d7a220d6a9c3dcdfbe2db200f3afa70b45c
+// player.switchルートを追加
+Route::get('/player/switch/{quest}', [PlayerController::class, 'switch'])->name('player.switch');

@@ -69,7 +69,7 @@ use Illuminate\Support\Facades\DB;
                                     <div class="rounded-circle overflow-hidden" style="width: 30px; height: 30px;">
                                         <img src="{{ url('images/character_yusha_01_green.png') }}" alt="Creator Avatar" class="w-100 h-100 object-fit-cover">
                                     </div>
-                                    <span style="font-family: 'DotGothic16', sans-serif; font-size: 0.8rem;">{{ $quest->creator->creator_name ?? 'Unknown' }}</span>
+                                    <span style="font-family: 'DotGothic16', sans-serif; font-size: 0.8rem;">{{ $quest->questCreator->creator_name ?? 'Unknown' }}</span>
                                 </div>
                             </div>
                         </div>

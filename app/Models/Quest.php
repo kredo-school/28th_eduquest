@@ -30,7 +30,7 @@ class Quest extends Model
     /**
      * クリエイターとのリレーション
      */
-    public function creator()
+    public function questCreator()
     {
         return $this->belongsTo(QuestCreator::class, 'quest_creator_id');
     }
