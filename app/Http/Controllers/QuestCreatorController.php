@@ -47,7 +47,7 @@ class QuestCreatorController extends Controller
         
     }
     // すでに他のメソッドが存在する中に追加
-    public function viewCreatorMyPage(){
+    public function viewCreatorMyPage($id){
         // views/questcreators/creatorMyPage.blade.php を参照
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 

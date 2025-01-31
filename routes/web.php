@@ -17,5 +17,6 @@ Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name
 Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
 
+
 //For Creator Mypage
-Route::get('/creator', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
