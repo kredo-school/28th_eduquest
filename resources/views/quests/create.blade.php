@@ -158,7 +158,7 @@
                         <!-- Form Buttons -->
                         <div class="btn-container">
                             <div class="form-group form-btn mt-4">
-                                <a href="#" class="btn-design">Cancel</a>
+                                <a href="{{ route('quests.index')}}" class="btn-design">Cancel</a>
                                 <button type="submit" class="btn-design">Save<img src="{{ asset('images/te_yubisashi_right 3.png') }}"></button>
                             </div>
                         </div>

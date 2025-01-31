@@ -164,7 +164,7 @@
                                     <iframe id="video_preview_${subItemCount}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                                 </div>
 
-                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(${subItemCount})">Delete<img src="../images/Red Slime.png" style="width: 1.5rem; height: 1.3rem;"></button>
+                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(${subItemCount})">Delete<img src="../images/Group 206.png" style="width: 1.5rem; height: 1.3rem;"></button>
                             </div>
                         </div>
                     </div>

@@ -27,7 +27,7 @@
             <div class="quest-item">
                 <a href="{{ route('quests.index', $quest->id) }}">
                     <div class="quest-info">
-                        <img src="{{ asset($quest->thumbnail) }}" alt="Quest Thumbnail">
+                        <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail">
                         <div class="quest-details">
                             <h3>{{ $quest->quest_title }}</h3>
                             <p class="update-date">Last Updated: {{ $quest->updated_at->format('Y-m-d H:i:s') }}</p>
@@ -37,12 +37,12 @@
                 <div class="quest-actions">
                     <a href="{{ route('quests.edit', $quest->id) }}" class="btn btn-edit">
                         Edit
-                        <img src="{{ asset('images/edit-icon.png') }}" alt="Edit Icon">
+                        <img src="{{ asset('images/Green Slime.png') }}" alt="Edit Icon">
                     </a>
                     {{-- delete --}}
                     <button class="btn btn-delete" data-bs-toggle="modal" data-bs-target="#delete-quest{{ $quest->id }}">
                         Delete
-                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon" class="delete-icon">
+                        <img src="{{ asset('images/Red Slime.png') }}" alt="Delete Icon" class="delete-icon">
                     </button>
                     @include('quests.modals.delete')
                 </div>

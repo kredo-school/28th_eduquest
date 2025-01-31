@@ -45,7 +45,7 @@
                 <p class="text-danger fw-bold fs-4">Warning!</p>
                 <p class="fs-5">Are you sure you want to delete your quest?</p>
                 <div class="warning-box">
-                    <img src="{{ $quest->thumbnail }}" alt="quest-image" class="img-lg">
+                    <img src="{{ asset('storage/' . $quest->thumbnail) }}" alt="quest-image" class="img-lg">
                     <p class="mt-1 text-muted">{{ $quest->quest_title }}</p>
                 </div>
             </div>
@@ -54,10 +54,10 @@
                     @csrf
                     @method('DELETE')
                     <button type="button" data-bs-dismiss="modal" class="btn btn-sm btn-outline-secondary">
-                        <img src="{{ asset('images/cancel-icon.png') }}" alt="Delete Icon" class="delete-icon">Cancel
+                        <img src="{{ asset('images/Green Slime.png') }}" alt="Delete Icon" class="delete-icon">Cancel
                     </button>
                     <button type="submit" class="btn btn-sm btn-danger">
-                        <img src="{{ asset('images/delete-icon.png') }}" alt="Delete Icon" class="delete-icon">Delete
+                        <img src="{{ asset('images/Group 206.png') }}" alt="Delete Icon" class="delete-icon">Delete
                     </button>
                 </form>
             </div>
