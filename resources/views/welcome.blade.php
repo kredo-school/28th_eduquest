@@ -46,22 +46,15 @@ use Illuminate\Support\Facades\DB;
                             
                             <!-- Category Badge -->
                             <div class="px-2 py-2">
-                                @php
-                                    $category = DB::table('quest_category')
-                                        ->join('categories', 'quest_category.category_id', '=', 'categories.id')
-                                        ->where('quest_category.quest_id', $quest->id)
-                                        ->first();
-                                @endphp
-                                
-                                @if($category)
-                                    <a href="{{ route('quests.category', $category->id) }}" 
+                                @if($quest->categories->first())
+                                    <a href="{{ route('quests.category', $quest->categories->first()) }}" 
                                        class="text-decoration-none">
-                                        <span class="badge" style="background-color: #4a7555; font-size: 0.8rem;">
-                                            {{ $category->category_name }}
+                                        <span class="badge" style="background-color: #4a7555; font-size: 0.8rem; font-family: 'DotGothic16', sans-serif;">
+                                            {{ $quest->categories->first()->category_name }}
                                         </span>
                                     </a>
                                 @else
-                                    <span class="badge" style="background-color: #4a7555; font-size: 0.8rem;">
+                                    <span class="badge" style="background-color: #4a7555; font-size: 0.8rem; font-family: 'DotGothic16', sans-serif;">
                                         Categories
                                     </span>
                                 @endif

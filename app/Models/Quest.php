@@ -32,6 +32,6 @@ class Quest extends Model
      */
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_id');
+        return $this->belongsTo(QuestCreator::class, 'quest_creator_id');
     }
 }

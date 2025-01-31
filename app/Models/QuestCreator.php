@@ -11,6 +11,8 @@ class QuestCreator extends Model
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    protected $table = 'quest_creators';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +20,6 @@ class QuestCreator extends Model
      * 
      */
    protected $fillable = [
-      'user_id',
       'creator_name',
       'job_title',
       'description',
@@ -32,5 +33,10 @@ class QuestCreator extends Model
 
      public function user(){
         return $this->belongsTo(User::class);
+     }
+
+     public function quests()
+     {
+         return $this->hasMany(Quest::class, 'quest_creator_id');
      }
 }

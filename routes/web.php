@@ -13,7 +13,9 @@ Route::get('/', function () {
     
     return view('welcome', compact('quests'));
 });
+
 Auth::routes();
+<<<<<<< HEAD
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'show']);
 Route::get('/test', [UserController::class, 'viewTestSwitch']);
@@ -34,3 +36,19 @@ Route::get('/quests/category/{category}', function($category) {
     
     return view('welcome', compact('quests', 'currentCategory'));
 })->name('quests.category');
+=======
+
+Route::group(['middleware' => 'auth'], function(){
+
+    // for Player
+    # To go to Home page
+    Route::get('/home', [HomeController::class, 'show']);
+    # To go to Switch to Quest Creator page
+    Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
+    # To store Creator Info in Switch ~ Creator page
+    Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
+
+
+});
+
+>>>>>>> 508f1d7a220d6a9c3dcdfbe2db200f3afa70b45c
