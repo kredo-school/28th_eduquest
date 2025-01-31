@@ -128,7 +128,8 @@ footer{
 }
 
 
-/* ↓↓↓ for switch.blade.php ↓↓↓ */
+
+/* ↓↓↓ for home.blade.php ↓↓↓ */
 .image-md{
     width: 3.5rem;
     height: 3.5rem;
@@ -170,7 +171,6 @@ footer{
     overflow: hidden;                  /* はみ出した部分を非表示に */
     text-overflow: ellipsis;          /* 省略記号をつける(Chrome等で有効) */
 }
-
 
 .quests-row {
     background-color: #FCFCE7;
@@ -250,6 +250,7 @@ margin-right: 4px;        /* バッジ同士の隙間 */
 /* ↑↑↑ for home.blade.php ↑↑↑ */
 
 
+
 /* ↓↓↓ for switch.blade.php ↓↓↓ */
 /* 1　左のバー */
 .side-bar{
@@ -298,3 +299,14 @@ text-align: center;
 width: 130px;
 }
 /* ↑↑↑ for switch.blade.php ↑↑↑ */
+
+
+
+/* ↓↓↓ accountsecurity.blade.php↓↓↓ */
+.house {
+    width: 3rem;
+    height: 3.5rem;
+}
+
+
+/* ↑↑↑ accountsecurity.blade.php ↑↑↑ */
