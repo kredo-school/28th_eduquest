@@ -1,207 +1,21 @@
 @extends('layouts.app')
-@section('title', 'Switch to Quest Creator')
+
+@section('title', 'Edit Profile for Quest Creator')
+
 @section('content')
 
-<style>
-
- /* 1　左のバー */
- .side-bar{
-            border: 2px solid #261C11;
-            border-radius: 20px;
-            font-size: 6px;
-            margin-left: 30px;
-            margin-bottom: 50px; /* 下の余白をなくす */
-            display: flex;
-            flex-direction: column; /* 縦方向に並べる */
-            height: 100%; /* 高さを100%に調整 */
-        }
-/* 2　剣持った画像の事 */
-    .player-image{
-        height: 100px;
-        width: 100px;
-        margin-top: 30px;
-        margin-bottom: 15px;
-    }
-/* 3　ファイルを選択の下の2行の事 */
-    .Accetable{
-        font-size: 10px;
-        line-height: 1.2; /* 行間を狭める */
-        margin-bottom: 5px; /* パラグラフ間の余白も調整 */
-        margin-top: 10px;
-    }
-/* 4　4つある剣の画像の事 */
-    .sword{
-        height: 40px;
-        width: 40px;
-    }
-
-        body{
-            background-color:#FFFFF3;
-            font-family: 'DotGothic16', sans-serif;
-            color: #261C11;
-        }
-
-        /* creator-profile */
-
-        .creator-profile{
-            background-color:#FFFFFF;
-            border: 3px solid #588157;
-            /*margin-right:10px;*/
-        }
-        .creator-name{
-            font-size: 20px;
-        }
-        .creator-avator{
-            display: block;
-            margin:0 auto;
-            border-radius: 50%;
-            object-fit: cover;
-            width: 200px;
-            height: 200px;
-            border: 3px solid #588157;
-
-        }
-
-        .profile-title-s{
-            color: #646363;
-            margin: 10px 0px;
-        }
-
-        .mute-text{
-            font-size: 18px;
-            color: #afafaf; 
-        }
-
-        .edit-button-container{
-            text-decoration: none;
-            color: #333;
-            background: white;
-            padding: 0.35rem 2.2rem;
-            border: 1px solid #333;
-            border-radius: 30px 30px 30px 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        .edit-button-container a {
-            text-decoration: none;
-            color: #333;
-            background: white;
-            padding: 0.35rem 2.2rem;
-            border: 1px solid #333;
-            border-radius: 30px 30px 30px 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-
-
-        /* quest-management */
-
-        .quest-management{
-            position: relative; 
-            background-color: #FFFFFF;
-            border: 3px solid #588157;
-            margin-left:10px;
-        }
-        .quest-total{ 
-            background-color: #C7D7AC;
-            height: 100px;
-            width: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .alphabet-q{
-            height:40px;
-            width:30px;
-            margin-left: 20px;
-            margin-right: 10px;
-        }
-        .alphabet-u{
-            height:40px;
-            width:30px;
-            margin-right: 10px;
-        }
-        .alphabet-e{
-            height:40px;
-            width:30px;
-            margin-right: 10px;
-        }
-        .alphabet-s{
-            height:40px;
-            width:30px;
-            margin-right: 10px;
-        }
-        .alphabet-t{
-            height:40px;
-            width:30px;
-            margin-right: 10px;
-        }
-
-        /* background-design */
-
-        .red-dragon{
-            position: absolute;
-            width: 139px;
-            height: 72px;
-            bottom: 230px; 
-            right: 300px;
-            transform: rotate(-10deg);
-            background-color: white;
-            opacity:0.5;
-
-        }
-        .blue-castle{
-            position: absolute;
-            width: 200px;
-            height: 310px;
-            bottom: 30px;
-            right: 130px;
-            background-color: white;
-            opacity:0.5;
-        }
-        .yama-1{
-            position: absolute;
-            width: 65px;
-            height: 55px;
-            bottom: 30px; 
-            right: 60px;
-            background-color: white;
-            opacity:0.5;
-        }
-        .yama-2{
-            position: absolute;
-            width: 40px;
-            height: 30px;
-            bottom: 30px;
-            right: 160px; 
-            background-color: white;
-            opacity:0.6;
-        }
-
-        .mgt-btn{
-            position: absolute;
-            border: 2px solid #261C11;
-            background-color: #FFFFFF;
-            border-radius:40px;
-            bottom:80px;
-            left:100px;
-            padding: 10px 100px;
-            font-size:30px;
-            z-index: 1000;
-        }
-    </style>
-    <head>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    </head>
-   
-
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
 
 {{-- 1　Icon + Account Menu --}}
 <div class="row">
     {{-- Form --}}
     <div class="col-8">
-        <form action="{{ route('questcreator.update') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('questcreator.update', ['id' => $questcreator->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input type="hidden" name="redirect_to" value="{{ route('questcreators.profile.view') }}">
+        <input type="hidden" name="redirect_to" value="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}">
             {{-- Title --}}
             <div class="text-start mb-5 d-flex align-items-center">
                 <img src="{{ asset('images/madoshi_02_green.png') }}" alt="Icon" class="me-2 title-icon">
@@ -215,7 +29,7 @@
                     <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: auto; border: 2px solid #ccc;">
 
 
-                        <img id="preview-image" src="{{ $creator->creator_image ?? asset('images/default-profile.png') }}" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img id="preview-image" src="{{ $questcreator->creator_image ?? asset('images/default-profile.png') }}" alt="Profile Image" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
                 </div>
             </div>
@@ -245,13 +59,13 @@
             <div class="row mb-3 me-5">
                 <label for="qualification" class="col-sm-3 col-form-label">Qualification</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="qualification" placeholder="Enter your qualifications" name="qualification" value="{{ old('qualification', $questcreator->qualification ?? '') }}">
+                    <input type="text" class="form-control" id="qualification" placeholder="Enter your qualifications" name="qualifications" value="{{ old('qualifications', $questcreator->qualifications ?? '') }}">
                 </div>
             </div>
             <div class="row mb-3 me-5">
-                <label for="description" class="col-sm-3 col-form-label">Description</label>
+                <label for="description" class="col-sm-3 col-form-label">Introduction</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control" name="description" id="description" rows="3" placeholder="Write a brief introduction" value="{{ old('Description', $questcreator->Description ?? '') }}"></textarea>
+                    <input type="text" class="form-control textarea" name="description" id="description" rows="3" placeholder="Write a brief introduction" value="{{ old('description', $questcreator->description ?? '') }}">
                 </div>
             </div>
             <div class="row mb-3 me-5">
@@ -299,7 +113,7 @@
             <!-- Register Button -->
             <div class="text-center mt-4">
                 <button type="submit" class="edit-button-container fs-3">Update</button>
-                <button type="button" class="edit-button-container fs-3" onclick="window.location.href='{{ route('questcreators.profile.view') }}'">Cancel</button>
+                <button type="button" class="edit-button-container fs-3" onclick="window.location.href='{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}'">Cancel</button>
             </div>
         </form>
     </div>

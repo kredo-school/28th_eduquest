@@ -19,37 +19,59 @@ class QuestController extends Controller
         return view('quests.create');
     }
 
-    public function create(Request $request)
-    {
-        $categories = Category::all(); //カテゴリーデータを全て取得
-        return view('quests.create')->with('categories', $categories);
-    }
-
     /**
-     * クエスト一覧を表示
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        // 現在ログインしているユーザーのIDを取得
-        $userId = auth()->id();
+        // 他に処理があればここに追加
+    }
+    
+    /**
+     * クエスト詳細ページを表示
+     * クエストとそのレビューを一緒に取得して表示
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function show($questId)
+    {
+        // クエストと関連するチャプターを取得
+        $quest = Quest::with('chapters')->findOrFail($questId);
 
-        // ユーザーに紐づいたクエストのみを取得
-        $quests = Quest::where('quest_creator_id', $userId)->get();
+        // 現在ログインしているユーザーのレビューを取得
+        $user_review = ReviewRating::where('quest_id', $questId)
+            ->where('user_id', auth()->id())
+            ->first();
 
-        // ビューにクエストを渡す
-        return view('quests.list', compact('quests'));
+        // 他のユーザーのレビューを取得
+        $other_reviews = ReviewRating::with('user') // 'user' リレーションをロード
+        ->where('quest_id', $questId)
+        ->where('user_id', '!=', auth()->id())
+        ->orderByDesc('created_at')
+        ->get();
+
+        // ビューにデータを渡す
+        return view('players.quests.chapterlist', compact('quest', 'user_review', 'other_reviews'));
     }
 
+
     /**
-     * クエストを削除
+     * ユーザーにクエストを割り当てる
+     *
+     * @param Request $request
+     * @param int $userId
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function assignQuestToUser(Request $request, $userId)
     {
-        $quest = Quest::findOrFail($id);
-        $quest->delete();
-        
-        return redirect()->route('quests.list')
-            ->with('success', 'クエストが正常に削除されました。');
+        $user = User::findOrFail($userId);
+        $user->quest_id = $request->quest_id;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Quest assigned successfully!');
     }
 }
 
