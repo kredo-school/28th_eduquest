@@ -27,7 +27,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
     Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
     Route::get('/creator/{id}/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
-    Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questscreators.profile.edit');
+    Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
     Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
     
 });

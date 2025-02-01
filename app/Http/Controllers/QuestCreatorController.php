@@ -68,7 +68,6 @@ class QuestCreatorController extends Controller
     public function editCreatorProfile($id)
     {
         // ① ログインしていない場合はログインページへリダイレクト
-    
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'ログインしてください');
         }
@@ -86,13 +85,15 @@ class QuestCreatorController extends Controller
             $questcreator = new QuestCreator(); // 空のインスタンスを渡す
         }
 
-        
-
     
         $questCount = Quest::count();
-        return view('questcreators.creatorMyPage',compact('questcreator', 'questCount'));
+        return view('questcreators.profile.edit', compact('questcreator'));
+
+     //   return view('questcreators.creatorMyPage',compact('questcreator', 'questCount'));
         
     }
+
+
     // すでに他のメソッドが存在する中に追加
     public function viewCreatorMyPage($id)
     {
@@ -104,6 +105,8 @@ class QuestCreatorController extends Controller
 
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
+
+    
     public function update(Request $request)
     {            
         // 現在のユーザーのプロフィールデータを取得
@@ -113,7 +116,7 @@ class QuestCreatorController extends Controller
         $questcreator->creator_name = $request->input('creator_name');
         $questcreator->job_title = $request->input('job_title');
         $questcreator->description = $request->input('description');
-        $questcreator->qualifications = $request->input('qualification');
+        $questcreator->qualifications = $request->input('qualifications');
         $questcreator->youtube = $request->input('youtube');
         $questcreator->facebook = $request->input('facebook');
         $questcreator->x_twitter = $request->input('x_twitter');
@@ -121,8 +124,7 @@ class QuestCreatorController extends Controller
 
         // プロフィール画像がアップロードされた場合
         if ($request->hasFile('creator_image')) {
-            $path = $request->file('creator_image')->store('public/creator_images');
-            $questcreator->creator_image = basename($path);
+            $questcreator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' .base64_encode(file_get_contents($request->file('creator_image')));
         }
 
         // データベースに保存

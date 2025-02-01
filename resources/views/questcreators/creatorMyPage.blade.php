@@ -15,7 +15,7 @@
                         <div class="d-flex justify-content-center">
                             <h3 class="creator-name fs-1 mx-auto my-3">{{ $questcreator->creator_name}}</h3>
                         </div>
-                        <img src={{ $questcreator->creator_image }} alt="Creator Example" class="creator-avator my-3">
+                        <img src={{ $questcreator->creator_image }} alt="Creator Example" class="creator-avatar my-3">
                         <div class="job-title">
                             <p>Job title:</p>
                             <p class="fs-5">{{ $questcreator->job_title}}</p>

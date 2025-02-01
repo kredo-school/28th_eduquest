@@ -182,7 +182,7 @@
 
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{ route('questcreators.profile.view', ['id' => Auth::id()])}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{route('questcreators.profile.edit', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
