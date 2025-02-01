@@ -52,16 +52,18 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group thumbnail-container">
+                            <div class="form-group">
                                 <label for="video_image">Thumbnail URL:</label>
-                                
-                                <!-- URL入力欄 -->
-                                <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
-                                @error('thumbnail')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                <div class="thumbnail-container">
+                                    <!-- URL入力欄 -->
+                                    <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
+                                    @error('thumbnail')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
                                 <!-- 画像プレビューエリア-->
+                                <label for="image_preview">Thumbnail Preview:</label>
                                 <div id="image_preview_container" class="image-preview-container mt-3">
                                     <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
                                         src="{{ old('thumbnail') }}">
