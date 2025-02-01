@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @section('title', 'Player Home')
+
 @section('content')
 {{-- Top left：Profile Overview gx-5--}}
 <div class="row gx-5">

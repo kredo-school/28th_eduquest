@@ -51,9 +51,9 @@
                         </div>
                     </div>
                     <div class="row mb-3 me-5">
-                        <label for="description" class="col-sm-3 col-form-label">Description</label>
+                        <label for="description" class="col-sm-3 col-form-label">Introduction</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" name="description" id="description" rows="3" placeholder="Write a brief introduction"></textarea>
+                            <input type="text" class="form-control textarea" name="description" id="description" rows="3" placeholder="Write a brief introduction">
                         </div>
                     </div>
                     <div class="row mb-3 me-5">

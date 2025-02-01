@@ -17,6 +17,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
@@ -109,7 +110,7 @@
                                             <div class="rounded-circle icon">
                                                 {{-- avatar/icon --}}
                                                 @if( Auth::user()->image )
-                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
+                                                    <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
@@ -180,8 +181,8 @@
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest Data Overview</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('questcreators.profile.view', ['id' => Auth::id()])}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
+                                        <li><a class="dropdown-item" href="{{route('questcreators.profile.edit', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
@@ -233,5 +234,6 @@
             </div>
         </footer>
     </div>
+    @yield('scripts')
 </body>
 </html>
