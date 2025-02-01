@@ -38,4 +38,14 @@ class Quest extends Model
         return $this->belongsToMany(Category::class, 'quest_category', 'quest_id', 'category_id');
     }
 
+    public function questCreator()
+    {
+        return $this->belongsTo(QuestCreator::class);
+    }
+
+    public function categoryQuests()
+    {
+        return $this->hasMany(CategoryQuest::class, 'quest_id');
+    }
+
 }

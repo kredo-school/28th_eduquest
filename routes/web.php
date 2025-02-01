@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -12,22 +11,32 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/test', [UserController::class, 'viewTestSwitch']);
+Route::group(['middleware' => 'auth'], function(){
 
-Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
-Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
-Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
+    // for Player
+    # To go to Home page
+    Route::get('/home', [HomeController::class, 'show']);
+    # To go to Switch to Quest Creator page
+    Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
+    # To store Creator Info in Switch ~ Creator page
+    Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 
 
-Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
 
 
-Route::get('/quests/list', [QuestController::class, 'index'])->name('quests.index');
-Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
-Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
-Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
-Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
-Route::post('/quests/update/{id}', [QuestController::class, 'update'])->name('quests.update');
-Route::delete('/quests/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
-Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
+    Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
+    Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+    Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
+
+    Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
+
+    Route::get('/quests/list', [QuestController::class, 'index'])->name('quests.index');
+    Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
+    Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
+    Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
+    Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
+    Route::post('/quests/update/{id}', [QuestController::class, 'update'])->name('quests.update');
+    Route::delete('/quests/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
+    Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
+
+});

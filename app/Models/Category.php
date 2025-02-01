@@ -8,10 +8,9 @@ use Illuminate\Support\Facades\Auth;
 class Category extends Model
 {
     protected $fillable = ['category_name'];
-
-    //category has many quest_category
-    public function questCategory()
+    
+    public function categoryQuests()
     {
-        return $this->hasMany(QuestCategory::class);
+        return $this->hasMany(CategoryQuest::class, 'category_id');
     }
 }
