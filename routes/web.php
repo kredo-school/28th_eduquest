@@ -27,7 +27,7 @@ Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.st
 Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
 
 // クエスト一覧表示
-Route::get('/quests/{id}', [QuestController::class, 'index'])->name('quests.index');
+Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
 
 
 // クエスト削除

@@ -13,12 +13,13 @@
             <img src="{{ asset('images/38.png') }}" alt="Create Icon">
         </a>
     </div>
+
     <div class="quest-list">
         @foreach($quests as $quest)
             <div class="quest-item">
-                <a href="{{ route('quests.index', $quest->id) }}">
+                <a href="{{ route('quests.index', ['id' => $quest->id]) }}">
                     <div class="quest-info">
-                        <img src="{{ asset($quest->thumbnail) }}" alt="Quest Thumbnail">
+                        <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail">
                         <div class="quest-details">
                             <h3>{{ $quest->quest_title }}</h3>
                             <p class="update-date">Last Updated: {{ $quest->updated_at->format('Y-m-d H:i:s') }}</p>
@@ -26,7 +27,7 @@
                     </div>
                 </a>
                 <div class="quest-actions">
-                    <a href="{{ route('quests.edit', $quest->id) }}" class="btn btn-edit">
+                    <a href="{{ route('quests.edit', ['id' => $quest->id]) }}" class="btn btn-edit">
                         Edit
                         <img src="{{ asset('images/edit-icon.png') }}" alt="Edit Icon">
                     </a>
@@ -39,6 +40,7 @@
                 </div>
             </div>
         @endforeach
+        
     </div>
 </div>
 

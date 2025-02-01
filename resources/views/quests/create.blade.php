@@ -53,24 +53,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group thumbnail-container">
-                                <label for="video_image">Thumbnail:</label>
+                                <label for="video_image">Thumbnail URL:</label>
                                 
+                                <!-- URL入力欄 -->
+                                <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
+                                @error('thumbnail')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
                                 <!-- 画像プレビューエリア-->
                                 <div id="image_preview_container" class="image-preview-container mt-3">
                                     <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
-                                        src="{{ old('thumbnail') ? asset('storage/' . old('thumbnail')) : '' }}">
+                                        src="{{ old('thumbnail') }}">
                                 </div>
-
-                                <!-- アップロードボタン-->
-                                <button type="button" class="custom-file-button" onclick="document.getElementById('video_image').click();">
-                                    Upload<img src="{{ asset('images/te_yubisashi_right 3.png') }}">
-                                </button>
-
-                                <!-- ファイル選択の非表示入力-->
-                                <input type="file" class="form-control-file" id="video_image" name="thumbnail" onchange="previewImage(event)" style="display: none;" required>
-                                @error('video_image')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
                     </div>
