@@ -31,3 +31,7 @@ Route::post('/quest/{id}/assign-quest', [QuestsChapterController::class, 'assign
 Route::post('/quests/{quest}/reviews', [ReviewsRatingController::class, 'store'])->name('reviews.store');
 Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
 Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
+Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
+
+
+

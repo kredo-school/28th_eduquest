@@ -45,13 +45,14 @@ class QuestController extends Controller
             ->first();
 
         // 他のユーザーのレビューを取得
-        $other_reviews = ReviewRating::where('quest_id', $questId)
-            ->where('user_id', '!=', auth()->id())
-            ->orderByDesc('created_at')  // 最新のレビューが上に来るように並べ替え
-            ->get();
+        $other_reviews = ReviewRating::with('user') // 'user' リレーションをロード
+        ->where('quest_id', $questId)
+        ->where('user_id', '!=', auth()->id())
+        ->orderByDesc('created_at')
+        ->get();
 
         // ビューにデータを渡す
-        return view('quests.chapter-list', compact('quest', 'user_review', 'other_reviews'));
+        return view('players.quests.chapterlist', compact('quest', 'user_review', 'other_reviews'));
     }
 
 

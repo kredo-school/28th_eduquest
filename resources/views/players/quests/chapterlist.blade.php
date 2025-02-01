@@ -1,7 +1,52 @@
 @extends('layouts.app')
-    @section('style')
-        
-    @endsection
+@section('style')
+    <style>
+        .review-text {
+            max-height: 20px; /* 初期状態は1行分の高さ */
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+            line-height: 1.4;
+        }
+
+        .review-text.expanded {
+            max-height: none; /* 高さ制限を解除して全文表示 */
+            overflow: scroll;
+        }
+        .review {
+            transition: height 0.3s ease-in-out; /* 高さの変更をスムーズに */
+            height: auto; /* コンテンツに合わせて高さを自動調整 */
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            font-size: 0;
+        }
+
+        .star {
+            width: 17px;
+            height: 17px;
+        }
+
+        .star-gray {
+            width: 17px;
+            height: 17px;
+            opacity: 0.5; /* 未評価の星を薄く表示 */
+        }
+
+        .star-partial {
+            background-image: url('{{ asset('images/star_yellow 3.png') }}');
+            background-size: 100% 100%;
+            width: 0;
+            height: 17px;
+            position: absolute;
+            overflow: hidden;
+        }
+
+    </style>
+@endsection
+
+
+
     @section('content')
     <div class="container mt-1">
         <!-- 上部背景 -->
@@ -37,8 +82,8 @@
                     <img src="{{{asset('images/jewelry_pyramid_purple.png') }}}" alt="Reward Badge" class="mb-2" style="width: 40px; height: 40px;">
                 </div>
                 <div class="d-flex align-items-center">
-                    <img src="{{{asset('images/udedokei_gold 1.png') }}}" alt="Watch" class="" style="width: 15px; height: 30px;">
-                    <div class="ms-2 text-center">
+                    <img src="{{{asset('images/udedokei_gold 1.png') }}}" alt="Watch" class="" style="width: 18px; height: 36px;">
+                    <div class="ms-4 text-center">
                         <p class="mb-0">Time</p>
                         <p class="mb-0">{{ $quest->total_hours }}h</p>
                     </div>
@@ -54,19 +99,25 @@
             <!-- パーセンテージ表示 -->
             <span class="ms-2 fw-bold">70%</span>
             <!-- スタートボタン -->
-            <a href="#" type="button" class="text-decoration-none border rounded px-3 py-2 bg-white ms-2" style="color :#261C11; border-color: #261C11 !important; border-radius : 20px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">Start</a>
+            <a href="#" id="startButton" class="text-decoration-none border rounded px-3 py-2 bg-white ms-2" 
+                style="color: #261C11; border-color: #261C11 !important; border-radius: 20px !important; 
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                Start
+            </a>
+            <!-- 日時を表示するエリア -->
+            <span id="timestamp" class="ms-3"></span>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <h4 mt-4>Chapter List</h4>
+                <h4 class="fw-bold">Chapter List</h4>
                 <!-- 左側（チャプターリスト） -->
-                <div class="mt-3" style="max-height: 300px; overflow-y: auto;">
+                <div class="" style="max-height: 400px; overflow-y: auto;">
                     <ul class="list-group"> 
                         @foreach ($quests_chapters as $quests_chapter) 
                             <li class=""> 
                                 <a href="#" class="text-decoration-none border d-flex align-items-center mb-3 p-4"  style="color :#261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"> 
                                     <div class="d-flex">
-                                        <div class="me-3 rounded border d-flex align-items-center justify-content-center bg-white" style="width: 30px; height: 25px; border-color: #261C11 !important; border-radius: 13px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
+                                        <div class="me-3 rounded border d-flex align-items-center justify-content-center bg-white" style="width: 30px !important; height: 25px !important; min-width: 30px; min-height: 25px; border-color: #261C11 !important; border-radius: 13px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
                                             <h6 class="mb-0"><span class="roman-number"></span> </h6>
                                         </div>
                                         <div>
@@ -96,101 +147,308 @@
             <!-- 右側（評価とレビュー） -->
             <div class="col-md-6">
                 <!-- Rating -->
-                <div class="mt-4">
+                <div class="mt-2">
                     <div class="row">
                         <div class="col-md-6">
-                            <h5 class="fw-bold">Rating</h5>
-                            <div class="d-flex align-items-center mb-3">
-                                <span class="me-2">Average Rating:</span>
-                                <span class="fs-3 fw-bold me-2">2.0</span>
-                                <span>★★☆☆☆</span>
+                            <h4 class="fw-bold">Rating</h4>
+                            <div class="d-flex justify-content-center align-items-center">
+                                <h5 class="text-center">Average Rating</h5>
+                            </div>
+                            <div class="text-center">
+                                <h3 class="fw-bold">
+                                    @php
+                                        // 平均評価の計算
+                                        $totalStars = 0;
+                                        $totalVotes = 0;
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            $totalStars += $i * ($ratingPercentages[$i] ?? 0);  // 星の数とその割合
+                                            $totalVotes += $ratingPercentages[$i] ?? 0;          // 評価したユーザー数
+                                        }
+                                        $averageRating = $totalVotes > 0 ? $totalStars / $totalVotes : 0;
+                                    @endphp
+                                    {{ number_format($averageRating, 1) }}
+                                    </h3>
+                            </div>
+                            <div class="text-center">
+                                <span>
+                                    {{-- 星の表示 --}}
+                                    @php
+                                        $fullStars = floor($averageRating); // 完全な星の個数
+                                        $partialStar = $averageRating - $fullStars; // 部分的な星の割合（小数部分）
+                                    @endphp
+                                </span>
+                        
+                                <!-- 星の画像を動的に調整 -->
+                                <span>
+                                    <span style="position: relative; display: inline-block;">
+                                        @for ($i = 1; $i <= $fullStars; $i++)
+                                            <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" style="width: 19px; height: 19px; vertical-align: middle;">
+                                        @endfor
+                                    
+                                        {{-- 部分的な星 --}}
+                                        @if ($partialStar > 0)
+                                            <span class="ms-2" style="position: absolute; overflow: hidden; width: {{ $partialStar * 19 }}px;">
+                                                <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" style="width: 19px; height: 19px; vertical-align: middle;">
+                                            </span>
+                                        @endif
+                                    </span>
+                                    
+                                    
+                                </span>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        
+                        
+                        <div class="col-md-6 text-center">
+
                             <!-- 1つ星 -->
-                            <div class="d-flex align-items-center mb-2">
-                                <p class="mb-0 me-3">★</p>
-                                <div class="progress flex-grow-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="mt-2 mb-2">
+                                <div class="fw-bold d-flex align-items-center" style="color: #261C11">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <span class="ms-1" style="line-height: 1.2; vertical-align: middle; color: #DA0000;">{{ isset($ratingPercentages[1]) ? $ratingPercentages[1] : 0 }}%</span>
                                 </div>
-                                <span class="ms-2">40%</span>
                             </div>
+
                             <!-- 2つ星 -->
-                            <div class="d-flex align-items-center mb-2">
-                                <p class="mb-0 me-3">★★</p>
-                                <div class="progress flex-grow-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="mb-2">
+                                <div class="fw-bold d-flex align-items-center" style="color: #261C11">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <span class="ms-1" style="line-height: 1.2; vertical-align: middle; color: #1B30EF;">{{ isset($ratingPercentages[2]) ? $ratingPercentages[2] : 0 }}%</span>
                                 </div>
-                                <span class="ms-2">30%</span>
                             </div>
+
                             <!-- 3つ星 -->
-                            <div class="d-flex align-items-center mb-2">
-                                <p class="mb-0 me-3">★★★</p>
-                                <div class="progress flex-grow-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="mb-2">
+                                <div class="fw-bold d-flex align-items-center" style="color: #261C11">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <span class="ms-1" style="line-height: 1.2; vertical-align: middle; color: #32CC87;">{{ isset($ratingPercentages[3]) ? $ratingPercentages[3] : 0 }}%</span>
                                 </div>
-                                <span class="ms-2">20%</span>
                             </div>
+
                             <!-- 4つ星 -->
-                            <div class="d-flex align-items-center mb-2">
-                                <p class="mb-0 me-3">★★★★</p>
-                                <div class="progress flex-grow-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="mb-2">
+                                <div class="fw-bold d-flex align-items-center" style="color: #261C11">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <span class="ms-1" style="line-height: 1.2; vertical-align: middle; color: #1F75E4;">{{ isset($ratingPercentages[4]) ? $ratingPercentages[4] : 0 }}%</span>
                                 </div>
-                                <span class="ms-2">10%</span>
                             </div>
+
                             <!-- 5つ星 -->
-                            <div class="d-flex align-items-center mb-2">
-                                <p class="mb-0 me-3">★★★★★</p>
-                                <div class="progress flex-grow-1">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="mb-1">
+                                <div class="fw-bold d-flex align-items-center" style="color: #261C11">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" class="me-1" style="width: 17px; height: 17px;">
+                                    <span class="ms-1" style="line-height: 1.2; vertical-align: middle; color: #E48C1F;">{{ isset($ratingPercentages[5]) ? $ratingPercentages[5] : 0 }}%</span>
                                 </div>
-                                <span class="ms-2">0%</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                 <!-- レビュー -->
+                {{-- レビュー --}}
                 <div class="mt-4">
-                    <h5>Review</h5>
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            {{-- 自分のレビュー --}}
-                            @if($user_review)
-                                <div class="my-review">
-                                    <p><strong>My account:</strong>{{ $user_review->rating }}</p>
-                                    <p>{{  $user_review->review  }}</p>
-                                    <form method="POST" action="{{ route('reviews.destroy', $user_review->id) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit">削除</button>
-                                    </form>
-                                    <a href="#" class="btn btn-link">View more</a>
+                    <h4 class="fw-bold">Review</h4>
+                
+                    <ul class="list-group list-unstyled">
+                        {{-- 自分のレビュー --}}
+                        @if($user_review)
+                        <li>
+                            <div class="d-flex align-items-center mb-2" style="width: 100%;">
+
+                                <!-- レビュー内容 -->
+                                <div class="review text-decoration-none border d-flex align-items-center p-2  flex-grow-1"
+                                    style="color: #261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); overflow: hidden; width: 77%;">
+                            
+                                    <!-- アイコン -->
+                                    <div class="me-3">
+                                        @if(Auth::user()->image)
+                                        <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+                                        @else
+                                        <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
+                                        @endif
+                                    </div>
+                            
+                                    <!-- ユーザー名 & レビュー -->
+                                    <div class="flex-grow-1 d-flex flex-column">
+                                        <strong>{{ Auth::user()->player_nickname }} <span style="font-size: 10px;">(your account)</span></strong>
+                                        <p id="comment-review-{{ $user_review->id }}" class="mb-0 review-text text-truncate p-2" style="mb-0 review-text text-truncate p-2" style="max-width: 200px; word-wrap: break-word; overflow-wrap: break-word;">
+                                            {{ $user_review->review }}
+                                        </p>
+                                    </div>
+                                    
+                            
+                                    <!-- 星評価 & 「view more >」 -->
+                                    <div class="text-end d-flex flex-column align-items-end ms-3">
+                                        <div class="fw-bold" style="color: #261C11">
+                                            <img src="{{{asset('images/star_yellow 3.png') }}}" alt="star" class="" style="width: 17px; height: 17px; vertical-align: middle;">
+                                            {{ $user_review->rating }}
+                                        </div>
+                                        <span id="{{ $user_review->id }}" class="btn btn-link p-0 ms-2 view-more-btn" style="font-size: 12px; white-space: nowrap;">View more</span>
+                                    </div>
                                 </div>
-                                @else
-                                    <p>レビューをまだ投稿していません。</p>
-                                @endif
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            {{-- 他のユーザーのレビュー --}}
-                            @forelse($other_reviews as $review)
-                                <div class="review">
-                                    <p><strong>{{ $review->user->name }}</strong></p>
-                                    <p>評価: {{ $review->rating }}/5</p>
-                                    <p>{{ $review->review }}</p>
+                            
+                                @isset($user_review)
+                                    <div class="d-flex align-items-center ms-2">
+                                        <button onclick="deleteReview({{ $user_review->id }})"
+                                                class="btn btn-sm border rounded px-3 py-2 bg-white"
+                                                style="color: #261C11; border-color: #261C11 !important; border-radius: 20px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                                            <img src="{{ asset('images/image 85.png') }}" alt="treasure box" class="me-1" style="width: 20px; height: 20px;">
+                                            Delete
+                                        </button>
+                                    </div>
+                                @endisset
+                            </div>
+                            
+
+                    
+                        </li>
+                        @endif
+                    </ul>
+
+                        <!-- 他のユーザーのレビュー -->
+                    <div class="p-1" style="max-height: 250px; overflow-y: auto;">
+                        <ul class="list-group list-unstyled">
+                            @foreach($other_reviews as $review)
+                            <li>
+                                <div class="review text-decoration-none border d-flex align-items-center p-2 mb-2"
+                                    style="color: #261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); width: 79%; overflow: hidden;">
+                                    
+                                    <!-- アイコン -->
+                                    <div class="me-3">
+                                        @if($review->user->avatar)
+                                        <img src="{{ $review->user->avatar }}" alt="" class="rounded-circle" width="40" height="40"
+                                            style="object-fit: cover;">
+                                        @else
+                                        <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
+                                        @endif
+                                    </div>
+                        
+                                    <!-- ユーザー名 & レビュー -->
+                                    <div class="flex-grow-1 d-flex flex-column">
+                                        <strong>{{ $review->user->player_nickname }}</strong>
+                                        <p id="comment-review-{{ $review->id }}" class="mb-0 review-text text-truncate p-2" style="max-width: 200px; word-wrap: break-word; overflow-wrap: break-word;">
+                                          {{ $review->review }}
+                                        </p>
+                                      
+                                    </div>
+                        
+                                    <!-- 星評価 & 「view more >」 -->
+                                    <div class="text-end d-flex flex-column align-items-end ms-3">
+                                        <div class="fw-bold" style="color: #261C11">
+                                            <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" style="width: 17px; height: 17px; vertical-align: middle;">
+                                            {{ $review->rating }}
+                                        </div>
+                                        <span id="{{ $review->id }}" class="btn btn-link p-0 ms-2 view-more-btn" style="font-size: 12px; white-space: nowrap;">View more</span>
+                                    </div>
                                 </div>
-                            @empty
-                                <p>まだレビューがありません。</p>
-                            @endforelse
-                        </div>
+                            </li>
+                            @endforeach
+                        </ul>
                     </div>
+
+                    
                 </div>
+                
+                
+                
+                
             </div>
         </div>
     </div>
 @endsection
 @section('scripts')
     <script src="{{ asset('js/chapterlist.js') }}"></script>
+    <script>
+        document.querySelectorAll('.view-more-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            // このボタンが含まれているレビュー要素を取得
+            const review = this.closest('.review');
+            const id = event.target.id;
+            const state = event.target.textContent.trim();
+            const element = document.querySelector(`#comment-review-${id}.review-text`); 
+            if (element) {
+            if (state === "View more") {
+                element.classList.remove("text-truncate");
+                this.textContent = "View less";
+            } else {
+                element.classList.add("text-truncate");
+                this.textContent = "View more";
+            }
+
+            }
+                    
+
+            // 隠れているコンテンツを取得（hiddenクラスが付いている要素）
+            const hiddenContent = review.querySelectorAll('.hidden');
+            
+            // hiddenクラスを削除して、コンテンツを表示
+            hiddenContent.forEach(function(element) {
+                element.classList.remove('hidden');
+            });
+
+            // ボタンのテキストを「View less」に変更
+            // this.textContent = 'View less';
+
+            // 再度クリックしたときにコンテンツを隠す
+            this.addEventListener('click', function() {
+                hiddenContent.forEach(function(element) {
+                    element.classList.add('hidden');
+                });
+
+                // // ボタンのテキストを「View more」に戻す
+                // this.textContent = 'View more';
+            });
+        });
+    });
+
+    </script>
+    <script>
+        document.getElementById("startButton").addEventListener("click", function(event) {
+            event.preventDefault(); // ページ遷移を防ぐ
+    
+            // 現在の日時を取得
+            const now = new Date();
+            const formattedDate = now.getFullYear() + "-" + 
+                                  ("0" + (now.getMonth() + 1)).slice(-2) + "-" + 
+                                  ("0" + now.getDate()).slice(-2) + " " + 
+                                  ("0" + now.getHours()).slice(-2) + ":" + 
+                                  ("0" + now.getMinutes()).slice(-2) + ":" + 
+                                  ("0" + now.getSeconds()).slice(-2);
+    
+            // 日時を表示
+            document.getElementById("timestamp").textContent = formattedDate;
+        });
+    </script>
+    <script>
+        function deleteReview(reviewId) {
+            // 確認ダイアログを削除
+            fetch(`/reviews/${reviewId}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 削除後、ページをリロードして削除を反映
+                if (data.success) {
+                    location.reload(); // ページをリロードして削除を反映
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+    
+    
+
 @endsection
+

@@ -18,7 +18,7 @@ class ChapterlistController extends Controller
             // レビューを作成したユーザー情報を取得し、レビューIDで並べ替え
             $query->with('user')->orderByDesc('id');
         }])->findOrFail($id);
-        
+
         // クエスト作成者の情報を取得
         $quest_creator = QuestCreator::findOrFail($id);
 
@@ -35,18 +35,36 @@ class ChapterlistController extends Controller
 
         // 他のユーザーのレビューを取得
         $other_reviews = ReviewsRating::where('quest_id', $id)
-        ->where('user_id', '!=', $user->id)
-        ->orderByDesc('created_at')  // 最新のレビューが上に来るように並べ替え
-        ->get();
+            ->where('user_id', '!=', $user->id)
+            ->orderByDesc('created_at')  // 最新のレビューが上に来るように並べ替え
+            ->get();
+
+        // レビューの評価別集計
+        $ratingsCount = ReviewsRating::select('rating', \DB::raw('count(*) as count'))
+            ->where('quest_id', $id)
+            ->groupBy('rating')
+            ->get();
+
+        // レビュー全体の件数
+        $totalReviews = ReviewsRating::where('quest_id', $id)->count();
+
+        // 各評価の割合を計算
+        $ratingPercentages = [];
+        foreach ($ratingsCount as $rating) {
+            $percentage = ($rating->count / $totalReviews) * 100;
+            $ratingPercentages[$rating->rating] = round($percentage, 2); // 小数点2桁まで
+        }
 
         // ビューにデータを渡す
         return view('players.quests.chapterlist', compact(
-            'quest', 
-            'quest_creator', 
-            'quests_chapters', 
-            'user', 
-            'user_review', 
-            'other_reviews'
+            'quest',
+            'quest_creator',
+            'quests_chapters',
+            'user',
+            'user_review',
+            'other_reviews',
+            'ratingPercentages' // 評価の割合データをビューに渡す
         ));
     }
+
 }
