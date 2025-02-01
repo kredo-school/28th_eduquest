@@ -5,9 +5,11 @@
         <div class="col-md-6">
             <div class="card sign-in card">
                 {{-- Sign in --}}
+                <form method="POST" action="{{ route('login') }}">
+                @csrf
                     <div class="card-body sign-in-card-body text-center fw-bold bg-white">
                         <img src="..\images\character_yusha_01_green.png"
-                            alt="yusya_man" style="min-width: 25px; min-height: 25px; width: 25px; height: 25px; margin: 5px; object-fit: contain;">{{ __('Sign In') }}<img
+                            alt="yusya_man" style="min-width: 25px; min-height: 25px; width: 25px; height: 25px; margin: 5px; object-fit: contain;">{{ __('Login') }}<img
                             src="..\images\character_yusha_woman_red.png" alt="yusya_woman"
                             style="min-width: 25px; min-height: 25px; width: 25px; height: 25px; margin: 5px; object-fit: contain;">
                     
@@ -60,8 +62,9 @@
                                 class="btn w-100 me-4 bg-white text-dark fw-bold rounded-pill border border-dark">
                                 <img src="..\images\mark_diamond_red.png" alt="diamond"
                                     style="width: 20px; height: 20px; margin: 5px;">
-                                {{ __('Sign In') }}
+                                {{ __('Login') }}
                             </button>
+
                             </div>
                         </div>
                     </form>
