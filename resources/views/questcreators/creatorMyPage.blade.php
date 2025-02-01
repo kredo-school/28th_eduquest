@@ -158,7 +158,7 @@
                             <a href="{{ $questcreator->linkedin}}" class="{{ $questcreator->linkedin ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-linkedin mx-3"></i></a>
                         </div>
                         <div class="view-more text-center p-3" >
-                            <a href="{{ route('questcreators.profile.view')}}" class="text-decoration-none fs-3">View more > </a>
+                            <a href="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}" class="text-decoration-none fs-3">View more > </a>
                         </div>
                 </div>
                 {{-- Quest Management --}}

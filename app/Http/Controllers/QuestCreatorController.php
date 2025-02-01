@@ -12,6 +12,7 @@ class QuestCreatorController extends Controller
     }
     public function store(Request $request)
     {
+        #1. Validate your data first
         $request->validate([
             'creator_name' => 'required',
             'job_title' => 'required',
@@ -21,7 +22,7 @@ class QuestCreatorController extends Controller
             'youtube' => 'nullable|string',
             'facebook' => 'nullable|string',
             'x_twitter' => 'nullable|string',
-            'linkedin' => 'nullable|string'
+            'linkedin' => 'nullable|string' 
         ]);
         //現在のユーザーを取得
         $user = Auth::user();
@@ -51,13 +52,7 @@ class QuestCreatorController extends Controller
         // デフォルトのリダイレクト先
         return redirect()->route('questcreators.profile.view');
     }
-    // すでに他のメソッドが存在する中に追加
-    public function viewCreatorMyPage(){
-        // views/questcreators/creatorMyPage.blade.php を参照
-        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
-
-        return view('questcreators.creatorMyPage', compact('questcreator'));
-    }
+ 
 
     public function viewCreatorProfile(){
 
@@ -70,17 +65,18 @@ class QuestCreatorController extends Controller
     public function editCreatorProfile($id)
     {
         // ① ログインしていない場合はログインページへリダイレクト
-    if (!Auth::check()) {
-        return redirect()->route('login')->with('error', 'ログインしてください');
-    }
+    
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'ログインしてください');
+        }
 
         // ② URLの {id} から QuestCreator を取得
-    $questcreator = QuestCreator::where('user_id', $id)->firstOrFail();
+        $questcreator = QuestCreator::where('user_id', $id)->firstOrFail();
 
- // ③ ログインユーザーがこのプロフィールの所有者かチェック
- if ($questcreator->user_id !== Auth::id()) {
-    abort(403, 'このプロフィールを編集する権限がありません');
-}
+        // ③ ログインユーザーがこのプロフィールの所有者かチェック
+        if ($questcreator->user_id !== Auth::id()) {
+            abort(403, 'このプロフィールを編集する権限がありません');
+        }
 
         // データが存在しない場合の処理を追加
         if (!$questcreator) {
@@ -94,39 +90,47 @@ class QuestCreatorController extends Controller
 
     
     // すでに他のメソッドが存在する中に追加
-    // public function viewEditCreatorProfile(){
-    //  return view('questcreators.profile.edit',compact('questcreator'));
-    //}
-
-    public function update(Request $request)
+    public function viewCreatorMyPage($id)
     {
-        
-    // 現在のユーザーのプロフィールデータを取得
-    $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 
-    // フォームデータをモデルに反映
-    $questcreator->creator_name = $request->input('creator_name');
-    $questcreator->job_title = $request->input('job_title');
-    $questcreator->description = $request->input('description');
-    $questcreator->qualifications = $request->input('qualification');
-    $questcreator->youtube = $request->input('youtube');
-    $questcreator->facebook = $request->input('facebook');
-    $questcreator->x_twitter = $request->input('x_twitter');
-    $questcreator->linkedin = $request->input('linkedin');
+        // views/questcreators/creatorMyPage.blade.php を参照
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 
-    // プロフィール画像がアップロードされた場合
-    if ($request->hasFile('creator_image')) {
-        $path = $request->file('creator_image')->store('public/creator_images');
-        $questcreator->creator_image = basename($path);
+        return view('questcreators.creatorMyPage', compact('questcreator'));
     }
+    public function update(Request $request)
+    {            
+        // 現在のユーザーのプロフィールデータを取得
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 
-    // データベースに保存
-    $questcreator->save();
+        // フォームデータをモデルに反映
+        $questcreator->creator_name = $request->input('creator_name');
+        $questcreator->job_title = $request->input('job_title');
+        $questcreator->description = $request->input('description');
+        $questcreator->qualifications = $request->input('qualification');
+        $questcreator->youtube = $request->input('youtube');
+        $questcreator->facebook = $request->input('facebook');
+        $questcreator->x_twitter = $request->input('x_twitter');
+        $questcreator->linkedin = $request->input('linkedin');
 
-    // 更新後にリダイレクト
-    return redirect()->route('questcreators.profile.view')
+        // プロフィール画像がアップロードされた場合
+        if ($request->hasFile('creator_image')) {
+            $path = $request->file('creator_image')->store('public/creator_images');
+            $questcreator->creator_image = basename($path);
+        }
+
+        // データベースに保存
+        $questcreator->save();
+
+        // 更新後にリダイレクト
+        // return redirect()->route('questcreators.profile.view')
+        //     ->with('success', 'Profile updated successfully!');
+
+        return redirect()->route('questcreators.profile.view', ['id' => $questcreator->id])
         ->with('success', 'Profile updated successfully!');
+
     }
+
 
 
 }

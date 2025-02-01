@@ -198,7 +198,7 @@
 <div class="row">
     {{-- Form --}}
     <div class="col-8">
-        <form action="{{ route('questcreator.update') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('questcreator.update', ['id' => $questcreator->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <input type="hidden" name="redirect_to" value="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}">
