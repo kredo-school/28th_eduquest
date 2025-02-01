@@ -59,6 +59,10 @@ class QuestCreatorController extends Controller
         return view('questcreators.creatorMyPage');
     }
 
-
+    public function creatorGuide()
+    {
+        // view / how-to-guide.blade.phpに遷移
+        return view('questcreators.how-to-guide');
+    }
 
 }

@@ -17,8 +17,11 @@ Route::get('/test', [UserController::class, 'viewTestSwitch']);
 
 Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
+
 
 Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
+
 
 Route::get('/quests/list', [QuestController::class, 'index'])->name('quests.index');
 Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
