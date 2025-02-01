@@ -46,6 +46,20 @@ nav{
     text-align: center;
     width: 130px;
 }
+/* For Resistarion By Yudai  */
+.resistration-card .card-header {
+    border-bottom: none;
+}
+.resistration .card-body {
+    border-top: none;
+ }
+
+.sign-in-card-body {
+    background-image: url('../images/SignIn_background_image.png'); /* 画像のパスを適切に設定 */
+    background-size: cover; /* 画像のサイズをカバーに設定 */
+    background-position: center; /* 画像を中央に配置 */
+    background-repeat: no-repeat; /* 画像の繰り返しを無効に */
+}
 
 /* ↓何用のCSSかは要チェック */
 .title-icon {
