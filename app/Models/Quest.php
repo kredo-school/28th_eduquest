@@ -37,7 +37,7 @@ class Quest extends Model
         return $this->hasMany(User::class);
     }
     // クエストチャプターとのリレーション
-    public function quests_chapters()
+    public function questsChapters()
     {
         return $this->hasMany(QuestsChapter::class);
     }

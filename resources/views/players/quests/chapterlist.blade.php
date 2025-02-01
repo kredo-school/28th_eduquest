@@ -1,52 +1,5 @@
 @extends('layouts.app')
-@section('style')
-    <style>
-        .review-text {
-            max-height: 20px; /* 初期状態は1行分の高さ */
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
-            line-height: 1.4;
-        }
-
-        .review-text.expanded {
-            max-height: none; /* 高さ制限を解除して全文表示 */
-            overflow: scroll;
-        }
-        .review {
-            transition: height 0.3s ease-in-out; /* 高さの変更をスムーズに */
-            height: auto; /* コンテンツに合わせて高さを自動調整 */
-        }
-        .rating {
-            display: flex;
-            align-items: center;
-            font-size: 0;
-        }
-
-        .star {
-            width: 17px;
-            height: 17px;
-        }
-
-        .star-gray {
-            width: 17px;
-            height: 17px;
-            opacity: 0.5; /* 未評価の星を薄く表示 */
-        }
-
-        .star-partial {
-            background-image: url('{{ asset('images/star_yellow 3.png') }}');
-            background-size: 100% 100%;
-            width: 0;
-            height: 17px;
-            position: absolute;
-            overflow: hidden;
-        }
-
-    </style>
-@endsection
-
-
-
+@section('title', 'Player Chapterlist')
     @section('content')
     <div class="container mt-1">
         <!-- 上部背景 -->
@@ -66,9 +19,13 @@
                     </a>
                     <span class="">{{ $quest_creator->creator_name }}</span>
                 </div>
-                <div class="w-70 text-wrap text-center">
-                    <p class="text-break mb-0">{{ $quest->description }}</p>
+                <div class="w-50 text-wrap text-center">
+                    <p class="text-break mb-0" style="word-break: break-word; overflow-wrap: break-word; white-space: normal; display: block; max-width: 100%;">
+                        {{ $quest->description }}
+                    </p>
                 </div>
+                
+                
 
             </div>
             <!-- クエスト名 -->
@@ -314,45 +271,49 @@
                     </ul>
 
                         <!-- 他のユーザーのレビュー -->
-                    <div class="p-1" style="max-height: 250px; overflow-y: auto;">
-                        <ul class="list-group list-unstyled">
-                            @foreach($other_reviews as $review)
-                            <li>
-                                <div class="review text-decoration-none border d-flex align-items-center p-2 mb-2"
-                                    style="color: #261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); width: 79%; overflow: hidden;">
+                        <div class="p-1" style="max-height: 250px; overflow-y: auto;">
+                            <ul class="list-group list-unstyled">
+                                @if($other_reviews->isEmpty())
+                                    <li class="text-center text-muted">No reviews have been posted yet.</li>
+                                @else
+                                    @foreach($other_reviews as $review)
+                                        <li>
+                                            <div class="review text-decoration-none border d-flex align-items-center p-2 mb-2"
+                                                style="color: #261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); width: 79%; overflow: hidden;">
+                                                
+                                                <!-- アイコン -->
+                                                <div class="me-3">
+                                                    @if($review->user->avatar)
+                                                        <img src="{{ $review->user->avatar }}" alt="" class="rounded-circle" width="40" height="40"
+                                                            style="object-fit: cover;">
+                                                    @else
+                                                        <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
+                                                    @endif
+                                                </div>
                                     
-                                    <!-- アイコン -->
-                                    <div class="me-3">
-                                        @if($review->user->avatar)
-                                        <img src="{{ $review->user->avatar }}" alt="" class="rounded-circle" width="40" height="40"
-                                            style="object-fit: cover;">
-                                        @else
-                                        <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
-                                        @endif
-                                    </div>
+                                                <!-- ユーザー名 & レビュー -->
+                                                <div class="flex-grow-1 d-flex flex-column">
+                                                    <strong>{{ $review->user->player_nickname }}</strong>
+                                                    <p id="comment-review-{{ $review->id }}" class="mb-0 review-text text-truncate p-2" style="max-width: 200px; word-wrap: break-word; overflow-wrap: break-word;">
+                                                      {{ $review->review }}
+                                                    </p>
+                                                </div>
+                                    
+                                                <!-- 星評価 & 「view more >」 -->
+                                                <div class="text-end d-flex flex-column align-items-end ms-3">
+                                                    <div class="fw-bold" style="color: #261C11">
+                                                        <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" style="width: 17px; height: 17px; vertical-align: middle;">
+                                                        {{ $review->rating }}
+                                                    </div>
+                                                    <span id="{{ $review->id }}" class="btn btn-link p-0 ms-2 view-more-btn" style="font-size: 12px; white-space: nowrap;">View more</span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                        </div>
                         
-                                    <!-- ユーザー名 & レビュー -->
-                                    <div class="flex-grow-1 d-flex flex-column">
-                                        <strong>{{ $review->user->player_nickname }}</strong>
-                                        <p id="comment-review-{{ $review->id }}" class="mb-0 review-text text-truncate p-2" style="max-width: 200px; word-wrap: break-word; overflow-wrap: break-word;">
-                                          {{ $review->review }}
-                                        </p>
-                                      
-                                    </div>
-                        
-                                    <!-- 星評価 & 「view more >」 -->
-                                    <div class="text-end d-flex flex-column align-items-end ms-3">
-                                        <div class="fw-bold" style="color: #261C11">
-                                            <img src="{{ asset('images/star_yellow 3.png') }}" alt="star" style="width: 17px; height: 17px; vertical-align: middle;">
-                                            {{ $review->rating }}
-                                        </div>
-                                        <span id="{{ $review->id }}" class="btn btn-link p-0 ms-2 view-more-btn" style="font-size: 12px; white-space: nowrap;">View more</span>
-                                    </div>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
 
                     
                 </div>

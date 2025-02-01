@@ -23,7 +23,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
     # To store Creator Info in Switch ~ Creator page
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
-    Route::get('/player/chapterlist/{id}', [ChapterlistController::class, 'viewChapterList']);
 
     //Quest
     Route::get('/quests/{id}', [QuestController::class, 'show'])->name('quest.show');
@@ -42,10 +41,16 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
     Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
+    
+    # To go to Chapterlist page
+    Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
+    ->name('quests.chapters');
+
 
 
     //For Creators
     # To go to Creator Mypage
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+
 });
 

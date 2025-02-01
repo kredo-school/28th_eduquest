@@ -20,7 +20,7 @@ class ChapterlistController extends Controller
         }])->findOrFail($id);
 
         // クエスト作成者の情報を取得
-        $quest_creator = QuestCreator::findOrFail($id);
+        $quest_creator = QuestCreator::findOrFail($quest->quest_creator_id);
 
         // クエストに紐づくチャプターを取得
         $quests_chapters = QuestsChapter::where('quest_id', $id)->get();

@@ -20,11 +20,16 @@ class QuestsChapterController extends Controller
         //
     }
 
-    public function show($id)
+    public function show($questId)
     {
-        $quest_chapter = QuestsChapter::findOrFail($id);
-        return view('quests_chapter.show', compact('quests_chapter'));
+        $quest = Quest::with('questsChapters', 'questCreator')->findOrFail($questId);
+        $quest_creator = $quest->questCreator;
+        $quests_chapters = $quest->questsChapters; // 関連するチャプターを取得
+
+        return view('players.quests.chapterlist', compact('quest', 'quest_creator', 'quests_chapters'));
     }
+
+
 
     public function assignQuestToUser(Request $request, $questId)
     {
