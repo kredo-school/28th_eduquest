@@ -27,9 +27,9 @@ class QuestCreator extends Model
       'x_twitter',
       'linkedin',
    ];   
-    // Userとのリレーション（多対一の関係）
-    public function user()
-    {
-        return $this->belongsTo(User::class); // Userモデルと関連付け
-    }
+    // // Userとのリレーション（多対一の関係）
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class); // Userモデルと関連付け
+    // }
 }

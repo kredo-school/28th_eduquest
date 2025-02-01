@@ -13,8 +13,6 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-
-
     /**
      * The attributes that are mass assignable.
      *
@@ -59,12 +57,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function quest_creator()
+    public function questCreators()
     {
         return $this->hasOne(QuestCreator::class);//Userが１つのクエストクリエイターを持つ
-    }
-
-    public function questCreators(){
-        return $this->hasOne(QuestCreator::class);
     }
 }
