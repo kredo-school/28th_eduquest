@@ -67,9 +67,15 @@ use Illuminate\Support\Facades\DB;
                                 <!-- Creator Info -->
                                 <div class="d-flex align-items-center gap-2">
                                     <div class="rounded-circle overflow-hidden" style="width: 30px; height: 30px;">
-                                        <img src="{{ url('images/character_yusha_01_green.png') }}" alt="Creator Avatar" class="w-100 h-100 object-fit-cover">
+                                        @if($quest->questCreator && $quest->questCreator->creator_image)
+                                            <img src="{{ $quest->questCreator->creator_image }}" alt="Creator Avatar" class="w-100 h-100 object-fit-cover">
+                                        @else
+                                            <img src="{{ url('images/character_yusha_01_green.png') }}" alt="Default Creator Avatar" class="w-100 h-100 object-fit-cover">
+                                        @endif
                                     </div>
-                                    <span style="font-family: 'DotGothic16', sans-serif; font-size: 0.8rem;">{{ $quest->questCreator->creator_name ?? 'Unknown' }}</span>
+                                    <span style="font-family: 'DotGothic16', sans-serif; font-size: 0.8rem;">
+                                        {{ $quest->questCreator->creator_name ?? 'Unknown' }}
+                                    </span>
                                 </div>
                             </div>
                         </div>

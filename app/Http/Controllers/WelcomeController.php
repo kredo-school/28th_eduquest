@@ -9,7 +9,7 @@ class WelcomeController extends Controller
 {
     public function index()
     {
-        $quests = Quest::with(['categories', 'creator'])
+        $quests = Quest::with(['categories', 'questCreator'])
             ->orderBy('created_at', 'desc')  // 作成日時の降順
             ->get();
         
@@ -18,7 +18,7 @@ class WelcomeController extends Controller
             \Log::info("Quest ID: {$quest->id}, Created at: {$quest->created_at}");
         }
         
-        $quests = Quest::with(['categories', 'creator'])
+        $quests = Quest::with(['categories', 'questCreator'])
             ->orderBy('created_at', 'desc')
             ->paginate(12);  // 4列×3行 = 12個に設定
         

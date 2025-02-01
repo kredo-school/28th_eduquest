@@ -1,20 +1,16 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
-
+use App\Models\Quest;
 
 class QuestCreatorController extends Controller
 {
     private $questcreator;
-
     public function __construct(QuestCreator $questcreator){
         $this->questcreator = $questcreator;
     }
-
     public function store(Request $request)
     {
         #1. Validate your data first
@@ -29,10 +25,8 @@ class QuestCreatorController extends Controller
             'x_twitter' => 'nullable|string',
             'linkedin' => 'nullable|string' 
         ]);
-
         //現在のユーザーを取得
         $user = Auth::user();
-
         //role_idを2に更新
         $user->role_id = 2;
         $user->save();
@@ -49,17 +43,19 @@ class QuestCreatorController extends Controller
         $this->questcreator->x_twitter = $request->x_twitter;
         $this->questcreator->linkedin = $request->linkedin;
         $this->questcreator->save();
-
-        #3. Go to Creator My Page
-        return view('creatorMyPage'); 
+        //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        $questCount = Quest::count();
+        return view('questcreators.creatorMyPage',compact('questcreator', 'questCount'));
+        
     }
-
-    
-  
     // すでに他のメソッドが存在する中に追加
-    public function creatorMyPage()
-    {
+    public function viewCreatorMyPage($id){
         // views/questcreators/creatorMyPage.blade.php を参照
-        return view('questcreators.creatorMyPage');
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+
+        $questCount = Quest::count();
+
+        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
 }

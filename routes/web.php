@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PlayerController;
 
 Route::get('/', function () {
-    $quests = \App\Models\Quest::with(['categories', 'creator'])
+    $quests = \App\Models\Quest::with(['categories', 'questCreator'])
         ->orderBy('created_at', 'desc')
         ->paginate(12);
     
@@ -28,7 +28,7 @@ Route::get('/quests/category/{category}', function($category) {
     $quests = \App\Models\Quest::whereHas('categories', function($query) use ($category) {
         $query->where('categories.id', $category);
     })
-    ->with(['categories', 'creator'])
+    ->with(['categories', 'questCreator'])
     ->orderBy('created_at', 'desc')
     ->paginate(12);
 
@@ -39,3 +39,19 @@ Route::get('/quests/category/{category}', function($category) {
 
 // player.switchルートを追加
 Route::get('/player/switch/{quest}', [PlayerController::class, 'switch'])->name('player.switch');
+
+Route::group(['middleware' => 'auth'], function(){
+
+    // for Player
+    # To go to Home page
+    Route::get('/home', [HomeController::class, 'show']);
+    # To go to Switch to Quest Creator page
+    Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
+    # To store Creator Info in Switch ~ Creator page
+    Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
+
+    //For Creators
+    # To go to Creator Mypage
+    Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+});
+
