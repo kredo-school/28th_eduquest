@@ -9,16 +9,32 @@ class Quest extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['quest_name', 'description'];
+    protected $fillable = [
+        'quest_title',
+        'description',
+        'thumbnail',
+        'total_hours',
+        'quest_creator_id',
+    ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function questCreator()
+    {
+        return $this->belongsTo(QuestCreator::class);
+    }
+
+    public function categoryQuests()
+    {
+        return $this->hasMany(CategoryQuest::class, 'quest_id');
+    }
     // ユーザーとのリレーション
     public function users()
     {
         return $this->hasMany(User::class);
-    }
-    // クエストクリエイターとのリレーション
-    public function quest_creator(){
-        return $this->belongsTo(QuestCreator::class);
     }
     // クエストチャプターとのリレーション
     public function quests_chapters()

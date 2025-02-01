@@ -1,20 +1,21 @@
 <?php
-namespace App\Http\Controllers;
 
-use App\Models\Quest;
-use App\Models\User;
+namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\Quest;
 
 class QuestController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    private $questcreator;
+
+    public function __construct(Quest $quest){
+        $this->quest = $quest;
+    }
+
+    public function viewCreateQuest()
     {
-        $this->middleware('auth');
+        return view('quests.create');
     }
 
     /**
@@ -72,3 +73,4 @@ class QuestController extends Controller
         return redirect()->back()->with('success', 'Quest assigned successfully!');
     }
 }
+
