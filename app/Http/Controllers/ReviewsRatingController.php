@@ -58,7 +58,7 @@ class ReviewsRatingController extends Controller
         );
 
         // 成功メッセージとともにリダイレクト
-        return redirect()->route('quests.show', $questId)->with('success', 'レビューとレーティングが送信されました！');
+        return response()->json(['success' => true, 'message' => 'レビューとレーティングが送信されました！']);
     }
     
     public function destroy($id)

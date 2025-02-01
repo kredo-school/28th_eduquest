@@ -72,7 +72,7 @@
                     <ul class="list-group"> 
                         @foreach ($quests_chapters as $quests_chapter) 
                             <li class=""> 
-                                <a href="#" class="text-decoration-none border d-flex align-items-center mb-3 p-4"  style="color :#261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"> 
+                                <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $quests_chapter->id]) }}" class="text-decoration-none border d-flex align-items-center mb-3 p-4"  style="color :#261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"> 
                                     <div class="d-flex">
                                         <div class="me-3 rounded border d-flex align-items-center justify-content-center bg-white" style="width: 30px !important; height: 25px !important; min-width: 30px; min-height: 25px; border-color: #261C11 !important; border-radius: 13px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
                                             <h6 class="mb-0"><span class="roman-number"></span> </h6>

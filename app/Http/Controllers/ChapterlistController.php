@@ -9,6 +9,7 @@ use App\Models\QuestsChapter;
 use App\Models\ReviewsRating;
 use Illuminate\Http\Request;
 
+
 class ChapterlistController extends Controller
 {
     public function viewChapterList($id)
@@ -66,5 +67,30 @@ class ChapterlistController extends Controller
             'ratingPercentages' // 評価の割合データをビューに渡す
         ));
     }
+    
+    //チャプターの視聴のための
+//     public function viewing($questId, $chapterId)
+// {
+//     // クエスト情報を取得
+//     $quest = Quest::findOrFail($questId);
+
+//     // クリックされたチャプター情報を取得
+//     $chapter = QuestsChapter::where('quest_id', $questId)->where('id', $chapterId)->firstOrFail();
+
+//     $nextChapter = QuestsChapter::where('quest_id', $chapter->quest_id)
+//         ->where('id', '>', $chapterId) // 
+//         ->orderBy('id')
+//         ->first();
+
+//     $prevChapter = QuestsChapter::where('quest_id', $chapter->quest_id)
+//         ->where('id', '<', $chapterId) // 
+//         ->orderBy('id', 'desc')
+//         ->first();
+
+    
+
+
+//     return view('players.quests.viewingchapter', compact('quest', 'chapter', 'nextChapter', 'prevChapter'));
+// }
 
 }

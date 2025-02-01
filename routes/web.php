@@ -6,6 +6,7 @@ use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\QuestsChapterController;
 
 Route::get('/', function () {
@@ -37,15 +38,25 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/quest/{id}/assign-quest', [QuestsChapterController::class, 'assignQuestToUser'])->name('quests_chapter.assign');
 
     //ReviewRating
-    Route::post('/quests/{quest}/reviews', [ReviewsRatingController::class, 'store'])->name('reviews.store');
     Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
     Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
-    
+    Route::prefix('quests/{questId}')->group(function () {
+        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+        Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    });
+
+    //ViewingChapter
+    Route::post('/chapter/{id}/complete', [ChapterController::class, 'complete'])->name('chapter.complete');
+    // Chapter viewing (next, prev)
+    Route::get('/chapter/{id}', [ChapterController::class, 'show'])->name('chapter.show');
+
     # To go to Chapterlist page
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
+    # To go to viewing page
+    Route::get('/quests/{questId}/chapters/{chapterId}', [ChapterController::class, 'viewing'])->name('chapters.viewing');
 
 
     //For Creators
