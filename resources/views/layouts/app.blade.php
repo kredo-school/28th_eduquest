@@ -189,8 +189,7 @@
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                                        <img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">
-                                                Logout
+                                                        <img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Logout
                                             </a>
                                             <!-- ログアウト用フォーム -->
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
