@@ -52,7 +52,7 @@
                         {{-- Thumbnail --}}
                         <div class="aspect-ratio-16-9">
                             {{-- あとでリンク追加必要！！！ --}}
-                            <a href="#">
+                            <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                                 <div class="aspect-ratio-16-9-inner">
                                     <img src="{{ $catQuest->quest->thumbnail }}" alt="Quest Thumbnail">
                                 </div>
