@@ -17,11 +17,10 @@ class Quest extends Model
         'quest_creator_id',
     ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
+    //public function user()
+    //{
+    //    return $this->belongsTo(User::class);
+    //}
     public function questCreator()
     {
         return $this->belongsTo(QuestCreator::class);
@@ -53,3 +52,4 @@ class Quest extends Model
         return $this->reviews_ratings()->avg('rating');
     }
 }
+

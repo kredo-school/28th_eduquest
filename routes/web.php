@@ -51,6 +51,11 @@ Route::group(['middleware' => 'auth'], function(){
     //For Creators
     # To go to Creator Mypage
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
-
+    Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
+    Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
+    Route::get('/creator/{id}/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
+    Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
+    Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
+    
 });
 
