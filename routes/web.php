@@ -22,7 +22,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 
     //For Creators
+    # To go to Regulation page
+    Route::get('/creator/regulation/{id}', [QuestCreatorController::class, 'showRegulation'])->name('questcreators.regulation');
     # To go to Creator Mypage
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
 });
+
+
 

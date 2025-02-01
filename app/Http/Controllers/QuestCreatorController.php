@@ -45,8 +45,7 @@ class QuestCreatorController extends Controller
         $this->questcreator->save();
         //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
-        $questCount = Quest::count();
-        return view('questcreators.creatorMyPage',compact('questcreator', 'questCount'));
+        return view('questcreators.regulation', ['id' => $questcreator->id]);
         
     }
     // すでに他のメソッドが存在する中に追加
@@ -57,5 +56,11 @@ class QuestCreatorController extends Controller
         $questCount = Quest::count();
 
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
+    }
+
+    public function showRegulation($id)
+    {
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        return view('questcreators.regulation', compact('id'));
     }
 }
