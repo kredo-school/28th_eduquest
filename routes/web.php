@@ -25,6 +25,7 @@ Route::get('/creatorMyPage', [QuestCreatorController::class, 'viewCreatorMyPage'
 Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
 Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
 Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
+Route::post('/quests/update/{id}', [QuestController::class, 'update'])->name('quests.update');
 
 // クエスト一覧表示
 Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
