@@ -137,7 +137,11 @@ footer{
 }
 
 
-/* ↓↓↓ for home.blade.php ↓↓↓ */
+
+/* =============================== */
+/*         home.blade.php          */
+/* =============================== */
+
 .image-md{
     width: 3.5rem;
     height: 3.5rem;
@@ -254,13 +258,15 @@ border-radius: 3px;      /* Rounded corners */
 font-size: 0.7rem;        /* Fine-tuned size */
 margin-right: 4px;        /* Spacing between badges */
 }
-/* ↑↑↑ for home.blade.php ↑↑↑ */
 
 
 
-/* ↓↓↓ for switch.blade.php ↓↓↓ */
+/* =============================== */
+/*       switch.blade.php          */
+/* =============================== */
+
 /* 1. Left sidebar */
-.side-bar{
+.switch-side-bar{
     border: 2px solid #261C11;
     border-radius: 20px;
     font-size: 6px;
@@ -270,20 +276,23 @@ margin-right: 4px;        /* Spacing between badges */
     flex-direction: column; /* Arrange vertically */
     /* height: 100%;  */
 }
+
 /* 2. Image of a player holding a sword */
-.player-image{
+.switch-player-image{
     height: 100px;
-    width: 100px;
+    width: auto;
     margin-top: 30px;
     margin-bottom: 15px;
 }
+
 /* 3. Text below "Select File" */
-.Accetable{
+.accetable{
     font-size: 10px;
     line-height: 1.2; /* Reduce line spacing */
     margin-bottom: 5px; /* Adjust paragraph spacing */
     margin-top: 10px;
 }
+
 /* 4. Three sword images */
 .homeSword{
     height: 40px;
@@ -305,6 +314,7 @@ padding-bottom: 10px;
 text-align: center;
 width: 130px;
 }
+
 /* =============================== */
 /*        General Styles          */
 /* =============================== */
@@ -586,10 +596,17 @@ creator-profile-view{
 
 
 
-/* ↓↓↓ accountsecurity.blade.php↓↓↓ */
-.house {
-    width: 3rem;
-    height: 3.5rem;
+/* =============================== */
+/*    accountsecurity.blade.php    */
+/* =============================== */
+
+.account-title {
+    vertical-align: middle;
+}
+
+.account-key {
+    height: 3rem;
+    width: auto;
 }
 
 

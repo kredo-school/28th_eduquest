@@ -1,8 +1,8 @@
 {{-- 1　Icon + Account Menu --}}
-<div class="side-bar col-3 bg-white text-center pb-3">
+<div class="switch-side-bar col-3 bg-white text-center pb-3">
     {{-- 2 --}}
     <div>
-        <img src="{{ asset('images/User icon.png')}}" alt="playerimage" class="player-image">
+        <img src="{{ asset('images/User icon.png')}}" alt="playerimage" class="switch-player-image">
     </div>
     <div class="mb-3">
         <input type="file" name="creator_image" id="image" class="form-control form-control-sm mt-1" aria-describedby="avatar-info">
@@ -10,7 +10,7 @@
                     <p class="text-danger small">{{ $message }}</p>
                 @enderror
         {{-- 3 --}}
-        <div class="Accetable" style="text-align: center">
+        <div class="accetable" style="text-align: center">
             <p>Accetable formats:jpeg,jpg,png,gif only.</p>
             <p>Max file size: 1048kB</p>
         </div>

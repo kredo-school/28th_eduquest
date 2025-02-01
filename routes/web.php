@@ -55,11 +55,14 @@ Route::group(['middleware' => 'auth'], function(){
     # To go to Account Security page
     Route::get('/account-security/{id}', [UserController::class, 'viewAccountSecurity'])->name('account.security');
 
-    # To go to Delete My Account page
-    Route::get('/delete-my-account/{id}', [UserController::class, 'viewDeleteAccount'])->name('delete.account');
-
     # To update email address
     Route::patch('/update/emailaddress', [UserController::class, 'updateEmailAddress'])->name('update.emailaddress');
+
+    # To update password
+    Route::patch('/update/password', [UserController::class, 'updatePassword'])->name('update.password');
+
+    # To go to Delete My Account page
+    Route::get('/delete-my-account/{id}', [UserController::class, 'viewDeleteAccount'])->name('delete.account');
     
     # To update password
     Route::patch('/update/password', [UserController::class, 'updatePassword'])->name('update.password');

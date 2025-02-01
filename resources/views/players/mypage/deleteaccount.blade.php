@@ -4,14 +4,14 @@
 
 @section('content')
 
-<div class="row align-items-start">
-
     @include('players.mypage.accountmenu.accountmenu')
-
-    {{-- Delete Account --}}
+        
     <div class="col-8 ms-5">
-        delete account
+        <div class="text-start mb-5 account-title">
+            <h1 class="h2 m-0">
+                <img src="{{ asset('images/flag_red.png') }}" alt="Icon" class="switch-player-image mb-5"> 
+                Delete Account
+            </h1>
+        </div>
     </div>
-</div>
-    
 @endsection

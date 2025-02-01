@@ -2,8 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -22,7 +23,7 @@ class UserController extends Controller
     }
 
     #Account Securityの画面を表示
-    public function viewAccountSecurity()
+    public function viewAccountSecurity($id)
     {
         $user = $this->user->findOrFail(Auth::user()->id);
         return view('players.mypage.accountsecurity');    
@@ -37,13 +38,50 @@ class UserController extends Controller
     #Change Email address
     public function updateEmailAddress(Request $request)
     {
-        //
+        $request->validate([
+            'email'    => 'required|email|max:255|unique:users,email,' . Auth::id(),
+            'password' => 'required', // 現在のパスワード
+        ]);
+
+        $user = Auth::user();
+
+        // パスワード一致確認
+        if(! Hash::check($request->password, $user->password)) {
+            return back()->withErrors([
+                'password' => 'The provided password does not match your current password.'
+            ]);
+        }
+
+        // Update email
+        $user->email = $request->email;
+        $user->save();
+
+        return back()->with('status', 'Email updated successfully!');
     }
 
     #Change Password
     public function updatePassword(Request $request)
     {
-        //
+        $request->validate([
+            'currentpass' => 'required',
+            'newpass'     => 'required|min:8',
+            'newpass2'    => 'required|same:newpass',
+        ]);
+
+        $user = Auth::user();
+
+        // 旧パスワードチェック
+        if(! Hash::check($request->currentpass, $user->password)) {
+            return back()->withErrors([
+                'currentpass' => 'The current password is incorrect.'
+            ]);
+        }
+
+        // 新パスワード更新
+        $user->password = Hash::make($request->newpass);
+        $user->save();
+
+        return back()->with('status', 'Password updated successfully!');
     }
 
 }

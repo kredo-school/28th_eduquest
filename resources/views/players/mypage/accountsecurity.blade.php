@@ -9,11 +9,18 @@
     @include('players.mypage.accountmenu.accountmenu')
     
     <div class="col-8 ms-5">
-        <div class="text-start mb-5">
+        <div class="text-start mb-5 account-title">
             <h1 class="h2 m-0">
-                <img src="{{ asset('images/ie.png') }}" alt="Icon" class="title-icon house mb-5"> 
+                <img src="{{ asset('images/key_gold.png') }}" alt="Icon" class="account-key mb-5"> 
                 Account Security
             </h1>
+
+            @if (session('status'))
+                <div class="alert alert-success alert-dismissible fade show mt-3 w-50" role="alert">
+                    {{ session('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
 
             {{-- ================== Change Email Address ================== --}}
             <form action="{{ route('update.emailaddress') }}" method="post">
