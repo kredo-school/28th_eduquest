@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-
+    //For Creators
+    # To go to Creator Mypage
+    Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
 });
 
