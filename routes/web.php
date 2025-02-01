@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function(){
     # To store Creator Info in Switch ~ Creator page
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 
+    //For Creators
+    # To go to Creator Mypage
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
     Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
     Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');

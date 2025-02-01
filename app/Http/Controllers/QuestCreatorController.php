@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\QuestCreator;
+use App\Models\Quest;
 
 class QuestCreatorController extends Controller
 {
@@ -42,8 +43,10 @@ class QuestCreatorController extends Controller
         $this->questcreator->save();
         //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
-        return view('questcreators.creatorMyPage',compact('questcreator'));
-
+        // 現在ログインしているユーザーのプロフィール情報を取得
+        $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        return view('questcreators.profile.edit',compact('questcreator'));
+ 
         // リダイレクト先が指定されている場合はそこにリダイレクト
         if ($request->has('redirect_to')) {
             return redirect($request->redirect_to);
@@ -83,12 +86,13 @@ class QuestCreatorController extends Controller
             $questcreator = new QuestCreator(); // 空のインスタンスを渡す
         }
 
-        // 現在ログインしているユーザーのプロフィール情報を取得
-        $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
-        return view('questcreators.profile.edit',compact('questcreator'));
-    }
+        
 
     
+        $questCount = Quest::count();
+        return view('questcreators.creatorMyPage',compact('questcreator', 'questCount'));
+        
+    }
     // すでに他のメソッドが存在する中に追加
     public function viewCreatorMyPage($id)
     {
@@ -96,7 +100,9 @@ class QuestCreatorController extends Controller
         // views/questcreators/creatorMyPage.blade.php を参照
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 
-        return view('questcreators.creatorMyPage', compact('questcreator'));
+        $questCount = Quest::count();
+
+        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
     public function update(Request $request)
     {            
