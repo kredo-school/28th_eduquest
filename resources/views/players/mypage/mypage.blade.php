@@ -44,7 +44,7 @@
       margin-bottom: 10px;
   }  
 
-/* 4　ファイルを選択の下の2行の事 */
+/* 4　shogoの事 */
   .Shogo{
       font-size: 30px;
       line-height: 1.2; /* 行間を狭める */
@@ -67,6 +67,13 @@
       margin-top: 100px;
       margin-left: 200px;
   } 
+
+  /* 4　2つの文字の事 */
+  .text{
+      font-size: 20px;
+      margin-top: 30px;  
+      text-align: left
+  }
 
 </style>
 
@@ -110,22 +117,54 @@
 {{-- 1. Icon + Account Menu (Right Side) --}}
       <div class="side-bar-right col-8 bg-white">
       
+        <div class="container">
+          {{-- 行を作成 --}}
+          <div class="row">
+              {{-- 3列に分ける例 --}}
+              <div class="col-md-6">
           {{-- 家の画像 --}}
-        <div>
-          <img src="{{ asset('images/home.png')}}" alt="homeimage" class="home-image">
-          <a href="#" class="text-decoration-none fs-6 text-dark">Watch Later</a>
-
+                  <div style="text-align: left">
+                      <img src="{{ asset('images/home.png')}}" alt="homeimage" class="home-image">
+                      <p class="text">Watch Later</p>
+                  </div>
+              </div>
+                <div class="col-md-4">
           {{-- 剣の画像 --}}
-          <img src="{{ asset('images/sword.png')}}" alt="swordimage" class="sword-image">
-          <a href="#" class="text-decoration-none fs-6 text-dark">In Progress</a>
-        </div>
+                  <div style="text-align: left">
+                      <img src="{{ asset('images/sword.png')}}" alt="swordimage" class="sword-image">
+                  <p class="text">In Progress</p>
+                </div>
+              </div>
 
+      <div class="container">
+        {{-- 行を作成 --}}
+        <div class="row">
+            {{-- 3列に分ける例 --}}
+            <div class="col-md-4">
+                第1列の内容
+            </div>
+            <div class="col-md-4">
+                第2列の内容
+            </div>
+            <div class="col-md-4">
+                第3列の内容
+            </div>
+        </div>
+    
+    </div>
+
+      </div>
+      <div class="container">
+        {{-- 行を作成 --}}
+        <div class="row">         
         <div style="text-align: left">
-          <a href="#" class="text-decoration-none fs-2 text-dark">08</a>
-          <a href="#" class="text-decoration-none fs-2 text-dark">03</a>
+          <div class="col-md-6">
+          <a href="#" class="text-decoration-none fs-1 text-dark">08</a>
         </div>
-
-
+        <div class="col-md-6">
+          <a href="#" class="text-decoration-none fs-1 text-dark">03</a>
+        </div>
+        </div>
 
     </div>
   </div>
