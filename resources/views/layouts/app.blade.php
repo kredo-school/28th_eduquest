@@ -127,6 +127,10 @@
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Study Plan</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Favorite Quest Creator</a></li>
                                         <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ url('/admin') }}" style="font-family: 'DotGothic16', sans-serif;">
+                                            <img src="{{ url('images/Sword Icon 02.png') }}" alt="sword" style="width: 20px; height: 20px;"> Admin Page
+                                        </a></li>
+                                        <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Setting</a></li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
