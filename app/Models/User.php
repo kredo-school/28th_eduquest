@@ -62,4 +62,16 @@ class User extends Authenticatable
     public function questCreators(){
         return $this->hasOne(QuestCreator::class);
     }
+
+    // クエストとのリレーション
+    public function quest()
+    {
+        return $this->belongsTo(Quest::class);
+    }
+
+    // レビューレーティングとのリレーション
+    public function reviews_ratings()
+    {
+        return $this->hasMany(ReviewsRating::class);
+    }
 }

@@ -310,7 +310,7 @@ width: 130px;
 /* =============================== */
 body {
     background-color: #FFFFF3;
-    font-family: 'DotGothic16', sans-serif;
+    font-family: 'DotGothic16', sans-serif, Arial !important;
     color: #261C11;
 }
 
@@ -430,23 +430,26 @@ creator-profile-view{
 }
 
 .yama-1 {
+    position: absolute;
     width: 65px;
     height: 55px;
     bottom: 30px;
     right: 60px;
+    background-color: white;
+    opacity:0.5;
 }
 
 .yama-2 {
+    position: absolute;
     width: 40px;
     height: 30px;
     bottom: 30px;
-    right: 160px;
-    opacity: 0.6;
+    right: 160px; 
+    background-color: white;
+    opacity:0.6;
 }
 
-/* =============================== */
 /*       Management Button        */
-/* =============================== */
 .mgt-btn {
     position: absolute;
     border: 2px solid #261C11;
@@ -459,9 +462,8 @@ creator-profile-view{
     z-index: 1000;
 }
 
-/* =============================== */
-/*       Modal (Quest List)       */
-/* =============================== */
+/* For Quest-list page delete-modal start */
+
 .modal-content {
     font-family: 'DotGothic16', sans-serif;
 }
@@ -505,6 +507,7 @@ creator-profile-view{
     gap: 20px;
 }
 
+/* For Quest-list page delete-modal end */
 /* =============================== */
 /*        Sidebar & Player        */
 /* =============================== */
@@ -537,3 +540,46 @@ creator-profile-view{
     height: 40px;
     width: 40px;
 }
+
+/* ↓↓↓ for players.quests.chapterlist.blade.php ↓↓↓ */
+.review-text {
+    max-height: 20px; /* 初期状態は1行分の高さ */
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    line-height: 1.4;
+}
+
+.review-text.expanded {
+    max-height: none; /* 高さ制限を解除して全文表示 */
+    overflow: scroll;
+}
+.review {
+    transition: height 0.3s ease-in-out; /* 高さの変更をスムーズに */
+    height: auto; /* コンテンツに合わせて高さを自動調整 */
+}
+.rating {
+    display: flex;
+    align-items: center;
+    font-size: 0;
+}
+
+.star {
+    width: 17px;
+    height: 17px;
+}
+
+.star-gray {
+    width: 17px;
+    height: 17px;
+    opacity: 0.5; /* 未評価の星を薄く表示 */
+}
+
+/* .star-partial {
+    background-image: url('{{ asset('images/star_yellow 3.png') }}');
+    background-size: 100% 100%;
+    width: 0;
+    height: 17px;
+    position: absolute;
+    overflow: hidden;
+} */
+/* ↑↑ For for players.quests.chapterlist.blade.php ↑↑ */

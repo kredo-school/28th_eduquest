@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\QuestCreator;
 use App\Models\Quest;
 
@@ -67,43 +68,58 @@ class QuestCreatorController extends Controller
 
     public function editCreatorProfile($id)
     {
-        // ① ログインしていない場合はログインページへリダイレクト
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'ログインしてください');
         }
 
-        // ② URLの {id} から QuestCreator を取得
         $questcreator = QuestCreator::where('user_id', $id)->firstOrFail();
 
-        // ③ ログインユーザーがこのプロフィールの所有者かチェック
         if ($questcreator->user_id !== Auth::id()) {
             abort(403, 'このプロフィールを編集する権限がありません');
         }
 
-        // データが存在しない場合の処理を追加
         if (!$questcreator) {
             $questcreator = new QuestCreator(); // 空のインスタンスを渡す
         }
-
     
         $questCount = Quest::count();
         return view('questcreators.profile.edit', compact('questcreator'));
-
-     //   return view('questcreators.creatorMyPage',compact('questcreator', 'questCount'));
-        
+    
     }
 
 
-    // すでに他のメソッドが存在する中に追加
     public function viewCreatorMyPage($id)
     {
-
-        // views/questcreators/creatorMyPage.blade.php を参照
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
 
         $questCount = Quest::count();
 
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
+    }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+
+    public function index()
+    {
+        //
+    }
+
+    public function show($id)
+    {
+        $quest_creator = QuestCreator::findOrFail($id);
+        return view('quest_creator.show', compact('quest_creator'));
+    }
+
+    public function assignQuestToUser(Request $request, $userId)
+    {
+        $user = User::findOrFail($userId);
+        $user->quest_creator_id = $request->quest_creator_id;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Quest assigned successfully!');
     }
 
     
