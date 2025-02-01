@@ -58,4 +58,9 @@ class QuestCreatorController extends Controller
 
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
+
+    public function creatorGuide()
+    {
+        return view('questcreators.how-to-guide');
+    }
 }

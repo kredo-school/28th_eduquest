@@ -24,5 +24,8 @@ Route::group(['middleware' => 'auth'], function(){
     //For Creators
     # To go to Creator Mypage
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+
+    // For how to guide page
+    Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
 });
 
