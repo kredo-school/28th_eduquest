@@ -26,9 +26,8 @@
         @method('DELETE')
             <button 
                 type="submit" 
-                class="btn bg-white w-25 text-dark rounded-pill border border-dark fw-bald" onclick="Are you sure you want to delete your account?"
-            >
-                Delete Account?
+                class="btn bg-white w-25 text-dark rounded-pill border border-dark fw-bald">
+                Delete Account
             </button>
         </form>
     </div>

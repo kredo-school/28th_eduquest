@@ -4,7 +4,7 @@
 <div class="container">
     <!-- ★ Account削除後、以下のメッセージを表示。) -->
     @if (session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show w-50" role="alert">
             {{ session('status') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
