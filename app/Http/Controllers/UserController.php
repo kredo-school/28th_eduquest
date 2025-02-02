@@ -8,7 +8,7 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    #インスタンスを作成
+    #Create Instance
     private $user;
 
     public function __construct(User $user){
@@ -16,26 +16,20 @@ class UserController extends Controller
 
     }
     
-    #Switch to Quest Creatorの画面を表示
+    #View Switch to Quest Creator page
     public function viewSwitchToCreator($id)
     {
         return view('players.mypage.switch');    
     }
 
-    #Account Securityの画面を表示
+    #View Account Security page
     public function viewAccountSecurity($id)
     {
         $user = $this->user->findOrFail(Auth::user()->id);
         return view('players.mypage.accountsecurity');    
     }
-    
-    #Delete My Accountの画面を表示
-    public function viewDeleteAccount($id)
-    {
-        return view('players.mypage.deleteaccount');    
-    }
 
-    #Change Email address
+    #Update Email address
     public function updateEmailAddress(Request $request)
     {
         $request->validate([
@@ -45,7 +39,7 @@ class UserController extends Controller
 
         $user = Auth::user();
 
-        // パスワード一致確認
+        // Check password
         if(! Hash::check($request->password, $user->password)) {
             return back()->withErrors([
                 'password' => 'The provided password does not match your current password.'
@@ -59,7 +53,7 @@ class UserController extends Controller
         return back()->with('status', 'Email updated successfully!');
     }
 
-    #Change Password
+    #Update Password
     public function updatePassword(Request $request)
     {
         $request->validate([
@@ -82,6 +76,37 @@ class UserController extends Controller
         $user->save();
 
         return back()->with('status', 'Password updated successfully!');
+    }
+
+    
+    #View delete My Account page
+    public function viewDeleteAccount($id)
+    {
+        if (Auth::id() != $id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('players.mypage.deleteaccount');    
+    }
+
+    #Delete account
+    public function destroyAccount(Request $request)
+    {
+        $user = Auth::user();
+        
+        // もし必要であれば、ここで「本当に削除確認」を更に行う or パスワード再確認など
+        
+        // Delete account data in User tbl
+        $user->delete();
+
+        // logout
+        Auth::logout();
+
+        // セッションを無効化 (任意らしい)
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/')->with('status','Your account has been deleted.');
     }
 
 }

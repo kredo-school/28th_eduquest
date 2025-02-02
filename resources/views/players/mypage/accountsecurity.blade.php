@@ -10,8 +10,8 @@
     
     <div class="col-8 ms-5">
         <div class="text-start mb-5 account-title">
-            <h1 class="h2 m-0">
-                <img src="{{ asset('images/key_gold.png') }}" alt="Icon" class="account-key mb-5"> 
+            <h1 class="h2 m-0 d-flex">
+                <img src="{{ asset('images/key_gold.png') }}" alt="Icon" class="account-key mb-4 me-3"> 
                 Account Security
             </h1>
 

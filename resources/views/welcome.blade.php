@@ -2,6 +2,15 @@
 
 @section('content')
 <div class="container">
+    <!-- ★ Account削除後、以下のメッセージを表示。) -->
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('status') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+
     <!-- Header Section -->
     <header class="text-center py-5">
         <h1 class="display-4 fw-bold">ようこそ、あなたのアイデアを形に</h1>

@@ -609,5 +609,8 @@ creator-profile-view{
     width: auto;
 }
 
-
+.flag_red {
+    width: 2rem;
+    height: auto;
+    }   
 /* ↑↑↑ accountsecurity.blade.php ↑↑↑ */
