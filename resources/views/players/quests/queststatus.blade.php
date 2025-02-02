@@ -5,12 +5,13 @@
 @section('content')
 <div class="row gx-5">
     {{-- Quests Scroll --}}
-    <div class="horizontal-scroll quests-row px-3">
+    <div class="quests-row">
+        <div class="horizontal-scroll px-3">
 
-        
+            <h2><img src="{{ asset('images/flag_red.png') }}" alt="Red Flag" class="flag_red_status pe-1">In Progress</h2>
 
-        <!-- Thumbnail with spacing -->
-        @forelse ($category->categoryQuests as $catQuest)
+            <!-- Thumbnail with spacing -->
+            @forelse ($category->categoryQuests as $catQuest)
             <div class="card quest-item mx-1" style="width: 200px;">
                 @if ($catQuest->quest->thumbnail)
                     {{-- Thumbnail --}}
@@ -125,7 +126,12 @@
         @empty
             <p>No quests in this category</p>
         @endforelse
+    
+    
+            
+        </div>
     </div>
+    
 
 </div>
 @endsection

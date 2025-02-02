@@ -612,5 +612,14 @@ creator-profile-view{
 .flag_red {
     width: 2rem;
     height: auto;
-    }   
-/* ↑↑↑ accountsecurity.blade.php ↑↑↑ */
+}   
+
+
+/* =============================== */
+/*     queststatus.blade.php       */
+/* =============================== */
+
+.flag_red_status {
+    width: 2rem;
+    height: auto;
+}
