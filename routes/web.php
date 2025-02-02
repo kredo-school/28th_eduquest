@@ -4,6 +4,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
+use App\Http\Controllers\ChapterlistController;
+use App\Http\Controllers\ReviewsRatingController;
+use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\AdminController;
@@ -17,29 +20,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-// Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/home', [HomeController::class, 'show']);
-Route::get('/test', [UserController::class, 'viewTestSwitch']);
-Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
-Route::get('/creatorMyPage', [QuestCreatorController::class, 'creatorMyPage'])->name('creatorMyPage');
-Route::get('/player/questlist', [QuestController::class, 'showList'])->name('questlist');
-
-// カテゴリー別クエスト表示のルート
-Route::get('/quests/category/{category}', function($category) {
-    $quests = \App\Models\Quest::whereHas('categories', function($query) use ($category) {
-        $query->where('categories.id', $category);
-    })
-    ->with(['categories', 'creator'])
-    ->orderBy('created_at', 'desc')
-    ->paginate(12);
-
-    $currentCategory = \App\Models\Category::find($category);
-    
-    return view('welcome', compact('quests', 'currentCategory'));
-})->name('quests.category');
-
-// player.switchルートを追加
-Route::get('/player/switch/{quest}', [PlayerController::class, 'switch'])->name('player.switch');
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -51,19 +31,69 @@ Route::group(['middleware' => 'auth'], function(){
     # To store Creator Info in Switch ~ Creator page
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 
+    //Quest
+    Route::get('/quests/{id}', [QuestController::class, 'show'])->name('quest.show');
+    Route::post('/users/{id}/assign-quest', [QuestController::class, 'assignQuestToUser'])->name('quest.assign');
+
+    //quest Creator
+    Route::get('/quest_creators/{id}', [QuestCreatorController::class, 'show'])->name('quest_creator.show');
+    Route::post('/users/{id}/assign-quest', [QuestCreatorController::class, 'assignQuestToUser'])->name('quest_creator.assign');
+
+    //Quest Chapter
+    Route::get('/quests_chapter/{id}', [QuestsChapterController::class, 'show'])->name('quests_chapter.show');
+    Route::post('/quest/{id}/assign-quest', [QuestsChapterController::class, 'assignQuestToUser'])->name('quests_chapter.assign');
+
+    //ReviewRating
+    Route::post('/quests/{quest}/reviews', [ReviewsRatingController::class, 'store'])->name('reviews.store');
+    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
+    Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
+    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
+    
+    # To go to Chapterlist page
+    Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
+    ->name('quests.chapters');
+
+
+
     //For Creators
     # To go to Creator Mypage
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+    Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
+    Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
+    Route::get('/creator/{id}/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
+    Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
+    Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
+    
 });
 
-// 管理者用ルート
-Route::middleware(['auth'])->group(function () {
-    // 管理者ダッシュボード
-    Route::get('/admin', function () {
-        return view('admin.admin');
-    })->name('admin.index');
-    
-    // アカウント編集ページ - パスを修正
-    Route::get('/admin/edit-account', [AdminController::class, 'editAccount'])
-        ->name('admin.edit.account');
-});
+
+/**
+     * Route for admin user
+     */
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function(){
+
+
+        // 管理者ダッシュボード
+        Route::get('/', function () {
+            return view('admin.admin');
+        })->name('admin.index');
+        
+        // アカウント編集ページ - パスを修正
+        Route::get('/edit-account', [AdminController::class, 'editAccount'])
+            ->name('admin.edit.account');
+    });
+
+
+        // カテゴリー別クエスト表示のルート
+        Route::get('/quests/category/{category}', function($category) {
+            $quests = \App\Models\Quest::whereHas('categories', function($query) use ($category) {
+                $query->where('categories.id', $category);
+            })
+            ->with(['categories', 'creator'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(12);
+
+            $currentCategory = \App\Models\Category::find($category);
+            
+            return view('welcome', compact('quests', 'currentCategory'));
+        })->name('quests.category');

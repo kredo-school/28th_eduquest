@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-       'player_nickname',
+        'player_nickname',
         'email',
         'first_name',
         'family_name',
@@ -56,8 +57,21 @@ class User extends Authenticatable
         ];
     }
 
-    public function questCreators()
+    
+
+    public function questCreators(){
+        return $this->hasOne(QuestCreator::class);
+    }
+
+    // クエストとのリレーション
+    public function quest()
     {
-        return $this->hasOne(QuestCreator::class);//Userが１つのクエストクリエイターを持つ
+        return $this->belongsTo(Quest::class);
+    }
+
+    // レビューレーティングとのリレーション
+    public function reviews_ratings()
+    {
+        return $this->hasMany(ReviewsRating::class);
     }
 }
