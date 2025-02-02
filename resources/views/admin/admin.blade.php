@@ -41,9 +41,9 @@
 
                         <!-- Edit account -->
                         <div class="col-md-6">
-                            <a href="#" class="text-decoration-none text-dark">
+                            <a href="{{ route('admin.edit.account') }}" class="text-decoration-none text-dark">
                                 <div class="border rounded p-3 text-center" style="font-family: 'DotGothic16', sans-serif; font-weight: bold;">
-                                    Edit account
+                                    Edit Account
                                 </div>
                             </a>
                         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     $quests = \App\Models\Quest::with(['categories', 'questCreator'])
@@ -55,7 +56,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
 });
 
-Route::get('/admin', function () {
-    return view('admin.admin');
+// 管理者用ルート
+Route::middleware(['auth'])->group(function () {
+    // 管理者ダッシュボード
+    Route::get('/admin', function () {
+        return view('admin.admin');
+    })->name('admin.index');
+    
+    // アカウント編集ページ - パスを修正
+    Route::get('/admin/edit-account', [AdminController::class, 'editAccount'])
+        ->name('admin.edit.account');
 });
-
