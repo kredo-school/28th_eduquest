@@ -2,7 +2,13 @@
 <div class="switch-side-bar col-3 bg-white text-center pb-3">
     {{-- 2 --}}
     <div>
-        <img src="{{ asset('images/User icon.png')}}" alt="playerimage" class="switch-player-image">
+        @if (Auth::user()->image)
+            <img src="{{Auth::user()->image}}" alt="User Icon" class="switch-player-image border border-dark rounded-circle">
+            
+        @else
+            <img src="{{ asset('images/User icon.png')}}" alt="playerimage" class="switch-player-image">    
+        @endif
+        
     </div>
     <div class="mb-3">
         <input type="file" name="creator_image" id="image" class="form-control form-control-sm mt-1" aria-describedby="avatar-info">
