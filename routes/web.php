@@ -7,6 +7,7 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\StatusController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -67,6 +68,9 @@ Route::group(['middleware' => 'auth'], function(){
     
     # To delete account
     Route::delete('/delete-my-account', [UserController::class, 'destroyAccount'])->name('destroy.account');
+
+    # To go to the Page of Quest List by Status
+    Route::get('player/{id}/status', [StatusController::class, 'viewQuestStatus'])->name('player.status');
 
 
 
