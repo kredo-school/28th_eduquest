@@ -11,58 +11,52 @@
             <h2 class="m-0">{{ $chapter->quest_chapter_title }}</h2>
             <div class="d-flex align-items-center">
                 @if ($prevChapter)
-                    <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $prevChapter->id]) }}" class="btn btn-secondary me-2"><img src="{{ asset('images/image 83.png') }}" alt="treasure box" class="me-2"
-                        style="width: 23px; height: 23px;"></a>
-                @else
-                    <span class="btn btn-secondary disabled me-2"><img src="{{ asset('images/tatefuda_yajirushi_01_beige 2左向き.png') }}" alt="矢印" class="me-2"
-                        style="width: 23px; height: 23px;"></span>
+                    <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $prevChapter->id]) }}" class="btn">
+                        <img src="{{ asset('images/tatefuda_yajirushi_01_beige 2左向き.png') }}" alt="矢印" style="width: 23px; height: 23px;">
+                    </a>
                 @endif
-
-                <button id="complete-btn" class="btn border rounded px-3 py-2 bg-white me-2"
+        
+                <button id="complete-btn" class="btn border rounded px-3 py-2 bg-white"
                     style="color: #261C11; border-color: #261C11 !important; border-radius: 20px !important; 
-                           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
-                    <img src="{{ asset('images/image 83.png') }}" alt="treasure box" class="me-2"
-                         style="width: 23px; height: 23px;">
+                        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"
+                    @if(!$isLastChapter) disabled @endif
+                    data-bs-toggle="modal" data-bs-target="#reviewsModal">
                     Complete
                 </button>
-    
+
+
+                @include('players.modals.reviews')
+        
                 @if ($nextChapter)
-                    <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $nextChapter->id]) }}" class="btn btn-secondary"><img src="{{ asset('images/next.png') }}" alt="treasure box" class="me-2"
-                        style="width: 23px; height: 23px;"></a>
-                @else
-                    <span class="btn btn-secondary disabled"><img src="{{ asset('images/tatefuda_yajirushi_01_beige 2.png') }}" alt="矢印" class="me-2"
-                        style="width: 23px; height: 23px;"></span>
+                    <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $nextChapter->id]) }}" class="btn">
+                        <img src="{{ asset('images/tatefuda_yajirushi_01_beige 2.png') }}" alt="矢印" style="width: 23px; height: 23px;">
+                    </a>
                 @endif
             </div>
         </div>
+        
+
+        
     
         <p class="mt-2">{{ $chapter->description }}</p>
     </div>
     
 </div>
-    
-<!-- レビューモーダル -->
-<div class="modal fade" id="reviewModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Congratulations!!</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="review-form">
-                    <div class="rating">
-                        <input type="radio" name="rating" value="5"> ★★★★★
-                        <input type="radio" name="rating" value="4"> ★★★★☆
-                        <input type="radio" name="rating" value="3"> ★★★☆☆
-                        <input type="radio" name="rating" value="2"> ★★☆☆☆
-                        <input type="radio" name="rating" value="1"> ★☆☆☆☆
+<div class="container mt-5">
+    <h4>Other Chapters</h4>
+    <div class="row">
+        @foreach ($otherChapters as $other)
+            <div class="col-md-4 mb-3">
+                <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $other->id]) }}" class="text-decoration-none">
+                    <div class="card">
+                        <img src="{{ $other->thumbnail }}" class="card-img-top" alt="チャプターサムネイル">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $other->quest_chapter_title }}</h5>
+                        </div>
                     </div>
-                    <textarea name="review" class="form-control" placeholder="Write your review..."></textarea>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </form>
+                </a>
             </div>
-        </div>
+        @endforeach
     </div>
 </div>
 
@@ -77,34 +71,27 @@ document.getElementById("complete-btn").addEventListener("click", function() {
         body: JSON.stringify({})
     }).then(response => response.json()).then(data => {
         if (data.last) {
-            $('#reviewModal').modal('show');
+            $('#reviewsModal').modal('show');
         }
     });
 });
 </script>
 
-{{--レビューのJS--JS--}}
-{{-- <script>
-    document.getElementById("review-form").addEventListener("submit", function(event) {
-        event.preventDefault();
-    
-        let formData = new FormData(this);
-        formData.append("quest_id", "{{ $chapter->quest->id }}");
-    
-        fetch("{{ route('reviews.store') }}", {
-            method: "POST",
-            headers: {
-                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-            },
-            body: formData
-        }).then(response => response.json()).then(data => {
-            if (data.success) {
-                alert("Review submitted successfully!");
-                $('#reviewModal').modal('hide');
-            }
-        });
-    });
-    </script> --}}
-    
 
 @endsection
+
+
+    {{-- <script>
+document.addEventListener('DOMContentLoaded', function () {
+    var video = document.querySelector('video'); // <video> タグがある場合
+    var completeBtn = document.getElementById('complete-btn');
+
+    if (video) {
+        video.addEventListener('ended', function () {
+            completeBtn.removeAttribute('disabled'); // 再生終了時にボタンを有効化
+        });
+    }
+});
+</script> --}}
+    
+    

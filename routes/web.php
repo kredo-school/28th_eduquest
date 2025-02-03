@@ -38,13 +38,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/quest/{id}/assign-quest', [QuestsChapterController::class, 'assignQuestToUser'])->name('quests_chapter.assign');
 
     //ReviewRating
-    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
     Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
-    Route::prefix('quests/{questId}')->group(function () {
-        Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
-        Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::prefix('quests/{questId}/reviews')->group(function () {
+        Route::get('/', [ReviewsRatingController::class, 'index'])->name('reviews.index');
+        Route::post('/store', [ReviewsRatingController::class, 'store'])->name('reviews.store');
     });
+
+    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
 
     //ViewingChapter
     Route::post('/chapter/{id}/complete', [ChapterController::class, 'complete'])->name('chapter.complete');

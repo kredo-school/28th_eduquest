@@ -39,4 +39,5 @@ class QuestsChapter extends Model
         ->orderBy('id', 'desc')
         ->first();;
     }
+    
 }

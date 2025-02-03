@@ -29,8 +29,17 @@ class ChapterController extends Controller
             ->where('id', '<', $chapterId)  
             ->orderBy('id', 'desc')
             ->first();
+        
+        $otherChapters = QuestsChapter::where('quest_id', $questId)
+            ->where('id', '!=', $chapterId)
+            ->orderBy('id')
+            ->get();
+
+         // 最後のチャプターかどうか
+        $isLastChapter = $nextChapter === null;
     
-        return view('players.quests.viewingchapter', compact('quest', 'chapter', 'nextChapter', 'prevChapter'));
+    
+        return view('players.quests.viewingchapter', compact('quest', 'chapter', 'nextChapter', 'prevChapter', 'otherChapters', 'isLastChapter'));
     }
         public function complete(Request $request, $id)
         {
