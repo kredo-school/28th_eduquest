@@ -63,4 +63,9 @@ class QuestCreatorController extends Controller
     {
         return view('questcreators.how-to-guide');
     }
+
+    public function guideExplanation()
+    {
+        return view('questcreators.guide-explanation');
+    }
 }
