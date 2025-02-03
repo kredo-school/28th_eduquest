@@ -49,7 +49,8 @@ Route::group(['middleware' => 'auth'], function(){
     //ViewingChapter
     Route::post('/chapter/{id}/complete', [ChapterController::class, 'complete'])->name('chapter.complete');
     // Chapter viewing (next, prev)
-    Route::get('/chapter/{id}', [ChapterController::class, 'show'])->name('chapter.show');
+    Route::get('/chapter/{id}', [ChapterController::class, 'viewing'])->name('chapter.viewing');
+    
 
     # To go to Chapterlist page
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
@@ -62,11 +63,6 @@ Route::group(['middleware' => 'auth'], function(){
     //For Creators
     # To go to Creator Mypage
     Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
-    Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
-    Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
-    Route::get('/creator/{id}/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
-    Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
-    Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
-    
+
 });
 

@@ -2,27 +2,43 @@
 
 @section('content')
 <div class="container">
-    <div class="video-player text-center">
-        <iframe width="85%" height="400px" src="{{ $chapter->video }}" frameborder="0" allowfullscreen></iframe>
+    <div class="w-100">
+        <div class="video-player text-center">
+            <iframe width="85%" height="400px" src="{{ $chapter->video }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <h2 class="m-0">{{ $chapter->quest_chapter_title }}</h2>
+            <div class="d-flex align-items-center">
+                @if ($prevChapter)
+                    <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $prevChapter->id]) }}" class="btn btn-secondary me-2"><img src="{{ asset('images/image 83.png') }}" alt="treasure box" class="me-2"
+                        style="width: 23px; height: 23px;"></a>
+                @else
+                    <span class="btn btn-secondary disabled me-2"><img src="{{ asset('images/tatefuda_yajirushi_01_beige 2左向き.png') }}" alt="矢印" class="me-2"
+                        style="width: 23px; height: 23px;"></span>
+                @endif
+
+                <button id="complete-btn" class="btn border rounded px-3 py-2 bg-white me-2"
+                    style="color: #261C11; border-color: #261C11 !important; border-radius: 20px !important; 
+                           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">
+                    <img src="{{ asset('images/image 83.png') }}" alt="treasure box" class="me-2"
+                         style="width: 23px; height: 23px;">
+                    Complete
+                </button>
+    
+                @if ($nextChapter)
+                    <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $nextChapter->id]) }}" class="btn btn-secondary"><img src="{{ asset('images/next.png') }}" alt="treasure box" class="me-2"
+                        style="width: 23px; height: 23px;"></a>
+                @else
+                    <span class="btn btn-secondary disabled"><img src="{{ asset('images/tatefuda_yajirushi_01_beige 2.png') }}" alt="矢印" class="me-2"
+                        style="width: 23px; height: 23px;"></span>
+                @endif
+            </div>
+        </div>
+    
+        <p class="mt-2">{{ $chapter->description }}</p>
     </div>
-
-    <h2>{{ $chapter->quest_chapter_title }}</h2>
-    <p>{{ $chapter->description }}</p>
-
-    <button id="complete-btn" class="btn btn-primary">Complete</button>
-
-    <div class="nav-buttons">
-        @if ($prevChapter)
-            <a href="{{ route('chapter.show', $prevChapter->id) }}" class="btn btn-secondary">← Previous</a>
-        @else
-            <span class="btn btn-secondary disabled">← Previous</span>
-        @endif
-        @if ($nextChapter)
-            <a href="{{ route('chapter.show', $nextChapter->id) }}" class="btn btn-secondary">Next →</a>
-        @else
-            <span class="btn btn-secondary disabled">Next →</span>
-        @endif
-    </div>
+    
 </div>
     
 <!-- レビューモーダル -->
@@ -68,14 +84,14 @@ document.getElementById("complete-btn").addEventListener("click", function() {
 </script>
 
 {{--レビューのJS--JS--}}
-<script>
+{{-- <script>
     document.getElementById("review-form").addEventListener("submit", function(event) {
         event.preventDefault();
     
         let formData = new FormData(this);
         formData.append("quest_id", "{{ $chapter->quest->id }}");
     
-        fetch("{{ route('review.store') }}", {
+        fetch("{{ route('reviews.store') }}", {
             method: "POST",
             headers: {
                 "X-CSRF-TOKEN": "{{ csrf_token() }}"
@@ -88,7 +104,7 @@ document.getElementById("complete-btn").addEventListener("click", function() {
             }
         });
     });
-    </script>
+    </script> --}}
     
 
 @endsection
