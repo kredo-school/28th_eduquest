@@ -34,7 +34,7 @@
             </li>
         </ol>
         <div class="text-center mt-3">
-            <a href="{{ route('questcreators.creatorMyPage') }}" class="agree-btn">I agree</a>
+            <a href="{{ route('questcreators.creatorMyPage', ['id' => $id]) }}" class="agree-btn">I agree</a>
         </div>
     </div>
 </body>
