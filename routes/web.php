@@ -7,6 +7,10 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\BossController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\UserAnswerController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -57,5 +61,25 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
     Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
     
+    Route::group(['prefix' => 'quests/{quest_id}', 'as' => 'quests.bosses.'], function(){
+        # Bosses 
+        Route::get('/boss/create',[BossController::class,'create'])->name('create');
+        Route::post('/boss/store',[BossController::class,'store'])->name('store');
+        Route::get('/boss/manage', [BossController::class, 'manage'])->name('manage');
+
+
+        # Questions
+        Route::get('/boss/{id}/question/create',[QuestionController::class,'create'])->name('questions.create');
+        Route::post('/boss/{id}/question/store',[QuestionController::class,'store'])->name('questions.store');
+
+        
+    });
+
+    # user answers
+    Route::get('/{quest_id}/boss/{boss_id}/start', [UserAnswerController::class, 'start'])->name('start');
+    Route::post('/{quest_id}/boss/{boss_id}/submit', [UserAnswerController::class, 'submit'])->name('submit');
+    Route::get('/{quest_id}/boss/{boss_id}/result', [UserAnswerController::class, 'result'])->name('result');
+
+
 });
 
