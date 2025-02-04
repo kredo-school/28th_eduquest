@@ -39,24 +39,5 @@
     </div>
 </body>
 
-<style>
-    .regulation {
-        background-color: white;
-        padding: 30px;
-        border-radius: 8px;
-        padding-left: 100px;
-    }
-
-    .agree-btn{
-        background-color: #588157;
-        color: white;
-        border: none;
-        padding: 10px 40px;
-        display: block;
-        margin: 30px auto;
-        text-decoration: none;
-        width: 250px;
-    }
-</style>
 
 @endsection
