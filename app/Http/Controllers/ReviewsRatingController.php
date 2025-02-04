@@ -58,7 +58,8 @@ class ReviewsRatingController extends Controller
         );
 
         // 成功メッセージとともにリダイレクト
-        return redirect()->route('players.quests.chapterlist', ['questId' => $questId])->with('success', 'Review added successfully!');
+        return redirect()->route('quests.chapters', ['id' => $questId]);
+
     }
     
     public function destroy($id)
