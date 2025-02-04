@@ -57,5 +57,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
     Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
     
+
+    // For how to guide page
+    Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
+    Route::get('/guide-explanation', [QuestCreatorController::class, 'guideExplanation'])->name('questcreators.guide-explanation');
 });
 

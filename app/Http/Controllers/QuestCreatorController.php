@@ -96,6 +96,16 @@ class QuestCreatorController extends Controller
 
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
+
+    public function creatorGuide()
+    {
+        return view('questcreators.how-to-guide');
+    }
+
+    public function guideExplanation()
+    {
+        return view('questcreators.guide-explanation');
+    }
     /**
      * Show the application dashboard.
      *

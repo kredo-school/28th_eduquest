@@ -376,6 +376,18 @@ creator-profile-view{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* nana edit */
+.creator-edit-button a {
+    color: black;
+    text-decoration: none;
+    font-family: 'DotGothic16';
+    background: white;
+    padding: 0.5rem 2rem;
+    border: 0.1rem solid #333;
+    border-radius: 2rem;
+    box-shadow: 0 0.5vh 0.5vh black;
+}
+
 /* =============================== */
 /*       Quest Management         */
 /* =============================== */
@@ -583,3 +595,286 @@ creator-profile-view{
     overflow: hidden;
 } */
 /* ↑↑ For for players.quests.chapterlist.blade.php ↑↑ */
+
+/*-----------------------------------------[71:How to Guide]--------------------------------------*/
+
+.guide-whole-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.guide-title-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    gap: 1.5vw; 
+    width: 100%; 
+    margin-bottom: 1.5rem;
+    margin-left: 2.5rem;
+}
+
+.guide-content {
+    width: 100%; 
+}
+
+.guide-title-container h2 {
+    margin-top: 1rem;
+    font-size: 2rem;
+}
+
+.guide-body p {
+    font-size: 1.5vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.guide-title-container img {
+    width: 3rem;
+    height: auto;
+}
+
+.guide-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* guide-body を中央に配置 */
+    width: 80%;
+    max-width: 1200px;
+    text-align: left; /* p のデフォルトの左揃えを保持 */
+}
+
+.writer-guide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 1.5vh;
+}
+
+.guide-container {
+    display: flex;
+}
+
+.box {
+    width: 5vw;
+    height: 5vw;
+    background-color: black;
+    border: 0.5vw solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(225, 225, 9);
+    font-size: 2.5vw;
+    font-family: 'DotGothic16';
+}
+
+.box-container {
+    width: 6vw;
+    height: 6vw;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5vw;
+}
+
+.guide-footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    padding: 2vw;
+}
+
+.guide-image-container {
+    display: flex;
+    justify-content: flex-start; /* 両端に画像を配置 */
+    gap: 0.7vw; /* 画像間の距離を縮める */
+}
+
+.guide-image {
+    display: flex;
+    width: auto; /* 画像の幅をコンテンツに合わせて調整 */
+}
+
+.guide-image img {
+    width: 8vw; /* 画像の幅を調整 */
+    height: auto; /* 高さを自動調整 */
+}
+
+.go-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.go-link a {
+    color: black;
+    text-decoration: none;
+    font-family: 'DotGothic16';
+    background: white;
+    padding: 1vh 3vw;
+    border: 0.2vw solid #333;
+    border-radius: 1.5vw;
+    box-shadow: 0 0.5vh 0.5vh black;
+    margin: 5vh 15vw;
+}
+
+
+/*-----------------------------------------[72:Guide explanation]--------------------------------------*/
+
+/* 巻物タイトル　*/
+.scroll-container {
+    position: relative;
+    display: flex; /* フレックスボックスに設定 */
+    justify-content: center; /* 横方向の中央配置 */
+    align-items: center; /* 縦方向の中央配置 */
+    width: 70vw;
+    height: auto;
+    margin: 5vh;
+}
+
+.scroll-container img {
+    width: 65vw;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/*　地図　*/
+.guide-map {
+    width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.guide-map img {
+    width: 80vw;
+    height: auto;
+}
+
+.guide-map-link img {
+    width: 10vw;
+    height: auto;
+}
+
+/* shield */
+.over-lay-link1 {
+    position: absolute;
+    top: 65%;
+    left: 15%;
+    transform: translate(50%, 50%);
+}
+
+/* castle */
+.over-lay-link2 {
+    position: absolute;
+    top: 28%;
+    left: 27%;
+    transform: translate(50%, 50%);
+}
+
+/* wizard */
+.over-lay-link3 {
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    transform: translate(50%, 50%);
+}
+
+/* dragon */
+.over-lay-link4 {
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    transform: translate(50%, 50%);
+}
+
+/* house */
+.over-lay-link5 {
+    position: absolute;
+    top: 73%;
+    left: 73%;
+    transform: translate(50%, 50%);
+}
+
+.wizard-title,
+.shield-title,
+.dragon-title,
+.castle-title,
+.house-title {
+    display: flex;
+    gap: 2vw;
+    margin-top: 8vh;
+}
+
+.wizard-content,
+.shield-content,
+.dragon-content,
+.castle-content,
+.house-content {
+    margin-top: 3vh;
+    font-size: 1rem;
+}
+
+.wizard-title h5,
+.shield-title h5,
+.dragon-title h5,
+.castle-title h5,
+.house-title h5 {
+    margin-top: 3vh;
+}
+
+/* タイトル用アイコン2つ */
+.wizard-title img,
+.shield-title img,
+.dragon-title img,
+.castle-title img,
+.house-title img {
+    width: 3.5vw;
+    height: auto;
+}
+
+.map-content {
+    margin-left: 8vw;
+}
+
+.castle {
+    background: white;
+    width: 70vw;
+    min-height: 25vh;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.badge-example img {
+    width: 20vw;
+    max-width: none;
+}
+
+.castle-gap {
+    margin-left: 2rem;
+    flex: 1;
+}
+
+.badge-example {
+    flex: 0 0 auto;
+}
+
