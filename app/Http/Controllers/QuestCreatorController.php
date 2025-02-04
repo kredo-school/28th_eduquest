@@ -116,16 +116,16 @@ class QuestCreatorController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    // public function index()
-    // {
-    //     //
-    // }
+    public function index()
+    {
+        //
+    }
 
-    // public function show($id)
-    // {
-    //     $quest_creator = QuestCreator::findOrFail($id);
-    //     return view('quest_creator.show', compact('quest_creator'));
-    // }
+    public function show($id)
+    {
+        $quest_creator = QuestCreator::findOrFail($id);
+        return view('quest_creator.show', compact('quest_creator'));
+    }
 
     public function assignQuestToUser(Request $request, $userId)
     {
