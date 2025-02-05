@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Quest;
+use App\Models\Chapter;
 
 class QuestController extends Controller
 {
@@ -56,6 +57,21 @@ class QuestController extends Controller
         return view('players.quests.chapterlist', compact('quest', 'user_review', 'other_reviews'));
     }
 
+    public function showChapters(Quest $quest)
+    {
+        // クエストが存在することを確認
+        if (!$quest) {
+            abort(404);
+        }
+
+        // チャプター一覧を取得
+        $chapters = $quest->chapters()->orderBy('created_at', 'desc')->get();
+
+        return view('quests.chapters', [
+            'quest' => $quest,
+            'chapters' => $chapters
+        ]);
+    }
 
     /**
      * ユーザーにクエストを割り当てる
@@ -71,6 +87,20 @@ class QuestController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Quest assigned successfully!');
+    }
+
+    public function edit(Quest $quest)
+    {
+        return view('admin.edit-quest', [
+            'quest' => $quest
+        ]);
+    }
+
+    public function update(Request $request, Quest $quest)
+    {
+        // 更新処理
+        
+        return redirect()->route('quests.chapters', ['quest' => $quest->id]);
     }
 }
 

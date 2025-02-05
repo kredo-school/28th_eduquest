@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
+use App\Http\Controllers\GuestCreator\CreatorController;
 
 Route::get('/', function () {
     $quests = \App\Models\Quest::with(['categories', 'questCreator'])
@@ -50,4 +51,32 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 });
+
+// クエストのチャプター関連のルート
+Route::middleware(['auth'])->group(function () {
+    // クエスト関連のルート
+    Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
+    Route::get('/quests/create', [QuestController::class, 'create'])->name('quests.create');
+    Route::post('/quests', [QuestController::class, 'store'])->name('quests.store');
+    Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
+    Route::get('/quests/{quest}/edit', [QuestController::class, 'edit'])->name('quests.edit');
+    Route::put('/quests/{quest}', [QuestController::class, 'update'])->name('quests.update');
+    Route::delete('/quests/{quest}', [QuestController::class, 'destroy'])->name('quests.destroy');
+
+    // チャプター関連のルート
+    Route::get('/quests/{quest}/chapters', [QuestController::class, 'showChapters'])->name('quests.chapters');
+});
+
+// ゲストクリエイター関連のルート
+Route::get('/creator/mypage', [CreatorController::class, 'myPage'])
+    ->name('questcreators.creatorMyPage');
+
+Route::get('/creator/how-to-guide', [CreatorController::class, 'howToGuide'])
+    ->name('questcreators.how-to-guide');
+
+Route::get('/creator/profile', [CreatorController::class, 'profile'])
+    ->name('questcreators.profile.view');
+
+Route::get('/creator/profile/edit', [CreatorController::class, 'edit'])
+    ->name('questcreators.profile.edit');
 

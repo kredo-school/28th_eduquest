@@ -1,0 +1,1 @@
+<a href="{{ route('quests.chapters', ['quest' => $quest]) }}" class="btn btn-primary">チャプター一覧</a> 
