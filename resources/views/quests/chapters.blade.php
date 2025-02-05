@@ -5,12 +5,20 @@
     <h2>{{ $quest->quest_title }} - チャプター一覧</h2>
     
     <div class="chapters-list">
-        @foreach($chapters as $chapter)
+        @forelse($chapters as $chapter)
             <div class="chapter-item">
                 <h3>{{ $chapter->title }}</h3>
                 <p>{{ $chapter->description }}</p>
             </div>
-        @endforeach
+        @empty
+            <p>チャプターがまだありません。</p>
+        @endforelse
+    </div>
+
+    <div class="mt-3">
+        <a href="{{ route('quests.show', $quest) }}" class="btn btn-secondary">
+            クエスト詳細に戻る
+        </a>
     </div>
 </div>
 @endsection 

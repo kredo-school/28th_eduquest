@@ -62,7 +62,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/quests/{quest}/edit', [QuestController::class, 'edit'])->name('quests.edit');
     Route::put('/quests/{quest}', [QuestController::class, 'update'])->name('quests.update');
     Route::delete('/quests/{quest}', [QuestController::class, 'destroy'])->name('quests.destroy');
-
+    
     // チャプター関連のルート
     Route::get('/quests/{quest}/chapters', [QuestController::class, 'showChapters'])->name('quests.chapters');
 });

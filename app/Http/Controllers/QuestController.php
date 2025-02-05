@@ -26,7 +26,8 @@ class QuestController extends Controller
      */
     public function index()
     {
-        // 他に処理があればここに追加
+        $quests = Quest::orderBy('created_at', 'desc')->get();
+        return view('admin.quest-list', ['quests' => $quests]);
     }
     
     /**
@@ -64,13 +65,14 @@ class QuestController extends Controller
             abort(404);
         }
 
-        // チャプター一覧を取得
+        // クエストに関連するチャプターを取得
         $chapters = $quest->chapters()->orderBy('created_at', 'desc')->get();
 
-        return view('quests.chapters', [
-            'quest' => $quest,
-            'chapters' => $chapters
-        ]);
+        // デバッグ用
+        \Log::info('Quest ID: ' . $quest->id);
+        \Log::info('Chapters: ', $chapters->toArray());
+
+        return view('quests.chapters', compact('quest', 'chapters'));
     }
 
     /**
@@ -100,7 +102,7 @@ class QuestController extends Controller
     {
         // 更新処理
         
-        return redirect()->route('quests.chapters', ['quest' => $quest->id]);
+        return redirect()->route('quests.chapters', ['quest' => $quest]);
     }
 }
 
