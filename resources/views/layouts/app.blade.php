@@ -18,6 +18,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    @stack('styles')
 </head>
 <body>
     <div id="app">
@@ -127,9 +128,11 @@
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Study Plan</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Favorite Quest Creator</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="{{ url('/admin') }}" style="font-family: 'DotGothic16', sans-serif;">
-                                            <img src="{{ url('images/Sword Icon 02.png') }}" alt="sword" style="width: 20px; height: 20px;"> Admin Page
-                                        </a></li>
+                                        @if(auth()->user()->role_id === 0)
+                                            <li><a class="dropdown-item" href="{{ url('/admin') }}" style="font-family: 'DotGothic16', sans-serif;">
+                                                <img src="{{ url('images/Sword Icon 02.png') }}" alt="sword" style="width: 20px; height: 20px;"> Admin Page
+                                            </a></li>
+                                        @endif
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Setting</a></li>
                                         <li>
@@ -237,6 +240,26 @@
                 </div>
             </div>
         </footer>
+    </div>
+    @stack('scripts')
+    <!-- User Modal -->
+    <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userModalLabel" style="font-family: 'DotGothic16', sans-serif;">User Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-grid gap-2">
+                        <a href="{{ url('/admin') }}" class="btn btn-outline-dark" style="font-family: 'DotGothic16', sans-serif;">Admin</a>
+                        <a href="#" class="btn btn-outline-dark" style="font-family: 'DotGothic16', sans-serif;">Profile</a>
+                        <a href="#" class="btn btn-outline-dark" style="font-family: 'DotGothic16', sans-serif;">Settings</a>
+                        <a href="#" class="btn btn-outline-dark" style="font-family: 'DotGothic16', sans-serif;">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

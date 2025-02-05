@@ -6,6 +6,7 @@ use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 
 Route::get('/', function () {
     $quests = \App\Models\Quest::with(['categories', 'questCreator'])
@@ -58,4 +59,35 @@ Route::group(['middleware' => 'auth'], function(){
 Route::get('/admin', function () {
     return view('admin.admin');
 });
+
+// カテゴリー編集ページのルートを追加
+Route::get('/admin/edit-category', function () {
+    $categories = App\Models\Category::all();
+    return view('admin.edit-category', compact('categories'));
+});
+
+// カテゴリ－の名前を変更するルートを追加
+Route::post('/admin/category/rename/{id}', function ($id) {
+    $category = App\Models\Category::findOrFail($id);
+    $category->category_name = request()->input('category_name');
+    $category->save();
+    return response()->json(['success' => true]);
+});
+
+Route::delete('/admin/category/delete/{id}', function ($id) {
+    $category = App\Models\Category::findOrFail($id);
+    $category->delete();
+    return response()->json(['success' => true]);
+});
+
+Route::post('/admin/category/create', function () {
+    $category = new App\Models\Category();
+    $category->category_name = request()->input('category_name');
+    $category->save();
+    return response()->json(['success' => true]);
+});
+
+Route::post('/admin/category', [CategoryController::class, 'store']);
+Route::put('/admin/category/{id}', [CategoryController::class, 'update']);
+Route::delete('/admin/category/{id}', [CategoryController::class, 'destroy']);
 

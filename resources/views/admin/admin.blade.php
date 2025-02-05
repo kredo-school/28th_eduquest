@@ -23,7 +23,7 @@
 
                         <!-- Edit course category -->
                         <div class="col-md-6">
-                            <a href="#" class="text-decoration-none text-dark">
+                            <a href="{{ url('/admin/edit-category') }}" class="text-decoration-none text-dark">
                                 <div class="border rounded p-3 text-center" style="font-family: 'DotGothic16', sans-serif; font-weight: bold;">
                                     Edit course category
                                 </div>
