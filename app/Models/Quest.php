@@ -7,11 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Quest extends Model
 {
-    protected $fillable = [
-        'category_name',
-        // 他の必要なフィールド
-    ];
-
     use HasFactory;
 
     protected $fillable = [
@@ -20,6 +15,7 @@ class Quest extends Model
         'thumbnail',
         'total_hours',
         'quest_creator_id',
+        'category_name'  // category_nameを追加
     ];
 
     //public function user()
