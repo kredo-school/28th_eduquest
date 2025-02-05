@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'View All Quests')
+@section('title', 'Quest List')
 @section('content')
 
 <div class="container">
@@ -16,7 +16,7 @@
 
     <div class="quest-list">
         @foreach($quests as $quest)
-            <div class="quest-item">
+            <div class="quest-list-container">
                 <a href="{{ route('quests.index', ['id' => $quest->id]) }}">
                     <div class="quest-info">
                         <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail">
@@ -44,142 +44,6 @@
     </div>
 </div>
 
-
-<style>
-.quest-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    margin: 20px;
-}
-
-.quest-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.quest-info {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.quest-info img {
-    width: 160px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-
-.update-date {
-    color: #666;
-    font-size: 0.9rem;
-    margin-top: 4px;
-}
-
-.quest-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.btn {
-    display: flex;
-    justify-content: space-between;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    border: 2px solid #000;
-    background-color: #fff;
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 2px 2px 0 #000;
-    transition: transform 0.1s;
-    width: 150px;
-}
-
-.btn img {
-    margin-left: 0.5rem;
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-}
-
-.btn-edit {
-    background-color: #fff;
-}
-
-.btn-delete {
-    background-color: #fff;
-}
-
-.delete-icon{
-    height: 20px;
-    width: 20px;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-.header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.title-container {
-    display: flex;
-    align-items: center;
-    left: 0;
-    padding-left: 1rem;
-}
-
-
-.btn-create {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.7rem 1.5rem;
-    font-size: 1.1rem;
-    border-radius: 20px;
-    border: 2px solid #000;
-    background-color: #fff;
-    color: #000;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 2px 2px 0 #000;
-    transition: transform 0.1s;
-    width: 250px;
-    text-align: center;
-}
-
-.btn-create img {
-    margin-left: 0.5rem;
-    width: 30px;
-    height: 30px;
-}
-
-.btn-create:hover {
-    transform: translateY(-2px);
-}
-
-body {
-    font-family: 'DotGothic16', sans-serif;
-}
-
-.quest-item a {
-    text-decoration: none;
-    color: inherit;
-}
-</style>
 
 
 @endsection

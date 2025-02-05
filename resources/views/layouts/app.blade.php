@@ -24,9 +24,23 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
-                </a>
+                @guest
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
+                    </a>
+                @endguest
+                @auth
+                    @if ( auth()->user()->role_id === 1 || auth()->user()->role_id === 2)
+                        <a class="navbar-brand" href="{{ url('/home') }}">
+                            <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
+                        </a>
+                    @else <!-- adminの遷移先が違うなら、要修正。変わらないなら削除。 -->
+                        <a class="navbar-brand" href="{{ url('/home') }}">
+                            <h1 class="h5 mb-0">{{ config('app.name') }}</h1>
+                        </a>
+                    @endif
+                @endauth
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -96,7 +110,7 @@
                                             <div class="rounded-circle icon">
                                                 {{-- avatar/icon --}}
                                                 @if( Auth::user()->image )
-                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
+                                                    <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
@@ -114,7 +128,7 @@
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Study Plan</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Favorite Quest Creator</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Setting</a></li>
+                                        <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Setting</a></li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -134,8 +148,8 @@
                                     <a href="#" class="nav-link d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="rounded-circle icon">
                                             {{-- avatar/icon --}}
-                                            @if(Auth::user()->quest_creator->creator_image)
-                                                <img src="{{ Auth::user()->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
+                                            @if(Auth::user()->questCreators->creator_image)
+                                                <img src="{{ Auth::user()->questCreators->creator_image }}" alt="" class="rounded-circle img-icon">
                                             @else
                                                 <i class="fas fa-user"></i>
                                             @endif
@@ -146,19 +160,19 @@
                                         <div class="d-flex align-items-center p-3">
                                             <div>
                                                 {{-- avatar/icon --}}
-                                                @if(Auth::user()->quest_creator->creator_image)
-                                                    <img src="{{ Auth::user()->quest_creator->creator_image }}" alt="" class="rounded-circle img-icon">
+                                                @if(Auth::user()->questCreators->creator_image)
+                                                    <img src="{{ Auth::user()->questCreators->creator_image }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
                                             </div>
                                             <div class="ms-3">
-                                                <li class="mb-0 fw-bold">{{  Auth::user()->quest_creator->creator_name }}</li>
+                                                <li class="mb-0 fw-bold">{{  Auth::user()->questCreators->creator_name }}</li>
                                                 <li class="mb-0 text-muted">{{ Auth::user()->email }}</li>
                                             </div>
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Page and Dashbord</a></li>
+                                        <li><a class="dropdown-item" href="{{route('questcreators.creatorMyPage', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Page and Dashbord</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
                                         
                                         <li><hr class="dropdown-divider"></li>
@@ -167,11 +181,11 @@
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest Data Overview</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('questcreators.profile.view', ['id' => Auth::id()])}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
+                                        <li><a class="dropdown-item" href="{{route('questcreators.profile.edit', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
+                                        <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -221,8 +235,6 @@
             </div>
         </footer>
     </div>
-
-    <!-- Javascriptに必要なコード-->
     @yield('scripts')
 </body>
 </html>

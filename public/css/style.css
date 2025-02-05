@@ -1,19 +1,17 @@
 /*header*/
 nav{
-    background-color: #261C11;  
+    background-color: #261C11;
 }
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
     
 }
-
 /*App title EduQuest*/
 .h5:hover,
 .h5:focus{
     color: #fff !important;
 }
-
 /*News Category FAQ*/
 .nav-item a:hover,
 .nav-item a:focus{
@@ -23,13 +21,12 @@ nav{
     color: #aaa !important;
     transform: translateY(2px);
 }
-
-/*カテゴリーのドロップダウン*/
+/* Category Dropdown Menu */
 .nav-item-dropdown a{
     color: #261C11 !important;
     font-family: 'DotGothic16', sans-serif;
 }
-.nav-item-dropdown a:hover, 
+.nav-item-dropdown a:hover,
 .nav-item-dropdown a:focus {
     color: #261C11 !important;
     background-color: transparent;
@@ -38,8 +35,7 @@ nav{
     color: #261C11 !important;
     transform: translateY(2px);
 }
-
-/*Sign in と Register*/
+/*Sign in & Register*/
 .custom-btn {
     background-color: #588157;
     color: white;
@@ -54,25 +50,602 @@ nav{
     outline: none;
 
 }
+/* For Resistarion By Yudai  */
+.resistration-card .card-header {
+    border-bottom: none;
+}
+.resistration .card-body {
+    border-top: none;
+ }
 
+.sign-in-card-body {
+    background-image: url('../images/SignIn_background_image.png'); /* Set the correct image path */
+    background-size: cover; /* Set image size to cover */
+    background-position: center;  /* Center the image */
+    background-repeat: no-repeat; /* Disable image repetition */
+}
+
+/* title icon  */
+.title-icon {
+    height: 3em; /* Match h2 font size */
+    width: auto; /* Maintain aspect ratio */
+    vertical-align: middle; /* Adjust vertical position with text */
+}
+
+
+/* Resistration card body by Yudai */
+
+.resistration-card-body {
+    background-image: url('../images/registration_bg.jpg'); /* Set the correct image path */ 
+    background-size: cover; /* Set image size to cover */ 
+    background-position: center; /* Center the image */ 
+    background-repeat: no-repeat; /* Disable image repetition */ 
+}
+/* Icon dropdown menu */
+.dropdown-menu {
+    font-family: 'DotGothic16', sans-serif;
+    color: #261C11;
+}
+.nav-item-2 a{
+    color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+.nav-item-2 a:hover,
+.nav-item-2 a:focus {
+    color: #261C11;
+    background-color: transparent;
+}
+.nav-item-2 a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
+/*hr*/
+.dropdown-menu .dropdown-divider {
+    border-color: #aaa;
+    opacity: 0.5;
+    margin: 0.5rem 0;
+}
+/* Dropdown sword image */
+.sword{
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 10px;
+}
+ /* Default icon when no image is added */
+.icon {
+    width:3rem;
+    height:3rem;
+    background-color: #aaa;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Icon when an image is added */
+.img-icon {
+    width:3rem;
+    height:3rem;
+    object-fit: cover;
+}
 main{
+    background-color: #fffff3;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+footer{
+    background-color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+
+/* ↓↓↓ for home.blade.php ↓↓↓ */
+.image-md{
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: cover;
+}
+
+.icon-md{
+    font-size: 3.5rem;
+}
+
+.border-color{
+    border: 1px solid #3C2C1B;
+}
+
+.round-10{
+    border-radius: 10px;
+}
+
+.btn-custom-border {
+    border-color: #3C2C1B !important;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.news-button {
+    margin-top: 15px; /* Adjust button spacing */
+    width: 100%;  /* Make button fill the parent width */
+}
+
+.truncate-2-lines {
+    display: -webkit-box;              /* Required: Block element + Flexbox */
+    -webkit-box-orient: vertical;      /* Arrange vertically */
+    -webkit-line-clamp: 2;            /* Limit to 2 lines */
+    overflow: hidden;                /* Hide overflow */
+    text-overflow: ellipsis;          /* Add ellipsis (Chrome, etc.) */
+}
+
+
+.quests-row {
+    background-color: #FCFCE7;
+}
+
+.horizontal-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    /* gap: 1rem; */
+}
+
+.quest-item {
+    flex: 0 0 auto;
+    width: 200px;
+    background-color: #fff;
+    /*  #EDEBEB */
+}
+
+.quest-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.aspect-ratio-16-9 {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.aspect-ratio-16-9-inner {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    overflow: hidden; /* Just in case */
+}
+
+.aspect-ratio-16-9-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-image-box {
+    background-color: #ccc;
+    position: relative;
+}
+
+.no-image-box .no-image-text-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #000;
+    font-weight: bold;
+}
+
+.flag_green {
+width: 1.5rem;
+height: 1.5rem; 
+margin-right: 10px;
+}  
+
+.category-badge {
+background-color: #588157; 
+color: #fff;  
+margin-left: 5px;    
+padding: 2px 6px;         /* Inner padding */
+border-radius: 3px;      /* Rounded corners */
+font-size: 0.7rem;        /* Fine-tuned size */
+margin-right: 4px;        /* Spacing between badges */
+}
+/* ↑↑↑ for home.blade.php ↑↑↑ */
+
+
+/* ↓↓↓ for switch.blade.php ↓↓↓ */
+/* 1. Left sidebar */
+.side-bar{
+    border: 2px solid #261C11;
+    border-radius: 20px;
+    font-size: 6px;
+    margin-left: 30px;
+    /* margin-bottom: 50px;  */
+    display: flex;
+    flex-direction: column; /* Arrange vertically */
+    /* height: 100%;  */
+}
+/* 2. Image of a player holding a sword */
+.player-image{
+    height: 100px;
+    width: 100px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+/* 3. Text below "Select File" */
+.Accetable{
+    font-size: 10px;
+    line-height: 1.2; /* Reduce line spacing */
+    margin-bottom: 5px; /* Adjust paragraph spacing */
+    margin-top: 10px;
+}
+/* 4. Three sword images */
+.homeSword{
+    height: 40px;
+    width: 40px;
+}
+
+.slime {
+    height: 40px;
+}
+
+.custom-switch-btn {
+background-color: #588157;
+color: white;
+text-decoration: none;
+display: inline-block;
+margin-right: 15px;
+padding-top: 10px;
+padding-bottom: 10px;
+text-align: center;
+width: 130px;
+}
+/* =============================== */
+/*        General Styles          */
+/* =============================== */
+body {
+    background-color: #FFFFF3;
+    font-family: 'DotGothic16', sans-serif, Arial !important;
+    color: #261C11;
+}
+
+/* =============================== */
+/*        Creator Profile          */
+/* =============================== */
+.creator-profile {
+    background-color: #FFFFFF;
+    border: 3px solid #588157;
+    margin-right: 10px;
+}
+
+creator-profile-view{
+    background-color: #FFFFFF;
+    border: 3px solid #588157;
+}
+
+.creator-name {
+    font-size: 20px;
+}
+
+.creator-avatar {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border: 3px solid #588157;
+}
+
+.profile-title-s {
+    color: #646363;
+    margin: 10px 0;
+}
+
+.mute-text {
+    font-size: 18px;
+    color: #afafaf;
+}
+
+.textarea {
+    height: 150px;
+}
+
+.edit-button-container a {
+    text-decoration: none;
+    color: #333;
+    background: white;
+    padding: 0.35rem 2.2rem;
+    border: 1px solid #333;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.edit-button-container {
+    text-decoration: none;
+    color: #333;
+    background: white;
+    padding: 0.35rem 2.2rem;
+    border: 1px solid #333;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* =============================== */
+/*       Quest Management         */
+/* =============================== */
+.quest-management {
+    position: relative;
+    background-color: #FFFFFF;
+    border: 3px solid #588157;
+    margin-left: 10px;
+}
+
+.quest-total {
+    background-color: #C7D7AC;
+    height: 100px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alphabet-q, .alphabet-u, .alphabet-e, .alphabet-s, .alphabet-t {
+    height: 40px;
+    width: 30px;
+    margin-right: 10px;
+}
+
+.alphabet-q {
+    margin-left: 20px;
+}
+
+/* =============================== */
+/*      Background Elements       */
+/* =============================== */
+.red-dragon, .blue-castle, .yama-1, .yama-2 {
+    position: absolute;
+    background-color: white;
+    opacity: 0.5;
+}
+
+.red-dragon {
+    width: 139px;
+    height: 72px;
+    bottom: 230px;
+    right: 300px;
+    transform: rotate(-10deg);
+}
+
+.blue-castle {
+    width: 200px;
+    height: 310px;
+    bottom: 30px;
+    right: 130px;
+}
+
+.yama-1 {
+    position: absolute;
+    width: 65px;
+    height: 55px;
+    bottom: 30px;
+    right: 60px;
+    background-color: white;
+    opacity:0.5;
+}
+
+.yama-2 {
+    position: absolute;
+    width: 40px;
+    height: 30px;
+    bottom: 30px;
+    right: 160px; 
+    background-color: white;
+    opacity:0.6;
+}
+
+/*       Management Button        */
+.mgt-btn {
+    position: absolute;
+    border: 2px solid #261C11;
+    background-color: #FFFFFF;
+    border-radius: 40px;
+    bottom: 80px;
+    left: 100px;
+    padding: 10px 100px;
+    font-size: 30px;
+    z-index: 1000;
+}
+
+/* For Quest-list page delete-modal start */
+
+.modal-content {
+    font-family: 'DotGothic16', sans-serif;
+}
+
+.modal-header {
+    background-color: #261C11;
+    color: white;
+}
+
+.modal-body, .modal-footer {
     background-color: #FFFFF3;
 }
 
-.title-icon {
-    height: 3em; /* h2のフォントサイズに合わせる */
-    width: auto; /* アスペクト比を保持 */
-    vertical-align: middle; /* テキストとの縦位置を調整 */
+.img-lg {
+    height: 80px;
+    width: 80px;
+}
+
+.btn img {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    border: none;
+}
+
+.warning-box {
+    border: 1px solid #c0c0c0;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* For Quest-list page delete-modal end */
+
+/* For Quest-list page start */
+.quest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 20px;
+}
+
+.quest-list-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.quest-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.quest-info img {
+    width: 160px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.update-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.quest-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+
+.btn img {
+    margin-left: 0.5rem;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.btn-edit {
+    background-color: #fff !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 2px solid #000;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+    transition: transform 0.1s;
+    width: 150px;
+}
+
+.btn-delete {
+    background-color: #fff !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 2px solid #000;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+    transition: transform 0.1s;
+    width: 150px;
+}
+
+.delete-icon{
+    height: 20px;
+    width: 20px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
 }
 
 
 
+.btn-create {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 20px;
+    border: 2px solid #000;
+    background-color: #fff !important;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+    transition: transform 0.1s;
+    width: 250px;
+    text-align: center;
+}
+
+.btn-create img {
+    margin-left: 0.5rem;
+    width: 30px;
+    height: 30px;
+}
+
+.btn-create:hover {
+    transform: translateY(-2px);
+}
 
 
+.quest-list-container a {
+    text-decoration: none;
+    color: inherit;
+}
+/* For Quest-list page end */
 
-
-/*---------------------[75:Create Quest]-----------------------------------*/
-
+/* For Create Quest start */
 /*-------------[form全体のデザイン]---------*/
 form {
     font-family: 'DotGothic16';
@@ -291,6 +864,7 @@ input[type="file"] {
     height: 1rem;
     margin-left: 5px;
 }
+/* For Create Quest end */
 
 /*アイコンのドロップダウンメニュー*/
 .dropdown-menu {
@@ -342,14 +916,78 @@ input[type="file"] {
     object-fit: cover;
 }
 
-main{
-    background-color: #fffff3;
+/* =============================== */
+/*        Sidebar & Player        */
+/* =============================== */
+.side-bar {
+    border: 2px solid #261C11;
+    border-radius: 20px;
+    font-size: 6px;
+    margin-left: 30px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-footer{
-    background-color: #261C11;
-    font-family: 'DotGothic16', sans-serif;
+.player-image {
+    height: 100px;
+    width: 100px;
+    margin-top: 30px;
+    margin-bottom: 15px;
 }
 
+.Accetable {
+    font-size: 10px;
+    line-height: 1.2;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
 
+.sword {
+    height: 40px;
+    width: 40px;
+}
 
+/* ↓↓↓ for players.quests.chapterlist.blade.php ↓↓↓ */
+.review-text {
+    max-height: 20px; /* 初期状態は1行分の高さ */
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    line-height: 1.4;
+}
+
+.review-text.expanded {
+    max-height: none; /* 高さ制限を解除して全文表示 */
+    overflow: scroll;
+}
+.review {
+    transition: height 0.3s ease-in-out; /* 高さの変更をスムーズに */
+    height: auto; /* コンテンツに合わせて高さを自動調整 */
+}
+.rating {
+    display: flex;
+    align-items: center;
+    font-size: 0;
+}
+
+.star {
+    width: 17px;
+    height: 17px;
+}
+
+.star-gray {
+    width: 17px;
+    height: 17px;
+    opacity: 0.5; /* 未評価の星を薄く表示 */
+}
+
+/* .star-partial {
+    background-image: url('{{ asset('images/star_yellow 3.png') }}');
+    background-size: 100% 100%;
+    width: 0;
+    height: 17px;
+    position: absolute;
+    overflow: hidden;
+} */
+/* ↑↑ For for players.quests.chapterlist.blade.php ↑↑ */

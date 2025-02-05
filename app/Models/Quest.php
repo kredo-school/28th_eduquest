@@ -18,10 +18,24 @@ class Quest extends Model
         'quest_creator_id',
     ];
 
+    public function questCreator()
+    {
+        return $this->belongsTo(QuestCreator::class);
+    }
 
     public function creator()
     {
         return $this->belongsTo(QuestCreator::class, 'quest_creator_id');
+    }
+
+    public function categoryQuests()
+    {
+        return $this->hasMany(CategoryQuest::class, 'quest_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'quest_category', 'quest_id', 'category_id');
     }
 
     public function chapters()
@@ -29,9 +43,28 @@ class Quest extends Model
         return $this->hasMany(QuestChapter::class, 'quest_id');
     }
 
-    public function categories()
+    // ユーザーとのリレーション
+    public function users()
     {
-        return $this->belongsToMany(Category::class, 'quest_category', 'quest_id', 'category_id');
+        return $this->hasMany(User::class);
     }
+    // クエストチャプターとのリレーション
+    public function questsChapters()
+    {
+        return $this->hasMany(QuestsChapter::class);
+    }
+    // レビューレーティングとのリレーション
+    public function reviews_ratings()
+    {
+        return $this->hasMany(ReviewsRating::class);
+    }
+
+    //レーティング平均
+    public function averageRating()
+    {
+        return $this->reviews_ratings()->avg('rating');
+    }
+
+
 
 }

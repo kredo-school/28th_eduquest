@@ -1,47 +1,3 @@
-<style>
-
-    .modal-content{
-        font-family: 'DotGothic16', sans-serif;
-    }
-
-    .modal-header{
-        background-color: #261C11;
-        color: white;
-    }
-
-    .modal-body, .modal-footer{
-        background-color: #FFFFF3;
-    }
-
-    .img-lg{
-        height: 80px;
-        width: 80px;
-    }
-    .btn img {
-        margin-right: 5px;
-        vertical-align: middle;
-    }
-    .btn {
-        display: inline-flex;
-        align-items: center;
-    }
-    .modal-footer{
-        display: flex;
-        justify-content: center;
-        border: none;
-    }
-
-    .warning-box{
-        border: 1px solid #c0c0c0;
-        padding: 20px;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-
-</style>
-
 
 <div class="modal fade" id="delete-quest{{ $quest->id }}">
     <div class="modal-dialog">
@@ -72,3 +28,5 @@
         </div>
     </div>
 </div>
+
+
