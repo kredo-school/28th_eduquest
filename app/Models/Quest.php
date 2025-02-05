@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Quest extends Model
@@ -11,6 +12,20 @@ class Quest extends Model
         // 他の必要なフィールド
     ];
 
+    use HasFactory;
+
+    protected $fillable = [
+        'quest_title',
+        'description',
+        'thumbnail',
+        'total_hours',
+        'quest_creator_id',
+    ];
+
+    //public function user()
+    //{
+    //    return $this->belongsTo(User::class);
+    //}
     public function questCreator()
     {
         return $this->belongsTo(QuestCreator::class);
@@ -27,3 +42,4 @@ class Quest extends Model
         return $this->belongsTo(Category::class, 'category_id');
     }
 }
+
