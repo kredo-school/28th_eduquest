@@ -13,20 +13,26 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-
-
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
     protected $fillable = [
-       'player_nickname',
+        'player_nickname',
         'email',
         'first_name',
         'family_name',
         'password',
+        'role_id',
     ];
+
+    // The Method that sets role_id
+    public function setRole($roleid)
+    {
+        $this->role_id = $roleid;
+        $this->save();
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -51,8 +57,21 @@ class User extends Authenticatable
         ];
     }
 
-    public function quest_creator()
+    
+
+    public function questCreators(){
+        return $this->hasOne(QuestCreator::class);
+    }
+
+    // クエストとのリレーション
+    public function quest()
     {
-        return $this->hasOne(QuestCreator::class);//Userが１つのクエストクリエイターを持つ
+        return $this->belongsTo(Quest::class);
+    }
+
+    // レビューレーティングとのリレーション
+    public function reviews_ratings()
+    {
+        return $this->hasMany(ReviewsRating::class);
     }
 }
