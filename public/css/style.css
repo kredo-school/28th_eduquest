@@ -737,11 +737,6 @@ form {
     margin-left: 5px;
 }
 
-/* 元の[ファイルを選択]ボタンを非表示にする */
-input[type="file"] {
-    display: none; /* ファイル選択ボタンを非表示にする */
-}
-
 
 /* 画像プレビューの枠線 */
 .image-preview-container {
