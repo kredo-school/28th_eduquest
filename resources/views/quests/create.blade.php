@@ -2,11 +2,7 @@
 @section('content')
 <div class="container mt-5">
     <div class="create-container">
-            {{-- <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <!-- Navbar content -->
-            </nav> --}}
-
+        
             <!-- Form Start -->
             <form action="{{ route('quests.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
