@@ -3,13 +3,16 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card resistration-card">
-                <div class="card-body resistration-card-body text-center fw-bold bg-white">
-                    <img src="..\images\character_yusha_01_green.png"
-                        alt="yusya_man" style="width: 25px; height: 25px; margin: 5px;">{{ __('Registration') }}<img
-                        src="..\images\character_yusha_woman_red.png" alt="yusya_woman"
-                        style="width: 25px; height: 25px; margin: 5px;">
+        <div class="col-md-8">
+            <div class="card" style="background-image: url('/images/resistration_bg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+                <div class="card-header" style="text-align: center; border-bottom: none;">
+                    <img src="../images/character_yusha_01_green.png" 
+                    alt="yusya_man" style="width: 25px; height: 25px; margin: 5px;">{{ __('Registration') }}<img
+                    src="..\images\character_yusha_woman_red.png" alt="yusya_woman"
+                    style="width: 25px; height: 25px; margin: 5px;">
+                </div>
+
+                <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
