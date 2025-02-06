@@ -49,7 +49,7 @@
                         <img src={{ asset('images/alphabet_t.png') }} alt="T" class="alphabet-t">
                         <span class="fs-1">: {{ $questCount }}</span>
                     </div>
-                    <button type="button" class="mgt-btn">Go To Management Page</button>
+                    <a class="mgt-btn text-decoration-none text-dark" href="{{ route('quests.index') }}">Go To Management Page</a>
 
                     {{-- background-design --}}
                     <img src={{ asset('images/character_monster_dragon_03_red.png') }} alt="Red Dragon" class="red-dragon">
