@@ -15,5 +15,4 @@ class StatusController extends Controller
     }
 
 
-
 }

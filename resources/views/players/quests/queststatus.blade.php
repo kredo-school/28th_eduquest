@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Quest Status')
+@section('title', 'My Quests Status')
 
 @section('content')
 <div class="row gx-5">
