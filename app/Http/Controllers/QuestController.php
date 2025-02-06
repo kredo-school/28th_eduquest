@@ -47,14 +47,21 @@ class QuestController extends Controller
         ]);
 
         // 画像の保存
-        $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+        // $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+
+        // YouTubeのURLから動画IDを抽出
+        $youtubeId = $this->extractYoutubeId($request->thumbnail);
+        $thumbnailUrl = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
+
+
 
         //Questの作成
         $quest = Quest::create([
             'quest_title' => $request->quest_title,
             'description' => $request->description,
             'total_hours' => $request->total_hours,
-            'thumbnail' => $thumbnailPath,  // 保存した画像のパス
+            // 'thumbnail' => $thumbnailPath,  // 保存した画像のパス
+            'thumbnail' => $thumbnailUrl,  // 生成したサムネイルURLを保存
             'quest_creator_id' => Auth::id(),   // ログイン中のユーザーID設定
         ]);
 
@@ -79,6 +86,14 @@ class QuestController extends Controller
         return redirect()->route('quests.index');
     }
 
+    // YouTubeのURLから動画IDを抽出するヘルパーメソッド
+    private function extractYoutubeId($url)
+    {
+        preg_match('/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\&\?\/]+)/', $url, $matches);
+        return $matches[1] ?? null;
+    }
+    
+
     public function edit($id) {
 
         $quest = Quest::findOrFail($id);  // QuestをIDで取得
@@ -100,7 +115,7 @@ class QuestController extends Controller
             'quest_title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'total_hours' => 'required|numeric|min:0.5|max:10',
-            'thumbnail' => 'nullable|image',  // 画像が選ばれている場合のみバリデーション
+            'thumbnail' => 'required|url',  // 画像が選ばれている場合のみバリデーション
             'category' => 'required|array|min:1|max:3',
             'category.*' => 'exists:categories,id',
             'sub_items' => 'required|array|min:1',
@@ -114,15 +129,16 @@ class QuestController extends Controller
             'quest_title' => $request->quest_title,
             'description' => $request->description,
             'total_hours' => $request->total_hours,
+            'thumbnail' => $request->thumbnailUrl,  // 生成したサムネイルURLを保存
             'quest_creator_id' => Auth::id(),
         ]);
 
         // 画像が更新されている場合は保存
-        if ($request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('thumbnail', 'public');
-            $quest->thumbnail = $thumbnailPath;
-            $quest->save();
-        }
+        // if ($request->hasFile('thumbnail')) {
+        //     $thumbnailPath = $request->file('thumbnail')->store('thumbnail', 'public');
+        //     $quest->thumbnail = $thumbnailPath;
+        //     $quest->save();
+        // }
 
         // チャプターの更新(既存のチャプターを削除して新しいものを追加)
         $quest->chapters()->delete();  // 既存のチャプターを削除
