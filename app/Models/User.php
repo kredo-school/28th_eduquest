@@ -74,4 +74,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(ReviewsRating::class);
     }
+
+    public function userQuests(){
+        return $this->hasMany(UserQuest::class, 'user_id');
+    }
 }

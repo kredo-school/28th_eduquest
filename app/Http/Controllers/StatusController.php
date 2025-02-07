@@ -11,8 +11,8 @@ class StatusController extends Controller
     
     public function viewQuestStatus($id)
     {
+        
         return view('players.quests.queststatus');    
     }
-
 
 }
