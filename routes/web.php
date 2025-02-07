@@ -7,6 +7,8 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\FavoriteCreatorController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,6 +48,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
+    //Favorite Creator button on creator's profile page
+    Route::get('/favorites', [FavoriteCreatorController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/{creatorId}', [FavoriteCreatorController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{creatorId}', [FavoriteCreatorController::class, 'destroy'])->name('favorites.destroy');
 
 
     //For Creators

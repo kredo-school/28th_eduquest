@@ -33,4 +33,10 @@ class QuestCreator extends Model
     {
         return $this->hasMany(Quest::class);
     }
+
+    // questとのリレーション(favorite creator用)
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'quest_creator_id', 'user_id');
+    }
 }

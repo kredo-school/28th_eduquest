@@ -74,4 +74,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(ReviewsRating::class);
     }
+
+    // クエストとのリレーション(favorite creator用)
+    public function favoriteCreators()
+    {
+        return $this->belongsToMany(QuestCreator::class, 'favorites', 'user_id', 'quest_creator_id');
+    }
 }

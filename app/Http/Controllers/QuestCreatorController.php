@@ -90,12 +90,22 @@ class QuestCreatorController extends Controller
 
     public function viewCreatorMyPage($id)
     {
-        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        // 指定されたIDのクリエイター情報を取得（どのユーザーでも見られる）
+        $questcreator = QuestCreator::where('user_id', $id)->firstOrFail();
+
+        // ログイン中のユーザー情報を取得
+        $user = Auth::user();
+
+        // お気に入り登録済みかを判定（role_id=1のときだけ）
+        $isFavorite = ($user && $user->role_id == 1) ? $user->favoriteCreators->contains($questcreator) : false;
 
         $questCount = Quest::count();
 
-        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
+        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount', 'user', 'isFavorite'));
     }
+
+
+
 
     public function creatorGuide()
     {
@@ -112,16 +122,20 @@ class QuestCreatorController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function index()
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        $quest_creator = QuestCreator::findOrFail($id);
-        return view('quest_creator.show', compact('quest_creator'));
-    }
+     public function show($id)
+     {
+         // ログイン中のユーザーを取得
+         $user = Auth::user();
+         
+         // QuestCreatorモデルから、指定されたIDのレコードを取得
+         $questcreator = QuestCreator::findOrFail($id);
+ 
+         // 現在ログインしているユーザーがお気に入りにしているQuestCreato($questcreator)を持っているかどうかを確認する文
+         $isFavorite = $user->favoriteCreators->contains($questcreator);
+ 
+         // ビューにデータを渡す
+         return view('questcreators.creatorMyPage', compact('questcreator', 'isFavorite'));
+     }
 
     public function assignQuestToUser(Request $request, $userId)
     {
@@ -164,7 +178,5 @@ class QuestCreatorController extends Controller
         ->with('success', 'Profile updated successfully!');
 
     }
-
-
 
 }
