@@ -1,68 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Player My page')
 @section('content')
-<style>
-  body {
-    background-color: #FFFFF3;
-    font-family: 'DotGothic16', sans-serif;
-    color: #261C11;
-  }
-  /* 1 左のバー */
-  .side-bar {
-    border: 2px solid #261C11;
-    border-radius: 20px;
-    font-size: 6px;
-    margin-left: 30px;
-  }
-  /* 右のバー */
-  .side-bar-right {
-    border: 2px solid #261C11;
-    border-radius: 20px;
-    font-size: 6px;
-    margin-left: 30px;
-  }
-  /* 2 剣持った画像の事 */
-  .player-image{
-    height: 100px;
-    width: 100px;
-    margin-top: 50px;
-    margin-bottom: 15px;
-  }
-  /* パチンコみたいな画像 */
-  .Batch-image{
-    height: 40px;
-    width: 120px;
-    margin-top: 50px;
-    margin-bottom: 10px;
-  }
-  /* 4 Shogoの事 */
-  .Shogo {
-    font-size: 30px;
-    line-height: 1.2;
-    margin-bottom: 1px;
-    margin-top: 1px;
-  }
-  /* homeアイコン */
-  .home-image {
-    width: 40px;
-    height: 40px;
-  }
-  /* swordアイコン */
-  .sword-image {
-    width: 40px;
-    height: 40px;
-  }
-    /* boxアイコン */
-    .box-image {
-    width: 40px;
-    height: 40px;
-  }
-  /* 4 文字 */
-  .text {
-    font-size: 20px;
-    margin-top: 8px; /* アイコンとの間を少し空ける */
-  }
-</style>
+
 <div class="row text-center">
   <!-- ===== Left side bar ===== -->
   <div class="side-bar col-2 bg-white">

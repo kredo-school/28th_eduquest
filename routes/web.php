@@ -49,7 +49,7 @@ Route::group(['middleware' => 'auth'], function(){
     ->name('quests.chapters');
 
     # player mypage
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/test', [UserController::class, 'viewTestSwitch']);
     Route::get('/player/mypage', [MypageController::class, 'viewMyPage']);
 
