@@ -59,12 +59,17 @@ class QuestCreatorController extends Controller
  
 
     public function viewCreatorProfile(){
-
         $questcreator = QuestCreator::where('user_id', Auth::id())->first();
-      
-        return view('questcreators.profile.view', compact('questcreator'));
-
-    }
+    
+        // ログイン中のユーザー情報を取得
+        $user = Auth::user();
+    
+        // お気に入り登録済みかを判定（role_id=1のときだけ）
+        $isFavorite = ($user && $user->role_id == 1) ? $user->favoriteCreators->contains($questcreator) : false;
+    
+        
+        return view('questcreators.profile.view', compact('questcreator', 'isFavorite', 'user'));
+    }    
 
     public function editCreatorProfile($id)
     {
@@ -93,15 +98,9 @@ class QuestCreatorController extends Controller
         // 指定されたIDのクリエイター情報を取得（どのユーザーでも見られる）
         $questcreator = QuestCreator::where('user_id', $id)->firstOrFail();
 
-        // ログイン中のユーザー情報を取得
-        $user = Auth::user();
-
-        // お気に入り登録済みかを判定（role_id=1のときだけ）
-        $isFavorite = ($user && $user->role_id == 1) ? $user->favoriteCreators->contains($questcreator) : false;
-
         $questCount = Quest::count();
 
-        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount', 'user', 'isFavorite'));
+        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount', 'user'));
     }
 
 
