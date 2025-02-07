@@ -1,137 +1,102 @@
 @extends('layouts.app')
 
-@section('title', 'My Quests Status')
+@section('title', 'Quest Status Page')
 
 @section('content')
-<div class="row gx-5">
-    {{-- Quests Scroll --}}
-    <div class="quests-row">
-        <div class="horizontal-scroll px-3">
+<style>
+/* 横スクロール用クラス */
+.horizontal-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1rem; /* 要素間の隙間を1rem */
+}
 
-            <h2><img src="{{ asset('images/flag_red.png') }}" alt="Red Flag" class="flag_red_status pe-1">In Progress</h2>
+/* カードの固定幅例 */
+.quest-card {
+    flex: 0 0 auto; /* flex-basis: auto; shrink:0; */
+    width: 200px;   /* 横幅を200pxに固定 */
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-            <!-- Thumbnail with spacing -->
-            @forelse ($category->categoryQuests as $catQuest)
-            <div class="card quest-item mx-1" style="width: 200px;">
-                @if ($catQuest->quest->thumbnail)
-                    {{-- Thumbnail --}}
-                    <div class="aspect-ratio-16-9">
-                        {{-- あとでリンク追加必要！！！ --}}
-                        <a href="#">
-                            <div class="aspect-ratio-16-9-inner">
-                                <img src="{{ $catQuest->quest->thumbnail }}" alt="Quest Thumbnail">
-                            </div>
-                        </a>
-                    </div>
-                    {{-- Categories --}}
-                    <div>
-                        @foreach ($catQuest->quest->categoryQuests as $qCat)
-                            <span class="category-badge">
-                                {{ $qCat->category->category_name }}
-                            </span>
-                        @endforeach
-                    </div>
-                    {{-- Quest Title --}}
-                    {{-- あとでリンク追加必要！！！ --}}
-                    <a href="#">
-                        <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
-                    </a>
-                    {{-- Creator Icon + Creator name--}}
-                    <div class="card-body" style="display: flex; align-items: center;">
-                        @php
-                            $creator = $catQuest->quest->questCreator;
-                        @endphp
-                        @if ($creator)
-                            @if ($creator->creator_image)
-                                {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
-                                    <img
-                                        src="{{ $creator->creator_image }}"
-                                        alt="Creator Icon"
-                                        style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
-                                    >
-                                    <span class="ms-1">{{ $creator->creator_name }}</span>
-                                </a>
-                            @else
-                                {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
-                                    <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
-                                    <span class="ms-1">{{ $creator->creator_name }}</span>
-                                </a>
-                            @endif
-                        @else
-                            {{-- クリエイター情報がない場合 --}}
-                            <a href="#">
-                                <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
-                                <span class="ms-1">Unknown</span>
-                            </a>
-                        @endif
-                    </div>
-                @else
-                    {{-- No Thumbnail --}}
-                    {{-- あとでリンク追加必要！ --}}
-                    <a href="#">
-                        <div class="aspect-ratio-16-9 no-image-box">
-                            <span class="no-image-text-center">
-                                No Image
-                            </span>
-                        </div>
-                    </a>
-                    {{-- Categories --}}
-                    <div>
-                        @foreach ($catQuest->quest->categoryQuests as $qCat)
-                            <span class="category-badge">
-                                {{ $qCat->category->category_name }}
-                            </span>
-                        @endforeach
-                    </div>
-                    {{-- Quest Title --}}
-                    {{-- あとでリンク追加必要！！！ --}}
-                    <a href="#">
-                        <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
-                    </a>
-                    {{-- Creator Icon + Creator name --}}
-                    <div class="card-body" style="display: flex; align-items: center;">
-                        @php
-                            $creator = $catQuest->quest->questCreator;
-                        @endphp
-                        @if ($creator)
-                            @if ($creator->creator_image)
-                                {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
-                                    <img
-                                        src="{{ $creator->creator_image }}"
-                                        alt="Creator Icon"
-                                        style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
-                                    >
-                                    <span class="ms-1">{{ $creator->creator_name }}</span>
-                                </a>
-                            @else
-                                {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
-                                    <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
-                                    <span class="ms-1">{{ $creator->creator_name }}</span>
-                                </a>
-                            @endif
-                        @else
-                            {{-- クリエイター情報がない場合 --}}
-                            <a href="#">
-                                <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
-                                <span class="ms-1">Unknown</span>
-                            </a>
-                        @endif
-                    </div>
-                @endif
-            </div>
-        @empty
-            <p>No quests in this category</p>
-        @endforelse
-    
-    
-            
-        </div>
-    </div>
-    
+.quest-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+</style>
+
+<div class="container">
+  <!-- Show the message once delete completedly -->
+  @if (session('status'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('status') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
+
+  <h1 class="mb-4">Quest Status Management</h1>
+  
+  <!-- Watch Later (status=0) -->
+  <h2 class="h4">Watch Later</h2>
+  <div class="horizontal-scroll mb-4">
+    @forelse($watchLater as $uq)
+      <div class="quest-card p-2">
+        {{-- Quest Thumbnail --}}
+        <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
+        <div class="mt-2">{{ $uq->quest->quest_title }}</div>
+        
+        <!-- Removeボタン: delete user_questレコード -->
+        <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+        </form>
+      </div>
+    @empty
+      <p>No Quests in Watch Later</p>
+    @endforelse
+  </div>
+
+  <!-- In Progress (status=1) -->
+  <h2 class="h4">In Progress</h2>
+  <div class="horizontal-scroll mb-4">
+    @forelse($inProgress as $uq)
+      <div class="quest-card p-2">
+        <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
+        <div class="mt-2">{{ $uq->quest->quest_title }}</div>
+
+        <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+        </form>
+      </div>
+    @empty
+      <p>No Quests in Progress</p>
+    @endforelse
+  </div>
+
+  <!-- Completed (status=2) -->
+  <h2 class="h4">Completed</h2>
+  <div class="horizontal-scroll mb-4">
+    @forelse($completed as $uq)
+      <div class="quest-card p-2">
+        <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
+        <div class="mt-2">{{ $uq->quest->quest_title }}</div>
+
+        <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+        </form>
+      </div>
+    @empty
+      <p>No Quests Completed</p>
+    @endforelse
+  </div>
 
 </div>
 @endsection

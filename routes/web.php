@@ -70,7 +70,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/delete-my-account', [UserController::class, 'destroyAccount'])->name('destroy.account');
 
     # To go to the Page of Quest List by Status
-    Route::get('player/{id}/status', [StatusController::class, 'viewQuestStatus'])->name('player.status');
+    Route::get('player/quest-status/{id}', [StatusController::class, 'viewQuestStatus'])->name('quest.status');
+
+    # To delete the quest in status page
+    Route::delete('/player/quest-status/remove/{userQuestId}', [StatusController::class, 'removeQuest']) ->name('quest.status.remove');
 
 
 
