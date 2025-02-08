@@ -19,7 +19,7 @@
             <div class="quest-list-container">
                 <a href="{{ route('quests.index', ['id' => $quest->id]) }}">
                     <div class="quest-info">
-                        <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail">
+                        <img src="{{ asset($quest->thumbnail) }}" alt="Quest Thumbnail" onerror="this.src='{{ asset('images/default-thumbnail.png') }}'">
                         <div class="quest-details">
                             <h3>{{ $quest->quest_title }}</h3>
                             <p class="update-date">Last Updated: {{ $quest->updated_at->format('Y-m-d H:i:s') }}</p>

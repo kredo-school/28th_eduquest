@@ -61,14 +61,10 @@ class QuestController extends Controller
         $thumbnailPath = null;
 
         if ($request->thumbnail_type === 'image' && $request->hasFile('thumbnail')) {
-            $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+            $thumbnailPath = 'storage/' . $request->file('thumbnail')->store('thumbnails', 'public');
         } elseif ($request->thumbnail_type === 'url') {
             $youtubeId = $this->extractYoutubeId($request->thumbnail);
-            if ($youtubeId) {
-                $thumbnailPath = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
-            } else {
-                return back()->withErrors(['thumbnail' => 'YouTubeのURLが正しくありません']);
-            }
+            $thumbnailPath = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
         }
 
         // YouTubeのURLから動画IDを抽出
