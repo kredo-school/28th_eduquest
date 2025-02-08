@@ -56,7 +56,7 @@
                    
                     <ul class="navbar-nav me-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">News</a>
+                            <a class="nav-link" href="{{ url('/news') }}">News</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link  d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

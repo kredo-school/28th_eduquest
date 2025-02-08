@@ -76,3 +76,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+Route::get('/news', function () {
+    return view('news');
+});
+
