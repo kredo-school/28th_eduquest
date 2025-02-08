@@ -17,7 +17,7 @@
                     {{-- Title --}}
                     <div class="text-start mb-5 d-flex align-items-center">
                         <img src="{{ asset('images/ie.png') }}" alt="Icon" class="me-2 title-icon">
-                        <h2 class="m-0">Quest Creator’s Public Profile</h2>
+                        <h2 class="m-0">Quest Creator's Public Profile</h2>
                     </div>
                     {{-- creator image --}}
                     <!-- Display Profile Image -->

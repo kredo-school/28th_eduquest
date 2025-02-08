@@ -34,8 +34,8 @@
                             <a href="{{ $questcreator->facebook}}" class="{{ $questcreator->facebook ? 'text-primary' : 'text-secondary' }}"><i class="bi bi-facebook mx-3"></i></a>
                             <a href="{{ $questcreator->linkedin}}" class="{{ $questcreator->linkedin ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-linkedin mx-3"></i></a>
                         </div>
-                        <div class="creator-edit-button text-center p-3" >
-                            <a href="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}" class="text-decoration-none fs-3">Edit</a>
+                        <div class="view-more text-center p-3" >
+                            <a href="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}" class="text-decoration-none fs-3">View more > </a>
                         </div>
                 </div>
                 {{-- Quest Management --}}
@@ -49,7 +49,7 @@
                         <img src={{ asset('images/alphabet_t.png') }} alt="T" class="alphabet-t">
                         <span class="fs-1">: {{ $questCount }}</span>
                     </div>
-                    <button type="button" class="mgt-btn">Go To Management Page</button>
+                    <a class="mgt-btn text-decoration-none text-dark" href="{{ route('quests.index') }}">Go To Management Page</a>
 
                     {{-- background-design --}}
                     <img src={{ asset('images/character_monster_dragon_03_red.png') }} alt="Red Dragon" class="red-dragon">

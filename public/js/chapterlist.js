@@ -31,4 +31,3 @@ document.querySelectorAll('.roman-number').forEach((el, index) => {
 
 
 
-

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Quest extends Model
@@ -17,19 +18,31 @@ class Quest extends Model
         'quest_creator_id',
     ];
 
-    //public function user()
-    //{
-    //    return $this->belongsTo(User::class);
-    //}
     public function questCreator()
     {
         return $this->belongsTo(QuestCreator::class);
+    }
+
+    public function creator()
+    {
+        return $this->belongsTo(QuestCreator::class, 'quest_creator_id');
     }
 
     public function categoryQuests()
     {
         return $this->hasMany(CategoryQuest::class, 'quest_id');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'quest_category', 'quest_id', 'category_id');
+    }
+
+    public function chapters()
+    {
+        return $this->hasMany(QuestChapter::class, 'quest_id');
+    }
+
     // ユーザーとのリレーション
     public function users()
     {
@@ -56,4 +69,3 @@ class Quest extends Model
         return $this->hasMany(UserQuest::class, 'quest_id');
     }
 }
-
