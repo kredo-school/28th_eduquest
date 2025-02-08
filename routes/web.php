@@ -8,6 +8,7 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,7 +36,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
     Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
 
-
+    # Search Result
+    Route::get('/search', [SearchController::class, 'search'])->name('quest.search');
 
     //quest Creator
     Route::get('/quest_creators/{id}', [QuestCreatorController::class, 'show'])->name('quest_creator.show');
