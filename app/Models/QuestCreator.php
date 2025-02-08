@@ -39,4 +39,10 @@ class QuestCreator extends Model
     {
         return $this->belongsToMany(User::class, 'favorites', 'quest_creator_id', 'user_id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }

@@ -23,7 +23,7 @@ class Quest extends Model
     //}
     public function questCreator()
     {
-        return $this->belongsTo(QuestCreator::class);
+        return $this->belongsTo(QuestCreator::class, 'quest_creator_id');
     }
 
     public function categoryQuests()

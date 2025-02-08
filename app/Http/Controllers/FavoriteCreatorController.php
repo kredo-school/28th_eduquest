@@ -27,11 +27,22 @@ class FavoriteCreatorController extends Controller
         $user = Auth::user();
         $creator = QuestCreator::findOrFail($creatorId);
 
-        //お気に入り
-        $user->favoriteCreators()->attach($creator);
+        if ($user->id === $creator->user_id) {
+            return redirect()->back()->with('error', 'You cannot favorite yourself.');
+        }
 
-        return redirect()->back();
+        // お気に入り登録されていない場合
+        if (!$user->favoriteCreators()->wherePivot('quest_creator_id', $creatorId)->exists()) {
+            // 登録処理
+            $user->favoriteCreators()->attach(['quest_creator_id' => $creatorId]);
+        }
+
+        // 再度更新された状態を渡すために、isFavoriteを確認
+        $isFavorite = $user->favoriteCreators()->where('quest_creator_id', $creatorId)->exists();
+
+        return redirect()->back()->with('isFavorite', $isFavorite);
     }
+
 
     //お気に入り解除
     public function destroy($creatorId)
@@ -39,9 +50,15 @@ class FavoriteCreatorController extends Controller
         $user = Auth::user();
         $creator = QuestCreator::findOrFail($creatorId);
 
-        //お気に入り解除
-        $user->favoriteCreators()->detach($creator);
+        if ($user->favoriteCreators()->wherePivot('quest_creator_id', $creatorId)->exists()) {
+            // お気に入り解除
+            $user->favoriteCreators()->detach($creatorId);
+        }
 
-        return redirect()->back();
+        // 再度更新された状態を渡すために、isFavoriteを確認
+        $isFavorite = $user->favoriteCreators()->where('quest_creator_id', $creatorId)->exists();
+
+        return redirect()->back()->with('isFavorite', $isFavorite);
     }
+
 }

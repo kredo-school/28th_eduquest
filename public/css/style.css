@@ -628,32 +628,40 @@ creator-profile-view{
 
 .favorite-creator-container {
     display: flex;
+    flex-direction: column; 
     width: 100%;
+    gap: 1rem;
 }
 
-.favorite-creator-list {
+.favorite-creator-wrapper {
     display: flex;
+    align-items: center;
     gap: 1rem;
+}
+
+.favorite-creator-item {
+    display: flex;
     width: 75vw;
     border: solid 1px #3C2C1B;
     padding: 0.7rem;
 }
 
-.favorite-creator-list img {
-    width: 5rem;
-    height: auto;
-    margin: 1.5rem;
+.favorite-creator-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .favorite-creator-list p {
     font-size: 1.2rem;
 }
 
+.favorite-creator-info {
+    flex: 1; /* 情報部分が自然に広がるように */
+}
+
 .btn-delete-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 15vw;
+    margin-left: 1rem; /* ボタンを枠の外に出すための余白 */
 }
 
 .btn-delete {
@@ -665,7 +673,6 @@ creator-profile-view{
     border-radius: 2rem;
     padding: 0.5rem 1rem;
 }
-
 
 
 /*-----------------------------------------[71:How to Guide]--------------------------------------*/

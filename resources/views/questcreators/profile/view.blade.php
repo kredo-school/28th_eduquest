@@ -23,24 +23,34 @@
                         </div>
                         
                         {{-- 編集ボタン (role_id 2 の場合のみ表示) --}}
-                        @if($user && $user->role_id == 2)
+                        @if($user && $user->role_id == 2 && $user->id == $questcreator->user_id)
                         <div class="creator-edit-button text-center p-3">
-                            <a href="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}" class="text-decoration-none fs-3">
+                            <a href="{{ route('questcreators.profile.edit', ['id' => $questcreator->id]) }}" class="text-decoration-none fs-3">
                                 Edit
                             </a>
                         </div>
                         @endif
 
-                        {{-- お気に入り登録・解除 (role_id 1 の場合のみ表示) --}}
-                        @if($user && $user->role_id == 1)
+                        {{--現在のユーザーが他のプロフィールページを表示している場合のみお気に入りボタンを表示--}}
+                        @if($user && $user->id !== $questcreator->user_id)
                         <div class="favorite-button text-center p-3">
-                            @if ($isFavorite) {{--お気に入りに登録されている場合--}}
-                                <form action="{{ route('favorites.destroy', $questcreator->id) }}" method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn fs-3"><i class="fa-solid fa-star text-warning fa-2x"></i> Unfavorite</button>
-                                </form>
-                            @else    {{--お気に入りに登録されていない場合--}}
+                            @if (session('isFavorite') !== null)
+                            
+                                {{-- お気に入りに登録されている場合、お気に入りを外せる --}}
+                                @if (session('isFavorite'))  
+                                    <form action="{{ route('favorites.destroy', $questcreator->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn fs-3"><i class="fa-solid fa-star text-warning fa-2x"></i> Unfavorite</button>
+                                    </form>
+                                @else  {{-- お気に入り未登録状態の場合、お気に入り登録できる--}}
+                                    <form action="{{ route('favorites.store', $questcreator->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn fs-3"><i class="fa-regular fa-star fa-2x"></i> Favorite</button>
+                                    </form>
+                                @endif
+                                
+                            @else  {{-- 初期状態 --}}
                                 <form action="{{ route('favorites.store', $questcreator->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn fs-3"><i class="fa-regular fa-star fa-2x"></i> Favorite</button>
