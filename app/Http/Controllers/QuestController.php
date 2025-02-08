@@ -37,7 +37,18 @@ class QuestController extends Controller
             'quest_title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'total_hours' => 'required|numeric|min:0.5|max:10',
-            'thumbnail' => 'required|url',
+            'thumbnail_type' => 'required|string|in:url,image',
+            'thumbnail' => [
+            'nullable',
+            function ($attribute, $value, $fail) use ($request) {
+                if ($request->thumbnail_type === 'url' && !filter_var($value, FILTER_VALIDATE_URL)) {
+                    $fail('サムネイルのURLが無効です');
+                }
+                if ($request->thumbnail_type === 'image' && !$request->hasFile('thumbnail')) {
+                    $fail('画像ファイルを選択してください');
+                }
+            },
+        ],
             'category' => 'required|array|min:1|max:3',   //カテゴリーの選択を必須(最大3つ)(最低1つ)
             'category.*' => 'exists:categories,id', //カテゴリーIDが有効か確認
             'sub_items' => 'required|array|min:1',  //少なくとも1つのチャプター
@@ -47,7 +58,18 @@ class QuestController extends Controller
         ]);
 
         // 画像の保存
-        // $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+        $thumbnailPath = null;
+
+        if ($request->thumbnail_type === 'image' && $request->hasFile('thumbnail')) {
+            $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+        } elseif ($request->thumbnail_type === 'url') {
+            $youtubeId = $this->extractYoutubeId($request->thumbnail);
+            if ($youtubeId) {
+                $thumbnailPath = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
+            } else {
+                return back()->withErrors(['thumbnail' => 'YouTubeのURLが正しくありません']);
+            }
+        }
 
         // YouTubeのURLから動画IDを抽出
         $youtubeId = $this->extractYoutubeId($request->thumbnail);
@@ -60,8 +82,7 @@ class QuestController extends Controller
             'quest_title' => $request->quest_title,
             'description' => $request->description,
             'total_hours' => $request->total_hours,
-            // 'thumbnail' => $thumbnailPath,  // 保存した画像のパス
-            'thumbnail' => $thumbnailUrl,  // 生成したサムネイルURLを保存
+            'thumbnail' => $thumbnailPath,  // 保存した画像のパス
             'quest_creator_id' => Auth::id(),   // ログイン中のユーザーID設定
         ]);
 
@@ -83,7 +104,7 @@ class QuestController extends Controller
             ]);
         }
 
-        return redirect()->route('quests.index');
+        return redirect()->route('quests.index')->with('success', 'Questが作成されました！');
     }
 
     // YouTubeのURLから動画IDを抽出するヘルパーメソッド

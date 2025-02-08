@@ -1,82 +1,111 @@
 
         // -----------------------------------[サムネイル表示]--------------------------------------
 
-            function previewImage(event) {
-            const imagePreview = document.getElementById('image_preview');
-            const file = event.target.files[0];
-
-            // ファイルが選択されていることを確認
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
+        document.addEventListener("DOMContentLoaded", function () {
+            toggleThumbnailInput();
+        });
+        
+        function toggleThumbnailInput() {
+            let type = document.getElementById('thumbnail_type').value;
+            let urlInput = document.getElementById('thumbnail_url');
+            let fileInput = document.getElementById('thumbnail_image');
+            let previewImage = document.getElementById('thumbnail_preview');
+        
+            if (type === 'url') {
+                urlInput.style.display = 'block';
+                fileInput.style.display = 'none';
+                if (urlInput.value.trim() === '') {
+                    previewImage.src = "/images/default-thumbnail.png";
+                }
             } else {
-                imagePreview.src = "";
-                imagePreview.style.display = 'none';
-            }
-            }
-
-        // サムネイル表示
-        function loadThumbnail(subItemId) {
-            const url = document.getElementById(`video_url_${subItemId}`).value;
-            const thumbnailImage = document.getElementById(`thumbnail_${subItemId}`);
-            // YouTubeサムネイルを自動取得（例）
-            if (url.includes("youtube.com")) {
-                const videoId = url.split("v=")[1].split("&")[0];
-                thumbnailImage.src = `https://img.youtube.com/vi/${videoId}/0.jpg`;
-                thumbnailImage.style.display = 'block';
+                urlInput.style.display = 'none';
+                fileInput.style.display = 'block';
+                previewImage.src = "/images/default-thumbnail.png";
             }
         }
-       // --------------------------------------------------------------------------------------
+        
+        function previewThumbnail() {
+            let type = document.getElementById('thumbnail_type').value;
+            let previewImage = document.getElementById('thumbnail_preview');
+        
+            if (type === 'url') {
+                let url = document.getElementById('thumbnail_url').value;
+                let youtubeId = extractYoutubeId(url);
+                if (youtubeId) {
+                    previewImage.src = `https://img.youtube.com/vi/${youtubeId}/0.jpg`;
+                } else {
+                    previewImage.src = "/images/default-thumbnail.png";
+                }
+            } else {
+                let fileInput = document.getElementById('thumbnail_image');
+                if (fileInput.files && fileInput.files[0]) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        previewImage.src = e.target.result;
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
+                } else {
+                    previewImage.src = "/images/default-thumbnail.png";
+                }
+            }
+        }
+        
+        function extractYoutubeId(url) {
+            let match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+            return match ? match[1] : null;
+        }
+                       
+    　　// --------------------------------------------------------------------------------------
 
 
 
 
        // -----------------------------------[動画表示]-------------------------------------------
 
-       function updateVideoPreview() {
-            const videoUrlInput = document.getElementById('video');
-            const videoPreview = document.getElementById('video_preview');
-            const videoUrl = videoUrlInput.value;
-
-            if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
-                const videoId = getYouTubeVideoId(videoUrl);
-
-                if (videoId) {
-                    videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
-                } else {
-                    alert('Invalid YouTube URL');
-                }
+       function updateVideoPreview(input) {
+        const videoPreviewContainer = document.querySelector('.video-preview-container');
+        const videoPreview = document.getElementById('video_preview');
+        const videoUrl = input.value.trim();
+    
+        if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+            const videoId = getYouTubeVideoId(videoUrl);
+    
+            if (videoId) {
+                videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
+                videoPreviewContainer.style.display = 'block';  // プレビューを表示
             } else {
-                alert('Please enter a valid YouTube URL');
+                alert('Invalid YouTube URL');
+                resetVideoPreview();
             }
+        } else {
+            resetVideoPreview();
         }
-
-        // old()関数を使って送信後に保持した動画URLを表示するための修正
-        document.addEventListener('DOMContentLoaded', function (){
-            const videoUrl = "{{ old('sub_items.1.video')}}";
-            if (videoUrl) {
-                updateVideoPreview();  // プレビューを更新する
-            }
-        })
-
-
-        function getYouTubeVideoId(url) {
-            let videoId = null;
-
+    }
+    
+    // 動画プレビューをリセットする関数
+    function resetVideoPreview() {
+        const videoPreviewContainer = document.querySelector('.video-preview-container');
+        const videoPreview = document.getElementById('video_preview');
+    
+        videoPreview.src = "";
+        videoPreviewContainer.style.display = 'none';  // プレビューを非表示
+    }
+    
+    // YouTube動画IDを抽出する関数
+    function getYouTubeVideoId(url) {
+        try {
             if (url.includes('youtube.com')) {
                 const urlParams = new URLSearchParams(new URL(url).search);
-                videoId = urlParams.get('v');
+                return urlParams.get('v');
             } else if (url.includes('youtu.be')) {
-                videoId = url.split('/').pop();
+                return url.split('/').pop();
             }
-
-            return videoId;
+        } catch (error) {
+            console.error("Invalid URL format:", error);
         }
-
+        return null;
+    }
+        
        // --------------------------------------------------------------------------------------
 
 
@@ -236,3 +265,5 @@
             return maxCount;   // 最大のチャプター番号を返す
         }
         // ------------------------------------------------------------------------
+
+    

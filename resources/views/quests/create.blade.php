@@ -49,23 +49,51 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="video_image">Thumbnail URL:</label>
-                                <div class="thumbnail-container">
-                                    <!-- URL入力欄 -->
-                                    <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
-                                    @error('thumbnail')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <!-- 画像プレビューエリア-->
-                                <label for="image_preview">Thumbnail Preview:</label>
-                                <div id="image_preview_container" class="image-preview-container mt-3">
-                                    <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
-                                        src="{{ old('thumbnail') }}">
+                                <label for="thumbnail">Thumbnail:</label>
+                        
+                                <!-- サムネイルタイプ選択 -->
+                                <select class="form-select" id="thumbnail_type" name="thumbnail_type" onchange="toggleThumbnailInput()">
+                                    <option value="url" {{ old('thumbnail_type') == 'url' ? 'selected' : '' }}>YouTube URL</option>
+                                    <option value="image" {{ old('thumbnail_type') == 'image' ? 'selected' : '' }}>Upload image</option>
+                                </select>
+                        
+                                <!-- URL入力欄 -->
+                                <input type="url" class="form-control mt-2" id="thumbnail_url" name="thumbnail"
+                                       value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL"
+                                       oninput="previewThumbnail()">
+                        
+                                <!-- 画像アップロード -->
+                                <input type="file" class="form-control mt-2" id="thumbnail_image" name="thumbnail"
+                                       accept="image/*" onchange="previewThumbnail()" style="display: none;">
+                        
+                                @error('thumbnail')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                        
+                                <!-- サムネイルプレビューエリア（サイズ調整） -->
+                                <div id="thumbnail_preview_container" class="mt-3">
+                                    <label>Thumbnail Preview:</label>
+                                    <div>
+                                        <img id="thumbnail_preview"
+                                             src="/images/default-thumbnail.png"
+                                             style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- questform.js を読み込む -->
+                        <script src="{{ asset('js/questform.js') }}"></script>
+                                                <script>
+                            function toggleThumbnailInput() {
+                                let type = document.getElementById('thumbnail_type').value;
+                                document.getElementById('thumbnail_url').style.display = (type === 'url') ? 'block' : 'none';
+                                document.getElementById('thumbnail_image').style.display = (type === 'image') ? 'block' : 'none';
+                            }
+                        
+                            document.addEventListener("DOMContentLoaded", toggleThumbnailInput);
+                        </script>
+                        
                     </div>
                     <div class="row">
                         <div class="form-group">
@@ -118,24 +146,30 @@
                                             <textarea class="form-control" id="sub_item_description_1" name="sub_items[1][description]" rows="4" required>{{ old('sub_items.1.description') }}</textarea>
                                         </div>
                                     </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-
-                                                <!---- 動画インプット欄---------->
-                                                <label for="sub_item_video_1">YouTube Video URL:</label>
-                                                <input type="url" class="form-control" id="sub_item_video_1" name="sub_items[1][video]" value="{{ old('sub_items.1.video') }}" placeholder="Enter YouTube video URL" required onchange="updateVideoPreview()">
-
-                                                <!----- 動画プレビューコンテナ----->
-                                                <div class="video-preview-container">
-                                                    <iframe id="video_preview" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                                </div>                                            
-
-                                                <!------ 削除ボタン------------->
-                                                <div class="d-flex justify-content-end">
-                                                    <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">Delete<img src="{{ asset('images/delete-icon.png')}}" style="width: 1.5rem; height: 1.3rem;"></button>
-                                                </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <!-- YouTube動画URL入力欄 -->
+                                            <label for="sub_item_video_1">YouTube Video URL:</label>
+                                            <input type="url" class="form-control" id="sub_item_video_1" name="sub_items[1][video]"
+                                                   placeholder="Enter YouTube video URL" required
+                                                   onchange="updateVideoPreview(this)">
+                                    
+                                            <!-- 動画プレビューエリア -->
+                                            <div class="video-preview-container mt-3">
+                                                <iframe id="video_preview" width="560" height="315"
+                                                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                                                </iframe>
+                                            </div>  
+                                    
+                                            <!-- 削除ボタン -->
+                                            <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">
+                                                    Delete<img src="{{ asset('images/delete-icon.png')}}" style="width: 1.5rem; height: 1.3rem;">
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
@@ -151,7 +185,7 @@
                             <!-- Form Buttons -->
                             <div class="btn-container">
                                 <div class="form-group form-btn mt-4">
-                                    <a href="#" class="btn-design">Cancel</a>
+                                    <a href="{{ route('quests.index') }}" class="btn-design">Cancel</a>
                                     <button type="submit" class="btn-design">Save<img src="{{ asset('images/te_yubisashi_right 3.png') }}"></button>
                                 </div>
                             </div>
