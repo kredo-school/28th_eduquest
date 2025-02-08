@@ -4,7 +4,7 @@
 
 <div class="row text-center">
   <!-- ===== Left side bar ===== -->
-  <div class="side-bar col-2 bg-white">
+  <div class="side-bar col-2 bg-white me-md-5">
     <!-- Player Icon -->
     <div>
       <img src="{{ asset('images/User icon.png')}}" alt="playerimage" class="player-image">
@@ -24,8 +24,9 @@
       <p class="fs-6 mb-1">Number of Cleared Quests: 12</p>
     </div>
   </div><!-- /side-bar -->
+  
   <!-- ===== Right side bar ===== -->
-  <div class="side-bar-right col-8 bg-white row py-4">
+  <div class="side-bar-right col-8 bg-white row py-3">
     <!-- 1行目: homeアイコン+text と swordアイコン+text を横並び -->
     <div class="row py-4">
       <!-- Watch Later -->
@@ -47,7 +48,7 @@
     </div><!-- /row -->
     <!-- 2行目: 08, 03, XX ... をアイコンの真下に配置 -->
     <!-- 同じrowで colを対応させる -->
-    <div class="row pb-4">
+    <div class="row pb-2">
       <!-- WatchLaterの下 -->
       <div class="col text-center">
         <a href="#" class="text-decoration-none fs-1 text-dark">08</a>
