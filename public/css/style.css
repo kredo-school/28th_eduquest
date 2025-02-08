@@ -134,6 +134,9 @@ main{
 footer{
     background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
+    /* position:fixed; */
+    /* bottom: 0; */
+    /* width: 100%; */
 }
 
 
@@ -904,14 +907,14 @@ creator-profile-view{
 
 /* ↓↓↓ for mypage.blade.php ↓↓↓ */
 /* 1 左のバー */
-.side-bar {
+.m-side-bar {
     border: 2px solid #261C11;
     border-radius: 20px;
     font-size: 6px;
     margin-left: 30px;
   }
   /* 右のバー */
-  .side-bar-right {
+  .m-side-bar-right {
     border: 2px solid #261C11;
     border-radius: 20px;
     font-size: 6px;
