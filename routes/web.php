@@ -8,10 +8,15 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Models\Quest;
+use App\Models\Category;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    $quests = Quest::all();
+    $categories = Category::all();
+    return view('welcome', compact('quests', 'categories'));
+})->name('welcome');
 
 Auth::routes();
 
@@ -35,8 +40,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
     Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
 
-
-
     //quest Creator
     Route::get('/quest_creators/{id}', [QuestCreatorController::class, 'show'])->name('quest_creator.show');
     Route::post('/users/{id}/assign-quest', [QuestCreatorController::class, 'assignQuestToUser'])->name('quest_creator.assign');
@@ -55,8 +58,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
-
-
     //For Creators
     # To go to Regulation page
     Route::get('/creator/regulation/{id}', [QuestCreatorController::class, 'showRegulation'])->name('questcreators.regulation');
@@ -73,6 +74,21 @@ Route::group(['middleware' => 'auth'], function(){
     // For how to guide page
     Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
     Route::get('/guide-explanation', [QuestCreatorController::class, 'guideExplanation'])->name('questcreators.guide-explanation');
+
+    // カテゴリーによる絞り込み
+    Route::get('/quests/filter', function (Request $request) {
+        $categoryId = $request->input('category');
+        
+        // クエストの絞り込み
+        $quests = Quest::whereHas('quest_categories', function($query) use ($categoryId) {
+            $query->where('category_id', $categoryId);
+        })->get();
+        
+        // カテゴリー一覧は常に必要
+        $categories = Category::all();
+        
+        return view('welcome', compact('quests', 'categories'));
+    })->name('quests.category');
 
 });
 

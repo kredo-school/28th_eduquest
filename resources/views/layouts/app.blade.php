@@ -236,5 +236,30 @@
         </footer>
     </div>
     @yield('scripts')
+    <!-- カテゴリーモーダル -->
+    <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="categoryModalLabel">カテゴリー選択</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <a href="{{ route('welcome') }}" class="list-group-item list-group-item-action" data-bs-dismiss="modal">
+                            すべて表示
+                        </a>
+                        @foreach($categories as $category)
+                            <a href="{{ route('quests.category', ['category' => $category->id]) }}" 
+                               class="list-group-item list-group-item-action"
+                               data-bs-dismiss="modal">
+                                {{ $category->category_name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

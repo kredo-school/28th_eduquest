@@ -177,13 +177,9 @@ class QuestController extends Controller
      */
     public function index()
     {
-        // 現在ログインしているユーザーのIDを取得
-        $userId = auth()->id();
-
-        // ユーザーに紐づいたクエストのみを取得
-        $quests = Quest::where('quest_creator_id', $userId)->get();
-        // ビューにクエストを渡す
-        return view('quests.list', compact('quests'));
+        // コレクションではなくページネーションを使用
+        $quests = Quest::paginate(12);  // 1ページに12件表示
+        return view('quests.index', compact('quests'));
     }
 
 
