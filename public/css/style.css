@@ -184,6 +184,7 @@ footer{
     text-overflow: ellipsis;          /* Add ellipsis (Chrome, etc.) */
 }
 
+/* queststatusでも使用 */
 .quests-row {
     background-color: #FCFCE7;
 }
@@ -195,6 +196,7 @@ footer{
     overflow-x: auto;
 }
 
+/* queststatusでも使用 */
 .quest-item {
     flex: 0 0 auto;
     width: 200px;
@@ -202,6 +204,7 @@ footer{
     /*  #EDEBEB */
 }
 
+/* queststatusでも使用 */
 .quest-item a {
     color: black;
     text-decoration: none;
@@ -244,6 +247,7 @@ footer{
     font-weight: bold;
 }
 
+/* queststatusでも使用 */
 .flag_green {
 width: 1.5rem;
 height: 1.5rem; 
@@ -1333,6 +1337,7 @@ form {
     width: auto;
 }
 
+/* queststatusでも使用 */
 .flag_red {
     width: 2rem;
     height: auto;

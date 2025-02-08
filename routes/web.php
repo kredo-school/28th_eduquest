@@ -43,8 +43,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
     Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
 
-
-
     //quest Creator
     Route::get('/quest_creators/{id}', [QuestCreatorController::class, 'show'])->name('quest_creator.show');
     Route::post('/users/{id}/assign-quest', [QuestCreatorController::class, 'assignQuestToUser'])->name('quest_creator.assign');

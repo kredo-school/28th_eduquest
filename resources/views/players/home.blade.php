@@ -51,7 +51,6 @@
                     @if ($catQuest->quest->thumbnail)
                         {{-- Thumbnail --}}
                         <div class="aspect-ratio-16-9">
-                            {{-- あとでリンク追加必要！！！ --}}
                             <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                                 <div class="aspect-ratio-16-9-inner">
                                     <img src="{{ $catQuest->quest->thumbnail }}" alt="Quest Thumbnail">
@@ -68,8 +67,7 @@
                         </div>
 
                         {{-- Quest Title --}}
-                        {{-- あとでリンク追加必要！！！ --}}
-                        <a href="#">
+                        <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                             <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
                         </a>
 
@@ -97,8 +95,7 @@
                             @endif
                         </div>  
                     @else  
-                        {{-- あとでリンク追加必要！ --}}
-                        <a href="#">
+                        <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                             <div class="aspect-ratio-16-9 no-image-box">
                                 
                                     <span class="no-image-text-center">
@@ -115,8 +112,7 @@
                             @endforeach
                         </div>
                         {{-- Quest Title --}}
-                        {{-- あとでリンク追加必要！！！ --}}
-                        <a href="#">
+                        <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                             <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
                         </a>
 

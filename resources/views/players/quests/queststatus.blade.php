@@ -13,11 +13,11 @@
       </div>
   @endif
 
-  <h1 class="mb-4">Quest Status Management</h1>
+  <h1 class="mb-4"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Quest Status List</h1>
   
   <!-- Watch Later (status=0) -->
-  <h2 class="h4">Watch Later</h2>
-  <div class="horizontal-scroll mb-4">
+  <h2 class="h4"><img src="{{ asset('images/eye_brown.png') }}" alt="brown_eye" class="flag_red"> Watch Later</h2>
+  <div class="horizontal-scroll quests-row mb-4">
     @forelse($watchLater as $uq)
       <div class="quest-item p-2">
         {{-- Quest Thumbnail --}}
@@ -37,8 +37,8 @@
   </div>
 
   <!-- In Progress (status=1) -->
-  <h2 class="h4">In Progress</h2>
-  <div class="horizontal-scroll mb-4">
+  <h2 class="h4"><img src="{{ asset('images/sword_longsword_red 1.png') }}" alt="longsword" class="flag_red"> In Progress</h2>
+  <div class="horizontal-scroll quests-row mb-4">
     @forelse($inProgress as $uq)
       <div class="quest-item p-2">
         <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
@@ -57,8 +57,8 @@
   </div>
 
   <!-- Completed (status=2) -->
-  <h2 class="h4">Completed</h2>
-  <div class="horizontal-scroll mb-4">
+  <h2 class="h4"><img src="{{ asset('images/image 83.png') }}" alt="Tresure_Chest" class="flag_red"> Completed</h2>
+  <div class="horizontal-scroll quests-row mb-4">
     @forelse($completed as $uq)
       <div class="quest-item p-2">
         <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">

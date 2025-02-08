@@ -124,7 +124,7 @@
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My page</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Go to Quest Creator page</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="{{ route('player.status', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Quests</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('quest.status', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Quests</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Study Plan</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Favorite Quest Creator</a></li>
                                         <li><hr class="dropdown-divider"></li>
