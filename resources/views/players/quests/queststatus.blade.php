@@ -3,23 +3,6 @@
 @section('title', 'Quest Status Page')
 
 @section('content')
-<style>
-
-/* カードの固定幅例 */
-.quest-card {
-    flex: 0 0 auto; /* flex-basis: auto; shrink:0; */
-    width: 200px;   /* 横幅を200pxに固定 */
-    background: #f8f9fa;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.quest-card img {
-    width: 100%;
-    height: 120px;
-    object-fit: cover;
-}
-</style>
 
 <div class="container">
   <!-- Show the message once delete completedly -->
