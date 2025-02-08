@@ -6,17 +6,23 @@
         <div class="col-md-8">
             <div class="card" style="background-image: url('/images/resistration_bg.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="card-header" style="text-align: center; border-bottom: none;">
+<<<<<<< HEAD
                     <img src="../images/character_yusha_01_green.png" 
+=======
+                    <img src="../images/character_yusha_01_green.png"
+>>>>>>> f6870c683518bae3c1ddbf70ff10f08af877986e
                     alt="yusya_man" style="width: 25px; height: 25px; margin: 5px;">{{ __('Registration') }}<img
                     src="..\images\character_yusha_woman_red.png" alt="yusya_woman"
                     style="width: 25px; height: 25px; margin: 5px;">
                 </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> f6870c683518bae3c1ddbf70ff10f08af877986e
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-
-                        {{-- Nickname --}}
+                                                {{-- Nickname --}}
                         <div class="form-group row mt-3 mb-3">
                             <label for="player_nickname"
                                 class="col-md-4 col-form-label text-md-end">{{ __('Nickname') }}</label>

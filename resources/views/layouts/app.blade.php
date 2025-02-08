@@ -108,6 +108,68 @@
                                         </li>
                                     </ul>
                                 </li>
+<<<<<<< HEAD
+=======
+                            @elseif ( auth()->user()->role_id === 2)
+                                <!-- ログインしている場合に表示 -->
+                                <li class="nav-item-2 dropdown">
+                                    <a href="#" class="nav-link d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="rounded-circle icon">
+                                            {{-- avatar/icon --}}
+                                            @if(Auth::user()->questCreators->creator_image)
+                                                <img src="{{ Auth::user()->questCreators->creator_image }}" alt="" class="rounded-circle img-icon">
+                                            @else
+                                                <i class="fas fa-user"></i>
+                                            @endif
+                                        </div>
+                                    </a>
+                                    <!-- ドロップダウンメニュー -->
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                        <div class="d-flex align-items-center p-3">
+                                            <div>
+                                                {{-- avatar/icon --}}
+                                                @if(Auth::user()->questCreators->creator_image)
+                                                    <img src="{{ Auth::user()->questCreators->creator_image }}" alt="" class="rounded-circle img-icon">
+                                                @else
+                                                    <i class="fas fa-user"></i>
+                                                @endif
+                                            </div>
+                                            <div class="ms-3">
+                                                <li class="mb-0 fw-bold">{{  Auth::user()->questCreators->creator_name }}</li>
+                                                <li class="mb-0 text-muted">{{ Auth::user()->email }}</li>
+                                            </div>
+                                        </div>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{route('questcreators.creatorMyPage', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Page and Dashbord</a></li>
+                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
+                                        
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ route('questcreators.how-to-guide') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">How-to Guide</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('quests.index') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest List</a></li>
+                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest Data Overview</a></li>
+
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{ route('questcreators.profile.view', ['id' => Auth::id()])}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
+                                        <li><a class="dropdown-item" href="{{route('questcreators.profile.edit', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
+
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                                        <img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">
+                                                Logout
+                                            </a>
+                                            <!-- ログアウト用フォーム -->
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+
+>>>>>>> f6870c683518bae3c1ddbf70ff10f08af877986e
                             @endif
                         @endauth
                     </ul>
