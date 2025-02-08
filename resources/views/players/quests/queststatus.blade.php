@@ -4,13 +4,6 @@
 
 @section('content')
 <style>
-/* 横スクロール用クラス */
-.horizontal-scroll {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 1rem; /* 要素間の隙間を1rem */
-}
 
 /* カードの固定幅例 */
 .quest-card {
@@ -43,16 +36,16 @@
   <h2 class="h4">Watch Later</h2>
   <div class="horizontal-scroll mb-4">
     @forelse($watchLater as $uq)
-      <div class="quest-card p-2">
+      <div class="quest-item p-2">
         {{-- Quest Thumbnail --}}
         <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
         <div class="mt-2">{{ $uq->quest->quest_title }}</div>
         
-        <!-- Removeボタン: delete user_questレコード -->
+        <!-- Remove -->
         <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+          <button type="submit" class="btn btn-light text-center btn-sm w-25">Remove</button>
         </form>
       </div>
     @empty
@@ -64,14 +57,15 @@
   <h2 class="h4">In Progress</h2>
   <div class="horizontal-scroll mb-4">
     @forelse($inProgress as $uq)
-      <div class="quest-card p-2">
+      <div class="quest-item p-2">
         <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
         <div class="mt-2">{{ $uq->quest->quest_title }}</div>
 
+        <!-- Remove -->
         <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+          <button type="submit" class="btn btn-light border-black text-center btn-sm w-25">Remove</button>
         </form>
       </div>
     @empty
@@ -83,14 +77,15 @@
   <h2 class="h4">Completed</h2>
   <div class="horizontal-scroll mb-4">
     @forelse($completed as $uq)
-      <div class="quest-card p-2">
+      <div class="quest-item p-2">
         <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
         <div class="mt-2">{{ $uq->quest->quest_title }}</div>
 
+        <!-- Remove -->
         <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-danger btn-sm w-100">Remove</button>
+          <button type="submit" class="btn btn-light border-black text-center btn-sm w-25">Remove</button>
         </form>
       </div>
     @empty
