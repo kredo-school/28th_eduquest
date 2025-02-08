@@ -47,6 +47,7 @@ class QuestCreatorController extends Controller
         // dd($questcreator);
         return redirect()->route('questcreators.regulation', ['id' => $questcreator->id]);
 
+
         // 現在ログインしているユーザーのプロフィール情報を取得
         $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
         return view('questcreators.profile.edit',compact('questcreator'));
@@ -88,8 +89,6 @@ class QuestCreatorController extends Controller
         $questCount = Quest::count();
         return view('questcreators.profile.edit', compact('questcreator'));
     
-
-        
     }
 
 
@@ -102,6 +101,13 @@ class QuestCreatorController extends Controller
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
 
+    public function showRegulation($id)
+    {
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        // dd($questcreator);
+        return view('questcreators.regulation', compact('id'));
+    }
+    
     public function creatorGuide()
     {
         return view('questcreators.how-to-guide');
@@ -112,12 +118,7 @@ class QuestCreatorController extends Controller
         return view('questcreators.guide-explanation');
     }
 
-    public function showRegulation($id)
-    {
-        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
-        // dd($questcreator);
-        return view('questcreators.regulation', compact('id'));
-    }
+
 
 
     /**
@@ -178,6 +179,7 @@ class QuestCreatorController extends Controller
         ->with('success', 'Profile updated successfully!');
 
     }
+
 
 
 }
