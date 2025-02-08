@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="go-link">
-                    <a href="#">GO→</a>
+                    <a href="{{ route('questcreators.guide-explanation') }}">GO→</a>
                 </div>
                 <div class="guide-image">
                     <img src="../images/User Icon 04.png" alt="right image 1" style="width: 10vw;">

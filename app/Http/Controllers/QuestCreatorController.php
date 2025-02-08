@@ -36,7 +36,7 @@ class QuestCreatorController extends Controller
         $this->questcreator->job_title = $request->job_title;
         $this->questcreator->description = $request->description;
         $this->questcreator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
-        $this->questcreator->qualifications = $request->qualifications;
+        $this->questcreator->qualifications = $request->qualificationss;
         $this->questcreator->youtube = $request->youtube;
         $this->questcreator->facebook = $request->facebook;
         $this->questcreator->x_twitter = $request->x_twitter;
@@ -44,6 +44,10 @@ class QuestCreatorController extends Controller
         $this->questcreator->save();
         //return redirect()->route('creatorMyPage')->with('success', 'Quest Creator profile created successfully!');
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        // dd($questcreator);
+        return redirect()->route('questcreators.regulation', ['id' => $questcreator->id]);
+
+
         // 現在ログインしているユーザーのプロフィール情報を取得
         $creator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
         return view('questcreators.profile.edit',compact('questcreator'));
@@ -102,9 +106,13 @@ class QuestCreatorController extends Controller
         return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
     }
 
-
-
-
+    public function showRegulation($id)
+    {
+        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        // dd($questcreator);
+        return view('questcreators.regulation', compact('id'));
+    }
+    
     public function creatorGuide()
     {
         return view('questcreators.how-to-guide');
@@ -114,6 +122,10 @@ class QuestCreatorController extends Controller
     {
         return view('questcreators.guide-explanation');
     }
+
+
+
+
     /**
      * Show the application dashboard.
      *

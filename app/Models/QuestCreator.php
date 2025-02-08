@@ -27,12 +27,13 @@ class QuestCreator extends Model
       'facebook',
       'x_twitter',
       'linkedin',
-   ];   
-    //questとのリレーション
-    public function quests()
-    {
-        return $this->hasMany(Quest::class);
-    }
+   ];
+
+
+     public function quests()
+     {
+         return $this->hasMany(Quest::class, 'quest_creator_id');
+     }
 
     // questとのリレーション(favorite creator用)
     public function favoritedBy()
