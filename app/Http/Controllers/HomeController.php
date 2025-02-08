@@ -40,7 +40,7 @@ class HomeController extends Controller
         // $quests_lists = $this->getQuests();
         $categories = $this->category->with('categoryQuests.quest.questCreator')->get();
         $quests = Quest::all(); 
-        return view('players.home', compact('news_lists', 'categories','quests'));
+        return view('home', compact('news_lists', 'categories','quests'));
         
     }
 
