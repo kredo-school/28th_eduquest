@@ -9,6 +9,7 @@ use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,6 +54,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/test', [UserController::class, 'viewTestSwitch']);
     Route::get('/player/mypage', [MypageController::class, 'viewMyPage']);
 
+       # player search
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/test', [UserController::class, 'viewTestSwitch']);
+    Route::get('/player/mypage', [SearchController::class, 'viewSearchresult']);
 
     //For Creators
     # To go to Regulation page
