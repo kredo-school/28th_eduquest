@@ -241,6 +241,7 @@ footer{
     font-weight: bold;
 }
 
+/* searchresultでも使用 */
 .flag_green {
 width: 1.5rem;
 height: 1.5rem; 
