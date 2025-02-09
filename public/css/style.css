@@ -1307,3 +1307,36 @@ form {
 }
 
 /*-----------------------------------------[72:Guide explanation]end--------------------------------------*/
+
+
+
+/* =============================== */
+/*        Search Result Page        */
+/* =============================== */
+
+.quest-card {
+    flex: 0 0 auto; 
+    width: 220px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.quest-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.creator-info {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+.creator-info img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+}
