@@ -171,6 +171,15 @@ footer{
     align-items: flex-start;
 }
 
+/* .news-modal-bg .modal-header,
+.news-modal-bg .modal-body {
+    background-color: #FCFCE7 !important;
+}
+
+.news-modal-bg .list-group-item {
+    background-color: #FFFFF3 !important;
+} */
+
 .news-button {
     margin-top: 15px; /* Adjust button spacing */
     width: 100%;  /* Make button fill the parent width */
@@ -519,12 +528,12 @@ creator-profile-view{
     font-family: 'DotGothic16', sans-serif;
 }
 
-.modal-header {
+.list-modal-header {
     background-color: #261C11;
     color: white;
 }
 
-.modal-body, .modal-footer {
+.list-modal-body, .list-modal-footer {
     background-color: #FFFFF3;
 }
 
@@ -1352,4 +1361,39 @@ form {
 .flag_red_status {
     width: 2rem;
     height: auto;
+}
+
+
+
+
+/* =============================== */
+/*        Search Result Page       */
+/*        Quest Status Page        */
+/* =============================== */
+
+.quest-card {
+    flex: 0 0 auto; 
+    width: 220px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.quest-card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+}
+
+.creator-info {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+.creator-info img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
 }

@@ -24,7 +24,7 @@
 </div>
 
 {{-- News modal--}}
-@include('players.modals.news')
+@include('modals.news')
 
 {{-- Ranking --}}
 {{-- <div class="row gx-5">
