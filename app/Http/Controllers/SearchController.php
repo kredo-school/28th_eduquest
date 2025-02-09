@@ -34,7 +34,7 @@ class SearchController extends Controller
 
         $query = $this->quest->newQuery();
 
-        // 検索ワード指定
+        // Search Word
         if (!empty($search)) {
             $query->where(function($q) use ($search) {
                 $q->where('quest_title', 'like', "%{$search}%")
@@ -42,23 +42,23 @@ class SearchController extends Controller
             });
         }
 
-        // カテゴリ指定
+        // filter category
         $categoryName = null;
         if (!empty($categoryId)) {
-            // カテゴリー名取得
+            // get Category_name
             $cat = $this->category->find($categoryId);
             if ($cat) {
                 $categoryName = $cat->category_name;
             }
 
             // 絞り込み
-            $query->whereHas('categories', function($q) use ($categoryId) {
-                $q->where('categories.id', $categoryId);
+            $query->whereHas('categoryQuests', function($q) use ($categoryId) {
+                $q->where('category_id', $categoryId);
             });
         }
 
         // リレーション読み込み
-        $query->with('creator');
+        $query->with(['creator', 'categoryQuests.category']);
 
         // 実行
         $quests = $query->get();

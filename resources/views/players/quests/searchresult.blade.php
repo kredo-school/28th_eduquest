@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container p-3" style="background-color: #FCFCE7;">
+<div class="container" style="background-color: #FCFCE7;">
 
     <h1 class="mb-4">
         <img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green"> Search Results
@@ -21,7 +21,7 @@
         <p>No quests found.</p>
     @else
         <!-- Quest List -->
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-5 pb-3 pe-5">
+        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-2">
             @foreach($quests as $quest)
                 <div class="col">
                     <div class="quest-card p-2">
@@ -29,6 +29,18 @@
                         <a href="{{ route('quests.chapters', $quest->id) }}">
                             <img src="{{ $quest->thumbnail }}" alt="Thumbnail">
                         </a>
+                        <!-- Category -->
+                        <div>
+                            @forelse($quest->categoryQuests as $qCat)
+                              @if($qCat->category)
+                                <span class="category-badge">
+                                  {{ $qCat->category->category_name }}
+                                </span>
+                              @endif
+                            @empty
+                              {{-- No categories --}}
+                            @endforelse
+                        </div>
                         <!-- Title -->
                         <a href="{{ route('quests.chapters', $quest->id) }}" class="text-dark text-decoration-none">
                             <h5 class="mt-2 mb-1">{{ $quest->quest_title }}</h5>
