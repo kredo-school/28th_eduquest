@@ -107,10 +107,10 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 Route::get('/news', function () {
-    return view('news');
-  });
+  return view('news');
+});
 
 
-  Route::get('/FAQ-Contact', function () {
-    return view('FAQ-Contact');
-  });
+Route::get('/FAQ-Contact', function () {
+  return view('FAQ-Contact');
+});

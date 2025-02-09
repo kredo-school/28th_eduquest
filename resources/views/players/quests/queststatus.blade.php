@@ -19,21 +19,58 @@
   <h2 class="h4"><img src="{{ asset('images/eye_brown.png') }}" alt="brown_eye" class="flag_red"> Watch Later</h2>
   <div class="horizontal-scroll quests-row mb-4">
     @forelse($watchLater as $uq)
-      <div class="quest-item p-2">
-        {{-- Quest Thumbnail --}}
-        <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
-        <div class="mt-2">{{ $uq->quest->quest_title }}</div>
-        
-        <!-- Remove -->
-        <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
-          @csrf
-          @method('DELETE')
-          <button type="submit" class="btn btn-light text-center btn-sm w-25">Remove</button>
-        </form>
-      </div>
+    {{-- Quest --}}
+    <div class="col">
+      <div class="quest-card p-2">
+
+        <!-- Thumbnail -->
+        <a href="{{ route('quests.chapters', $uq->quest->id) }}">
+          <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
+        </a>
+
+        <!-- Title -->
+        <a href="{{ route('quests.chapters', $uq->quest->id) }}" class="text-dark text-decoration-none">
+          <h5 class="mt-2 mb-1">{{ $uq->quest->quest_title }}</h5>
+        </a>
+
+        <!-- Creator Icon + Name -->
+        @if($uq->quest->creator)
+            <div class="creator-info">
+                <a href="{{ route('questcreators.profile.view', $uq->quest->creator->user_id) }}">
+                    @if($uq->quest->creator->creator_image)
+                        <img src="{{ $uq->quest->creator->creator_image }}" alt="Creator Icon">
+                    @else
+                        <i class="fas fa-user"></i>
+                    @endif
+                </a>
+                <a href="{{ route('questcreators.profile.view', $uq->quest->creator->user_id) }}" class="text-dark text-decoration-none">
+                    <span>{{ $uq->quest->creator->creator_name }}</span>
+                </a>
+            </div>
+        @else
+            <div class="creator-info">
+                <i class="fas fa-user"></i>
+                <span>Unknown Creator</span>
+            </div>
+        @endif
+
+      </div><!-- /.quest-card -->
+
+      <!-- Removeボタン -->
+      <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-light text-center btn-sm w-25">Remove</button>
+      </form>
+
+    </div><!-- /.col -->
     @empty
       <p>No Quests in Watch Later</p>
     @endforelse
+
+
+          
+
   </div>
 
   <!-- In Progress (status=1) -->
