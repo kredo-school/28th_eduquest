@@ -56,7 +56,7 @@
                    
                     <ul class="navbar-nav me-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">News</a>
+                            <a class="nav-link" href="{{ url('/news') }}">News</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link  d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,7 +74,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">FAQ/Contact</a>
+                            <a class="nav-link" href="{{ url('/FAQ-Contact') }}">FAQ/Contact</a>
                         </li>
                     </ul>
                     <!-- Right Side Of Navbar -->
@@ -121,7 +121,7 @@
                                             </div>
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My page</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('player.mypage', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My page</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Go to Quest Creator page</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Quests</a></li>
@@ -173,7 +173,7 @@
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{route('questcreators.creatorMyPage', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Page and Dashbord</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('player.mypage', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
                                         
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{ route('questcreators.how-to-guide') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">How-to Guide</a></li>
@@ -228,7 +228,7 @@
                         <ul class="list-unstyled">
                             <li><a href="#" class="text-white text-decoration-none">Home</a></li>
                             <li><a href="#" class="text-white text-decoration-none">News</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">FAQ/Contact</a></li>
+                            <li><a href="#" class="text-white text-decoration-none">FAQ-Contact</a></li>
                             <li><a href="#" class="text-white text-decoration-none">Terms and conditions</a></li>
                             <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
                         </ul>

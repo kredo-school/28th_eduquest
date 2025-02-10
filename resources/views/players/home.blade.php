@@ -23,6 +23,7 @@
     </div>
 </div>
 
+
 {{-- News modal--}}
 @include('players.modals.news')
 

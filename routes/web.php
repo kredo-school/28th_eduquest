@@ -8,6 +8,9 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\MypageController;
+
+
 use App\Http\Controllers\FavoriteCreatorController;
 
 
@@ -57,6 +60,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
+    # player mypage
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/test', [UserController::class, 'viewTestSwitch']);
+    Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
+
     //Favorite Creator button on creator's profile page
     Route::get('/favorites', [FavoriteCreatorController::class, 'index'])->name('favorites.index');
     Route::post('/favorites/{creatorId}', [FavoriteCreatorController::class, 'store'])->name('favorites.store');
@@ -82,3 +90,11 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+Route::get('/news', function () {
+    return view('news');
+  });
+
+
+  Route::get('/FAQ-Contact', function () {
+    return view('FAQ-Contact');
+  });
