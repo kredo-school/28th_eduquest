@@ -8,6 +8,12 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\MypageController;
+
+
+use App\Http\Controllers\FavoriteCreatorController;
+
+use App\Http\Controllers\StatusController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -42,8 +48,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
     Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
 
-
-
     //quest Creator
     Route::get('/quest_creators/{id}', [QuestCreatorController::class, 'show'])->name('quest_creator.show');
     Route::post('/users/{id}/assign-quest', [QuestCreatorController::class, 'assignQuestToUser'])->name('quest_creator.assign');
@@ -62,6 +66,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
+    # player mypage
+    Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
+
+    //Favorite Creator button on creator's profile page
+    Route::get('/favorites', [FavoriteCreatorController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/{creatorId}', [FavoriteCreatorController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{creatorId}', [FavoriteCreatorController::class, 'destroy'])->name('favorites.destroy');
     # To go to Account Security page
     Route::get('/account-security/{id}', [UserController::class, 'viewAccountSecurity'])->name('account.security');
 
@@ -76,6 +87,15 @@ Route::group(['middleware' => 'auth'], function(){
     
     # To delete account
     Route::delete('/delete-my-account', [UserController::class, 'destroyAccount'])->name('destroy.account');
+
+    # Watch_Later Toggle
+    Route::post('/quest/watch-later/toggle/{questId}', [StatusController::class, 'toggleWatchLater'])->name('watch.later.toggle');
+
+    # To go to the Page of Quest List by Status
+    Route::get('player/quest-status/{id}', [StatusController::class, 'viewQuestStatus'])->name('quest.status');
+
+    # To delete the quest in status page
+    Route::delete('/player/quest-status/remove/{userQuestId}', [StatusController::class, 'removeQuest']) ->name('quest.status.remove');
 
 
 
@@ -102,10 +122,10 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 Route::get('/news', function () {
-    return view('news');
-  });
+  return view('news');
+});
 
 
-  Route::get('/FAQ-Contact', function () {
-    return view('FAQ-Contact');
-  });
+Route::get('/FAQ-Contact', function () {
+  return view('FAQ-Contact');
+});

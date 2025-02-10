@@ -20,7 +20,7 @@ class Quest extends Model
 
     public function questCreator()
     {
-        return $this->belongsTo(QuestCreator::class);
+        return $this->belongsTo(QuestCreator::class, 'quest_creator_id');
     }
 
     public function creator()
@@ -65,6 +65,7 @@ class Quest extends Model
         return $this->reviews_ratings()->avg('rating');
     }
 
-
-
+    public function userQuests(){
+        return $this->hasMany(UserQuest::class, 'quest_id');
+    }
 }

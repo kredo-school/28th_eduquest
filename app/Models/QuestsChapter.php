@@ -13,4 +13,8 @@ class QuestsChapter extends Model
     public function quest(){
         return $this->belongsTo(Quest::class);
     }
+
+    public function userQuests(){
+        return $this->hasMany(UserQuest::class, 'quest_chapter_id');
+    }
 }
