@@ -8,6 +8,7 @@ use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\UserQuestStatusController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,7 +52,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/chapter/{id}/complete', [ChapterController::class, 'complete'])->name('chapter.complete');
     // Chapter viewing (next, prev)
     Route::get('/chapter/{id}', [ChapterController::class, 'viewing'])->name('chapter.viewing');
-    
+
+    //QuestStatus
+    Route::post('/start-quest', [ChapterlistController::class, 'startQuest'])->name('startQuest');
+    Route::post('/quest/complete', [ChapterController::class, 'completeQuest'])->name('quest.complete');
 
     # To go to Chapterlist page
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])

@@ -40,31 +40,6 @@
         </div> 
     </div> 
 </div>
-
-<style>
-    .rating {
-        font-size: 30px;
-    }
-
-    .rating-label {
-        cursor: pointer;
-        transition: opacity 0.2s;
-    }
-
-    .rating-label:hover {
-        opacity: 0.8;
-    }
-
-    .review-section textarea {
-        background-color: white;
-        color: black;
-    }
-
-    .review-section button {
-        margin-top: 10px;
-    }
-</style>
-
 <script>
     // 評価を保持する変数（初期値は0）
     let currentRating = 0;

@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(ReviewsRating::class);
     }
+    // ユーザーが持つクエスト
+    public function userQuests()
+    {
+        return $this->hasMany(UserQuest::class);
+    }
 }
