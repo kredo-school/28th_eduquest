@@ -21,9 +21,33 @@
                             <a href="{{ $questcreator->facebook}}" class="{{ $questcreator->facebook ? 'text-primary' : 'text-secondary' }}"><i class="bi bi-facebook mx-3"></i></a>
                             <a href="{{ $questcreator->linkedin}}" class="{{ $questcreator->linkedin ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-linkedin mx-3"></i></a>
                         </div>
-                        <div class="text-center p-3" >
-                            <a href="{{ route('questcreators.profile.edit', ['id' => $questcreator->id] )}}" class="edit-button-container text-decoration-none fs-3">Edit</a>
+                        
+                        {{-- 編集ボタン (role_id 2 の場合のみ表示) --}}
+                        @if($user && $user->role_id == 2 && $user->id == $questcreator->user_id)
+                        <div class="creator-edit-button text-center p-3">
+                            <a href="{{ route('questcreators.profile.edit', ['id' => $questcreator->id]) }}" class="text-decoration-none fs-3">
+                                Edit
+                            </a>
                         </div>
+                        @endif
+
+                        {{-- 現在のユーザーが他のプロフィールページを表示している場合のみお気に入りボタンを表示 --}}
+                        @if($user && $user->id !== $questcreator->user_id)
+                        <div class="favorite-button text-center p-3">
+                            @if ($user->favoriteCreators->contains($questcreator))  {{-- お気に入りに登録されている場合 --}}
+                                <form action="{{ route('favorites.destroy', $questcreator->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn fs-3"><i class="fa-solid fa-star text-warning fa-2x"></i> Unfavorite</button>
+                                </form>
+                            @else  {{-- お気に入り未登録状態の場合 --}}
+                                <form action="{{ route('favorites.store', $questcreator->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn fs-3"><i class="fa-regular fa-star fa-2x"></i> Favorite</button>
+                                </form>
+                            @endif
+                        </div>
+                        @endif
                 </div>
 
                 {{-- Main Profile --}}

@@ -9,6 +9,11 @@ use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\MypageController;
+
+
+use App\Http\Controllers\FavoriteCreatorController;
+
 use App\Http\Controllers\UserQuestStatusController;
 
 Route::get('/', function () {
@@ -72,6 +77,15 @@ Route::group(['middleware' => 'auth'], function(){
 
     # To go to viewing page
     Route::get('/quests/{questId}/chapters/{chapterId}', [ChapterController::class, 'viewing'])->name('chapters.viewing');
+    # player mypage
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/test', [UserController::class, 'viewTestSwitch']);
+    Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
+
+    //Favorite Creator button on creator's profile page
+    Route::get('/favorites', [FavoriteCreatorController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/{creatorId}', [FavoriteCreatorController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{creatorId}', [FavoriteCreatorController::class, 'destroy'])->name('favorites.destroy');
 
 
     //For Creators
