@@ -62,14 +62,14 @@
         const questId = "{{ $quest->id }}";
         const storageKey = "completed_chapters_" + questId;
         const completedChapters = JSON.parse(localStorage.getItem(storageKey) || "[]");
-        const status = "{{ $userQuest->status }}";  // サーバー側からステータスを取得
+        const status = "{{ $userQuest->status }}";  
 
         // ステータスが2の場合はボタンを無効化
         if (status == 2 || completedChapters.includes(chapterId)) {
             const button = document.querySelector('.complete-chapter-btn[data-chapter-id="' + chapterId + '"]');
             button.innerHTML = `
-                <img src="{{ asset('images/jewelry_round_yellow.png') }}" alt="jewelry" class="me-0" style="width: 18px; height: 18px;">`;
-            button.disabled = true;  // ボタンを無効化
+                <img src="{{ asset('images/jewelry_round_yellow.png') }}" alt="jewelry" class="mx-auto" style="width: 18px; height: 18px;">`;
+            button.disabled = true;  
         }
 
         // ボタンクリック時の処理
@@ -83,7 +83,7 @@
 
                 // 完了状態に変更
                 this.innerHTML = `
-                    <img src="{{ asset('images/jewelry_round_yellow.png') }}" alt="jewelry" class="me-0" style="width: 18px; height: 18px;">`;
+                    <img src="{{ asset('images/jewelry_round_yellow.png') }}" alt="jewelry" class="mx-auto" style="width: 18px; height: 18px;">`;
                 this.disabled = true;  // ボタンを無効化
 
                 // 最後のチャプターの場合にステータス変更APIを呼び出す

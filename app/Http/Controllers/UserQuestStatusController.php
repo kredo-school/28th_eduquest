@@ -12,11 +12,10 @@ class UserQuestStatusController extends Controller
     {
         $validated = $request->validate([
             'user_quest_id' => 'required|exists:user_quest,id',
-            'status' => 'required|in:1,2', // 進行中(1)または完了(2)
+            'status' => 'required|in:1,2', 
         ]);
 
         try {
-            // ステータス変更
             $status = UserQuestStatus::updateOrCreate(
                 ['user_quest_id' => $validated['user_quest_id']],
                 [

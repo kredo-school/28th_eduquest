@@ -89,8 +89,8 @@ class ChapterlistController extends Controller
 
         // ユーザーが進行中のクエストを持っているか確認
         $userQuest = UserQuest::where('user_id', $user->id)
-                            ->where('quest_id', $questId)
-                            ->first();
+                                ->where('quest_id', $questId)
+                                ->first();
 
         if (!$userQuest) {
             // 進行中のクエストがなければ新しく作成
@@ -115,8 +115,9 @@ class ChapterlistController extends Controller
         ]);
 
         return response()->json([
-            'success' => true,
-            'timestamp' => $userQuest->date_started->format('Y-m-d H:i:s')  
+            'success'   => true,
+            'timestamp' => $userQuest->date_started->format('Y-m-d H:i:s'),
+            'status'    => $userQuest->status  // ここで現在のステータス（この場合は 1）を返す
         ]);
     }
 

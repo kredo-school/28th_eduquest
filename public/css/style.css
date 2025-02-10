@@ -35,7 +35,7 @@ nav{
     color: #261C11 !important;
     transform: translateY(2px);
 }
-/*Sign in と Register*/
+/*Sign in & Register*/
 .custom-btn {
     background-color: #588157;
     color: white;
@@ -71,6 +71,7 @@ nav{
     width: auto; /* Maintain aspect ratio */
     vertical-align: middle; /* Adjust vertical position with text */
 }
+
 
 /* Resistration card body by Yudai */
 
@@ -376,6 +377,19 @@ creator-profile-view{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* nana edit */
+.creator-edit-button a {
+    color: black;
+    text-decoration: none;
+    font-family: 'DotGothic16';
+    background: white;
+    padding: 0.5rem 2rem;
+    border: 0.1rem solid #333;
+    border-radius: 2rem;
+    box-shadow: 0 0.5vh 0.5vh black;
+}
+
+
 /* =============================== */
 /*       Quest Management         */
 /* =============================== */
@@ -462,6 +476,29 @@ creator-profile-view{
     z-index: 1000;
 }
 
+/* For Regulation page delete-modal start */
+
+.regulation {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    padding-left: 100px;
+}
+
+.agree-btn{
+    background-color: #588157;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    display: block;
+    margin: 30px auto;
+    text-decoration: none;
+    width: 250px;
+}
+
+/* For Regulation page delete-modal end */
+
+
 /* For Quest-list page delete-modal start */
 
 .modal-content {
@@ -508,6 +545,408 @@ creator-profile-view{
 }
 
 /* For Quest-list page delete-modal end */
+
+/* For Quest-list page start */
+.quest-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 20px;
+}
+
+.quest-list-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.quest-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.quest-info img {
+    width: 160px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.update-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 4px;
+}
+
+.quest-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+
+.btn img {
+    margin-left: 0.5rem;
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.btn-edit {
+    background-color: #fff !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 2px solid #000;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+    transition: transform 0.1s;
+    width: 150px;
+}
+
+.btn-delete {
+    background-color: #fff !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 2px solid #000;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+    transition: transform 0.1s;
+    width: 150px;
+}
+
+.delete-icon{
+    height: 20px;
+    width: 20px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+
+
+.btn-create {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1.5rem;
+    font-size: 1.1rem;
+    border-radius: 20px;
+    border: 2px solid #000;
+    background-color: #fff !important;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 0 #000;
+    transition: transform 0.1s;
+    width: 250px;
+    text-align: center;
+}
+
+.btn-create img {
+    margin-left: 0.5rem;
+    width: 30px;
+    height: 30px;
+}
+
+.btn-create:hover {
+    transform: translateY(-2px);
+}
+
+
+.quest-list-container a {
+    text-decoration: none;
+    color: inherit;
+}
+/* For Quest-list page end */
+
+/* For Create Quest start */
+/*-------------[form全体のデザイン]---------*/
+form {
+    font-family: 'DotGothic16';
+}
+
+.form-group {
+    margin: 20px auto;
+}
+
+.chapter-container {
+    margin: 5rem auto;
+}
+
+.form-group label {
+    margin: 10px auto;
+    font-size: 1.1rem;
+}
+
+.create-container {
+    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+
+/*-----------[Create a Quest]---------------*/
+
+/* 旗の画像とタイトル */
+.title-container {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem auto;
+}
+
+.title-container img {
+    width: 2.5rem;
+    height: 3rem;
+}
+
+
+/* カテゴリー選択ラベルのスタイル */
+.category-option {
+    display: inline-block;
+    text-align: center;
+    margin: 10px 2px;
+    padding: 0.2rem 1rem;
+    background-color: #528966;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.category-option.selected {
+    background-color: #e0e0e0 !important; /* 優先順位を強化 */
+    color: white;
+}
+
+.category-option input {
+    display: none;
+}
+
+
+.bg-img-container img {
+    width: 40rem;
+    height: auto;
+}
+
+
+/* クエストのサムネイル */
+
+/* uploadボタン */
+.custom-file-button {
+    color: #333;
+    background: white;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #333;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+}
+
+/* uploadボタンの指画像 */
+.custom-file-button img {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 5px;
+}
+
+
+/* 画像プレビューの枠線 */
+.image-preview-container {
+    border: 2px dashed #ccc; 
+    padding: 10px;           
+    background-color: #f9f9f9; 
+    border-radius: 8px;       
+    display: flex;    
+    justify-content: center;
+    align-items: center;      
+    width: 100%;           
+    height: 65%;
+    aspect-ratio: 5 / 3;  
+    margin: 10px auto;       
+}
+
+/* プレビュー画像が枠内に収まるように */
+#image_preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* 画像を枠に収める */
+    object-position: center;  /* 画像を中央に配置 */
+    border-radius: 6px;
+}
+
+
+
+/* 画像プレビューの枠の高さを揃える */
+.thumbnail-container label {
+    margin-bottom: -0.5rem;
+}
+
+
+/*-----------[Create a Chapter]---------------*/
+
+
+/* chapter番号のデザイン */
+.chapter-bg h5 {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 10px;
+    width: 130px;
+    height: auto;
+    margin: 0;
+}
+
+.chapter-bg {
+    background: white;
+    width: 140px;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: flex-left;
+    align-items: flex-left;
+    padding: 5px;
+}
+
+/* 動画のプレビューコンテナ */
+.video-preview-container {
+    border: 2px dashed #ccc; 
+    padding: 10px;           
+    background-color: #f9f9f9; 
+    border-radius: 8px;       
+    display: flex;    
+    justify-content: center;
+    align-items: center;      
+    width: 100%;           
+    height: 65%;
+    aspect-ratio: 5 / 3;  
+    margin: 10px auto;
+}
+
+#video_preview {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 5 / 3;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 6px;
+}
+
+
+/* add more chapterボタンのデザイン */
+.btn-add-chapter {
+    border: none; /* デフォルトの枠線を削除 */
+    background: none; 
+    padding: 0; 
+    display: inline-block;
+    font-size: 1.2rem;
+}
+
+.button-content {
+    display: inline-flex; /* 画像とテキストを横並びに */
+    align-items: center;
+    border-bottom: 1px solid #333; 
+    padding: 0; 
+    margin: 25px;
+}
+
+/* chapter追加ボタンのデザイン */
+.btn-add-chapter img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px; 
+}
+
+/* formボタンのデザイン　*/
+.btn-design {
+    text-decoration: none;
+    color: #333;
+    background: white;
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #333;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-design img {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 5px;
+}
+/* For Create Quest end */
+
+/*アイコンのドロップダウンメニュー*/
+.dropdown-menu {
+    font-family: 'DotGothic16', sans-serif;
+    color: #261C11;
+}
+.nav-item-2 a{
+    color: #261C11;
+    font-family: 'DotGothic16', sans-serif;
+}
+
+.nav-item-2 a:hover, 
+.nav-item-2 a:focus {
+    color: #261C11;
+    background-color: transparent;
+}
+.nav-item-2 a:active {
+    color: #261C11 !important;
+    transform: translateY(2px);
+}
+.dropdown-menu .dropdown-divider {
+    /*hr*/
+    border-color: #aaa;
+    opacity: 0.5;
+    margin: 0.5rem 0;
+}
+.sword{
+    /*ドロップダウンの剣の画像*/
+    width: 1.5rem;
+    height: 1.5rem; 
+    margin-right: 10px;
+}
+
+/*icon*/
+.icon {
+    /*image追加してなかった時のicon*/
+    width:3rem;
+    height:3rem;
+    background-color: #aaa; 
+    color: white;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+}
+.img-icon {
+    /*image追加した時のicon*/
+    width:3rem;
+    height:3rem;
+    object-fit: cover;
+}
+
 /* =============================== */
 /*        Sidebar & Player        */
 /* =============================== */
@@ -621,3 +1060,287 @@ pointer-events: none;
     margin-top: 10px;
 }
 /* ↑↑ For for players.quests.reviews.blade.php ↑↑ */
+
+/*-----------------------------------------[71:How to Guide]--------------------------------------*/
+
+.guide-whole-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80vw;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.guide-title-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center; 
+    gap: 1.5vw; 
+    width: 100%; 
+    margin-bottom: 1.5rem;
+    margin-left: 2.5rem;
+}
+
+.guide-content {
+    width: 100%; 
+}
+
+.guide-title-container h2 {
+    margin-top: 1rem;
+    font-size: 2rem;
+}
+
+.guide-body p {
+    font-size: 1.5vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.guide-title-container img {
+    width: 3rem;
+    height: auto;
+}
+
+.guide-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* guide-body を中央に配置 */
+    width: 80%;
+    max-width: 1200px;
+    text-align: left; /* p のデフォルトの左揃えを保持 */
+}
+
+.writer-guide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 1.5vh;
+}
+
+.guide-container {
+    display: flex;
+}
+
+.box {
+    width: 5vw;
+    height: 5vw;
+    background-color: black;
+    border: 0.5vw solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(225, 225, 9);
+    font-size: 2.5vw;
+    font-family: 'DotGothic16';
+}
+
+.box-container {
+    width: 6vw;
+    height: 6vw;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5vw;
+}
+
+.guide-footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    padding: 2vw;
+}
+
+.guide-image-container {
+    display: flex;
+    justify-content: flex-start; /* 両端に画像を配置 */
+    gap: 0.7vw; /* 画像間の距離を縮める */
+}
+
+.guide-image {
+    display: flex;
+    width: auto; /* 画像の幅をコンテンツに合わせて調整 */
+}
+
+.guide-image img {
+    width: 8vw; /* 画像の幅を調整 */
+    height: auto; /* 高さを自動調整 */
+}
+
+.go-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.go-link a {
+    color: black;
+    text-decoration: none;
+    font-family: 'DotGothic16';
+    background: white;
+    padding: 1vh 3vw;
+    border: 0.2vw solid #333;
+    border-radius: 1.5vw;
+    box-shadow: 0 0.5vh 0.5vh black;
+    margin: 5vh 15vw;
+}
+
+
+/*-----------------------------------------[72:Guide explanation]--------------------------------------*/
+
+/* 巻物タイトル　*/
+.scroll-container {
+    position: relative;
+    display: flex; /* フレックスボックスに設定 */
+    justify-content: center; /* 横方向の中央配置 */
+    align-items: center; /* 縦方向の中央配置 */
+    width: 70vw;
+    height: auto;
+    margin: 5vh;
+}
+
+.scroll-container img {
+    width: 65vw;
+    height: auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/*　地図　*/
+.guide-map {
+    width: 90vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.guide-map img {
+    width: 80vw;
+    height: auto;
+}
+
+.guide-map-link img {
+    width: 10vw;
+    height: auto;
+}
+
+/* shield */
+.over-lay-link1 {
+    position: absolute;
+    top: 65%;
+    left: 15%;
+    transform: translate(50%, 50%);
+}
+
+/* castle */
+.over-lay-link2 {
+    position: absolute;
+    top: 28%;
+    left: 27%;
+    transform: translate(50%, 50%);
+}
+
+/* wizard */
+.over-lay-link3 {
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    transform: translate(50%, 50%);
+}
+
+/* dragon */
+.over-lay-link4 {
+    position: absolute;
+    top: 20%;
+    left: 60%;
+    transform: translate(50%, 50%);
+}
+
+/* house */
+.over-lay-link5 {
+    position: absolute;
+    top: 73%;
+    left: 73%;
+    transform: translate(50%, 50%);
+}
+
+.wizard-title,
+.shield-title,
+.dragon-title,
+.castle-title,
+.house-title {
+    display: flex;
+    gap: 2vw;
+    margin-top: 8vh;
+}
+
+.wizard-content,
+.shield-content,
+.dragon-content,
+.castle-content,
+.house-content {
+    margin-top: 3vh;
+    font-size: 1rem;
+}
+
+.wizard-title h5,
+.shield-title h5,
+.dragon-title h5,
+.castle-title h5,
+.house-title h5 {
+    margin-top: 3vh;
+}
+
+/* タイトル用アイコン2つ */
+.wizard-title img,
+.shield-title img,
+.dragon-title img,
+.castle-title img,
+.house-title img {
+    width: 3.5vw;
+    height: auto;
+}
+
+.map-content {
+    margin-left: 8vw;
+}
+
+.castle {
+    background: white;
+    width: 70vw;
+    min-height: 25vh;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.badge-example img {
+    width: 20vw;
+    max-width: none;
+}
+
+.castle-gap {
+    margin-left: 2rem;
+    flex: 1;
+}
+
+.badge-example {
+    flex: 0 0 auto;
+}
+
+/*-----------------------------------------[72:Guide explanation]end--------------------------------------*/

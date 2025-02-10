@@ -359,51 +359,64 @@
     </script>
     <script>
     document.getElementById('startButton').addEventListener('click', function(e) {
-        e.preventDefault(); // デフォルトのリンク動作を無効にする
-    
-        const button = e.currentTarget;
-        const questId = button.getAttribute('data-quest-id');
+    e.preventDefault(); // デフォルトの動作をキャンセル
+    const button = e.currentTarget;
+    const questId = button.getAttribute('data-quest-id');
 
-    
-        // ステータスが0（未開始）の場合のみ処理を進める
-        if (button.disabled || button.textContent === 'In Progress' || button.textContent === 'Completed') {
-            return; // ボタンが無効化されているか、すでに「In Progress」または「Completed」の場合、何もしない
-        }
-    
-        // ボタンを無効化して色を変更
-        button.disabled = true;  // ボタンを無効化
-        button.style.backgroundColor = "#f0f0f0"; // 色を薄く変更
-        button.style.color = "#d3d3d3"; // 文字色も薄くする
-        button.textContent = 'In Progress'; // ボタンのテキストを「In Progress」に変更
-    
-        // ステータス更新用のリクエストを送信
-        fetch('{{ route('startQuest') }}', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            body: JSON.stringify({
-                quest_id: questId
-            })
+    // ボタンが既に無効化されている場合は何もしない
+    if (button.disabled || button.textContent.trim() === 'In Progress' || button.textContent.trim() === 'Completed') {
+        return;
+    }
+
+    // ボタンの状態を一旦「In Progress」に変更
+    button.disabled = true;
+    button.style.backgroundColor = "#f0f0f0";
+    button.style.color = "#d3d3d3";
+    button.textContent = 'In Progress';
+
+    // ステータス更新用のリクエストを送信
+    fetch('{{ route('startQuest') }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            quest_id: questId
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // 時刻を表示
-                const timestampElement = document.getElementById('timestampDisplay');
-                timestampElement.textContent = `${data.timestamp}`;
-                
-                // ステータスが2になったら、ボタンのテキストを「Completed」に変更
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // タイムスタンプの表示
+            const timestampElement = document.getElementById('timestampDisplay');
+            timestampElement.textContent = data.timestamp;
+
+            // ステータスが 2（完了） なら「Completed」に変更
+            if (data.status === 2) {
                 button.textContent = 'Completed';
-                button.style.backgroundColor = "#d3d3d3"; // 完了後の背景色
-                button.style.color = "#f0f0f0"; // 完了後の文字色
-                button.disabled = true;  // ボタンを無効化
+                button.style.backgroundColor = "#d3d3d3";
+                button.style.color = "#f0f0f0";
+                button.disabled = true;
             }
-        })
-        .catch(error => console.error('Error:', error));
-    });
-    
+
+            // 返ってきたステータスに応じた処理
+            if (data.status === 1) {  // 進行中の場合
+                // 既に「In Progress」になっているので、そのままにする
+                button.textContent = 'In Progress';
+                // 必要なら追加のスタイル調整
+            } else if (data.status === 2) {  // 完了の場合
+                button.textContent = 'Completed';
+                button.style.backgroundColor = "#d3d3d3";
+                button.style.color = "#f0f0f0";
+            }
+            // ボタンは無効化のままにする
+            button.disabled = true;
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
     </script>
     <script>
         // クエストごとに固有のキーを作成
