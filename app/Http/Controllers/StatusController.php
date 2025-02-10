@@ -29,21 +29,21 @@ class StatusController extends Controller
         $watchLater = $this->userQuest
             ->where('user_id', $id)
             ->where('status', 0)
-            ->with('quest')
+            ->with(['quest.categoryQuests.category','quest.creator'])
             ->get();
 
         // In Progress (status=1)
         $inProgress = $this->userQuest
             ->where('user_id', $id)
             ->where('status', 1)
-            ->with('quest')
+            ->with(['quest.categoryQuests.category','quest.creator'])
             ->get();
 
         // Completed (status=2)
         $completed = $this->userQuest
             ->where('user_id', $id)
             ->where('status', 2)
-            ->with('quest')
+            ->with(['quest.categoryQuests.category','quest.creator'])
             ->get();
 
         return view('players.quests.queststatus', [
