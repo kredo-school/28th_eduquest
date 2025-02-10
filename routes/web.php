@@ -8,6 +8,9 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\MypageController;
+
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -55,7 +58,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
+    # player mypage
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/test', [UserController::class, 'viewTestSwitch']);
+    Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
 
+       
 
     //For Creators
     # To go to Regulation page
