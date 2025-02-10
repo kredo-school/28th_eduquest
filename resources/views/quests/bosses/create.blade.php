@@ -12,7 +12,7 @@
             <h2 class="mb-4">
                 Create Boss for "{{ $quests->quest_title}}"
             </h2>
-            <form method="POST" action="#">
+            <form method="POST" action="{{ route('quests.bosses.store', ['quest_id' => $quests->id]) }}">
                 @csrf
                 <div class="profile-title-s m-3">
                     <label for="description">Description</label>

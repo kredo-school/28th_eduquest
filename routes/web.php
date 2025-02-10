@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
     Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
     
+    
     Route::group(['prefix' => 'quests/{quest_id}', 'as' => 'quests.bosses.'], function(){
         # Bosses 
         Route::get('/boss/create',[BossController::class,'create'])->name('create');
