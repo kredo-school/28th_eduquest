@@ -28,10 +28,40 @@
             <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
           </a>
 
-          <!-- Title -->
-          <a href="{{ route('quests.chapters', $uq->quest->id) }}" class="text-dark text-decoration-none">
-            <h5 class="mt-2 mb-1">{{ $uq->quest->quest_title }}</h5>
-          </a>
+          <!-- Categories -->
+          <div>
+            @foreach($uq->quest->categoryQuests as $qCat)
+                @if($qCat->category)
+                    <span class="category-badge">
+                        {{ $qCat->category->category_name }}
+                    </span>
+                @endif
+            @endforeach
+          </div>
+
+          <!-- Title + Watch Later Toggle -->
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <!-- Title -->
+            <a href="{{ route('quests.chapters', $uq->quest->id) }}" class="text-dark text-decoration-none">
+                <h5 class="mb-1">{{ $uq->quest->quest_title }}</h5>
+            </a>
+
+            <!-- Watch Later Toggle -->
+            @php
+                $inWatchLater = true; 
+            @endphp
+
+            <form action="{{ route('watch.later.toggle', $uq->quest->id) }}" method="POST" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-light" style="border:none;">
+                    @if($inWatchLater)
+                        <img src="{{ asset('images/flag_red.png') }}" alt="watchLater_flag_red" class="flag_green">
+                    @else
+                        <img src="{{ asset('images/flag_transparent.png') }}" alt="flag_transparent" class="flag_transparent">
+                    @endif
+                </button>
+            </form>
+          </div>
 
           <!-- Creator Icon + Name -->
           @if($uq->quest->creator)
@@ -69,6 +99,7 @@
   </div>
 
 
+  {{-- Itoneメモ：Viewing ScreenとMerge後、要テスト --}}
   <!-- In Progress (status=1) -->
   <h2 class="h4"><img src="{{ asset('images/tsurugi_bronze_red 2.png') }}" alt="longsword" class="flag_red"> In Progress</h2>
   <div class="horizontal-scroll quests-row py-2 mb-4">
@@ -81,11 +112,41 @@
           <a href="{{ route('quests.chapters', $uq->quest->id) }}">
             <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
           </a>
+
+          {{-- Categories --}}
+          <div>
+            @foreach($uq->quest->categoryQuests as $qCat)
+                @if($qCat->category)
+                    <span class="category-badge">
+                        {{ $qCat->category->category_name }}
+                    </span>
+                @endif
+            @endforeach
+          </div>
   
-          <!-- Title -->
-          <a href="{{ route('quests.chapters', $uq->quest->id) }}" class="text-dark text-decoration-none">
-            <h5 class="mt-2 mb-1">{{ $uq->quest->quest_title }}</h5>
-          </a>
+          <!-- Title + Watch Later Toggle -->
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <!-- Title -->
+            <a href="{{ route('quests.chapters', $uq->quest->id) }}" class="text-dark text-decoration-none">
+                <h5 class="mb-1">{{ $uq->quest->quest_title }}</h5>
+            </a>
+
+            <!-- Watch Later Toggle -->
+            @php
+                $inWatchLater = true; 
+            @endphp
+
+            <form action="{{ route('watch.later.toggle', $uq->quest->id) }}" method="POST" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-light" style="border:none;">
+                    @if($inWatchLater)
+                        <img src="{{ asset('images/flag_red.png') }}" alt="watchLater_flag_red" class="flag_green">
+                    @else
+                        <img src="{{ asset('images/flag_transparent.png') }}" alt="flag_transparent" class="flag_transparent">
+                    @endif
+                </button>
+            </form>
+          </div>
   
           <!-- Creator Icon + Name -->
           @if($uq->quest->creator)
@@ -122,7 +183,7 @@
     @endforelse
   </div>
 
-
+  {{-- Itoneメモ：Viewing ScreenとMerge後、要テスト --}}
   <!-- Completed (status=2) -->
   <h2 class="h4"><img src="{{ asset('images/image 83.png') }}" alt="Tresure_Chest" class="flag_red"> Completed</h2>
   <div class="horizontal-scroll quests-row py-2 mb-4">
@@ -136,10 +197,40 @@
             <img src="{{ $uq->quest->thumbnail }}" alt="Thumbnail">
           </a>
   
-          <!-- Title -->
-          <a href="{{ route('quests.chapters', $uq->quest->id) }}" class="text-dark text-decoration-none">
-            <h5 class="mt-2 mb-1">{{ $uq->quest->quest_title }}</h5>
-          </a>
+          {{-- Categories --}}
+          <div>
+            @foreach($uq->quest->categoryQuests as $qCat)
+                @if($qCat->category)
+                    <span class="category-badge">
+                        {{ $qCat->category->category_name }}
+                    </span>
+                @endif
+            @endforeach
+          </div>
+  
+          <!-- Title + Watch Later Toggle -->
+          <div class="d-flex justify-content-between align-items-center mt-2">
+            <!-- Title -->
+            <a href="{{ route('quests.chapters', $uq->quest->id) }}" class="text-dark text-decoration-none">
+                <h5 class="mb-1">{{ $uq->quest->quest_title }}</h5>
+            </a>
+
+            <!-- Watch Later Toggle -->
+            @php
+                $inWatchLater = true; 
+            @endphp
+
+            <form action="{{ route('watch.later.toggle', $uq->quest->id) }}" method="POST" style="display:inline;">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-light" style="border:none;">
+                    @if($inWatchLater)
+                        <img src="{{ asset('images/flag_red.png') }}" alt="watchLater_flag_red" class="flag_green">
+                    @else
+                        <img src="{{ asset('images/flag_transparent.png') }}" alt="flag_transparent" class="flag_transparent">
+                    @endif
+                </button>
+            </form>
+          </div>
   
           <!-- Creator Icon + Name -->
           @if($uq->quest->creator)

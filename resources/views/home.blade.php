@@ -74,13 +74,13 @@
                         </div>
 
                         {{-- Quest Title + Watch Later icon in one row --}}
-                        <div class="d-flex justify-content-between align-items-center" style="margin: 8px 0;">
+                        <div class="d-flex justify-content-between align-items-center">
                             <!-- Left: Quest Title link -->
                             <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}" class="text-dark text-decoration-none ps-2">
                                 <span>{{ $catQuest->quest->quest_title }}</span>
                             </a>
 
-                            <!-- Right: Watch Later Icon Button -->
+                            <!-- Right: Watch Later Toggle Button -->
                             <form action="{{ route('watch.later.toggle', $catQuest->quest->id) }}"
                                 method="POST" class="ms-2" style="display:inline;">
                                 @csrf
