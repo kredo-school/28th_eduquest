@@ -11,6 +11,8 @@ use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\MypageController;
 
 
+use App\Http\Controllers\FavoriteCreatorController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -63,7 +65,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/test', [UserController::class, 'viewTestSwitch']);
     Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
 
-       
+    //Favorite Creator button on creator's profile page
+    Route::get('/favorites', [FavoriteCreatorController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/{creatorId}', [FavoriteCreatorController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{creatorId}', [FavoriteCreatorController::class, 'destroy'])->name('favorites.destroy');
+
 
     //For Creators
     # To go to Regulation page

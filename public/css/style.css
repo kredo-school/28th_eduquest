@@ -1026,6 +1026,85 @@ form {
 } */
 /* ↑↑ For for players.quests.chapterlist.blade.php ↑↑ */
 
+/*-----------------------------------------[58:Favorite Quest Creator List]--------------------------------------*/
+
+/* 巻物タイトル　*/
+.scroll-container2 {
+    position: relative;
+    display: flex; /* フレックスボックスに設定 */
+    justify-content: flex-start; /* 横方向の中央配置 */
+    align-items: flex-start; /* 縦方向の中央配置 */
+    width: 70vw;
+    height: auto;
+    margin: 5vh;
+}
+
+.scroll-container2 img {
+    width: 55vw;
+    height: auto;
+}
+
+.overlay2 {
+    position: absolute;
+    top: 60%;
+    left: 32%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+/* お気に入りcreatorリスト */
+
+.favorite-creator-container {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+    gap: 1rem;
+}
+
+.favorite-creator-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.favorite-creator-item {
+    display: flex;
+    width: 75vw;
+    border: solid 1px #3C2C1B;
+    padding: 0.7rem;
+}
+
+.favorite-creator-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.favorite-creator-list p {
+    font-size: 1.2rem;
+}
+
+.favorite-creator-info {
+    flex: 1; /* 情報部分が自然に広がるように */
+}
+
+.btn-delete-container {
+    margin-left: 1rem; /* ボタンを枠の外に出すための余白 */
+}
+
+.btn-delete {
+    color: black;
+    text-decoration: none;
+    font-family: 'DotGothic16';
+    background: white;
+    border: 1px solid #333;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+}
+
+
 /*-----------------------------------------[71:How to Guide]--------------------------------------*/
 
 .guide-whole-container {
