@@ -1,144 +1,177 @@
 @extends('layouts.app')
 @section('content')
 <div class="container mt-5">
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <!-- Navbar content -->
-    </nav>
-    <!-- Form Start -->
-    <form action="#" method="POST" enctype="multipart/form-data">
-        @csrf
-        <div class="row">
+    <div class="create-container">
+        
+            <!-- Form Start -->
+            <form action="{{ route('quests.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <!-------------------[Create a Quest: クエスト作成]-------------------------->
+                <div class="quest-container">
+                    <div class="title-container">
+                        <img src="{{ asset('images/flag_02_green.png') }}">
+                        <h2>Create Quest</h2>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="quest_title">Title:</label>
+                                <input type="text" class="form-control" id="quest_title" name="quest_title" value="{{ old('quest_title') }}" required>
+                                @error('quest_title')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="total_hours">Video Length;</label>
+                                <select class="form-control" id="total_hours" name="total_hours" required>
+                                    @for($i = 0.5; $i <= 10; $i += 0.5)
+                                        <option value="{{ $i }}" {{ old('total_hours') == $i ? 'selected' : '' }}>{{ $i }} 時間</option>
+                                    @endfor
+                                </select>                            
+                                @error('total_hours')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="description">Description:</label>
+                                <textarea class="form-control" id="description" name="description" rows="4" required>{{ old('description') }}</textarea>
+                                @error('description')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="video_image">Thumbnail URL:</label>
+                                <div class="thumbnail-container">
+                                    <!-- URL入力欄 -->
+                                    <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
+                                    @error('thumbnail')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- 画像プレビューエリア-->
+                                <label for="image_preview">Thumbnail Preview:</label>
+                                <div id="image_preview_container" class="image-preview-container mt-3">
+                                    <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
+                                        src="{{ old('thumbnail') }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="row">
+                                <label for="categories">Select Category (Max: 3)</label>
+                            </div>
+                                @foreach($categories as $category)
+                                    <div class="category-option">
+                                        <input type="checkbox" name="category[]" value="{{ $category->id }}" id="category{{ $category->id }}" class="category-checkbox" {{ in_array($category->id, old('category', [])) ? 'checked' : '' }}>
+                                            @if(in_array($category->id, old('category', []))) @endif
+                                        <label for="category{{ $category->id }}">{{ $category->category_name }}</label>
+                                    </div>
+                                @endforeach
+
+                                <!--エラーメッセージの表示-->
+                                @if ($errors->has('category'))
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->get('category') as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                        </div>
+                    </div>
+                </div>
+
+                <!-------------------[Create a Chapter: チャプター作成]-------------------------->
+                <div class="chapter-container">
+                        <div class="row">
+                            <div class="title-container">
+                                <img src="{{ asset('images/flag_02_blue.png') }}">
+                                <h2>Create Chapter</h2>
+                            </div>
+                            <div id="sub_item_section">
+                                <div class="sub_item mb-4" data-id="1">
+                                    <div class="chapter-bg">
+                                        <h5><i class="fa-solid fa-play m-1"></i>Chapter 1</h5>
+                                    </div>
+                                            
+                                    <div class="row">
+                                        <div class="col-md-6 chapter-title">
+                                            <div class="form-group">
+                                                <label for="sub_item_title_1">Title:</label>
+                                                <input type="text" class="form-control" id="sub_item_title_1" name="sub_items[1][quest_chapter_title]" value="{{ old('sub_items.1.quest_chapter_title') }}" required>
+                                            </div>
+                                        <div class="form-group">
+                                            <label for="sub_item_description_1">Description:</label>
+                                            <textarea class="form-control" id="sub_item_description_1" name="sub_items[1][description]" rows="4" required>{{ old('sub_items.1.description') }}</textarea>
+                                        </div>
+                                    </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+
+                                                <!---- 動画インプット欄---------->
+                                                <label for="sub_item_video_1">YouTube Video URL:</label>
+                                                <input type="url" class="form-control" id="sub_item_video_1" name="sub_items[1][video]" value="{{ old('sub_items.1.video') }}" placeholder="Enter YouTube video URL" required onchange="updateVideoPreview()">
+
+                                                <!----- 動画プレビューコンテナ----->
+                                                <div class="video-preview-container">
+                                                    <iframe id="video_preview" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                                </div>                                            
+
+                                                <!------ 削除ボタン------------->
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">Delete<img src="{{ asset('images/delete-icon.png')}}" style="width: 1.5rem; height: 1.3rem;"></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 小項目追加ボタン -->
+                            <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
+                                <div class="button-content">
+                                    <img src="{{ asset('images/tatefuda_yajirushi_01_beige 1.png') }}">
+                                    Add more chapters
+                                </div>
+                            </button>
+                            
+                            
+                            <!-- Form Buttons -->
+                            <div class="btn-container">
+                                <div class="form-group form-btn mt-4">
+                                    <a href="#" class="btn-design">Cancel</a>
+                                    <button type="submit" class="btn-design">Save<img src="{{ asset('images/te_yubisashi_right 3.png') }}"></button>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </form>
             
-            <!-- Left Side: 大項目 -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="main_title">大項目タイトル</label>
-                    <input type="text" class="form-control" id="main_title" name="main_title" required>
-                </div>
-                <div class="form-group">
-                    <label for="main_description">説明</label>
-                    <textarea class="form-control" id="main_description" name="main_description" rows="4" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="categories">カテゴリ (最大3つ選択)</label>
-                    <select class="form-control" id="categories" name="categories[]" multiple required>
-                       {{-- @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach --}}
-                    </select>
-                </div>
-            </div>
-            <!-- Right Side: 動画の時間選択 -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="video_duration">動画の時間</label>
-                    <select class="form-control" id="video_duration" name="video_duration" required>
-                        @for($i = 0.5; $i <= 10; $i += 0.5)
-                            <option value="{{ $i }}">{{ $i }} 時間</option>
-                        @endfor
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="video_image">画像アップロード</label>
-                    <input type="file" class="form-control-file" id="video_image" name="video_image" onchange="previewImage(event)">
-                    <img id="image_preview" class="mt-2" style="max-width: 100%; display: none;">
-                </div>
-            </div>
+    </div>
+        <div class="bg-img-container">
+            <img src="{{ asset('images/Group 235.png') }}" alt="background-img">
         </div>
-        <!-- 小項目セクション -->
-        <div id="sub_item_section">
-            <div class="sub_item mb-4" data-id="1">
-                <div class="row">
-                    <!-- Left Side: 小項目タイトルと説明 -->
-                    <div class="col-md-6">
-                        <h5>小項目 1</h5>
-                        <div class="form-group">
-                            <label for="sub_item_title_1">小項目タイトル</label>
-                            <input type="text" class="form-control" id="sub_item_title_1" name="sub_items[1][title]" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="sub_item_description_1">説明</label>
-                            <textarea class="form-control" id="sub_item_description_1" name="sub_items[1][description]" rows="4" required></textarea>
-                        </div>
-                    </div>
-                    <!-- Right Side: 動画URLとサムネイル -->
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="video_url_1">動画URL</label>
-                            <input type="url" class="form-control" id="video_url_1" name="sub_items[1][video_url]" onchange="loadThumbnail(1)">
-                            <img id="thumbnail_1" class="mt-2" style="max-width: 100%; display: none;">
-                        </div>
-                        <button type="button" class="btn btn-danger mt-2" onclick="removeSubItem(1)">削除</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- 小項目追加ボタン -->
-        <button type="button" class="btn btn-primary mt-3" id="add_sub_item" onclick="addSubItem()">小項目を追加</button>
-        <!-- Form Buttons -->
-        <div class="form-group mt-4">
-            <a href="#" class="btn btn-secondary">キャンセル</a>
-            <button type="submit" class="btn btn-success">保存</button>
-        </div>
-    </form>
+        @endsection
+        @section('scripts')
+        <script src="{{ asset('js/questform.js') }}"></script>
+        <script src="script.js"></script>
+        @endsection
+    
 </div>
-@endsection
-@section('scripts')
-<script>
-// 画像プレビュー
-function previewImage(event) {
-    const imagePreview = document.getElementById('image_preview');
-    imagePreview.src = URL.createObjectURL(event.target.files[0]);
-    imagePreview.style.display = 'block';
-}
-// サムネイル表示
-function loadThumbnail(subItemId) {
-    const url = document.getElementById(`video_url_${subItemId}`).value;
-    const thumbnailImage = document.getElementById(`thumbnail_${subItemId}`);
-    // YouTubeサムネイルを自動取得（例）
-    if (url.includes("youtube.com")) {
-        const videoId = url.split("v=")[1].split("&")[0];
-        thumbnailImage.src = `https://img.youtube.com/vi/${videoId}/0.jpg`;
-        thumbnailImage.style.display = 'block';
-    }
-}
-// 小項目を追加
-let subItemCount = 1;
-function addSubItem() {
-    subItemCount++;
-    const newSubItem = document.createElement('div');
-    newSubItem.classList.add('sub_item', 'mb-4');
-    newSubItem.setAttribute('data-id', subItemCount);
-    newSubItem.innerHTML = `
-        <div class="row">
-            <div class="col-md-6">
-                <h5>小項目 ${subItemCount}</h5>
-                <div class="form-group">
-                    <label for="sub_item_title_${subItemCount}">小項目タイトル</label>
-                    <input type="text" class="form-control" id="sub_item_title_${subItemCount}" name="sub_items[${subItemCount}][title]" required>
-                </div>
-                <div class="form-group">
-                    <label for="sub_item_description_${subItemCount}">説明</label>
-                    <textarea class="form-control" id="sub_item_description_${subItemCount}" name="sub_items[${subItemCount}][description]" rows="4" required></textarea>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label for="video_url_${subItemCount}">動画URL</label>
-                    <input type="url" class="form-control" id="video_url_${subItemCount}" name="sub_items[${subItemCount}][video_url]" onchange="loadThumbnail(${subItemCount})">
-                    <img id="thumbnail_${subItemCount}" class="mt-2" style="max-width: 100%; display: none;">
-                </div>
-                <button type="button" class="btn btn-danger mt-2" onclick="removeSubItem(${subItemCount})">削除</button>
-            </div>
-        </div>
-    `;
-    document.getElementById('sub_item_section').appendChild(newSubItem);
-}
-// 小項目を削除
-function removeSubItem(subItemId) {
-    const subItem = document.querySelector(`[data-id='${subItemId}']`);
-    subItem.remove();
-}
-</script>
-@endsection
+
+
+
+    
+    
