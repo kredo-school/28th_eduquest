@@ -984,20 +984,27 @@ form {
 }
 
 /* ↓↓↓ for players.quests.chapterlist.blade.php ↓↓↓ */
+.disabled {
+    opacity: 0.6; 
+    pointer-events: none; 
+    background-color: #f8f9fa; 
+    border-color: #d6d8db; 
+    color: #6c757d; 
+}
 .review-text {
-    max-height: 20px; /* 初期状態は1行分の高さ */
+    max-height: 30px;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
     line-height: 1.4;
 }
 
 .review-text.expanded {
-    max-height: none; /* 高さ制限を解除して全文表示 */
-    overflow: scroll;
+    max-height: none; 
+    overflow: visible;
 }
 .review {
-    transition: height 0.3s ease-in-out; /* 高さの変更をスムーズに */
-    height: auto; /* コンテンツに合わせて高さを自動調整 */
+    transition: height 0.3s ease-in-out; 
+    height: auto; 
 }
 .rating {
     display: flex;
@@ -1013,18 +1020,49 @@ form {
 .star-gray {
     width: 17px;
     height: 17px;
-    opacity: 0.5; /* 未評価の星を薄く表示 */
+    opacity: 0.5; 
 }
 
-/* .star-partial {
-    background-image: url('{{ asset('images/star_yellow 3.png') }}');
-    background-size: 100% 100%;
-    width: 0;
-    height: 17px;
-    position: absolute;
-    overflow: hidden;
-} */
 /* ↑↑ For for players.quests.chapterlist.blade.php ↑↑ */
+
+/* ↓↓↓ for players.quests.viewingchapter.blade.php ↓↓↓ */
+.complete-chapter-btn {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.complete-chapter-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.disabled-chapter-btn {
+opacity: 0.5;         
+pointer-events: none; 
+}
+
+/* ↑↑ For for players.quests.viewingchapter.blade.php ↑↑ */
+
+/* ↓↓↓ for players.modals.reviews.blade.php ↓↓↓ */
+.rating {
+    font-size: 30px;
+}
+
+.rating-label {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.rating-label:hover {
+    opacity: 0.8;
+}
+
+.review-section textarea {
+    background-color: white;
+    color: black;
+}
+
+.review-section button {
+    margin-top: 10px;
+}
+/* ↑↑ For for players.quests.reviews.blade.php ↑↑ */
 
 /*-----------------------------------------[58:Favorite Quest Creator List]--------------------------------------*/
 

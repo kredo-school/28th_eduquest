@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(QuestCreator::class, 'favorites', 'user_id', 'quest_creator_id');
     }
+    // ユーザーが持つクエスト
+    public function userQuests()
+    {
+        return $this->hasMany(UserQuest::class);
+    }
 }
