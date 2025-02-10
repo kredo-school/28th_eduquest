@@ -121,7 +121,7 @@
                                             </div>
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My page</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('player.mypage', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My page</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Go to Quest Creator page</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{ route('quest.status', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Quest Status</a></li>
@@ -173,12 +173,17 @@
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{route('questcreators.creatorMyPage', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Page and Dashbord</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('player.mypage', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Go to Mypage as Player</a></li>
                                         
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{ route('questcreators.how-to-guide') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">How-to Guide</a></li>
                                         <li><a class="dropdown-item" href="{{ route('quests.index') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest List</a></li>
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest Data Overview</a></li>
+
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Quests</a></li>
+                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Study Plan</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('favorites.index') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Favorite Quest Creator</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{ route('questcreators.profile.view', ['id' => Auth::id()])}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
