@@ -64,8 +64,10 @@ class Quest extends Model
     {
         return $this->reviews_ratings()->avg('rating');
     }
-
-    public function userQuests(){
-        return $this->hasMany(UserQuest::class, 'quest_id');
+    
+    // クエストが持つユーザークエスト
+    public function userQuests()
+    {
+        return $this->hasMany(UserQuest::class);
     }
 }
