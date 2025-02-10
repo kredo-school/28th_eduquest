@@ -23,7 +23,7 @@
                     @else
                         <!---画像がない場合--->
                         <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
-                            <img src="{{ asset('images/User icon.png') }}" alt="icon_image" style="width: 6rem; height: 6rem; object-fit: cover; border-radius: 50%; margin: 1.5rem;>
+                            <img src="{{ asset('images/User icon.png') }}" alt="icon_image" style="width: 6rem; height: 6rem; object-fit: cover; border-radius: 50%; margin: 1.5rem;">
                         </a>
                     @endif
                 </div>

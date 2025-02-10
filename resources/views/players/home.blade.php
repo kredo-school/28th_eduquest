@@ -27,10 +27,39 @@
 @include('players.modals.news')
 
 {{-- Ranking --}}
-{{-- <div class="row gx-5">
-    <div class="h2 h3 mt-3"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Ranking</div>
+<div class="row gx-5">
+    <div class="h2 h3 mt-3">
+        <img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Ranking
+    </div>
 
-</div> --}}
+    <div class="ranking-container">
+        <div class="creator-ranking-container">
+            <h4>Creator Ranking</h4>
+            <div class="ranking-content">
+                <div>
+                    <img src="{{ asset('images/ingot_gold 1.png')}}" alt="gold">
+                </div>
+                <div class="ranking-list">
+                    {{-- @if($creator && $creator->creator_image) --}}
+                        <a href="#">
+                            <img src="{{ asset('images/User icon.png') }}" alt="icon_image">
+                            <span class="ms-1">Nami</span>
+                        </a>
+                    {{-- @else --}}
+                        {{-- <a href="#">
+                            <img src="{{ asset('images/User icon.png') }}" alt="icon_image">
+                            <span class="ms-1">Zoro</span>
+                        </a> --}}
+                    {{-- @endif --}}
+                </div>
+            </div>
+        </div>
+
+        <div class="player-ranking-container">
+            <h4>Player Ranking</h4>
+        </div>
+    </div>
+</div>
 
 
 {{-- Quest list each Categories--}}
@@ -79,13 +108,11 @@
                                 $creator = $catQuest->quest->questCreator;
                             @endphp
                             @if($creator && $creator->creator_image)
-                                {{-- あとでリンク追加必要！！！ --}}
                                 <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
                                     <img src="{{ $creator->creator_image }}" alt="Creator Icon" style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
                                 </a>
                             @else
-                                {{-- あとでリンク追加必要！！！ --}}
                                 <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
