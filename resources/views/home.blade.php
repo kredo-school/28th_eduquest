@@ -47,6 +47,13 @@
         <div class="horizontal-scroll quests-row px-3">
             <!-- Thumbnail with spacing -->
             @forelse ($category->categoryQuests as $catQuest)
+            @php
+                $watchLaterItem = Auth::user()->userQuests
+                    ->where('quest_id', $catQuest->quest->id)
+                    ->where('status', 0)
+                    ->first();
+                $inWatchLater = $watchLaterItem ? true : false;
+            @endphp
                 <div class="card quest-item mx-1" style="width: 200px;">
                     @if ($catQuest->quest->thumbnail)
                         {{-- Thumbnail --}}
@@ -66,10 +73,27 @@
                             @endforeach
                         </div>
 
-                        {{-- Quest Title --}}
-                        <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
-                            <div style="margin-left: 8px;">{{ $catQuest->quest->quest_title }}</div>
-                        </a>
+                        {{-- Quest Title + Watch Later icon in one row --}}
+                        <div class="d-flex justify-content-between align-items-center" style="margin: 8px 0;">
+                            <!-- Left: Quest Title link -->
+                            <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}" class="text-dark text-decoration-none ps-2">
+                                <span>{{ $catQuest->quest->quest_title }}</span>
+                            </a>
+
+                            <!-- Right: Watch Later Icon Button -->
+                            <form action="{{ route('watch.later.toggle', $catQuest->quest->id) }}"
+                                method="POST" class="ms-2" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-light" style="border:none;">
+                                    @if($inWatchLater)
+                                        {{-- <i class="fa-solid fa-eye-slash"></i> --}}
+                                        <img src="{{ asset('images/flag_red.png') }}" alt="watchLater_flag_red" class="flag_green">
+                                    @else
+                                        <img src="{{ asset('images/flag_transparent.png') }}" alt="flag_transparent" class="flag_transparent">
+                                    @endif
+                                </button>
+                            </form>
+                        </div>
 
                         {{-- Creator Icon + Creator name--}}
                         <div class="card-body" style="display: flex; align-items: center;">

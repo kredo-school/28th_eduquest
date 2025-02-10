@@ -65,6 +65,39 @@ class StatusController extends Controller
 
         return back()->with('status', 'Quest removed from your list.');
     }
+
+
+    public function toggleWatchLater($questId)
+    {
+        # Check if the quest exists (to avoid errors)
+        $quest = $this->quest->findOrFail($questId);
+
+        # Login User ID
+        $userId = Auth::id();
+
+        # Check if there is a status=0 (Watch Later) entry in user_quest
+        $existing = $this->userQuest->where('user_id', $userId)
+                                    ->where('quest_id', $questId)
+                                    ->where('status', 0) // watch-later
+                                    ->first();
+
+        if ($existing) {
+            # If it's already set to Watch Later, remove it (toggle off).
+            $existing->delete();
+
+            return back()->with('status', 'Removed from Watch Later.');
+        } else {
+            # If it hasn't been registered yet, add it (toggle on)
+            $this->userQuest->create([
+                'user_id' => $userId,
+                'quest_id'=> $questId,
+                'status'  => 0 
+            ]);
+
+            return back()->with('status','Added to Watch Later.');
+        }
+    }
+
 }
 
 

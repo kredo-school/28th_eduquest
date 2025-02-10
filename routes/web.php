@@ -76,6 +76,9 @@ Route::group(['middleware' => 'auth'], function(){
     # To delete account
     Route::delete('/delete-my-account', [UserController::class, 'destroyAccount'])->name('destroy.account');
 
+    # Watch_Later Toggle
+    Route::post('/quest/watch-later/toggle/{questId}', [StatusController::class, 'toggleWatchLater'])->name('watch.later.toggle');
+
     # To go to the Page of Quest List by Status
     Route::get('player/quest-status/{id}', [StatusController::class, 'viewQuestStatus'])->name('quest.status');
 
