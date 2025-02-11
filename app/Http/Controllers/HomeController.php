@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Quest;
 use App\Models\Category;
+use App\Models\QuestCreator;
 
 class HomeController extends Controller
 {
@@ -37,11 +38,24 @@ class HomeController extends Controller
     public function show()
     {
         $news_lists = $this->getNews();
+
+        // Questリストの取得
+        $quests = Quest::all();
+
+        $questcreator = QuestCreator::first();
+
         // $quests_lists = $this->getQuests();
         $categories = $this->category->with('categoryQuests.quest.questCreator')->get();
-        $quests = Quest::all(); 
-        return view('players.home', compact('news_lists', 'categories','quests'));
-        
+
+        $rankingCreators = QuestCreator::leftJoin('favorites', 'quest_creators.id', '=', 'favorites.quest_creator_id')
+            ->select('quest_creators.*')
+            ->selectRaw('COUNT(favorites.quest_creator_id) as favorites_count')
+            ->groupBy('quest_creators.id')
+            ->orderByDesc('favorites_count')
+            ->limit(10)  // 上位10人を取得
+            ->get();
+         
+        return view('players.home', compact('news_lists', 'categories','quests', 'rankingCreators', 'questcreator'));
     }
 
     /**

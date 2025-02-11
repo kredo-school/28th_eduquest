@@ -209,6 +209,7 @@ footer{
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    margin: 1rem;
 }
 
 .ranking-content img {
@@ -218,6 +219,7 @@ footer{
 
 .ranking-list {
     border: solid 1px black;
+    background-color: white;
     width: 60%;
 }
 
