@@ -60,7 +60,7 @@ class Quest extends Model
     }
 
     //レーティング平均
-    public function averageRating()
+    public function getAverageRatingAttribute()
     {
         return $this->reviews_ratings()->avg('rating');
     }
