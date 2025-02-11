@@ -138,6 +138,7 @@ footer{
 }
 
 
+
 /* ↓↓↓ for home.blade.php ↓↓↓ */
 .image-md{
     width: 3.5rem;
@@ -748,9 +749,16 @@ form {
 
 
 .bg-img-container img {
-    width: 40rem;
+    width: 70rem;
     height: auto;
+    position: relative;
 }
+
+.form-btn{
+    margin: 0;
+    padding: 0;
+}
+
 
 
 /* クエストのサムネイル */
@@ -874,6 +882,11 @@ form {
 }
 
 /* formボタンのデザイン　*/
+.btn-container {
+        text-align: right; /* ボタンを中央に配置 */
+        z-index: 10; /* 画像より上に配置 */
+}
+
 .btn-design {
     text-decoration: none;
     color: #333;
@@ -883,6 +896,7 @@ form {
     border-radius: 20px 20px 20px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
+
 
 .btn-design img {
     width: 1rem;

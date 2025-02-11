@@ -184,7 +184,7 @@
                             
                             <!-- Form Buttons -->
                             <div class="btn-container">
-                                <div class="form-group form-btn mt-4">
+                                <div class="form-group form-btn">
                                     <a href="{{ route('quests.index') }}" class="btn-design">Cancel</a>
                                     <button type="submit" class="btn-design">Save<img src="{{ asset('images/te_yubisashi_right 3.png') }}"></button>
                                 </div>
@@ -197,7 +197,8 @@
         <div class="bg-img-container">
             <img src="{{ asset('images/Group 235.png') }}" alt="background-img">
         </div>
-        @endsection
+    @endsection
+
         @section('scripts')
         <script src="{{ asset('js/questform.js') }}"></script>
         <script src="script.js"></script>

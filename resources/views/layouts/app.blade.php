@@ -208,14 +208,14 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4">
+        <main class="py-0">
             <div class="container">
                 <div class="row justify-content-center">
                     @yield('content')
                 </div>
             </div>
         </main>
-        <footer class="text-white py-4">
+        <footer class="footer text-white py-4">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mb-3">

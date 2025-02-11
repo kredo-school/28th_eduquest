@@ -193,7 +193,12 @@
                                     <iframe id="video_preview_${subItemCount}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
                                 </div>
 
-                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(${subItemCount})">Delete<img src="../images/Red Slime.png" style="width: 1.5rem; height: 1.3rem;"></button>
+                                <div class="d-flex justify-content-end">
+                                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">
+                                                    Delete<img src="{{ asset('images/delete-icon.png')}}">
+                                                </button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
