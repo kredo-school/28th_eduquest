@@ -182,7 +182,6 @@ footer{
     text-overflow: ellipsis;          /* Add ellipsis (Chrome, etc.) */
 }
 
-/*----------------------------------------------------------------*/
 .ranking-container {
     display: flex;
     gap: 1.5rem;
@@ -245,7 +244,6 @@ footer{
     margin: 0.7rem 1rem;
 }
 
-/*----------------------------------------------------------------*/
 
 .quests-row {
     background-color: #FCFCE7;
