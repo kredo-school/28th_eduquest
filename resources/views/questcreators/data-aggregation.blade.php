@@ -51,16 +51,33 @@
                                     </td>
                                 </tr>
                             @empty
+                                <tr>
+                                    <td colspan="7" class="text-center">No quests found</td>
+                                </tr>
                             @endforelse
                         </tbody>
                     </table>
+        
+                    <!-- ページネーション -->
                     <div class="pagination-container">
-                        {{ $quests->links() }}
+                        @if ($quests->hasPages())
+                            <ul class="pagination">
+                                @foreach ($quests->links()->elements as $element)
+                                    @if (is_array($element))
+                                        @foreach ($element as $page => $url)
+                                            <li class="{{ ($page == $quests->currentPage()) ? 'active' : '' }}">
+                                                <a href="{{ $url }}">{{ $page }}</a>
+                                            </li>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        
 @endsection
 
 <style>
@@ -162,46 +179,43 @@
     }
 
     .pagination-container {
-    background: none !important;
+    text-align: center;
+    margin-top: 20px;
 }
 
-    .pagination {
-        display: inline-block;
-        padding: 5px;
-        border-radius: 5px;
-        background: #f8f8f8; /* 背景色を薄いグレーに */
-        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .pagination li {
-        display: inline;
-        margin: 0 5px; /* 各ボタンの間隔 */
-    }
-
-    .pagination li a {
-        padding: 5px 10px;
-        text-decoration: none;
-        border: 1px solid #ddd;
-        color: #333;
-        background: #fff;
-        border-radius: 3px;
-    }
-
-    .pagination li a:hover {
-        background: #007bff;
-        color: #fff;
-    }
-
-    .pagination .active span {
-        padding: 5px 10px;
-        background: #007bff;
-        color: #fff;
-        border-radius: 3px;
-    }
-
-    .pagination-container img {
-    display: none;
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
 }
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    display: inline-block;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #333;
+    background: #fff;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.pagination li a:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.pagination .active a {
+    background: #007bff;
+    color: #fff;
+    border-radius: 3px;
+}
+
 
 
 </style>
