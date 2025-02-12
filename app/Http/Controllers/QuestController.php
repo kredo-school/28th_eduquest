@@ -72,5 +72,18 @@ class QuestController extends Controller
 
         return redirect()->back()->with('success', 'Quest assigned successfully!');
     }
+
+    // データ集計用の星平均表示
+    public function starIndex()
+    {
+        $quests = Quest::all(); // 全てのクエストを取得
+
+        // 各クエストに平均評価を追加
+        $quests->each(function ($quest) {
+            $quest->averageRating = number_format($quest->averageRating(), 1) ?? 0; // 小数点1桁まで表示
+        });
+
+        return view('questcreators.data-aggregation', compact('quests'));
+    }
 }
 

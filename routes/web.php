@@ -58,11 +58,15 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/creator/{id}/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');
     Route::get('/creator/{id}/profile/edit', [QuestCreatorController::class, 'editCreatorProfile'])->name('questcreators.profile.edit');
     Route::put('/questcreator/{id}/update',[QuestCreatorController::class,'update'])->name('questcreator.update');
+    # To go to quest data page
+    Route::get('/creator/{id}/data', [QuestCreatorController::class, 'viewQuestData'])->name('creator.data');
     
 
     // For how to guide page
     Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
     Route::get('/guide-explanation', [QuestCreatorController::class, 'guideExplanation'])->name('questcreators.guide-explanation');
+
+    
 });
 
 

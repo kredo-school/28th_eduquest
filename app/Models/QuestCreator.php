@@ -33,4 +33,9 @@ class QuestCreator extends Model
     {
         return $this->hasMany(Quest::class);
     }
+
+    public function reviews_ratings()
+    {
+        return $this->hasManyThrough(ReviewsRating::class, Quest::class, 'quest_creator_id', 'quest_id', 'id', 'id');
+    }
 }

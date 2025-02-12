@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\QuestCreator;
 use App\Models\Quest;
+use App\Models\ReviewsRating;
 
 class QuestCreatorController extends Controller
 {
@@ -176,6 +177,18 @@ class QuestCreatorController extends Controller
 
         return redirect()->route('questcreators.profile.view', ['id' => $questcreator->id])
         ->with('success', 'Profile updated successfully!');
+
+    }
+
+    // For Quest Data
+
+    public function viewQuestData($id){
+        $questcreator = QuestCreator::where('user_id', $id)->firstOrFail();
+
+        $quests = $questcreator->quests()->paginate(3);
+        $ratings = $questcreator->reviews_ratings->keyBy('quest_id'); 
+
+        return view('questcreators.data-aggregation', compact('questcreator', 'quests', 'ratings'));
 
     }
 
