@@ -8,6 +8,8 @@ use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FAQController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,7 +30,7 @@ Route::group(['middleware' => 'auth'], function(){
     //Quest
     Route::get('/quests/{id}', [QuestController::class, 'show'])->name('quest.show');
     Route::post('/users/{id}/assign-quest', [QuestController::class, 'assignQuestToUser'])->name('quest.assign');
-    Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
+    Route::get('/quests/create', [QuestController::class, 'create'])->name('quests.create');
     Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
     Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
     Route::post('/quests/update/{id}', [QuestController::class, 'update'])->name('quests.update');
@@ -76,11 +78,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
-Route::get('/news', function () {
-    return view('news');
-  });
+Route::get('/news', [NewsController::class, 'index']);
 
 
-  Route::get('/FAQ-Contact', function () {
-    return view('FAQ-Contact');
-  });
+  Route::get('/FAQ-Contact', [FAQController::class, 'index']);

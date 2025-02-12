@@ -11,26 +11,21 @@
         <input type="text" placeholder="Search..." class="search-bar" style="width: 800px;">
     </div>
 
-    <hr>
-    <div class="faq-section">
-        <h2>Frequently Asked Questions</h2>
-        <ul>
-            <li>Do you support inquiries by phone?</li>
-            <li>and more...
-            </li>
-        </ul>
+    <!-- FAQの質問と回答を表示 -->
+    <div style="margin-top: 20px;">
+        @foreach($faqs as $faq)
+            <div style="margin-bottom: 20px;">
+                <p style="font-size: 1.2em;"><strong style="color: blue;">Q.</strong> {{ $faq->question }}</p>
+                <p style="font-size: 1.2em;"><strong style="color: red;">A.</strong> {{ $faq->answer }}</p>
+                <hr>
+            </div>
+        @endforeach
     </div>
-    <div class="service-overview mt-5">
-        <h2>Service Overview</h2>
-        <ul>
-            <li>What is EduQuest?</li>
-            <li>and more...</li>
-        </ul>
-    </div>
-    
-    <div class="contact-form mt-5 text-center">
+
+    <!-- Contact section -->
+    <div class="contact-form mt-2 text-center" style="border: 5px solid #fcbe23; padding: 5px; border-radius: 5px;">
         <h3 class="text-center mb-5">If you cannot find a solution, please contact us here.</h3>
-        <button class="btn btn-outline-secondary">Contact form</button>
+        <button class="btn btn-outline-secondary" style="color: rgb(255, 162, 0);">Contact form</button>
     </div>
 </div>
 @endsection
