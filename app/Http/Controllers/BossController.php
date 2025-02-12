@@ -14,14 +14,16 @@ class BossController extends Controller
 {
     public function create($quest_id){
 
-        $quests = Quest::findOrFail($quest_id);
+        $quest = Quest::findOrFail($quest_id);
 
-        return view('quests.bosses.create',compact('quests'));
+        return view('quests.bosses.create',compact('quest'));
 
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $quest_id)
     {
+        $quest = Quest::findOrFail($quest_id);
+
         $request->validate([
             'description' => 'required|string|max:255',
             'passing_score' => 'required|integer|min:1',
@@ -30,11 +32,14 @@ class BossController extends Controller
         $boss = Boss::create([
             'description' => $request->input('description'),
             'passing_score' => $request->input('passing_score'),
+            'quest_id' => $quest->id,
         ]);
 
-        return redirect()->route('quests.bosses.manage')->with('success', 'success create boss');
+        return redirect()->route('questions.create',['quest_id' => $quest_id])->with('success', 'success create boss');
 
     }
+
+    
 
     // #memo
     // public function manage()

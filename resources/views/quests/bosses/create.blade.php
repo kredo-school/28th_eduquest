@@ -10,9 +10,9 @@
     <div class="row">
         <div class="col-7">
             <h2 class="mb-4">
-                Create Boss for "{{ $quests->quest_title}}"
+                Create Boss for "{{ $quest->quest_title}}"
             </h2>
-            <form method="POST" action="{{ route('quests.bosses.store', ['quest_id' => $quests->id]) }}">
+            <form method="POST" action="{{ route('quests.bosses.store', ['quest_id' => $quest->id]) }}">
                 @csrf
                 <div class="profile-title-s m-3">
                     <label for="description">Description</label>
