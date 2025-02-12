@@ -135,6 +135,9 @@ main{
 footer{
     background-color: #261C11;
     font-family: 'DotGothic16', sans-serif;
+    /* position:fixed; */
+    /* bottom: 0; */
+    /* width: 100%; */
 }
 
 
@@ -982,20 +985,27 @@ form {
 }
 
 /* ↓↓↓ for players.quests.chapterlist.blade.php ↓↓↓ */
+.disabled {
+    opacity: 0.6; 
+    pointer-events: none; 
+    background-color: #f8f9fa; 
+    border-color: #d6d8db; 
+    color: #6c757d; 
+}
 .review-text {
-    max-height: 20px; /* 初期状態は1行分の高さ */
+    max-height: 30px;
     overflow: hidden;
     transition: max-height 0.3s ease-in-out;
     line-height: 1.4;
 }
 
 .review-text.expanded {
-    max-height: none; /* 高さ制限を解除して全文表示 */
-    overflow: scroll;
+    max-height: none; 
+    overflow: visible;
 }
 .review {
-    transition: height 0.3s ease-in-out; /* 高さの変更をスムーズに */
-    height: auto; /* コンテンツに合わせて高さを自動調整 */
+    transition: height 0.3s ease-in-out; 
+    height: auto; 
 }
 .rating {
     display: flex;
@@ -1011,18 +1021,128 @@ form {
 .star-gray {
     width: 17px;
     height: 17px;
-    opacity: 0.5; /* 未評価の星を薄く表示 */
+    opacity: 0.5; 
 }
 
-/* .star-partial {
-    background-image: url('{{ asset('images/star_yellow 3.png') }}');
-    background-size: 100% 100%;
-    width: 0;
-    height: 17px;
-    position: absolute;
-    overflow: hidden;
-} */
 /* ↑↑ For for players.quests.chapterlist.blade.php ↑↑ */
+
+/* ↓↓↓ for players.quests.viewingchapter.blade.php ↓↓↓ */
+.complete-chapter-btn {
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.complete-chapter-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.disabled-chapter-btn {
+opacity: 0.5;         
+pointer-events: none; 
+}
+
+/* ↑↑ For for players.quests.viewingchapter.blade.php ↑↑ */
+
+/* ↓↓↓ for players.modals.reviews.blade.php ↓↓↓ */
+.rating {
+    font-size: 30px;
+}
+
+.rating-label {
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.rating-label:hover {
+    opacity: 0.8;
+}
+
+.review-section textarea {
+    background-color: white;
+    color: black;
+}
+
+.review-section button {
+    margin-top: 10px;
+}
+/* ↑↑ For for players.quests.reviews.blade.php ↑↑ */
+
+/*-----------------------------------------[58:Favorite Quest Creator List]--------------------------------------*/
+
+/* 巻物タイトル　*/
+.scroll-container2 {
+    position: relative;
+    display: flex; /* フレックスボックスに設定 */
+    justify-content: flex-start; /* 横方向の中央配置 */
+    align-items: flex-start; /* 縦方向の中央配置 */
+    width: 70vw;
+    height: auto;
+    margin: 5vh;
+}
+
+.scroll-container2 img {
+    width: 55vw;
+    height: auto;
+}
+
+.overlay2 {
+    position: absolute;
+    top: 60%;
+    left: 32%;
+    transform: translate(-50%, -50%);
+    color: black;
+    font-size: 2.5vw;
+    text-align: center;
+}
+
+/* お気に入りcreatorリスト */
+
+.favorite-creator-container {
+    display: flex;
+    flex-direction: column; 
+    width: 100%;
+    gap: 1rem;
+}
+
+.favorite-creator-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.favorite-creator-item {
+    display: flex;
+    width: 75vw;
+    border: solid 1px #3C2C1B;
+    padding: 0.7rem;
+}
+
+.favorite-creator-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.favorite-creator-list p {
+    font-size: 1.2rem;
+}
+
+.favorite-creator-info {
+    flex: 1; /* 情報部分が自然に広がるように */
+}
+
+.btn-delete-container {
+    margin-left: 1rem; /* ボタンを枠の外に出すための余白 */
+}
+
+.btn-delete {
+    color: black;
+    text-decoration: none;
+    font-family: 'DotGothic16';
+    background: white;
+    border: 1px solid #333;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+}
+
 
 /*-----------------------------------------[71:How to Guide]--------------------------------------*/
 
@@ -1306,8 +1426,87 @@ form {
     flex: 0 0 auto;
 }
 
+
 /*-----------------------------------------[72:Guide explanation]end--------------------------------------*/
 
+/* ↓↓↓ for mypage.blade.php ↓↓↓ */
+/* 1 左のバー */
+.m-side-bar {
+    border: 2px solid #261C11;
+    border-radius: 20px;
+    font-size: 6px;
+    margin-left: 30px;
+  }
+  /* 右のバー */
+  .m-side-bar-right {
+    border: 2px solid #261C11;
+    border-radius: 20px;
+    font-size: 6px;
+    margin-left: 30px;
+  }
+  /* 2 剣持った画像の事 */
+  .player-image{
+    height: 100px;
+    width: 100px;
+    margin-top: 50px;
+    margin-bottom: 15px;
+  }
+  /* パチンコみたいな画像 */
+  .Batch-image{
+    height: 40px;
+    width: 120px;
+    margin-top: 50px;
+    margin-bottom: 10px;
+  }
+  /* 4 Shogoの事 */
+  .Shogo {
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 1px;
+    margin-top: 1px;
+  }
+  /* homeアイコン */
+  .home-image {
+    width: 40px;
+    height: 40px;
+  }
+  /* swordアイコン */
+  .sword-image {
+    width: 40px;
+    height: 40px;
+  }
+    /* boxアイコン */
+    .box-image {
+    width: 40px;
+    height: 40px;
+  }
+  /* 4 文字 */
+  .text {
+    font-size: 20px;
+    margin-top: 8px; /* アイコンとの間を少し空ける */
+  }
+
+/* ↑↑↑ for mypage.blade.php ↑↑↑ */
+
+/* For Regulation page delete-modal start */
+
+.regulation {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    padding-left: 100px;
+}
+
+.agree-btn{
+    background-color: #588157;
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    display: block;
+    margin: 30px auto;
+    text-decoration: none;
+    width: 250px;
+}
 
 
 /* =============================== */

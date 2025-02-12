@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Models\QuestCreator;
 use App\Models\QuestsChapter;
 use App\Models\ReviewsRating;
+use App\Models\UserQuest; 
 use Illuminate\Http\Request;
+use App\Models\UserQuestStatus; 
 
 class ChapterlistController extends Controller
 {
@@ -36,7 +38,7 @@ class ChapterlistController extends Controller
         // 他のユーザーのレビューを取得
         $other_reviews = ReviewsRating::where('quest_id', $id)
             ->where('user_id', '!=', $user->id)
-            ->orderByDesc('created_at')  // 最新のレビューが上に来るように並べ替え
+            ->orderByDesc('created_at')  
             ->get();
 
         // レビューの評価別集計
@@ -52,8 +54,18 @@ class ChapterlistController extends Controller
         $ratingPercentages = [];
         foreach ($ratingsCount as $rating) {
             $percentage = ($rating->count / $totalReviews) * 100;
-            $ratingPercentages[$rating->rating] = round($percentage, 2); // 小数点2桁まで
+            $ratingPercentages[$rating->rating] = round($percentage, 2); 
         }
+
+        // ユーザーが進行中のクエスト情報を取得
+        $userQuest = UserQuest::where('user_id', $user->id)
+        ->where('quest_id', $id)
+        ->first();
+        $userQuestId = $userQuest ? $userQuest->id : null; 
+
+        // 進行中のクエストがあれば開始時刻を取得
+        $startTimestamp = $userQuest ? $userQuest->date_started : null;
+        $questStatus = $userQuest ? $userQuest->status : null;  
 
         // ビューにデータを渡す
         return view('players.quests.chapterlist', compact(
@@ -63,8 +75,50 @@ class ChapterlistController extends Controller
             'user',
             'user_review',
             'other_reviews',
-            'ratingPercentages' // 評価の割合データをビューに渡す
+            'ratingPercentages', 
+            'startTimestamp',
+            'questStatus',
+            'userQuestId',
+            'userQuest'
         ));
+    }
+    public function startQuest(Request $request)
+    {
+        $user = auth()->user();
+        $questId = $request->input('quest_id');
+
+        // ユーザーが進行中のクエストを持っているか確認
+        $userQuest = UserQuest::where('user_id', $user->id)
+                                ->where('quest_id', $questId)
+                                ->first();
+
+        if (!$userQuest) {
+            // 進行中のクエストがなければ新しく作成
+            $userQuest = new UserQuest();
+            $userQuest->user_id = $user->id;
+            $userQuest->quest_id = $questId;
+            $userQuest->status = 1;  // 進行中
+            $userQuest->date_started = now();  
+            $userQuest->save();
+        } else {
+            // 既に進行中のクエストがあれば、状態を更新
+            $userQuest->status = 1;  // 進行中
+            $userQuest->date_started = now();  
+            $userQuest->save();
+        }
+
+        // user_quest_status テーブルに履歴を追加
+        UserQuestStatus::create([
+            'user_quest_id' => $userQuest->id,
+            'status' => 1,  // 進行中
+            'status_date' => now(),
+        ]);
+
+        return response()->json([
+            'success'   => true,
+            'timestamp' => $userQuest->date_started->format('Y-m-d H:i:s'),
+            'status'    => $userQuest->status  // ここで現在のステータス（この場合は 1）を返す
+        ]);
     }
 
 }

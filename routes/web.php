@@ -7,7 +7,14 @@ use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\QuestsChapterController;
+use App\Http\Controllers\MypageController;
+
+
+use App\Http\Controllers\FavoriteCreatorController;
+
+use App\Http\Controllers\UserQuestStatusController;
 use App\Http\Controllers\SearchController;
 
 Route::get('/', function () {
@@ -47,15 +54,39 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/quest/{id}/assign-quest', [QuestsChapterController::class, 'assignQuestToUser'])->name('quests_chapter.assign');
 
     //ReviewRating
-    Route::post('/quests/{quest}/reviews', [ReviewsRatingController::class, 'store'])->name('reviews.store');
-    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
     Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
-    
+    Route::prefix('quests/{questId}/reviews')->group(function () {
+        Route::get('/', [ReviewsRatingController::class, 'index'])->name('reviews.index');
+        Route::post('/store', [ReviewsRatingController::class, 'store'])->name('reviews.store');
+    });
+
+    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
+
+    //ViewingChapter
+    Route::post('/chapter/{id}/complete', [ChapterController::class, 'complete'])->name('chapter.complete');
+    // Chapter viewing (next, prev)
+    Route::get('/chapter/{id}', [ChapterController::class, 'viewing'])->name('chapter.viewing');
+
+    //QuestStatus
+    Route::post('/start-quest', [ChapterlistController::class, 'startQuest'])->name('startQuest');
+    Route::post('/quest/complete', [ChapterController::class, 'completeQuest'])->name('quest.complete');
+
     # To go to Chapterlist page
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
+    # To go to viewing page
+    Route::get('/quests/{questId}/chapters/{chapterId}', [ChapterController::class, 'viewing'])->name('chapters.viewing');
+    # player mypage
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/test', [UserController::class, 'viewTestSwitch']);
+    Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
+
+    //Favorite Creator button on creator's profile page
+    Route::get('/favorites', [FavoriteCreatorController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/{creatorId}', [FavoriteCreatorController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{creatorId}', [FavoriteCreatorController::class, 'destroy'])->name('favorites.destroy');
 
 
     //For Creators
@@ -79,12 +110,12 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::get('/news', function () {
     return view('news');
-  });
+});
 
 
-  Route::get('/FAQ-Contact', function () {
-    return view('FAQ-Contact');
-  });
+Route::get('/FAQ-Contact', function () {
+  return view('FAQ-Contact');
+});
 
-  # Search Result
-  Route::get('/search', [SearchController::class, 'search'])->name('quest.search');
+# Search Result
+Route::get('/search', [SearchController::class, 'search'])->name('quest.search');

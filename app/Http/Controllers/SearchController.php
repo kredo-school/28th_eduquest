@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Quest;
 use App\Models\Category;
@@ -69,5 +70,9 @@ class SearchController extends Controller
             'searchWord'   => $search,         // 検索キーワード
             'categoryName' => $categoryName,   // カテゴリ名
         ]);
+    }
+
+    public function viewMyPage(){
+        return view('players.mypage.searchresult');
     }
 }
