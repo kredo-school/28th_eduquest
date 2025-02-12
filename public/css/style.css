@@ -193,6 +193,14 @@ footer{
     background: #d0e0b3;
     width: 50%;
     height: auto;
+    padding: 1rem;
+    position: relative;
+}
+
+.ranking-content-wrapper {
+    max-height: 25rem;
+    overflow-y: auto;
+    padding-right: 1rem;
 }
 
 .creator-ranking-container h4,

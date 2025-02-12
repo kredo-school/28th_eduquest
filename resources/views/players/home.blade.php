@@ -37,33 +37,35 @@
         {{-- creator ranking --}}
         <div class="creator-ranking-container">
             <h4>Creator Ranking</h4>
-            @foreach ($rankingCreators as $index => $creator)
-                {{-- １位, 2位, 3位に画像を追加 --}}
-            <div class="ranking-content">
-                <div class="top3-image">
-                    @if ($index == 0)
-                        <img src="{{ asset('images/ingot_gold 1.png')}}" alt="gold">
-                    @elseif ($index == 1)
-                        <img src="{{ asset('images/ingot_silver 1.png')}}" alt="silver">
-                    @elseif ($index == 2)
-                        <img src="{{ asset('images/ingot_copper 1.png')}}" alt="bronze">
-                    @else
-                        <div style="width: 3rem; height: 3rem;"></div>
-                    @endif
-                </div>
-                
-                <div class="ranking-list">
-                    <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
-                        @if ($creator && $creator->creator_image)
-                            <img src="{{ $creator->creator_image }}" alt="icon_image">
-                        @else  
-                            <img src="{{ asset('images/User icon.png') }}" alt="icon_image">
+            <div class="ranking-content-wrapper">
+                @foreach ($rankingCreators as $index => $creator)
+                    {{-- １位, 2位, 3位に画像を追加 --}}
+                <div class="ranking-content">
+                    <div class="top3-image">
+                        @if ($index == 0)
+                            <img src="{{ asset('images/ingot_gold 1.png')}}" alt="gold">
+                        @elseif ($index == 1)
+                            <img src="{{ asset('images/ingot_silver 1.png')}}" alt="silver">
+                        @elseif ($index == 2)
+                            <img src="{{ asset('images/ingot_copper 1.png')}}" alt="bronze">
+                        @else
+                            <div style="width: 3rem; height: 3rem;"></div>
                         @endif
-                        <span class="ms-1">{{ $creator->creator_name }}</span> (<i class="fa-solid fa-star text-warning fa-1x"></i>{{ $creator->favorites_count }})
-                    </a>  
+                    </div>
+                    
+                    <div class="ranking-list">
+                        <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
+                            @if ($creator && $creator->creator_image)
+                                <img src="{{ $creator->creator_image }}" alt="icon_image">
+                            @else  
+                                <img src="{{ asset('images/User icon.png') }}" alt="icon_image">
+                            @endif
+                            <span class="ms-1">{{ $creator->creator_name }}</span> (<i class="fa-solid fa-star text-warning fa-1x"></i>{{ $creator->favorites_count }})
+                        </a>  
+                    </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
 
         {{-- player ranking --}}
