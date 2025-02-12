@@ -36,8 +36,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/quests', [QuestController::class, 'index'])->name('quests.index');
     Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
 
-    # Search Result
-    Route::get('/search', [SearchController::class, 'search'])->name('quest.search');
+    
 
     //quest Creator
     Route::get('/quest_creators/{id}', [QuestCreatorController::class, 'show'])->name('quest_creator.show');
@@ -86,3 +85,6 @@ Route::get('/news', function () {
   Route::get('/FAQ-Contact', function () {
     return view('FAQ-Contact');
   });
+
+  # Search Result
+  Route::get('/search', [SearchController::class, 'search'])->name('quest.search');
