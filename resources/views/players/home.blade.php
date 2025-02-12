@@ -23,6 +23,7 @@
     </div>
 </div>
 
+
 {{-- News modal--}}
 @include('players.modals.news')
 
@@ -164,7 +165,7 @@
                         </div>  
                     @else  
                         {{-- あとでリンク追加必要！ --}}
-                        <a href="#">
+                        <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                             <div class="aspect-ratio-16-9 no-image-box">
                                 
                                     <span class="no-image-text-center">

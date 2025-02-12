@@ -21,4 +21,8 @@ class UserController extends Controller
         return view('players.mypage.switch');    
     }
 
+    public function viewTestSwitch(){
+        return view('players.mypage.switch');
+    }
+
 }
