@@ -43,18 +43,9 @@
                             <a class="nav-link" href="#">News</a>
                         </li>
                         <li class="nav-item dropdown">
-                            @guest
-                                <a class="nav-link d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Category
-                                </a>    
-                            @endguest
-                            @auth
-                                @if (auth()->user()->role_id)
-                                <a class="nav-link d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Category
-                                </a>    
-                                @endif
-                            @endauth
+                            <a class="nav-link d-flex align-items-center" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Category
+                            </a>    
                             <!-- category ドロップダウンメニュー -->
                             <ul class="dropdown-menu dropdown-menu-end nav-item-dropdown" aria-labelledby="categoryDropdown">
                                 @foreach($categories as $category)

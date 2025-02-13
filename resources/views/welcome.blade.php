@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Storage;
                         <div class="card h-100 shadow-sm" style="border: 1px solid #000000; background-color: #ffffff;">
                             <!-- Thumbnail with spacing -->
                             <div class="px-2 pt-2">
-                                <div class="quest-thumbnail-container position-relative bg-white" style="padding-top: 56.25%;">
+                                <div class="position-relative bg-white" style="padding-top: 56.25%;">
                                     @if($quest->thumbnail)
                                         <img src="{{ $quest->thumbnail }}" 
                                              class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover" 
