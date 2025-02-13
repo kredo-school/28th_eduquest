@@ -10,6 +10,7 @@ use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\WelcomeController;
 
 
 use App\Http\Controllers\FavoriteCreatorController;
@@ -107,11 +108,13 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+Route::get('/', [WelcomeController::class, 'show'])->name('welcome');
+
 Route::get('/news', function () {
     return view('news');
-  });
+});
 
 
-  Route::get('/FAQ-Contact', function () {
+Route::get('/FAQ-Contact', function () {
     return view('FAQ-Contact');
-  });
+});

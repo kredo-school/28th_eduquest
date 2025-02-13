@@ -32,14 +32,12 @@ class HomeController extends Controller
         //
     }
 
-    // ★★★★★ 1/28 要確認！！！　★★★★★
     # Show the news & categoriesin home page
     public function show()
     {
         $news_lists = $this->getNews();
-        // $quests_lists = $this->getQuests();
         $categories = $this->category->with('categoryQuests.quest.questCreator')->get();
-        $quests = Quest::all(); 
+        $quests = $this->quest->all(); 
         return view('players.home', compact('news_lists', 'categories','quests'));
         
     }
