@@ -9,17 +9,14 @@ use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\QuestsChapterController;
-<<<<<<< HEAD
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FAQController;
-=======
 use App\Http\Controllers\MypageController;
 
 
 use App\Http\Controllers\FavoriteCreatorController;
 
 use App\Http\Controllers\UserQuestStatusController;
->>>>>>> main
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,7 +28,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     // for Player
     # To go to Home page
-    Route::get('/home', [HomeController::class, 'show']);
+    Route::get('/home', [HomeController::class, 'show'])->name('home');
     # To go to Switch to Quest Creator page
     Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
     # To store Creator Info in Switch ~ Creator page
