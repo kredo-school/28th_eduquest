@@ -27,18 +27,14 @@
     </div>
 
     <!-- Contact section -->
-    <div style="background-color: #ffeb3b; padding: 20px;">
+    <div style="border: 3px solid rgb(88,130, 87); padding: 20px; margin-top: 20px;">
         <div class="container text-center">
-            <h3 class="text-center mb-5">If you cannot find a solution, please contact us here.</h3>
-            <img src="..\images\character_yusha_01_green.png"
-            alt="yusya_man" style="min-width: 25px; min-height: 25px; width: 
-            25px; height: 25px; margin: 5px; object-fit: contain;">
-            <button class="btn btn-outline-secondary">Contact form</button>
-            <img src="..\images\character_yusha_woman_red.png" 
-        alt="yusya_woman" style="width: 25px; height: 25px; margin: 5px;">
+            <h3 class="text-center mb-3">If you cannot find a solution, please contact us here.</h3>
+            <button class="btn btn-outline-secondary">
+                Contact form
+                <img src="{{ asset('images/te_yubisashi_right 3.png') }}" alt="arrow" style="width: 20px; height: 20px; margin-left: 5px;">
+            </button>
         </div>
     </div>
 </div>
 @endsection
-
-
