@@ -1,116 +1,182 @@
 @extends('layouts.app')
 
-@section('title', 'Welcome Page')
+@section('title', 'Welcome to EduQuest')
 
 @section('content')
-<div class="container-fluid py-4">
-    <div class="d-flex align-items-center justify-content-center mb-4">
-        <img src="{{ url('..\images\character_yusha_01_green.png') }}" alt="yusya_man" class="me-2" style="width: 24px; height: 24px;">
-        <h1 class="mb-0" style="font-family: 'DotGothic16', sans-serif;">
-            @if(isset($currentCategory))
-                {{ $currentCategory->category_name }} Quest List
+<div class="container">
+
+    {{-- Newest Quests --}}
+    <div class="container-fluid">
+        <div style="background-color: #6ddce3;">
+            <img src="{{ asset('images/Group 235.png') }}" alt="castle_background" class="w-75">
+        </div>
+        <h1 class="text-center">Hello! EduQuest World!!</h1>
+
+
+        <div style="background-color:#FCFCE7;">
+            @if($newestQuests->isEmpty())
+                <p>No quests found.</p>
             @else
-                Quest List
-            @endif
-        </h1>
-        <img src="{{ url('..\images\character_yusha_woman_red.png') }}" alt="yusya_woman" class="ms-2" style="width: 24px; height: 24px;">
-    </div>
-    <!-- Featured Content Section -->
-    <div class="container px-4" style="background-color: #FCFCE7;border-radius: 15px;">
-    <section class="my-5">
-        <div class="container px-4" style="width: 1200px; max-width: 100%;">
-            <div class="row g-4">
-                @foreach($quests as $quest)
-                    <div class="col-12 col-md-6 col-lg-3">
-                        <div class="card h-100 shadow-sm" style="border: 1px solid #000000; background-color: #FFFFFF;">
-                            <!-- Thumbnail with spacing -->
-                            <div class="px-2 pt-2">
-                                <div class="quest-thumbnail-container position-relative bg-white" style="padding-top: 56.25%;">
-                                    @if($quest->thumbnail)
-                                        <img src="{{ $quest->thumbnail }}"
-                                             class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
-                                             alt="{{ $quest->quest_title }}"
-                                             style="object-position: center;">
+            
+                <div class="horizontal-scroll newest-quests-row px-3 mb-5" >
+                    @foreach($newestQuests as $quest)
+                        <div class="card quest-item mx-1" style="width: 200px;">
+                            
+                            {{-- Thumbnail --}}
+                            @if($quest->thumbnail)
+                                <div class="aspect-ratio-16-9">
+                                    <a href="{{ route('quests.chapters', $quest->id) }}">
+                                        <div class="aspect-ratio-16-9-inner">
+                                            <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail">
+                                        </div>
+                                    </a>
+                                </div>
+                            @else
+                                <div class="aspect-ratio-16-9 no-image-box">
+                                    <span class="no-image-text-center">No Image</span>
+                                </div>
+                            @endif
+
+                            {{-- Categories Badge --}}
+                            <div class="mt-1">
+                                @foreach ($quest->categoryQuests as $qCat)
+                                    @if($qCat->category)
+                                        <span class="category-badge">
+                                            {{ $qCat->category->category_name }}
+                                        </span>
+                                    @endif
+                                @endforeach
+                            </div>
+
+                            {{-- Quest Title --}}
+                            <a href="{{ route('quests.chapters', $quest->id) }}" class="text-dark text-decoration-none">
+                                <div class="ms-1 mt-1">{{ $quest->quest_title }}</div>
+                            </a>
+
+                            {{-- Creator Icon + Name --}}
+                            @if($quest->questCreator)
+                                @php
+                                    $creator = $quest->questCreator;
+                                @endphp
+                                <div class="card-body d-flex align-items-center">
+                                    @if($creator->creator_image)
+                                        <a href="{{ route('questcreators.profile.view', ['id'=>$creator->id]) }}">
+                                            <img src="{{ $creator->creator_image }}" alt="Creator Icon"
+                                                style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
+                                            <span class="ms-1">{{ $creator->creator_name }}</span>
+                                        </a>
                                     @else
-                                        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center bg-light">
-                                            <span class="text-muted" style="font-family: 'DotGothic16', sans-serif;">Thumbnail</span>
+                                        <a href="{{ route('questcreators.profile.view', ['id'=>$creator->id]) }}">
+                                            <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                                            <span class="ms-1">{{ $creator->creator_name }}</span>
+                                        </a>
+                                    @endif
+                                </div>
+                            @else
+                                <div class="card-body d-flex align-items-center">
+                                    <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                                    <span class="ms-1">Unknown Creator</span>
+                                </div>
+                            @endif
+                            
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+            
+        </div>
+    </div>
+    
+    {{-- Quest List by Category --}}
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div style="transform: scale(0.66); transform-origin: top center;">
+                <h1 class="mb-3">
+                    <img src="{{ asset('images/flag_green.png') }}" alt="category flag" class="flag_green">
+                    Quest List by Category
+                </h1>
+
+                @foreach ($categories as $category)
+                    <div class="mt-3">
+                        <h4>
+                            <img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="flag_green">
+                            {{ $category->category_name }}
+                        </h4>
+                        
+                        <div class="horizontal-scroll quests-row px-3">
+                            @forelse ($category->categoryQuests as $catQuest)
+                                @php
+                                    $quest = $catQuest->quest;
+                                @endphp
+                                <div class="card quest-item mx-1" style="width: 200px;">
+                                    
+                                    {{-- Thumbnail --}}
+                                    @if ($quest->thumbnail)
+                                        <div class="aspect-ratio-16-9">
+                                            <a href="{{ route('quests.chapters', ['id' => $quest->id]) }}">
+                                                <div class="aspect-ratio-16-9-inner">
+                                                    <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail">
+                                                </div>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <a href="{{ route('quests.chapters', ['id' => $quest->id]) }}">
+                                            <div class="aspect-ratio-16-9 no-image-box">
+                                                <span class="no-image-text-center">No Image</span>
+                                            </div>
+                                        </a>
+                                    @endif
+
+                                    {{-- Category Badge) --}}
+                                    <div>
+                                        @foreach ($quest->categoryQuests as $qCat)
+                                            @if($qCat->category)
+                                                <span class="category-badge">
+                                                    {{ $qCat->category->category_name }}
+                                                </span>
+                                            @endif
+                                        @endforeach
+                                    </div>
+
+                                    {{-- Quest Title --}}
+                                    <a href="{{ route('quests.chapters', ['id' => $quest->id]) }}">
+                                        <div class="ms-1 mt-1">{{ $quest->quest_title }}</div>
+                                    </a>
+
+                                    {{-- Creator --}}
+                                    @if($quest->questCreator)
+                                        @php
+                                            $creator = $quest->questCreator;
+                                        @endphp
+                                        <div class="card-body d-flex align-items-center">
+                                            @if($creator->creator_image)
+                                                <a href="{{ route('questcreators.profile.view', ['id'=>$creator->id]) }}">
+                                                    <img src="{{ $creator->creator_image }}" alt="Creator Icon"
+                                                        style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
+                                                    <span class="ms-1">{{ $creator->creator_name }}</span>
+                                                </a>
+                                            @else
+                                                <a href="{{ route('questcreators.profile.view', ['id'=>$creator->id]) }}">
+                                                    <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                                                    <span class="ms-1">{{ $creator->creator_name }}</span>
+                                                </a>
+                                            @endif
+                                        </div>
+                                    @else
+                                        <div class="card-body d-flex align-items-center">
+                                            <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                                            <span class="ms-1">Unknown Creator</span>
                                         </div>
                                     @endif
                                 </div>
-                            </div>
-                            <!-- Category Badge -->
-                            <div class="px-2 py-2">
-                                @if($categories->first())
-                                    <a href="{{ route('quests.category', $categories->first()) }}"
-                                       class="text-decoration-none">
-                                        <span class="badge" style="background-color: #4A7555; font-size: 0.8rem; font-family: 'DotGothic16', sans-serif;">
-                                            {{ $categories->first()->category_name }}
-                                        </span>
-                                    </a>
-                                @else
-                                    <span class="badge" style="background-color: #4A7555; font-size: 0.8rem; font-family: 'DotGothic16', sans-serif;">
-                                        Categories
-                                    </span>
-                                @endif
-                            </div>
-                            <!-- Quest Info -->
-                            <div class="card-body px-2">
-                                <h5 class="card-title mb-2" style="font-family: 'DotGothic16', sans-serif; font-size: 0.9rem;">{{ $quest->quest_title }}</h5>
-                                <!-- Creator Info -->
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="rounded-circle overflow-hidden" style="width: 30px; height: 30px;">
-                                        <img src="{{ url('images/character_yusha_01_green.png') }}" alt="Creator Avatar" class="w-100 h-100 object-fit-cover">
-                                    </div>
-                                    <span style="font-family: 'DotGothic16', sans-serif; font-size: 0.8rem;">{{ $quest->creator->creator_name ?? 'Unknown' }}</span>
-                                </div>
-                            </div>
+                            @empty
+                                <p>No quests in this category</p>
+                            @endforelse
                         </div>
                     </div>
                 @endforeach
             </div>
-            <!-- Pagination -->
-            <div class="d-flex justify-content-center mt-5">
-                @if ($quests->hasPages())
-                    <nav aria-label="Page navigation" style="background: none;">
-                        <ul class="pagination" style="background: none;">
-                            {{-- Previous Page Link --}}
-                            @if ($quests->onFirstPage())
-                                <li class="page-item disabled" style="background: none;">
-                                    <span class="page-link" style="color: #4A7555; background: none; border: none;">&laquo;</span>
-                                </li>
-                            @else
-                                <li class="page-item" style="background: none;">
-                                    <a class="page-link" href="{{ $quests->previousPageUrl() }}" style="color: #4A7555; background: none; border: none;">&laquo;</a>
-                                </li>
-                            @endif
-                            {{-- Pagination Elements --}}
-                            @foreach ($quests->getUrlRange(1, $quests->lastPage()) as $page => $url)
-                                @if ($page == $quests->currentPage())
-                                    <li class="page-item active" style="background: none;">
-                                        <span class="page-link" style="color: #4A7555; font-weight: bold; background: none; border: none;">{{ $page }}</span>
-                                    </li>
-                                @else
-                                    <li class="page-item" style="background: none;">
-                                        <a class="page-link" href="{{ $url }}" style="color: #4A7555; background: none; border: none;">{{ $page }}</a>
-                                    </li>
-                                @endif
-                            @endforeach
-                            {{-- Next Page Link --}}
-                            @if ($quests->hasMorePages())
-                                <li class="page-item" style="background: none;">
-                                    <a class="page-link" href="{{ $quests->nextPageUrl() }}" style="color: #4A7555; background: none; border: none;">&raquo;</a>
-                                </li>
-                            @else
-                                <li class="page-item disabled" style="background: none;">
-                                    <span class="page-link" style="color: #4A7555; background: none; border: none;">&raquo;</span>
-                                </li>
-                            @endif
-                        </ul>
-                    </nav>
-                @endif
-            </div>
         </div>
-    </section>
     </div>
 </div>
 @endsection

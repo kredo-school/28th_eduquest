@@ -19,10 +19,19 @@ class WelcomeController extends Controller
 
     public function show()
     {
-        $categories = $this->category->with('categoryQuests.quest.questCreator')->get();
-        $quests = $this->quest->all();
+        $newestQuests = $this->quest
+            ->with(['questCreator', 'categoryQuests.category'])
+            ->latest()
+            ->get();
 
-        return view('welcome', compact('categories','quests'));
+        $categories = $this->category
+            ->with('categoryQuests.quest.questCreator')
+            ->get();
+
+        return view('welcome', [
+            'newestQuests' => $newestQuests,
+            'categories' => $categories
+        ]);
     }
 
 }

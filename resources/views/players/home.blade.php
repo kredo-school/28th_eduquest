@@ -42,8 +42,6 @@
         {{--  Category Title  --}}
         <div class="mt-3">
             <h4><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="flag_green">{{ $category->category_name }}</h4>
-        
-        
         {{-- Quests Scroll --}}
         <div class="horizontal-scroll quests-row px-3">
             <!-- Thumbnail with spacing -->
@@ -146,7 +144,6 @@
             @empty
                 <p>No quests in this category</p>
             @endforelse
-           
         </div>
     @endforeach    
 </div>
