@@ -457,34 +457,149 @@ creator-profile-view{
 }
 
 
-/* =============================== */
-/*       Quest Management         */
-/* =============================== */
-.quest-management {
-    position: relative;
-    background-color: #FFFFFF;
-    border: 3px solid #588157;
-    margin-left: 10px;
-}
+/*-----------------------------------------[68: Course Writer's Page ]--------------------------------------*/
 
-.quest-total {
-    background-color: #C7D7AC;
-    height: 100px;
-    width: 400px;
+
+.creator-mypage-container {
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    width: 120vw;
+    height: 100vh;
 }
 
-.alphabet-q, .alphabet-u, .alphabet-e, .alphabet-s, .alphabet-t {
-    height: 40px;
-    width: 30px;
-    margin-right: 10px;
+.creator-profile {
+    width: 30vw;
+    max-width: 450px;
+    height: 100vh;
 }
 
-.alphabet-q {
-    margin-left: 20px;
+.creator-profile-image img {
+    width: 12rem;
+    height: 12rem;
 }
+
+.dashboard-profile-container {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    gap: 2vh;
+}
+
+.quest-dashboard-title {
+    margin: 0.2rem;
+}
+
+
+/* 左側 */
+.quest-dashboard-bg1 {
+    background-color: #d9e7c0;
+    margin: 0.5rem;
+    width: 35vw;
+    height: 53vh;
+}
+
+.quest-dashboard-bg1 h3 {
+    margin: 0.5rem 2rem;
+    font-size: 1.5rem;
+}
+
+.quest-dashboard-bg1 h4,
+.quest-dashboard-bg2 h4 {
+    margin: 0.5rem 1rem;
+    font-size: 1rem;
+}
+
+/* 右側 */
+.quest-dashboard-bg2 {
+    background-color: #d9e7c0;
+    margin: 0.5rem;
+    width: 25vw;
+    height: 53vh;
+}
+
+.favorite-count-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.favorite-count {
+    background-color: #a0b57f;
+    border-radius: 1rem;
+    margin: 3rem 1rem;
+    padding: 1rem;
+    width: 80%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.favorite-count p {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.favorite-count h1 {
+    font-size: 3rem;
+    text-align: center;
+}
+
+/* Dashboardの枠 */
+.quest-dashboard {
+    background-color: #ffffff;
+    border: 3px solid #588157;
+    width: 100%;
+    height: 68vh;
+}
+
+/* Quest Managementの枠 */
+.quest-management {
+    background-color: #ffffff;
+    border: 3px solid #588157;
+    width: 100%;
+    height: 30vh;
+}
+
+.quest-manegement-container {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Quest数 */
+.quest-management-bg1 {
+    background-color: #d9e7c0;
+    width: 30%;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quest-management-bg1 h4 {
+    font-size: 2rem;
+}
+
+.quest-management-bg2 {
+    background-color: #d9e7c0;
+    width: 40%;
+    height: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: flex-start;
+    gap: 0.5rem;   
+    padding: 1rem;
+}
+
+.quest-management-bg2 h4 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
 
 /* =============================== */
 /*      Background Elements       */
@@ -775,7 +890,7 @@ form {
     margin: auto;
 }
 
-/*-----------------------------------------[75: Creat Quest]--------------------------------------*/
+/*-----------------------------------------[75: Create Quest]--------------------------------------*/
 
 
 /*-----------[Create a Quest]---------------*/

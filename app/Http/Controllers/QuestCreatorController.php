@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\QuestCreator;
 use App\Models\Quest;
+use App\Models\Favorite;
 
 class QuestCreatorController extends Controller
 {
@@ -99,12 +100,18 @@ class QuestCreatorController extends Controller
 
     public function viewCreatorMyPage($id)
     {
-        $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        // 指定されたidに対応するcreatorデータを取得
+        $questcreator = QuestCreator::findOrFail($id);
 
-        $questCount = Quest::count();
+        // お気に入り登録されている数を取得
+        $favoriteCount = Favorite::where('quest_creator_id', $id)->count();
 
-        return view('questcreators.creatorMyPage', compact('questcreator', 'questCount'));
+        // 作成したクエストの数を取得
+        $questCount = $questcreator->quests()->count();
+
+        return view('questcreators.creatorMyPage', compact('questcreator', 'favoriteCount', 'questCount'));
     }
+
 
     public function showRegulation($id)
     {
