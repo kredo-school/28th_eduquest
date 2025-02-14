@@ -62,34 +62,39 @@ class QuestCreatorController extends Controller
     }
  
 
-    public function viewCreatorProfile(){
-
-        $questcreator = QuestCreator::where('user_id', Auth::id())->first();
-      
-        return view('questcreators.profile.view', compact('questcreator'));
-
-    }
+    public function viewCreatorProfile($id){
+        $questcreator = QuestCreator::findOrFail($id);  // 指定のIDのcreatorを取得
+    
+        // ログイン中のユーザー情報を取得
+        $user = Auth::user();
+    
+        // お気に入り登録済みかを判定（role_id=1のときだけ）
+        $isFavorite = ($user && $user->role_id == 1) ? $user->favoriteCreators->contains($questcreator) : false;
+    
+        
+        return view('questcreators.profile.view', compact('questcreator', 'isFavorite', 'user'));
+    }    
 
     public function editCreatorProfile($id)
     {
+
+        // ユーザーがログイン済みかどうかを確認
         if (!Auth::check()) {
-            return redirect()->route('login')->with('error', 'ログインしてください');
+            return redirect()->route('login')->with('error', 'please log in');
         }
 
-        $questcreator = QuestCreator::where('user_id', $id)->firstOrFail();
+        // ログインしているユーザーが保持するcreator_idを取得
+        $questcreator = QuestCreator::where('id', $id)->firstOrFail();
 
-        if ($questcreator->user_id !== Auth::id()) {
-            abort(403, 'このプロフィールを編集する権限がありません');
+        // ログインユーザーが管理者または対象のcreatorのユーザー本人であれば編集可能
+        if ($questcreator->user_id !== Auth::id() && !Auth::user()->is_admin) {
+            abort(403, 'You can not edit this page');
         }
 
-        if (!$questcreator) {
-            $questcreator = new QuestCreator(); // 空のインスタンスを渡す
-        }
-    
-        $questCount = Quest::count();
+        // 編集ページを表示
         return view('questcreators.profile.edit', compact('questcreator'));
-    
     }
+
 
 
     public function viewCreatorMyPage($id)
@@ -127,16 +132,27 @@ class QuestCreatorController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function index()
+     public function show($id)
     {
-        //
+        // ログイン中のユーザーを取得
+        $user = Auth::user();
+        
+        // QuestCreatorモデルから、指定されたIDのレコードを取得
+        $questcreator = QuestCreator::findOrFail($id);
+        
+        // ログインユーザーが、他のクリエイターのプロフィールを見る場合
+        if ($user->role_id != 1 && $questcreator->role_id == 2) {
+            // もしロールが1でない場合、あるいはrole_idが2のクリエイターにアクセスしている場合
+            return redirect()->route('home')->with('error', '他のクリエイターのプロフィールを見る権限がありません');
+        }
+        
+        // 現在ログインしているユーザーがお気に入りにしているQuestCreator($questcreator)を持っているかどうかを確認
+        $isFavorite = $user->favoriteCreators->contains($questcreator);
+
+        // ビューにデータを渡す
+        return view('questcreators.creatorMyPage', compact('questcreator', 'isFavorite'));
     }
 
-    public function show($id)
-    {
-        $quest_creator = QuestCreator::findOrFail($id);
-        return view('quest_creator.show', compact('quest_creator'));
-    }
 
     public function assignQuestToUser(Request $request, $userId)
     {
@@ -179,7 +195,5 @@ class QuestCreatorController extends Controller
         ->with('success', 'Profile updated successfully!');
 
     }
-
-
 
 }
