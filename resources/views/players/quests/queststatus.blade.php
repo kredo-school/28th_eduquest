@@ -99,7 +99,6 @@
   </div>
 
 
-  {{-- Itoneメモ：Viewing ScreenとMerge後、要テスト --}}
   <!-- In Progress (status=1) -->
   <h2 class="h4"><img src="{{ asset('images/tsurugi_bronze_red 2.png') }}" alt="longsword" class="flag_red"> In Progress</h2>
   <div class="horizontal-scroll quests-row py-2 mb-4">
@@ -175,7 +174,7 @@
         <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-light border-black text-center btn-sm" style="width: 5%;">Remove</button>
+          <button type="submit" class="btn btn-light border-black text-center btn-sm quest-remove-btn">Remove</button>
         </form>
       </div>
     @empty
@@ -183,7 +182,7 @@
     @endforelse
   </div>
 
-  {{-- Itoneメモ：Viewing ScreenとMerge後、要テスト --}}
+
   <!-- Completed (status=2) -->
   <h2 class="h4"><img src="{{ asset('images/image 83.png') }}" alt="Tresure_Chest" class="flag_red"> Completed</h2>
   <div class="horizontal-scroll quests-row py-2 mb-4">
@@ -259,7 +258,7 @@
         <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-light border-black text-center btn-sm" style="width: 5%;">Remove</button>
+          <button type="submit" class="btn btn-light border-black text-center btn-sm quest-remove-btn">Remove</button>
         </form>
       </div>
     @empty
