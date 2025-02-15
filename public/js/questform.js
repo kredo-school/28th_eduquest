@@ -14,13 +14,26 @@
             if (type === 'url') {
                 urlInput.style.display = 'block';
                 fileInput.style.display = 'none';
-                if (urlInput.value.trim() === '') {
+                if (urlInput.value.trim() !== '') {
+                    previewImage.src = urlInput.value;
+                }else{
                     previewImage.src = "/images/default-thumbnail.png";
                 }
             } else {
                 urlInput.style.display = 'none';
                 fileInput.style.display = 'block';
                 previewImage.src = "/images/default-thumbnail.png";
+
+                fileInput.onchange = function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImage.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
             }
         }
         
@@ -54,6 +67,11 @@
             let match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
             return match ? match[1] : null;
         }
+
+        window.onload = function() {
+            toggleThumbnailInput();
+        };
+        
                        
     　　// --------------------------------------------------------------------------------------
 

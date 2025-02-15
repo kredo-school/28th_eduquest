@@ -134,21 +134,44 @@ class QuestController extends Controller
             'quest_title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'total_hours' => 'required|numeric|min:0.5|max:10',
-            'thumbnail' => 'required|url',  // 画像が選ばれている場合のみバリデーション
-            'category' => 'required|array|min:1|max:3',
-            'category.*' => 'exists:categories,id',
-            'sub_items' => 'required|array|min:1',
-            // 'sub_items.*.quest_chapter_title' => 'required|string|max:255',
-            // 'sub_items.*.description' => 'required|string|max:1000',
-            // 'sub_items.*.video' => 'required|url',
+            'thumbnail_type' => 'required|string|in:url,image',
+            'thumbnail' => [
+            'nullable',
+            function ($attribute, $value, $fail) use ($request) {
+                if ($request->thumbnail_type === 'url' && !filter_var($value, FILTER_VALIDATE_URL)) {
+                    $fail('サムネイルのURLが無効です');
+                }
+                if ($request->thumbnail_type === 'image' && !$request->hasFile('thumbnail')) {
+                    $fail('画像ファイルを選択してください');
+                }
+            },
+        ],
+            'category' => 'required|array|min:1|max:3',   //カテゴリーの選択を必須(最大3つ)(最低1つ)
+            'category.*' => 'exists:categories,id', //カテゴリーIDが有効か確認
+            'sub_items' => 'required|array|min:1',  //少なくとも1つのチャプター
         ]);
+
+        // 画像の保存
+        $thumbnailPath = null;
+
+        if ($request->thumbnail_type === 'image' && $request->hasFile('thumbnail')) {
+            $thumbnailPath = 'storage/' . $request->file('thumbnail')->store('thumbnails', 'public');
+        } elseif ($request->thumbnail_type === 'url') {
+            $youtubeId = $this->extractYoutubeId($request->thumbnail);
+            $thumbnailPath = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
+        }
+
+        // YouTubeのURLから動画IDを抽出
+        $youtubeId = $this->extractYoutubeId($request->thumbnail);
+        $thumbnailUrl = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
+
 
         // Questの更新
         $quest->update([
             'quest_title' => $request->quest_title,
             'description' => $request->description,
             'total_hours' => $request->total_hours,
-            'thumbnail' => $request->thumbnailUrl,  // 生成したサムネイルURLを保存
+            'thumbnail' => $thumbnailPath,  // 保存した画像のパス
             'quest_creator_id' => Auth::id(),
         ]);
 

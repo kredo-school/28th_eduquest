@@ -49,27 +49,42 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="video_image">Thumbnail URL:</label>
-                                <div class="thumbnail-container">
-                                
-                                    <!-- URL入力欄 -->
-                                    <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail', $quest->thumbnail) }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
-                                    @error('video_image')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <label for="video_image">Thumbnail:</label>
+
+                                <!-- サムネイルタイプ選択 -->
+                                <select class="form-select" id="thumbnail_type" name="thumbnail_type" onchange="toggleThumbnailInput()">
+                                    <option value="url" {{ old('thumbnail_type') == 'url' ? 'selected' : '' }}>YouTube URL</option>
+                                    <option value="image" {{ old('thumbnail_type') == 'image' ? 'selected' : '' }}>Upload image</option>
+                                </select>
+
+                                <!-- URL入力欄 -->
+                                <input type="url" class="form-control mt-2" id="thumbnail_url" name="thumbnail" value="{{ old('thumbnail', $quest->thumbnail) }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
+
+                                <!-- 画像アップロード -->
+                                <input type="file" class="form-control mt-2" id="thumbnail_image" name="thumbnail"
+                                       accept="image/*" onchange="previewThumbnail()" style="display: none;">
+                        
+                                @error('thumbnail')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
 
                                 <!-- サムネイルプレビューエリア -->
-                                <label for="image_preview">Thumbnail Preview:</label>
-                                <div id="image_preview_container" class="image-preview-container mt-3">
-                                    
-                                    <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
-                                        src="{{ old('thumbnail') }}">
+                                <div id="thumbnail_preview_container" class="mt-3">
+                                    <label>Thumbnail Preview:</label>
+                                    <div>
+                                        <img id="thumbnail_preview" 
+                                            style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px;" 
+                                            src="{{ $quest->thumbnail ? asset($quest->thumbnail) : '' }}">
+                                    </div>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- questform.js を読み込む -->
+                    <script src="{{ asset('js/questform.js') }}"></script>
+
 
                     <!-- Category -->
                     <div class="row">
@@ -164,9 +179,9 @@
         </div>
     </div>
 @endsection
-@section('scripts')
-<script src="{{ asset('js/questform.js') }}"></script>
-<script src="script.js"></script>
+        @section('scripts')
+        <script src="{{ asset('js/questform.js') }}"></script>
+        <script src="script.js"></script>
         @endsection
     </div>
 </div>
