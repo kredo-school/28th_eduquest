@@ -1,17 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Welcome to EduQuest')
+@section('main-class', '')
 
 @section('content')
-<div class="container">
 
+
+<div class="container">
     {{-- Newest Quests --}}
     <div class="container-fluid">
-        <div style="background-color: #6ddce3;">
-            <img src="{{ asset('images/Group 235.png') }}" alt="castle_background" class="w-75">
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="{{ asset('images/edu-quest.png') }}" alt="castle_background" style="width: 70%;">
         </div>
-        <h1 class="text-center">Hello! EduQuest World!!</h1>
-
+        <div class="d-flex justify-content-center align-items-center">
+            <img src="{{ asset('images/Group 301.png')}}" alt="" style="width: 40%; margin: 2rem; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);">
+        </div>
 
         <div style="background-color:#FCFCE7;">
             @if($newestQuests->isEmpty())
@@ -88,8 +90,8 @@
     </div>
     
     {{-- Quest List by Category --}}
-    <div class="container">
-        <div class="d-flex justify-content-center">
+    <div class="container-fluid">
+        <div style="width: 100%;">
             <div style="transform: scale(0.66); transform-origin: top center;">
                 <h1 class="mb-3">
                     <img src="{{ asset('images/flag_green.png') }}" alt="category flag" class="flag_green">
@@ -178,5 +180,8 @@
             </div>
         </div>
     </div>
+</div>
+<div class="d-flex justify-content-center align-items-center" style="margin: 0; padding: 0;">
+    <img src="{{ asset('images/Group 305.png')}}" style="width: 70%;">
 </div>
 @endsection
