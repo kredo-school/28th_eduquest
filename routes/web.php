@@ -7,11 +7,14 @@ use App\Http\Controllers\QuestCreatorController;
 use App\Http\Controllers\QuestController;
 use App\Http\Controllers\ChapterlistController;
 use App\Http\Controllers\ReviewsRatingController;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\BossController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserAnswerController;
-
+use App\Http\Controllers\MypageController;
+use App\Http\Controllers\FavoriteCreatorController;
+use App\Http\Controllers\UserQuestStatusController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,15 +53,39 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/quest/{id}/assign-quest', [QuestsChapterController::class, 'assignQuestToUser'])->name('quests_chapter.assign');
 
     //ReviewRating
-    Route::post('/quests/{quest}/reviews', [ReviewsRatingController::class, 'store'])->name('reviews.store');
-    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
     Route::get('/quests/{quest}', [QuestController::class, 'show'])->name('quests.show');
     Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
-    
+    Route::prefix('quests/{questId}/reviews')->group(function () {
+        Route::get('/', [ReviewsRatingController::class, 'index'])->name('reviews.index');
+        Route::post('/store', [ReviewsRatingController::class, 'store'])->name('reviews.store');
+    });
+
+    Route::delete('/reviews/{id}', [ReviewsRatingController::class, 'destroy'])->name('reviews.destroy');
+
+    //ViewingChapter
+    Route::post('/chapter/{id}/complete', [ChapterController::class, 'complete'])->name('chapter.complete');
+    // Chapter viewing (next, prev)
+    Route::get('/chapter/{id}', [ChapterController::class, 'viewing'])->name('chapter.viewing');
+
+    //QuestStatus
+    Route::post('/start-quest', [ChapterlistController::class, 'startQuest'])->name('startQuest');
+    Route::post('/quest/complete', [ChapterController::class, 'completeQuest'])->name('quest.complete');
+
     # To go to Chapterlist page
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
     ->name('quests.chapters');
 
+    # To go to viewing page
+    Route::get('/quests/{questId}/chapters/{chapterId}', [ChapterController::class, 'viewing'])->name('chapters.viewing');
+    # player mypage
+    // Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/test', [UserController::class, 'viewTestSwitch']);
+    Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
+
+    //Favorite Creator button on creator's profile page
+    Route::get('/favorites', [FavoriteCreatorController::class, 'index'])->name('favorites.index');
+    Route::post('/favorites/{creatorId}', [FavoriteCreatorController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{creatorId}', [FavoriteCreatorController::class, 'destroy'])->name('favorites.destroy');
 
 
     //For Creators
@@ -78,19 +105,19 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
     Route::get('/guide-explanation', [QuestCreatorController::class, 'guideExplanation'])->name('questcreators.guide-explanation');
 
-  Route::group(['prefix' => 'quests/{quest_id}', 'as' => 'quests.bosses.'], function(){
-    # Bosses 
-    Route::get('/boss/create',[BossController::class,'create'])->name('create');
-    Route::post('/boss/store',[BossController::class,'store'])->name('store');
-    Route::get('/boss/manage', [BossController::class, 'manage'])->name('manage');
-
-
-    # Questions
-    Route::get('/boss/{id}/question/create',[QuestionController::class,'create'])->name('questions.create');
-    Route::post('/boss/{id}/question/store',[QuestionController::class,'store'])->name('questions.store');
-
-    
-    });
+    Route::group(['prefix' => 'quests/{quest_id}/boss', 'as' => 'quests.bosses.'], function(){
+      # Bosses 
+      Route::get('/create', [BossController::class, 'create'])->name('create');
+      Route::post('/store', [BossController::class, 'store'])->name('store');
+  
+      # Questions（bossのグループ内でboss_idを利用）
+      Route::group(['prefix' => '{boss_id}/questions', 'as' => 'questions.'], function(){
+          Route::get('/create', [QuestionController::class, 'create'])->name('create');
+          Route::post('/store', [QuestionController::class, 'store'])->name('store');
+      });
+  });
+  
+  
 
     # user answers
     Route::get('/{quest_id}/boss/{boss_id}/start', [UserAnswerController::class, 'start'])->name('start');
@@ -108,5 +135,4 @@ Route::get('/news', function () {
   Route::get('/FAQ-Contact', function () {
     return view('FAQ-Contact');
   });
-
 

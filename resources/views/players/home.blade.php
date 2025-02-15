@@ -23,6 +23,7 @@
     </div>
 </div>
 
+
 {{-- News modal--}}
 @include('players.modals.news')
 
@@ -80,17 +81,13 @@
                             @endphp
                             @if($creator && $creator->creator_image)
                                 {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
-                                    <img
-                                    src="{{ $creator->creator_image }}"
-                                    alt="Creator Icon"
-                                    style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;"
-                                    >
+                                <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
+                                    <img src="{{ $creator->creator_image }}" alt="Creator Icon" style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
                                 </a>
                             @else
                                 {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
+                                <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
                                 </a>
@@ -98,7 +95,7 @@
                         </div>  
                     @else  
                         {{-- あとでリンク追加必要！ --}}
-                        <a href="#">
+                        <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                             <div class="aspect-ratio-16-9 no-image-box">
                                 
                                     <span class="no-image-text-center">

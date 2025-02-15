@@ -22,6 +22,15 @@
                     <label for="passing_score">Passing_score</label>
                     <input type="number" name="passing_score" required>
                 </div>
+                <div class="mb-3">
+                    <label for="badge_id" class="form-label">Select a Badge</label>
+                    <select name="badge_id" class="form-control">
+                        <option value="">No Badge</option>
+                        @foreach ($badges as $badge)
+                            <option value="{{ $badge->id }}">{{ $badge->badge_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <label class="mt-5">設問の作成に進んでください。</label>
                 <button type="submit" class="edit-button-container mx-3">Next</button>
             </form>

@@ -15,8 +15,9 @@ class BossController extends Controller
     public function create($quest_id){
 
         $quest = Quest::findOrFail($quest_id);
+        $badge = Badge::all();
 
-        return view('quests.bosses.create',compact('quest'));
+        return view('quests.bosses.create', compact('quest', 'badge'));
 
     }
 
@@ -27,16 +28,18 @@ class BossController extends Controller
         $request->validate([
             'description' => 'required|string|max:255',
             'passing_score' => 'required|integer|min:1',
+            'badge_id' => 'nullable|exists:badges,id', 
+
         ]);
 
         $boss = Boss::create([
             'description' => $request->input('description'),
             'passing_score' => $request->input('passing_score'),
             'quest_id' => $quest->id,
+            'badge_id' => $request->input('badge_id') ?? null,
         ]);
 
-        return redirect()->route('questions.create',['quest_id' => $quest_id])->with('success', 'success create boss');
-
+        return redirect()->route('quests.bosses.questions.create',['quest_id' => $quest_id , 'boss_id' => $boss->id ]) ->with('success', 'Boss created! Now add questions.');
     }
 
     

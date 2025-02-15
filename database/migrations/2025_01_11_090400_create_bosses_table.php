@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->text('description', 300);
             $table->unsignedTinyInteger('passing_score');
-            $table->unsignedBigInteger('badge_id');
             $table->unsignedBigInteger('quest_id');
             $table->timestamps();
 
-            $table->foreign('badge_id')->references('id')->on('badges');
             $table->foreign('quest_id')->references('id')->on('quests')->onDelete('cascade');
         });
     }

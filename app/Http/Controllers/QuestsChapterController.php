@@ -39,4 +39,5 @@ class QuestsChapterController extends Controller
 
         return redirect()->back()->with('success', 'QuestsChapter assigned successfully!');
     }
+    
 }
