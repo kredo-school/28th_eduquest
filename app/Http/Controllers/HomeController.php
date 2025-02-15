@@ -33,7 +33,6 @@ class HomeController extends Controller
         //
     }
 
-    // ★★★★★ 1/28 要確認！！！　★★★★★
     # Show the news & categoriesin home page
     public function show()
     {

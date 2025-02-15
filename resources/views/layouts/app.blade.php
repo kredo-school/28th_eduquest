@@ -213,14 +213,14 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4">
+        <main class="@yield('main-class', 'py-4')">
             <div class="container">
                 <div class="row justify-content-center">
                     @yield('content')
                 </div>
             </div>
         </main>
-        <footer class="text-white py-4">
+        <footer class="text-white py-4" style="margin: 0;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mb-3">
