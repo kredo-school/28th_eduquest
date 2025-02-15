@@ -49,11 +49,11 @@
             <!-- Thumbnail with spacing -->
             @forelse ($category->categoryQuests as $catQuest)
             @php
-                $watchLaterItem = Auth::user()->userQuests
-                    ->where('quest_id', $catQuest->quest->id)
-                    ->where('status', 0)
-                    ->first();
-                $inWatchLater = $watchLaterItem ? true : false;
+                $record = Auth::user()->userQuests
+                  ->where('quest_id', $catQuest->quest->id)
+                  ->first();
+
+                $status = $record ? $record->status : null;
             @endphp
                 <div class="card quest-item mx-1" style="width: 200px;">
                     @if ($catQuest->quest->thumbnail)
@@ -81,19 +81,33 @@
                                 <span>{{ $catQuest->quest->quest_title }}</span>
                             </a>
 
-                            <!-- Right: Watch Later Toggle Button -->
-                            <form action="{{ route('watch.later.toggle', $catQuest->quest->id) }}"
-                                method="POST" class="ms-2" style="display:inline;">
-                                @csrf
-                                <button type="submit" class="btn btn-sm btn-light" style="border:none;">
-                                    @if($inWatchLater)
-                                        {{-- <i class="fa-solid fa-eye-slash"></i> --}}
-                                        <img src="{{ asset('images/flag_red.png') }}" alt="watchLater_flag_red" class="flag_green">
-                                    @else
+                            <!-- Right: Status Toggle Button -->
+
+                            @if (is_null($status))
+                                {{-- まだ登録されていない → 透明旗をクリックしたらwatchLater(0)にする --}}
+                                <form action="{{ route('watch.later.toggle', $catQuest->quest->id) }}" 
+                                    method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-light" style="border: none;">
                                         <img src="{{ asset('images/flag_transparent.png') }}" alt="flag_transparent" class="flag_transparent">
-                                    @endif
-                                </button>
-                            </form>
+                                    </button>
+                                </form>
+                            @elseif ($status == 0)
+                                {{-- status=0 (Watch Later) → クリックすると解除 (→レコード削除 or ロジックによってはinProgressに) --}}
+                                <form action="{{ route('watch.later.toggle', $catQuest->quest->id) }}"
+                                    method="POST" style="display:inline;">
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-light" style="border:none;">
+                                        <img src="{{ asset('images/flag_red.png') }}" alt="flag_red" class="flag_green">
+                                    </button>
+                                </form>
+                            @elseif ($status == 1)
+                                {{-- status=1 (In Progress) → 赤旗を表示するが、クリックしても変更しない --}}
+                                <img src="{{ asset('images/flag_red.png') }}" alt="flag_red" class="flag_green">
+                            @elseif ($status == 2)
+                                {{-- status=2 (Completed) → 赤旗を表示するが、クリックしても変更しない --}}
+                                <img src="{{ asset('images/flag_red.png') }}" alt="flag_red" class="flag_green">
+                            @endif
                         </div>
 
                         {{-- Creator Icon + Creator name--}}
@@ -102,13 +116,11 @@
                                 $creator = $catQuest->quest->questCreator;
                             @endphp
                             @if($creator && $creator->creator_image)
-                                {{-- あとでリンク追加必要！！！ --}}
                                 <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
                                     <img src="{{ $creator->creator_image }}" alt="Creator Icon" style="width: 32px; height: 32px; object-fit: cover; border-radius: 50%;">
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
                                 </a>
                             @else
-                                {{-- あとでリンク追加必要！！！ --}}
                                 <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
@@ -118,7 +130,6 @@
                     @else  
                         <a href="{{ route('quests.chapters', ['id' => $catQuest->quest->id]) }}">
                             <div class="aspect-ratio-16-9 no-image-box">
-                                
                                     <span class="no-image-text-center">
                                         No Image
                                     </span>
@@ -143,8 +154,7 @@
                                 $creator = $catQuest->quest->questCreator;
                             @endphp
                             @if($creator && $creator->creator_image)
-                                {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
+                                <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
                                     <img
                                     src="{{ $creator->creator_image }}"
                                     alt="Creator Icon"
@@ -152,10 +162,8 @@
                                     >
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
                                 </a>
-
                             @else
-                                {{-- あとでリンク追加必要！！！ --}}
-                                <a href="#">
+                                <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
                                     <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
                                     <span class="ms-1">{{ $creator->creator_name }}</span>
                                 </a>

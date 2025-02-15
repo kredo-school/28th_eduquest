@@ -69,31 +69,29 @@ class StatusController extends Controller
 
     public function toggleWatchLater($questId)
     {
-        # Check if the quest exists (to avoid errors)
-        $quest = $this->quest->findOrFail($questId);
-
-        # Login User ID
         $userId = Auth::id();
+        $record = UserQuest::where('user_id', $userId)
+                        ->where('quest_id', $questId)
+                        ->first();
 
-        # Check if there is a status=0 (Watch Later) entry in user_quest
-        $existing = $this->userQuest->where('user_id', $userId)
-                                    ->where('quest_id', $questId)
-                                    ->where('status', 0) // watch-later
-                                    ->first();
-
-        if ($existing) {
-            # If it's already set to Watch Later, remove it (toggle off).
-            $existing->delete();
-
-            return back()->with('status', 'Removed from Watch Later.');
+        if ($record) {
+            if ($record->status == 0) {
+                // Watch Later → 解除(削除) or statusをnullにする
+                $record->delete();
+                return back()->with('status','Removed from Watch Later.');
+            } else {
+                // 既に In Progress(1) or Completed(2) なら
+                // Watch Laterにしたいケースがあればここで書き換え
+                // でも今回「InProgressやCompletedは変えない」なら、操作無効にするかエラーメッセージ出すか
+                return back()->with('status','You cannot convert an In Progress/Completed quest to Watch Later.');
+            }
         } else {
-            # If it hasn't been registered yet, add it (toggle on)
-            $this->userQuest->create([
+            // レコードが無いので、新規で status=0 (Watch Later) を追加
+            UserQuest::create([
                 'user_id' => $userId,
                 'quest_id'=> $questId,
-                'status'  => 0 
+                'status'  => 0
             ]);
-
             return back()->with('status','Added to Watch Later.');
         }
     }
