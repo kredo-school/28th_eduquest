@@ -201,15 +201,52 @@ footer{
 
 /*--------------------------[welcome.blade.php]---------------------------------------------------*/
 
-/* .quest-list-container {
+/* 拡大アニメーション */
+@keyframes zoomIn {
+    0% {
+      transform: scale(0.9);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
+.animated-logo {
+    animation: zoomIn 1.5s ease-in-out;
+    transition: transform 0.3s ease-out;
+}
+
+.animated-logo:hover {
+    transform: scale(1.05); /* 少し拡大する */
+}
+
+/* 画像が少し浮き上がる for [welcome message]　*/
+.hover-effect {
+    transition: transform 0.3s ease-out;
+}
+  
+.hover-effect:hover {
+    transform: translateY(-5px);
+}
+
+/* スクロールし続ける指定 for [new quests] */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
     width: 100%;
-    margin: 0 auto;
-} */
-
-
-
+    background-color: #FCFCE7;
+}
+  
+.marquee {
+    display: inline-block;
+}
+  
 .quests-row {
     background-color: #FCFCE7;
+    overflow: visible !important;
 }
 
 .horizontal-scroll {
@@ -219,12 +256,20 @@ footer{
     /* gap: 1rem; */
 }
 
+/* カテゴリーごとのクエスト一覧アイテム */
 .quest-item {
     flex: 0 0 auto;
     width: 200px;
     background-color: #fff;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
     /*  #EDEBEB */
 }
+
+.quest-item:hover {
+    transform: scale(1.05); /* 1.05倍に拡大 */
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3); /* 影を強調して浮かせる */
+}
+
 
 .quest-item a {
     color: black;
