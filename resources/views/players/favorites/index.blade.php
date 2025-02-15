@@ -5,7 +5,7 @@
 <div class="scroll-container2">
     <img src="../images/RPG Bar Icon.png" alt="">
     <div class="overlay2">
-        <p>Favorite Quest Creator List</p>
+        <p class="mt-3">Favorite Quest Creator List</p>
     </div>
 </div>
 
