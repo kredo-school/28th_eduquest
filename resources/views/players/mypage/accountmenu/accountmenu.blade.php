@@ -12,7 +12,7 @@
         @csrf
         <div class="mb-3">
             <input type="file" name="player_image" id="image" class="form-control form-control-sm mt-1" aria-describedby="avatar-info">
-            @error('player-image')
+            @error('player_image')
                 <p class="text-danger small">{{ $message }}</p>
             @enderror
     
