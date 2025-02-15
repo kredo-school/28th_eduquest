@@ -20,7 +20,7 @@
   <div class="horizontal-scroll quests-row py-2 mb-4">
     @forelse($watchLater as $uq)
       {{-- Quest --}}
-      <div class="col">
+      <div class="quest-item-wrapper me-3">
         <div class="quest-card p-2">
 
           <!-- Thumbnail -->
@@ -90,7 +90,7 @@
         <form action="{{ route('quest.status.remove', $uq->id) }}" method="POST" class="mt-2">
           @csrf
           @method('DELETE')
-          <button type="submit" class="btn btn-light border-black text-center btn-sm" style="width: 5%;">Remove</button>
+          <button type="submit" class="btn btn-light border-black text-center btn-sm quest-remove-btn">Remove</button>
         </form>
       </div>
     @empty
@@ -105,7 +105,7 @@
   <div class="horizontal-scroll quests-row py-2 mb-4">
     @forelse($inProgress as $uq)
       {{-- Quest --}}
-      <div class="col">
+      <div class="quest-item-wrapper me-3">
         <div class="quest-card p-2">
   
           <!-- Thumbnail -->
@@ -189,7 +189,7 @@
   <div class="horizontal-scroll quests-row py-2 mb-4">
     @forelse($completed as $uq)
       {{-- Quest --}}
-      <div class="col">
+      <div class="quest-item-wrapper me-3">
         <div class="quest-card p-2">
   
           <!-- Thumbnail -->

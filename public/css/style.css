@@ -1567,6 +1567,10 @@ pointer-events: none;
     height: auto;
 }
 
+.quest-remove-btn{
+    width: 25%;
+}
+
 
 
 
