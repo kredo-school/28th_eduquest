@@ -48,7 +48,7 @@
                     
                     {{-- Search bar here. Show it only to the login user. --}}
                     <ul class="navbar-nav mx-auto">
-                        <form action="#" method="GET" class="position-relative" style="width: 300px;">
+                        <form action="{{ route('quest.search') }}" method="GET" class="position-relative" style="width: 300px;">
                             <input type="search" name="search" class="form-control form-control-sm ps-4" placeholder="Search..." aria-label="Search">
                             <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
                         </form>
@@ -69,7 +69,9 @@
                                     $categories = DB::table('categories')->get();
                                 @endphp
                                 @foreach ($categories as $category)
-                                    <li><a class="dropdown-item" href="#"><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">{{ $category->category_name }}</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('quest.search', ['category' => $category->id]) }}"><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">{{ $category->category_name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>

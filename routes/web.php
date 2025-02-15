@@ -16,6 +16,7 @@ use App\Http\Controllers\StudyPlanController;
 use App\Http\Controllers\FavoriteCreatorController;
 use App\Http\Controllers\UserQuestStatusController;
 use App\Http\Controllers\StatusController;
+use App\Http\Controllers\SearchController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -155,7 +156,11 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
+# NEWS
 Route::get('/news', [NewsController::class, 'index']);
 
+# FAQ/Contact
+Route::get('/FAQ-Contact', [FAQController::class, 'index']);
 
-  Route::get('/FAQ-Contact', [FAQController::class, 'index']);
+# Search Result
+Route::get('/search', [SearchController::class, 'search'])->name('quest.search');
