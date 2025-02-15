@@ -9,6 +9,8 @@ use App\Models\QuestCategory;
 use App\Models\QuestChapter;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Models\UserQuest;
+use App\Models\UserQuestStatus;
 
 class QuestController extends Controller
 {
@@ -233,21 +235,5 @@ class QuestController extends Controller
         return view('players.quests.chapterlist', compact('quest', 'user_review', 'other_reviews'));
     }
 
-
-    /**
-     * ユーザーにクエストを割り当てる
-     *
-     * @param Request $request
-     * @param int $userId
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function assignQuestToUser(Request $request, $userId)
-    {
-        $user = User::findOrFail($userId);
-        $user->quest_id = $request->quest_id;
-        $user->save();
-
-        return redirect()->back()->with('success', 'Quest assigned successfully!');
-    }
 
 }

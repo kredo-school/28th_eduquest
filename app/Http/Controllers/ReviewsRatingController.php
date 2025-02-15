@@ -52,13 +52,14 @@ class ReviewsRatingController extends Controller
         ]);
 
         // レビュー＆レーティングの作成または更新
-        ReviewRating::updateOrCreate(
+        ReviewsRating::updateOrCreate(
             ['user_id' => auth()->id(), 'quest_id' => $questId],
             ['review' => $request->review, 'rating' => $request->rating]
         );
 
         // 成功メッセージとともにリダイレクト
-        return redirect()->route('quests.show', $questId)->with('success', 'レビューとレーティングが送信されました！');
+        return redirect()->route('quests.chapters', ['id' => $questId]);
+
     }
     
     public function destroy($id)
