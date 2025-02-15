@@ -129,7 +129,15 @@ nav{
 main{
     background-color: #fffff3;
     font-family: 'DotGothic16', sans-serif;
+    flex: 1; 
 }
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 
 footer{
     background-color: #261C11;
@@ -311,10 +319,13 @@ width: 130px;
 /* =============================== */
 /*        General Styles          */
 /* =============================== */
-body {
+html, body {
     background-color: #FFFFF3;
     font-family: 'DotGothic16', sans-serif, Arial !important;
     color: #261C11;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* =============================== */
