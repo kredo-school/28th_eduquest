@@ -92,9 +92,9 @@
                         </div>
                     </div>
                     <div class="row mb-3 me-5">
-                        <label for="qualification" class="col-sm-3 col-form-label ">Qualification</label>
+                        <label for="qualifications" class="col-sm-3 col-form-label ">Qualification</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="qualification" placeholder="Enter your qualifications" name="qualification">
+                            <input type="text" class="form-control" id="qualifications" placeholder="Enter your qualifications" name="qualifications">
                         </div>
                     </div>
                     <div class="row mb-3 me-5">
