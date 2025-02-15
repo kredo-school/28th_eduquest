@@ -127,4 +127,28 @@ class UserController extends Controller
 
         return redirect()->back()->with('success', 'Image uploaded successfully.');
     }
+
+    public function uploadPlayerImage(Request $request)
+    {
+        // 1. バリデーション
+        $request->validate([
+            'player_image' => 'required|image|mimes:jpeg,jpg,png,gif|max:2048',
+        ]);
+
+        // 2. ファイルの保存
+        // storage/app/public/player_images フォルダに保存され、パスが返ってくる
+        $path = $request->file('player_image')->store('public/player_images');
+
+        // 3. DBにファイルパスを保存
+        // 例：usersテーブルに 'image' カラムがある場合
+        Auth::user()->update([
+            // store('public/xxx') の返り値は "public/player_images/ファイル名"
+            // asset() で表示したいなら "storage/player_images/ファイル名" に変換するのが一般的
+            'image' => str_replace('public/', 'storage/', $path),
+        ]);
+
+        // 4. リダイレクト
+        return back()->with('status', 'Image uploaded successfully!');
+    }
+
 }

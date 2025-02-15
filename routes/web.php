@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/upload-creator-image', [UserController::class, 'uploadCreatorImage'])->name('upload.creator.image');
 
+    Route::post('/upload/creator/image', [UserController::class, 'uploadPlayerImage'])->name('upload.creator.image');
+
 
     # Quest
     Route::get('/quests/{id}', [QuestController::class, 'show'])->name('quest.show');
