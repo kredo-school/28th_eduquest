@@ -9,19 +9,32 @@
     <div class="side-bar col-3 bg-white text-center pb-3">
         {{-- 2 --}}
         <div>
-            <img src="{{ asset('images/User icon.png')}}" alt="playerimage" class="player-image">
+            @if(auth()->user()->image)
+                <img src="{{ asset(auth()->user()->image) }}" alt="playerimage" class="player-image">
+            @else
+                <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image">
+            @endif
         </div>
-        <div class="mb-3">
-            <input type="file" name="creator_image" id="image" class="form-control form-control-sm mt-1" aria-describedby="avatar-info">
-                    @error('avatar')
-                        <p class="text-danger small">{{ $message }}</p>
-                    @enderror
-            {{-- 3 --}}
-            <div class="Accetable" style="text-align: center">
-                <p>Accetable formats:jpeg,jpg,png,gif only.</p>
-                <p>Max file size: 1048kB</p>
+        <form action="{{ route('upload.creator.image') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <input type="file" name="player_image" id="image" class="form-control form-control-sm mt-1" aria-describedby="avatar-info">
+                @error('player-image')
+                    <p class="text-danger small">{{ $message }}</p>
+                @enderror
+        
+                <div class="Accetable text-center">
+                    <p>Accetable formats: jpeg, jpg, png, gif only.</p>
+                    <p>Max file size: 1048kB</p>
+                </div>
+        
+                <!-- Uploadボタン -->
+                <div class="text-center mt-2">
+                    <button type="submit" class="btn btn-sm border rounded px-3 py-2" style="color: #261C11; background-color:#fffff3; border-color: #261C11 !important; border-radius: 20px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">Upload</button>
+                </div>
             </div>
-        </div>
+        </form>
+
         {{-- 4 --}}
         <div style="text-align: left">
             <img src={{ asset('images/sword.png') }} alt="sword" class="homeSword">
