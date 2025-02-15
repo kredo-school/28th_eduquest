@@ -1,16 +1,14 @@
+{{-- 1　Icon + Account Menu --}}
 <div class="side-bar col-3 bg-white text-center pb-3">
-    {{-- 1. Icon表示部分 --}}
+    {{-- 2 --}}
     <div>
         @if(auth()->user()->image)
-            {{-- 既にユーザーのimageカラムにパスが入っている場合 --}}
             <img src="{{ asset(auth()->user()->image) }}" alt="playerimage" class="player-image">
         @else
-            {{-- imageカラムが空の場合 --}}
             <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image">
         @endif
     </div>
 
-    {{-- 2. アイコンアップロードフォーム --}}
     <form action="{{ route('upload.creator.image') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
@@ -22,8 +20,6 @@
                 class="form-control form-control-sm mt-1" 
                 aria-describedby="avatar-info"
             >
-
-            {{-- バリデーションエラー表示（name属性と合わせる） --}}
             @error('player_image')
                 <p class="text-danger small">{{ $message }}</p>
             @enderror
@@ -46,27 +42,21 @@
         </div>
     </form>
 
-    {{-- 3. Account Menuの各リンク --}}
+    {{-- 4 --}}
     <div style="text-align: left">
-        <img src="{{ asset('images/sword.png') }}" alt="sword" class="homeSword">
-        <a href="#" class="text-decoration-none fs-6 text-dark">Account Security</a>
+        <img src={{ asset('images/sword.png') }} alt="sword" class="homeSword">
+        <a href="#" class="text-decoration-none fs-6 text-dark">Account Securlty</a>
     </div>
-
-    @auth
-        @if (auth()->user()->role_id === 1)
-            <div style="text-align: left">
-                <img src="{{ asset('images/sword.png') }}" alt="sword" class="homeSword">
-                <a 
-                    href="{{ route('player.switch', Auth::user()->id) }}" 
-                    class="text-decoration-none fs-6 text-dark"
-                >
-                    Switch to Quest Creator Account
-                </a>
-            </div>
-        @endif
-    @endauth
-
+        @auth
+            @if ( auth()->user()->role_id === 1)
+                <div style="text-align: left">
+                    <img src={{ asset('images/sword.png') }} alt="sword" class="homeSword">
+                    <a href="{{ route('player.switch', Auth::user()->id) }}" class="text-decoration-none fs-6 text-dark">Switch to Quest Creator Account</a>
+                </div>
+            @endif
+        @endauth
     <div style="text-align: left">
-        <img src="{{ asset('images/sword.png') }}" alt="sword" class="homeSword">
-        <a 
-            href="{{ route('delete.account', Au
+        <img src={{ asset('images/sword.png') }} alt="sword" class="homeSword">
+        <a href="{{ route('delete.account', Auth::user()->id) }}" class="text-decoration-none fs-6 text-dark">Delete My Account</a>
+    </div>
+</div>
