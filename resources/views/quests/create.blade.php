@@ -121,48 +121,45 @@
                                 <h2>Create Chapter</h2>
                             </div>
                             <div id="sub_item_section">
-                                <div class="sub_item mb-4" data-id="1">
+                                @foreach ($chapters as $index => $chapter)
+                                @php
+                                    // 初回の場合は1を設定
+                                    $subItemId = $index + 1;
+                                @endphp
+                                <div class="sub_item mb-4" data-id="{{ $subItemId }}">
                                     <div class="chapter-bg">
-                                        <h5><i class="fa-solid fa-play m-1"></i>Chapter 1</h5>
+                                        <h5><i class="fa-solid fa-play m-1"></i>Chapter {{ $subItemId }}</h5>
                                     </div>
-                                            
                                     <div class="row">
                                         <div class="col-md-6 chapter-title">
                                             <div class="form-group">
-                                                <label for="sub_item_title_1">Title:</label>
-                                                <input type="text" class="form-control" id="sub_item_title_1" name="sub_items[1][quest_chapter_title]" value="{{ old('sub_items.1.quest_chapter_title') }}" required>
+                                                <label for="sub_item_title_{{ $subItemId }}">Title:</label>
+                                                <input type="text" class="form-control" id="sub_item_title_{{ $subItemId }}" name="sub_items[{{ $subItemId }}][quest_chapter_title]" value="{{ old('sub_items.' . $subItemId . '.quest_chapter_title', $chapter->quest_chapter_title )}}" required>
                                             </div>
-                                        <div class="form-group">
-                                            <label for="sub_item_description_1">Description:</label>
-                                            <textarea class="form-control" id="sub_item_description_1" name="sub_items[1][description]" rows="4" required>{{ old('sub_items.1.description') }}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <!-- YouTube動画URL入力欄 -->
-                                            <label for="sub_item_video_1">YouTube Video URL:</label>
-                                            <input type="url" class="form-control" id="sub_item_video_1" name="sub_items[1][video]"
-                                                   placeholder="Enter YouTube video URL" required
-                                                   onchange="updateVideoPreview(this)">
-                                    
-                                            <!-- 動画プレビューエリア -->
-                                            <div class="video-preview-container mt-3">
-                                                <iframe id="video_preview" width="560" height="315"
-                                                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-                                                </iframe>
-                                            </div>  
-                                    
-                                            <!-- 削除ボタン -->
-                                            <div class="d-flex justify-content-end">
-                                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">
-                                                    Delete this chapter<img src="{{ asset('images/delete-icon.png')}}" style="width: 1.5rem; height: 1.3rem;">
-                                                </button>
+                                            <div class="form-group">
+                                                <label for="sub_item_description_{{ $subItemId }}">Description:</label>
+                                                <textarea class="form-control" id="sub_item_description_{{ $subItemId }}" name="sub_items[{{ $subItemId }}][description]" rows="4" required>{{ old('sub_items.' . $subItemId . '.description', $chapter->description) }}</textarea>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="video_{{ $subItemId }}">YouTube Video URL:</label>
+                                                <input type="url" class="form-control" id="video_{{ $subItemId }}" name="sub_items[{{ $subItemId }}][video]" onchange="updateVideoPreview(this)">
+
+
+                                                <div class="video-preview-container">
+                                                    <iframe id="video_preview_{{ $subItemId }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="button" class="btn-design mt-2" onclick="removeSubItem({{ $subItemId }})">Delete<img src="{{ asset('images/Group 206.png') }}" style="width: 1.5rem; height: 1.3rem;"></button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                            @endforeach
+                            
+
                             </div>
                             <!-- Add more chaptersボタン -->
                             <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
