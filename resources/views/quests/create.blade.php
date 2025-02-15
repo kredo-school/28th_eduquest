@@ -82,9 +82,6 @@
                             </div>
                         </div>
                         
-                        <!-- questform.js を読み込む -->
-                        <script src="{{ asset('js/questform.js') }}"></script>
-                        
                     </div>
                     <div class="row">
                         <div class="form-group">
