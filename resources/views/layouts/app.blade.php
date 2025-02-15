@@ -225,9 +225,9 @@
                     <div class="col-md-4 mb-3">
                         <h5>EduQuest</h5>
                         <ul class="list-unstyled">
-                            <li><a href="#" class="text-white text-decoration-none">Home</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">News</a></li>
-                            <li><a href="#" class="text-white text-decoration-none">FAQ-Contact</a></li>
+                            <li><a href="{{ route('home')}}" class="text-white text-decoration-none">Home</a></li>
+                            <li><a href="/news" class="text-white text-decoration-none">News</a></li>
+                            <li><a href="FAQ-Contact" class="text-white text-decoration-none">FAQ/Contact</a></li>
                             <li><a href="#" class="text-white text-decoration-none">Terms and conditions</a></li>
                             <li><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
                         </ul>
