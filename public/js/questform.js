@@ -6,53 +6,27 @@
         });
         
         function toggleThumbnailInput() {
-            let type = document.getElementById('thumbnail_type').value;
-            let urlInput = document.getElementById('thumbnail_url');
-            let fileInput = document.getElementById('thumbnail_image');
-            let previewImage = document.getElementById('thumbnail_preview');
-        
-            if (type === 'url') {
-                urlInput.style.display = 'block';
-                fileInput.style.display = 'none';
-                if (urlInput.value.trim() !== '') {
-                    previewImage.src = urlInput.value;
-                }else{
-                    previewImage.src = "/images/default-thumbnail.png";
-                }
-            } else {
-                urlInput.style.display = 'none';
-                fileInput.style.display = 'block';
-                previewImage.src = "/images/default-thumbnail.png";
-
-                fileInput.onchange = function(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            previewImage.src = e.target.result;
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                };
-            }
+            const type = document.getElementById('thumbnail_type').value;
+            document.getElementById('thumbnail_url').style.display = type === 'url' ? 'block' : 'none';
+            document.getElementById('thumbnail_image').style.display = type === 'image' ? 'block' : 'none';
         }
         
         function previewThumbnail() {
-            let type = document.getElementById('thumbnail_type').value;
-            let previewImage = document.getElementById('thumbnail_preview');
+            const type = document.getElementById('thumbnail_type').value;
+            const previewImage = document.getElementById('thumbnail_preview');
         
             if (type === 'url') {
-                let url = document.getElementById('thumbnail_url').value;
-                let youtubeId = extractYoutubeId(url);
+                const url = document.getElementById('thumbnail_url').value;
+                const youtubeId = extractYoutubeId(url);
                 if (youtubeId) {
                     previewImage.src = `https://img.youtube.com/vi/${youtubeId}/0.jpg`;
                 } else {
                     previewImage.src = "/images/default-thumbnail.png";
                 }
-            } else {
-                let fileInput = document.getElementById('thumbnail_image');
+            } else if (type === 'image') {
+                const fileInput = document.getElementById('thumbnail_image');
                 if (fileInput.files && fileInput.files[0]) {
-                    let reader = new FileReader();
+                    const reader = new FileReader();
                     reader.onload = function (e) {
                         previewImage.src = e.target.result;
                     };
@@ -61,8 +35,7 @@
                     previewImage.src = "/images/default-thumbnail.png";
                 }
             }
-        }
-        
+        }        
         function extractYoutubeId(url) {
             let match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
             return match ? match[1] : null;
