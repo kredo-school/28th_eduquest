@@ -2,13 +2,9 @@
 @section('content')
 <div class="container mt-5">
     <div class="create-container">
-            {{-- <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <!-- Navbar content -->
-            </nav> --}}
 
             <!-- Form Start -->
-            <form action="{{ route('quests.update', $quest->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('quests.update', $quest->id)}}" method="POST"            enctype="multipart/form-data">
                 @csrf
 
                 <!-------------------[Create a Quest: クエスト作成]-------------------------->
@@ -63,14 +59,13 @@
                                     @enderror
                                 </div>
 
-                                <!-- 画像プレビューエリア-->
+                                <!-- サムネイルプレビューエリア -->
                                 <label for="image_preview">Thumbnail Preview:</label>
                                 <div id="image_preview_container" class="image-preview-container mt-3">
                                     
                                     <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
                                         src="{{ old('thumbnail') }}">
                                 </div>
-
 
                             </div>
                         </div>
@@ -144,25 +139,25 @@
                         </div>
                         @endforeach
                     </div>
-                </div>
-                <!-- Add more chaptersボタン -->
-                <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
-                    <div class="button-content">
-                        <img src="{{ asset('images/tatefuda_yajirushi_01_beige 1.png') }}">
-                        Add more chapters
-                    </div>
-                </button>
-            </div>
-                        <!-- Form Buttons -->
-                        <div class="btn-container">
-                            <div class="form-group form-btn mt-4">
-                                <a href="{{ route('quests.index')}}" class="btn-design">Cancel</a>
+                
+                    <!-- Add more chaptersボタン -->
+                    <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
+                        <div class="button-content">
+                            <img src="{{ asset('images/tatefuda_yajirushi_01_beige 1.png') }}">
+                            Add more chapters
+                        </div>
+                    </button>
+            
+                    <!-- Form Buttons -->
+                    <div class="btn-container">
+                        <div class="form-group form-btn mt-4">
+                            <a href="{{ route('quests.index')}}" class="btn-design">Cancel</a>
                                 <button type="submit" class="btn-design">Save<img src="{{ asset('images/te_yubisashi_right 3.png') }}"></button>
-                            </div>
                         </div>
                     </div>
-                    </form>
                 </div>
+            </div>
+        </form>
     </div>
         <div class="bg-img-container">
             <img src="{{ asset('images/Group 235.png') }}" alt="background-img">

@@ -84,15 +84,6 @@
                         
                         <!-- questform.js を読み込む -->
                         <script src="{{ asset('js/questform.js') }}"></script>
-                                                <script>
-                            function toggleThumbnailInput() {
-                                let type = document.getElementById('thumbnail_type').value;
-                                document.getElementById('thumbnail_url').style.display = (type === 'url') ? 'block' : 'none';
-                                document.getElementById('thumbnail_image').style.display = (type === 'image') ? 'block' : 'none';
-                            }
-                        
-                            document.addEventListener("DOMContentLoaded", toggleThumbnailInput);
-                        </script>
                         
                     </div>
                     <div class="row">
@@ -165,7 +156,7 @@
                                             <!-- 削除ボタン -->
                                             <div class="d-flex justify-content-end">
                                                 <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">
-                                                    Delete<img src="{{ asset('images/delete-icon.png')}}" style="width: 1.5rem; height: 1.3rem;">
+                                                    Delete this chapter<img src="{{ asset('images/delete-icon.png')}}" style="width: 1.5rem; height: 1.3rem;">
                                                 </button>
                                             </div>
                                         </div>
@@ -173,7 +164,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- 小項目追加ボタン -->
+                            <!-- Add more chaptersボタン -->
                             <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
                                 <div class="button-content">
                                     <img src="{{ asset('images/tatefuda_yajirushi_01_beige 1.png') }}">
@@ -202,6 +193,10 @@
         @section('scripts')
         <script src="{{ asset('js/questform.js') }}"></script>
         <script src="script.js"></script>
+        <script>
+    const deleteIconUrl = "{{ asset('images/delete-icon.png') }}";
+</script>
+
         @endsection
     
 </div>

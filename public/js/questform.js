@@ -194,9 +194,9 @@
                                 </div>
 
                                 <div class="d-flex justify-content-end">
-                                                <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">
-                                                    Delete<img src="{{ asset('images/delete-icon.png')}}">
-                                                </button>
+                                    <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">
+                                            Delete this chapter<img src="/images/delete-icon.png" style="width: 1.5rem; height: 1.3rem;">
+                                    </button>
                                 </div>
 
                             </div>
