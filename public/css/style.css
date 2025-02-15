@@ -311,7 +311,9 @@ margin-right: 4px;        /* Spacing between badges */
 /* 2. Image of a player holding a sword */
 .switch-player-image{
     height: 100px;
-    width: auto;
+    width: 100px;
+    border-radius: 50%; 
+    object-fit: cover; 
     margin-top: 30px;
     margin-bottom: 15px;
 }
@@ -1550,56 +1552,54 @@ pointer-events: none;
     border: 2px solid #261C11;
     border-radius: 20px;
     font-size: 6px;
-    margin-left: 30px;
-  }
-  /* 右のバー */
-  .m-side-bar-right {
+    margin-left: 70px; /* 大画面用 */
+}
+.m-side-bar-right {
     border: 2px solid #261C11;
     border-radius: 20px;
     font-size: 6px;
-    margin-left: 30px;
-  }
-  /* 2 剣持った画像の事 */
-  .player-image{
+    margin-left: 30px; /* 大画面用 */
+}
+/* 2 剣持った画像の事 */
+.player-image{
     height: 100px;
     width: 100px;
-    margin-top: 50px;
-    margin-bottom: 15px;
-  }
-  /* パチンコみたいな画像 */
-  .Batch-image{
-    height: 40px;
-    width: 120px;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 10px;
-  }
-  /* 4 Shogoの事 */
-  .Shogo {
-    font-size: 30px;
-    line-height: 1.2;
-    margin-bottom: 1px;
-    margin-top: 1px;
-  }
-  /* homeアイコン */
-  .home-image {
+}
+/* パチンコみたいな画像 */
+.Batch-image{
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+/* homeアイコン */
+.home-image {
     width: 40px;
     height: 40px;
-  }
-  /* swordアイコン */
-  .sword-image {
+}
+/* swordアイコン */
+.sword-image {
     width: 40px;
     height: 40px;
-  }
-    /* boxアイコン */
-    .box-image {
+}
+/* boxアイコン */
+.box-image {
     width: 40px;
     height: 40px;
-  }
-  /* 4 文字 */
-  .text {
+}
+/* 4 文字 */
+.text {
     font-size: 20px;
     margin-top: 8px; /* アイコンとの間を少し空ける */
-  }
+}
+@media (max-width: 767.98px) {
+    .m-side-bar, .m-side-bar-right {
+    margin: 0 auto 20px auto; /* 上下は必要なら追加、左右は auto で中央寄せ */
+    }
+}   
+
 
 /* ↑↑↑ for mypage.blade.php ↑↑↑ */
 

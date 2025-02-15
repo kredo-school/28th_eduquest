@@ -20,6 +20,11 @@
             <p>Accetable formats:jpeg,jpg,png,gif only.</p>
             <p>Max file size: 1048kB</p>
         </div>
+
+        <!-- Uploadボタン -->
+        <div class="text-center mt-2">
+            <button type="submit" class="btn btn-sm border rounded px-3 py-2" style="color: #261C11; background-color:#fffff3; border-color: #261C11 !important; border-radius: 20px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">Upload</button>
+        </div>
     </div>
     {{-- 4 --}}
     <div style="text-align: left">

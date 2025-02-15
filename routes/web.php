@@ -41,6 +41,8 @@ Route::group(['middleware' => 'auth'], function(){
     # To store Creator Info in Switch ~ Creator page
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 
+    Route::post('/upload-creator-image', [UserController::class, 'uploadCreatorImage'])->name('upload.creator.image');
+
 
     # Quest
     Route::get('/quests/{id}', [QuestController::class, 'show'])->name('quest.show');
