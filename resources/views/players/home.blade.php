@@ -115,7 +115,7 @@
         <div class="mt-3">
             <h4><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="flag_green">{{ $category->category_name }}</h4>
         {{-- Quests Scroll --}}
-        <div class="horizontal-scroll quests-row px-3">
+        <div class="horizontal-scroll-category quests-row-category p-3">
             <!-- Thumbnail with spacing -->
             @forelse ($category->categoryQuests as $catQuest)
                 <div class="card quest-item mx-1" style="width: 200px;">

@@ -27,7 +27,7 @@
             <div class="marquee-container" id="marqueeContainer">
                 <div class="marquee" id="marquee">
             
-                <div class="horizontal-scroll newest-quests-row px-3 mb-5" >
+                <div class="horizontal-scroll newest-quests-row p-3">
                     @foreach($newestQuests as $quest)
                         <div class="card quest-item mx-1" style="width: 200px;">
                             
@@ -99,21 +99,21 @@
     </div>
     
     {{-- Quest List by Category --}}
-    <div class="container-fluid" style="padding: 0 30px;"> <!-- Adjusted padding for more space -->
+    <div class="container-fluid mt-5" style="padding: 0 30px;"> <!-- Adjusted padding for more space -->
         <div style="width: 100%;">
-                <h1 class="mb-3" style="font-size: 1.5rem;"> <!-- Increased font size -->
+                <h1 class="mb-3" style="font-size: 1.7rem;"> <!-- Increased font size -->
                     <img src="{{ asset('images/flag_green.png') }}" alt="category flag" class="flag_green" style="width: 2rem; height: auto;">
                     Quest List by Category
                 </h1>
 
                 @foreach ($categories as $category)
                     <div class="mt-3">
-                        <h4 style="font-size: 1.2rem;"> <!-- Increased font size -->
+                        <h4 style="font-size: 1.5rem;"> <!-- Increased font size -->
                             <img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="flag_green" style="width: 2rem; height: auto;">
                             {{ $category->category_name }}
                         </h4>
                         
-                        <div class="horizontal-scroll quests-row px-3">
+                        <div class="horizontal-scroll-category quests-row-category p-3">
                             @forelse ($category->categoryQuests as $catQuest)
                                 @php
                                     $quest = $catQuest->quest;
