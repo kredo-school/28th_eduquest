@@ -61,7 +61,7 @@ class User extends Authenticatable
         return $this->belongsTo(Quest::class);
     }
 
-    // レビューレーティングとのリレーション
+    // ReviewRating
     public function reviews_ratings()
     {
         return $this->hasMany(ReviewsRating::class);
@@ -72,9 +72,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(QuestCreator::class, 'favorites', 'user_id', 'quest_creator_id');
     }
-    // ユーザーが持つクエスト
+    
+
     public function userQuests()
     {
         return $this->hasMany(UserQuest::class);
+    }
+
+    //schedule
+    public function planning()
+    {
+        return $this->hasMany(Planning::class);
     }
 }

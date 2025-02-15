@@ -60,9 +60,10 @@
     document.addEventListener('DOMContentLoaded', function() {
         const chapterId = "{{ $chapter->id }}";
         const questId = "{{ $quest->id }}";
-        const storageKey = "completed_chapters_" + questId;
+        const userId = "{{ auth()->id() }}";
+        const storageKey = "completed_chapters_" + userId + "_" + questId;
         const completedChapters = JSON.parse(localStorage.getItem(storageKey) || "[]");
-        const status = "{{ $userQuest->status }}";  
+        const status = "{{ $userQuest ? $userQuest->status : 'null' }}";
 
         // ステータスが2の場合はボタンを無効化
         if (status == 2 || completedChapters.includes(chapterId)) {
