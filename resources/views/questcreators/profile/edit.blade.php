@@ -18,7 +18,7 @@
         <input type="hidden" name="redirect_to" value="{{ route('questcreators.profile.view', ['id' => $questcreator->id]) }}">
             {{-- Title --}}
             <div class="text-start mb-5 d-flex align-items-center">
-                <img src="{{ asset('images/madoshi_02_green.png') }}" alt="Icon" class="me-2 title-icon">
+                <img src="{{ asset('./images/character_madoshi_01_green.png') }}" alt="Icon" class="me-2 title-icon">
                 <h2 class="m-0">Edit Profile</h2>
             </div>
             {{-- creator image --}}

@@ -316,6 +316,9 @@ body {
     background-color: #FFFFF3;
     font-family: 'DotGothic16', sans-serif, Arial !important;
     color: #261C11;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 /* =============================== */
