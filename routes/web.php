@@ -12,6 +12,8 @@ use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\BossController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserAnswerController;
+use App\Http\Controllers\NewsController;
+use App\Http\Controllers\FAQController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\FavoriteCreatorController;
 use App\Http\Controllers\UserQuestStatusController;
@@ -26,7 +28,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     // for Player
     # To go to Home page
-    Route::get('/home', [HomeController::class, 'show']);
+    Route::get('/home', [HomeController::class, 'show'])->name('home');
     # To go to Switch to Quest Creator page
     Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
     # To store Creator Info in Switch ~ Creator page
@@ -35,7 +37,7 @@ Route::group(['middleware' => 'auth'], function(){
     //Quest
     Route::get('/quests/{id}', [QuestController::class, 'show'])->name('quest.show');
     Route::post('/users/{id}/assign-quest', [QuestController::class, 'assignQuestToUser'])->name('quest.assign');
-    Route::get('/quests/create',[QuestController::class,'create'])->name('quests.create');
+    Route::get('/quests/create', [QuestController::class, 'create'])->name('quests.create');
     Route::post('/quests/store', [QuestController::class, 'store'])->name('quests.store');
     Route::get('/quests/{id}/edit', [QuestController::class, 'edit'])->name('quests.edit');
     Route::post('/quests/update/{id}', [QuestController::class, 'update'])->name('quests.update');
@@ -104,7 +106,7 @@ Route::group(['middleware' => 'auth'], function(){
     // For how to guide page
     Route::get('/creator-guide', [QuestCreatorController::class, 'creatorGuide'])->name('questcreators.how-to-guide');
     Route::get('/guide-explanation', [QuestCreatorController::class, 'guideExplanation'])->name('questcreators.guide-explanation');
-
+    
     Route::group(['prefix' => 'quests/{quest_id}/boss', 'as' => 'quests.bosses.'], function(){
       # Bosses 
       Route::get('/create', [BossController::class, 'create'])->name('create');
@@ -127,12 +129,7 @@ Route::group(['middleware' => 'auth'], function(){
 });
 
 
-Route::get('/news', function () {
-    return view('news');
-  });
+  Route::get('/news', [NewsController::class, 'index']);
 
 
-  Route::get('/FAQ-Contact', function () {
-    return view('FAQ-Contact');
-  });
-
+  Route::get('/FAQ-Contact', [FAQController::class, 'index']);
