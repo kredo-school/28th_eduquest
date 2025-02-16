@@ -5,21 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Boss extends Model
+
+class Badge extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'description',
-        'passing_score',
-        'quest_id', 
+        'badge_name',
         'badge_picture',
     ];
 
-    public function quest()
+    public function userResult()
     {
-        return $this->belongsTo(Quest::class);
+        return $this->belongsTo(UserResult::class);
     }
 
-   
 }

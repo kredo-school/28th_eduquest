@@ -1517,3 +1517,15 @@ pointer-events: none;
     text-decoration: none;
     width: 250px;
 }
+
+.select-badge-form{
+    width: auto; 
+    min-width:80px; 
+    max-width: 300px; 
+}
+
+/* For Boss */
+.textarea-boss {
+    height: 80px;
+    width: 300px;
+}

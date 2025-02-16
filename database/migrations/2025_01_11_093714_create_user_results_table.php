@@ -19,9 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('boss_id');
             $table->timestamps();
-            $table->unsignedBigInteger('badge_id');
-
-            $table->foreign('badge_id')->references('id')->on('badges');
+            $table->string('badge_name')->nullable(); 
+            $table->string('badge_picture')->nullable(); 
+        
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('boss_id')->references('id')->on('bosses');
         });

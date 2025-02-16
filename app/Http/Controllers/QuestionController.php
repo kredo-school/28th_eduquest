@@ -35,10 +35,9 @@ class QuestionController extends Controller
             $correctOptionIndex = intval($questionData['correct_option']); // 文字列ではなく整数に変換
     
             // 選択肢を保存
-            foreach ($questionData['options'] as $index => $optionData) {
+            foreach ($request->options as $index => $optionData) {
                 Option::create([
-                    'option_text' => isset($optionData['option_text']) ? $optionData['option_text'] : 'No text', 
-                    'is_correct' => ($index == $correctOptionIndex) ? 1 : 0,
+                    'option_text' => $optionData['option_text'],                    'is_correct' => ($index == $correctOptionIndex) ? 1 : 0,
                     'question_id' => $question->id,
                 ]);
             }
