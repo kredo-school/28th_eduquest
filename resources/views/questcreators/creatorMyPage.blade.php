@@ -17,19 +17,19 @@
                 <div class="creator-profile-image">
                     <img src={{ $questcreator->creator_image }} alt="Creator Example" class="creator-avatar my-3">
                 </div>
-                <div class="job-title">
+                <div class="job-title m-3">
                     <p>Job title:</p>
                     <p class="fs-5">{{ $questcreator->job_title}}</p>
                 </div>
-                <div class="Qualification">
+                <div class="Qualification m-3">
                     <p>Qualification:</p>
                     <p class="fs-5">{{ $questcreator->qualifications}}</p>
                 </div>
-                <div class="Introduction">
+                <div class="Introduction m-3">
                     <p>Introduction:</p>
                     <p class="fs-5">{{ $questcreator->description}}</p>
                 </div>
-                <div class="sns-links text-center fs-3 p-3">
+                <div class="sns-links text-center fs-3 p-2">
                     <a href="{{ $questcreator->youtube}}" class="{{ $questcreator->youtube ? 'text-danger' : 'text-secondary' }}"><i class="bi bi-youtube mx-3"></i></a>
                     <a href="{{ $questcreator->x_twitter}}"  class="{{ $questcreator->x_twitter ? 'text-dark' : 'text-secondary' }}"><i class="bi bi-twitter-x mx-3"></i></a>
                     <a href="{{ $questcreator->facebook}}" class="{{ $questcreator->facebook ? 'text-primary' : 'text-secondary' }}"><i class="bi bi-facebook mx-3"></i></a>
