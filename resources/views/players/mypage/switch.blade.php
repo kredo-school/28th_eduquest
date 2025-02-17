@@ -10,7 +10,7 @@
         {{-- 2 --}}
         <div>
             @if(auth()->user()->image)
-                <img src="{{ auth()->user()->image }}" alt="playerimage" class="player-image">
+                <img src="{{ asset(Auth::user()->image) }}" alt="playerimage" class="player-image">
             @else
                 <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image">
             @endif

@@ -964,6 +964,7 @@ form {
     width:3rem;
     height:3rem;
     object-fit: cover;
+    border: 1px solid #261C11;
 }
 
 /* =============================== */
