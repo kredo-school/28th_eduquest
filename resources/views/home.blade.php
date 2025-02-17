@@ -12,7 +12,7 @@
                 {{-- えー、リンクつける？ --}}
                 @if (Auth::user()->image)
                     <a href="{{ route('player.mypage', Auth::user()->id) }}">
-                        <img src="{{ Auth::user()->image }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">
+                        <img src="{{ asset(Auth::user()->image) }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">
                     </a>    
                 @else
                     <a href="{{ route('player.mypage', Auth::user()->id) }}">
