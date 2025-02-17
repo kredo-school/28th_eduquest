@@ -204,6 +204,12 @@ class QuestCreatorController extends Controller
         // ログイン中のクリエイターが作成したクエストIDを取得
         $creatorQuestIds = $questcreator->quests()->pluck('id');
     
+        // Saved Quests (watch later: status = 0)の数を取得
+        $watchLaterCount = DB::table('user_quest')
+            ->whereIn('quest_id', $creatorQuestIds)
+            ->where('status', 0)
+            ->count();
+
         // GETパラメーター 'sort' によるランキングの種類（デフォルトは 'started'）
         $sort = $request->input('sort', 'started');
     
@@ -226,6 +232,15 @@ class QuestCreatorController extends Controller
                 ->orderByDesc('completed_count')
                 ->limit(10)
                 ->get();
+        } elseif ($sort === 'watchlater') {
+            $ranking = DB::table('user_quest')
+                ->select('quest_id', DB::raw('COUNT(*) as watchlater_count'))
+                ->where('status', 0)  //watch later のみ
+                ->whereIn('quest_id', $creatorQuestIds)
+                ->groupBy('quest_id')
+                ->orderByDesc('watchlater_count')
+                ->limit(10)
+                ->get();
         } else {
             $ranking = collect();
         }
@@ -235,13 +250,19 @@ class QuestCreatorController extends Controller
         foreach ($ranking as $rank) {
             $quest = Quest::find($rank->quest_id);
             if ($quest) {
-                $quest->ranking_value = $sort === 'started' ? $rank->start_count : $rank->completed_count;
+                if ($sort === 'started') {
+                    $quest->ranking_value = $rank->start_count;
+                } elseif ($sort === 'completed') {
+                    $quest->ranking_value = $rank->completed_count;
+                } elseif ($sort === 'watchlater') {
+                    $quest->ranking_value = $rank->watchlater_count;
+                }
                 $rankingQuests[] = $quest;
             }
         }
     
         // ビューに必要な全ての変数を渡す
-        return view('questcreators.creatorMyPage', compact('questcreator', 'rankingQuests', 'sort', 'favoriteCount', 'questCount'));
+        return view('questcreators.creatorMyPage', compact('questcreator', 'rankingQuests', 'sort', 'favoriteCount', 'questCount', 'watchLaterCount'));
     }
 }
 

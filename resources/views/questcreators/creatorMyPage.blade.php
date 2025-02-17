@@ -53,7 +53,14 @@
                                     <!-- ランキングの種類を切り替えるドロップダウン -->
                                     <div class="dropdown">
                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="rankingDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Ranking: {{ $sort === 'started' ? 'Started' : 'Completed' }}
+                                            Ranking:
+                                            @if ($sort === 'started')
+                                                Started
+                                            @elseif ($sort === 'completed')
+                                                Completed
+                                            @elseif ($sort === 'watchlater')
+                                                Watch Later
+                                            @endif
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="rankingDropdown">
                                             <li>
@@ -64,6 +71,11 @@
                                             <li>
                                                 <a class="dropdown-item" href="{{ route('questcreators.creatorMyPage', ['sort' => 'completed']) }}">
                                                     Completed Ranking
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('questcreators.creatorMyPage', ['sort' => 'watchlater']) }}">
+                                                    Watch Later Ranking
                                                 </a>
                                             </li>
                                         </ul>
@@ -128,7 +140,7 @@
                                 <h4>Quests:{{ $questCount }}</h4>
                             </div>
                             <div class="quest-management-bg2 m-1">
-                                <h4>Favorited Quests:</h4>
+                                <h4>Saved Quests:{{ $watchLaterCount }}</h4>
                             </div>
                             <a href="{{ route('quests.index')}}">
                                 <img src="{{ asset('images/castle-image.png') }}" class="bg-image">

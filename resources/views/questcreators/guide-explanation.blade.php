@@ -5,7 +5,7 @@
 <div class="scroll-container">
     <img src="../images/RPG Bar Icon.png" alt="">
     <div class="overlay">
-        <p>Chose a spot you like</p>
+        <p>Choose a spot you like</p>
     </div>
 </div>
 
@@ -35,14 +35,14 @@
         <div class="wizard-title" id="target-section3">
             <img src="../images/mark_mappin 2.png" alt="">
             <img src="../images/character_madoshi_01_green 2.png" alt="">
-            <h5>講師用マイページを充実させましょう</h5>
+            <h5>Enhance Your Instructor Profile</h5>
         </div>
         <div class="wizard-content">
             <p>
-                生徒がコースの測定をするときに参考にします <br>
-                自分が信用に値する人であることがわかるように書いてみましょう <br>
-                プロフィール画像は、ラーナーの公開用マイページとは別の写真を設定することができます <br>
-                SNSにとんでもらい、自分のことをもっと知ってファンになってもらいましょう
+                Students will refer to this when evaluating your course.<br>
+                Write in a way that shows you are trustworthy.<br>
+                You can set a different profile picture for your instructor page than the one used on the learner’s public profile.<br>
+                Promote yourself on social media so that people can get to know you better and become your fans.
             </p>
         </div>
     </div>
@@ -51,13 +51,13 @@
         <div class="shield-title" id="target-section1">
             <img src="../images/mark_mappin 2.png" alt="">
             <img src="../images/shield_kiteshield_01_blue 2.png" alt="">
-            <h5>クエストを作成しましょう</h5>
+            <h5>Create a Quest</h5>
         </div>
         <div class="shield-content">
             <p>
-                動画とディスクリプションを入れる <br>
-                チャプターに分ける <br>
-                補足があれば、PDFを添付しましょう
+                Include a video and a description.<br>
+                Divide your content into chapters.<br>
+                If necessary, attach a PDF with supplementary information.
             </p>
         </div>
     </div>
@@ -66,26 +66,26 @@
         <div class="dragon-title" id="target-section4">
             <img src="../images/mark_mappin 2.png" alt="">
             <img src="../images/character_monster_dragon_03_red.png" alt="" style="width: 9vw;">
-            <h5>テストを作成しましょう</h5>
+            <h5>Create a Test</h5>
         </div>
         <div class="dragon-content">
             <p>
-                クエストの最後に生徒がバッジを獲得するために、テストを用意します
+                Prepare a test at the end of your quest for students to earn a badge.
             </p>
         </div>
 
-        <!-- castle セクションを dragon の中に配置 -->
+        <!-- Place the castle section within the dragon section -->
         <div class="castle">
             <div class="castle-gap">
                 <div class="castle-title" id="target-section2">
                     <img src="../images/toride_brown_flag_yellow 1 (1).png" alt="">
-                    <h5>プレイヤーがゲットするバッジを選択しましょう</h5>
+                    <h5>Select the Badge for Players</h5>
                 </div>
                 <div class="castle-content">
                     <p>
-                        プレイヤーがBossをPassするとバッジがゲットできます <br>
-                        クエストにふさわしいバッジを好きに選択して、設定しましょう <br>
-                        クエストに合ったものを選んでください
+                        Players will earn a badge upon defeating the Boss.<br>
+                        Choose and configure a badge that perfectly suits your quest.<br>
+                        Select one that fits the theme of your quest.
                     </p>
                 </div>
             </div>
@@ -100,19 +100,16 @@
         <div class="house-title" id="target-section5">
             <img src="../images/mark_mappin 2.png" alt="">
             <img src="../images/ie.png" alt="">
-            <h5>▼ダッシュボード</h5>
+            <h5>▼Dashboard</h5>
         </div>
         <div class="house-content">
             <ul>
-                <li>レビューや生徒からの評価を確認できます</li>
-                <li>どれくらいの生徒が、コースを閲覧し、そこから気になるリストに保存したのかを確認することができます</li>
-                <li>数値を参考にしてコース作成の改善ができる</li>
+                <li>Review feedback and student ratings.</li>
+                <li>See how many students have viewed your course and added it to their favorites.</li>
+                <li>Use these metrics to refine and improve your course.</li>
             </ul>
         </div>
     </div>
 </div>
-
-
-
 
 @endsection
