@@ -116,21 +116,20 @@ class UserController extends Controller
         $request->validate([
             'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
-    
+
         $user = Auth::user();
-    
+
         if ($request->hasFile('image')) {
-            // storage/app/public/player_images 以下に保存
-            // 戻り値は「player_images/ファイル名.jpg」のような相対パスになります
             $path = $request->file('image')->store('player_images', 'public');
-    
-            // ★ DBに保存する時は「storage/player_images/xxx.jpg」にするか「player_images/xxx.jpg」のみにするか統一しましょう
-            // 例：DBには "player_images/xxx.jpg" だけを保存する
-            $user->image = $path;
+
+            // ここで "storage/" を付与した状態でDBへ保存する
+            // => DBには "storage/player_images/xxx.jpg" が入る
+            $user->image = 'storage/' . $path;
             $user->save();
         }
-    
+
         return redirect()->back()->with('success', 'Image uploaded successfully.');
     }
+
 
 }
