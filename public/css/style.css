@@ -567,6 +567,7 @@ creator-profile-view{
 .quest-manegement-container {
     display: flex;
     gap: 1rem;
+    position: relative;
 }
 
 /* Quest数 */
@@ -602,9 +603,11 @@ creator-profile-view{
 
 .bg-image {
     position: absolute;
-    bottom: 0;  
-    right: 0;     
-    z-index: 0;     
+    width: 40%;
+    height: auto;
+    bottom: -1.5rem;  
+    right: -1rem;     
+    z-index: 0; 
 }
   
 
