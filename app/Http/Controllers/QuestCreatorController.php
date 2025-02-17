@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\QuestCreator;
 use App\Models\Quest;
@@ -97,22 +98,6 @@ class QuestCreatorController extends Controller
     }
 
 
-
-    public function viewCreatorMyPage($id)
-    {
-        // 指定されたidに対応するcreatorデータを取得
-        $questcreator = QuestCreator::findOrFail($id);
-
-        // お気に入り登録されている数を取得
-        $favoriteCount = Favorite::where('quest_creator_id', $id)->count();
-
-        // 作成したクエストの数を取得
-        $questCount = $questcreator->quests()->count();
-
-        return view('questcreators.creatorMyPage', compact('questcreator', 'favoriteCount', 'questCount'));
-    }
-
-
     public function showRegulation($id)
     {
         $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
@@ -202,4 +187,61 @@ class QuestCreatorController extends Controller
         ->with('success', 'Profile updated successfully!');
 
     }
+
+    public function creatorMyPage(Request $request, $id = null)
+    {
+        // $idが渡された場合はそのクリエイター情報、渡されなければログインユーザーの情報を使用
+        if ($id) {
+            $questcreator = QuestCreator::findOrFail($id);
+        } else {
+            $questcreator = QuestCreator::where('user_id', Auth::id())->firstOrFail();
+        }
+    
+        // お気に入り登録数とクエスト数の取得
+        $favoriteCount = Favorite::where('quest_creator_id', $questcreator->id)->count();
+        $questCount = $questcreator->quests()->count();
+    
+        // ログイン中のクリエイターが作成したクエストIDを取得
+        $creatorQuestIds = $questcreator->quests()->pluck('id');
+    
+        // GETパラメーター 'sort' によるランキングの種類（デフォルトは 'started'）
+        $sort = $request->input('sort', 'started');
+    
+        // ランキングの集計処理
+        if ($sort === 'started') {
+            $ranking = DB::table('user_quest')
+                ->select('quest_id', DB::raw('COUNT(*) as start_count'))
+                ->where('status', '>=', 1) // in progress & completed を含む
+                ->whereIn('quest_id', $creatorQuestIds) // クリエイターのクエストのみ対象
+                ->groupBy('quest_id')
+                ->orderByDesc('start_count')
+                ->limit(10)
+                ->get();
+        } elseif ($sort === 'completed') {
+            $ranking = DB::table('user_quest')
+                ->select('quest_id', DB::raw('COUNT(*) as completed_count'))
+                ->where('status', 2) // completed のみ
+                ->whereIn('quest_id', $creatorQuestIds) // クリエイターのクエストのみ対象
+                ->groupBy('quest_id')
+                ->orderByDesc('completed_count')
+                ->limit(10)
+                ->get();
+        } else {
+            $ranking = collect();
+        }
+    
+        // 集計結果から各クエストの詳細情報を取得
+        $rankingQuests = [];
+        foreach ($ranking as $rank) {
+            $quest = Quest::find($rank->quest_id);
+            if ($quest) {
+                $quest->ranking_value = $sort === 'started' ? $rank->start_count : $rank->completed_count;
+                $rankingQuests[] = $quest;
+            }
+        }
+    
+        // ビューに必要な全ての変数を渡す
+        return view('questcreators.creatorMyPage', compact('questcreator', 'rankingQuests', 'sort', 'favoriteCount', 'questCount'));
+    }
 }
+

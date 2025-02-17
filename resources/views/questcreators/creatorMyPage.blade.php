@@ -48,39 +48,61 @@
                         </div>
                         <div class="d-flex" style="gap: 1rem;">
                             <div class="quest-dashboard-bg1">
-                                <h4>About Quest</h4>
-                                <h3><img src="{{ asset('images/crown_01_gold_red 1.png')}}">TOP3 RANKING</h3>
-
-                                <div class="ranking-content-wrapper">
-                                    {{-- @foreach ($rankingCreators as $index => $creator)
-                                     
-                                    <div class="ranking-content">
-                                        <div class="top3-image">
-                                            @if ($index == 0)
-                                                <img src="{{ asset('images/ingot_gold 1.png')}}" alt="gold">
-                                            @elseif ($index == 1)
-                                                <img src="{{ asset('images/ingot_silver 1.png')}}" alt="silver">
-                                            @elseif ($index == 2)
-                                                <img src="{{ asset('images/ingot_copper 1.png')}}" alt="bronze">
-                                            @else
-                                                <div style="width: 3rem; height: 3rem;"></div>
-                                            @endif
-                                        </div>
-                                        
-                                        <div class="ranking-list">
-                                            <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
-                                                @if ($creator && $creator->creator_image)
-                                                    <img src="{{ $creator->creator_image }}" alt="icon_image">
-                                                @else  
-                                                    <img src="{{ asset('images/User icon.png') }}" alt="icon_image">
-                                                @endif
-                                                <span class="ms-1">{{ $creator->creator_name }}</span> (<i class="fa-solid fa-star text-warning fa-1x"></i>{{ $creator->favorites_count }})
-                                            </a>  
-                                        </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h4>About Quest</h4>
+                                    <!-- ランキングの種類を切り替えるドロップダウン -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="rankingDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Ranking: {{ $sort === 'started' ? 'Started' : 'Completed' }}
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="rankingDropdown">
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('questcreators.creatorMyPage', ['sort' => 'started']) }}">
+                                                    Started Ranking
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('questcreators.creatorMyPage', ['sort' => 'completed']) }}">
+                                                    Completed Ranking
+                                                </a>
+                                            </li>
+                                        </ul>
                                     </div>
-                                    @endforeach --}}
+                                </div>
+                                
+                                <h3>
+                                    <img src="{{ asset('images/crown_01_gold_red 1.png') }}"> TOP3 RANKING
+                                </h3>
+                            
+                                <div class="ranking-content-wrapper">
+                                    @foreach ($rankingQuests as $index => $quest)
+                                        <div class="ranking-content">
+                                            <div class="top3-image">
+                                                @if ($index == 0)
+                                                    <img src="{{ asset('images/ingot_gold 1.png') }}" alt="gold" style="width: 3rem; height: 3rem;">
+                                                @elseif ($index == 1)
+                                                    <img src="{{ asset('images/ingot_silver 1.png') }}" alt="silver" style="width: 3rem; height: 3rem;">
+                                                @elseif ($index == 2)
+                                                    <img src="{{ asset('images/ingot_copper 1.png') }}" alt="bronze" style="width: 3rem; height: rem;">
+                                                @else
+                                                    <div style="width: 3rem; height: 3rem;"></div>
+                                                @endif
+                                            </div>
+                                            
+                                            <div class="ranking-list">
+                                                <!-- 例としてクエスト詳細ページへのリンク -->
+                                                <a href="{{ route('quests.chapters', ['id' => $quest->id]) }}" style="font-size: 1rem;">
+                                                    <!-- クエスト画像（存在しなければデフォルト画像を表示） -->
+                                                    <img src="{{ $quest->thumbnail }}" alt="quest_image" style="width: 4rem; height: 3rem; border-radius: 0%;">
+                                                    <span class="ms-1">{{ $quest->quest_title }}</span>
+                                                    ({{ $quest->ranking_value }})
+                                                </a>  
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
+
                             <div class="quest-dashboard-bg2">
                                 <h4>About Quest Creator</h4>
                                 <div class=favorite-count-container>

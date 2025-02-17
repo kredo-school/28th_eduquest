@@ -43,7 +43,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/quests/delete/{id}', [QuestController::class, 'destroy'])->name('quests.destroy');
 
 
-
     //quest Creator
     Route::get('/quest_creators/{id}', [QuestCreatorController::class, 'show'])->name('quest_creator.show');
     Route::post('/users/{id}/assign-quest', [QuestCreatorController::class, 'assignQuestToUser'])->name('quest_creator.assign');
@@ -93,7 +92,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/creator/regulation/{id}', [QuestCreatorController::class, 'showRegulation'])->name('questcreators.regulation');
 
     # To go to Creator Mypage
-    Route::get('/creator/{id}', [QuestCreatorController::class, 'viewCreatorMyPage'])->name('questcreators.creatorMyPage');
+    Route::get('/questcreators/my-page/{id?}', [QuestCreatorController::class, 'creatorMyPage'])->name('questcreators.creatorMyPage');
+
     Route::get('/player/chapterlist', [ChapterlistController::class, 'viewChapterList']);
     Route::get('/create',[QuestController::class,'viewCreateQuest'])->name('quests.create');
     Route::get('/creator/{id}/profile',[QuestCreatorController::class,'viewCreatorProfile'])->name('questcreators.profile.view');

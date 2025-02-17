@@ -570,6 +570,30 @@ creator-profile-view{
     position: relative;
 }
 
+/* quest-ranking */
+.ranking-content-wrapper {
+    max-height: 300px; /* 必要に応じて高さを調整 */
+    overflow-y: auto; /* 縦スクロールバーを表示 */
+    padding: 10px;
+    scrollbar-width: thin; /* Firefox用 */
+    scrollbar-color: #888 #f0f0f0; /* Firefox用 */
+}
+
+/* Chrome, Edge, Safari用のスクロールバーカスタマイズ */
+.ranking-content-wrapper::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ranking-content-wrapper::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.ranking-content-wrapper::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+
 /* Quest数 */
 .quest-management-bg1 {
     background-color: #d9e7c0;
