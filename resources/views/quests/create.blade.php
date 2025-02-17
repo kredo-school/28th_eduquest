@@ -52,23 +52,42 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="video_image">Thumbnail URL:</label>
-                                <div class="thumbnail-container">
-                                    <!-- URL入力欄 -->
-                                    <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
-                                    @error('thumbnail')
-                                        <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <!-- 画像プレビューエリア-->
-                                <label for="image_preview">Thumbnail Preview:</label>
-                                <div id="image_preview_container" class="image-preview-container mt-3">
-                                    <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
-                                        src="{{ old('thumbnail') }}">
+                                <label for="thumbnail">Thumbnail:</label>
+                        
+                                <!-- サムネイルタイプ選択 -->
+                                <select class="form-select" id="thumbnail_type" name="thumbnail_type" onchange="toggleThumbnailInput()">
+                                    <option value="url" {{ old('thumbnail_type') == 'url' ? 'selected' : '' }}>YouTube URL</option>
+                                    <option value="image" {{ old('thumbnail_type') == 'image' ? 'selected' : '' }}>Upload image</option>
+                                </select>
+                        
+                                <!-- URL入力欄 -->
+                                <input type="url" class="form-control mt-2" id="thumbnail_url" name="thumbnail"
+                                       value="{{ old('thumbnail') }}" placeholder="Enter YouTube thumbnail URL"
+                                       oninput="previewThumbnail()">
+                        
+                                <!-- 画像アップロード -->
+                                <input type="file" class="form-control mt-2" id="thumbnail_image" name="thumbnail"
+                                       accept="image/*" onchange="previewThumbnail()" style="display: none;">
+                        
+                                @error('thumbnail')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                        
+                                <!-- サムネイルプレビューエリア（サイズ調整） -->
+                                <div id="thumbnail_preview_container" class="mt-3">
+                                    <label>Thumbnail Preview:</label>
+                                    <div>
+                                        <img id="thumbnail_preview"
+                                             src="/images/default-thumbnail.png"
+                                             style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- questform.js を読み込む -->
+                        <script src="{{ asset('js/questform.js') }}"></script>
+                        
                     </div>
                     <div class="row">
                         <div class="form-group">
@@ -105,44 +124,47 @@
                                 <h2>Create Chapter</h2>
                             </div>
                             <div id="sub_item_section">
-                                <div class="sub_item mb-4" data-id="1">
+                                @foreach ($chapters as $index => $chapter)
+                                @php
+                                    // 初回の場合は1を設定
+                                    $subItemId = $index + 1;
+                                @endphp
+                                <div class="sub_item mb-4" data-id="{{ $subItemId }}">
                                     <div class="chapter-bg">
-                                        <h5><i class="fa-solid fa-play m-1"></i>Chapter 1</h5>
+                                        <h5><i class="fa-solid fa-play m-1"></i>Chapter {{ $subItemId }}</h5>
                                     </div>
-                                            
                                     <div class="row">
                                         <div class="col-md-6 chapter-title">
                                             <div class="form-group">
-                                                <label for="sub_item_title_1">Title:</label>
-                                                <input type="text" class="form-control" id="sub_item_title_1" name="sub_items[1][quest_chapter_title]" value="{{ old('sub_items.1.quest_chapter_title') }}" required>
+                                                <label for="sub_item_title_{{ $subItemId }}">Title:</label>
+                                                <input type="text" class="form-control" id="sub_item_title_{{ $subItemId }}" name="sub_items[{{ $subItemId }}][quest_chapter_title]" value="{{ old('sub_items.' . $subItemId . '.quest_chapter_title', $chapter->quest_chapter_title )}}" required>
                                             </div>
-                                        <div class="form-group">
-                                            <label for="sub_item_description_1">Description:</label>
-                                            <textarea class="form-control" id="sub_item_description_1" name="sub_items[1][description]" rows="4" required>{{ old('sub_items.1.description') }}</textarea>
+                                            <div class="form-group">
+                                                <label for="sub_item_description_{{ $subItemId }}">Description:</label>
+                                                <textarea class="form-control" id="sub_item_description_{{ $subItemId }}" name="sub_items[{{ $subItemId }}][description]" rows="4" required>{{ old('sub_items.' . $subItemId . '.description', $chapter->description) }}</textarea>
+                                            </div>
                                         </div>
-                                    </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
+                                                <label for="video_{{ $subItemId }}">YouTube Video URL:</label>
+                                                <input type="url" class="form-control" id="video_{{ $subItemId }}" name="sub_items[{{ $subItemId }}][video]" onchange="updateVideoPreview(this)">
 
-                                                <!---- 動画インプット欄---------->
-                                                <label for="sub_item_video_1">YouTube Video URL:</label>
-                                                <input type="url" class="form-control" id="sub_item_video_1" name="sub_items[1][video]" value="{{ old('sub_items.1.video') }}" placeholder="Enter YouTube video URL" required onchange="updateVideoPreview()">
 
-                                                <!----- 動画プレビューコンテナ----->
                                                 <div class="video-preview-container">
-                                                    <iframe id="video_preview" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                                </div>                                            
-
-                                                <!------ 削除ボタン------------->
+                                                    <iframe id="video_preview_{{ $subItemId }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                                </div>
                                                 <div class="d-flex justify-content-end">
-                                                    <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">Delete<img src="{{ asset('images/delete-icon.png')}}" style="width: 1.5rem; height: 1.3rem;"></button>
+                                                    <button type="button" class="btn-design mt-2" onclick="removeSubItem({{ $subItemId }})">Delete<img src="{{ asset('images/Group 206.png') }}" style="width: 1.5rem; height: 1.3rem;"></button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            @endforeach
+                            
+
                             </div>
-                            <!-- 小項目追加ボタン -->
+                            <!-- Add more chaptersボタン -->
                             <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
                                 <div class="button-content">
                                     <img src="{{ asset('images/tatefuda_yajirushi_01_beige 1.png') }}">
@@ -153,8 +175,8 @@
                             
                             <!-- Form Buttons -->
                             <div class="btn-container">
-                                <div class="form-group form-btn mt-4">
-                                    <a href="#" class="btn-design">Cancel</a>
+                                <div class="form-group form-btn">
+                                    <a href="{{ route('quests.index') }}" class="btn-design">Cancel</a>
                                     <button type="submit" class="btn-design">Save<img src="{{ asset('images/te_yubisashi_right 3.png') }}"></button>
                                 </div>
                             </div>
@@ -166,10 +188,15 @@
         <div class="bg-img-container">
             <img src="{{ asset('images/Group 235.png') }}" alt="background-img">
         </div>
-        @endsection
+    @endsection
+
         @section('scripts')
         <script src="{{ asset('js/questform.js') }}"></script>
         <script src="script.js"></script>
+        <script>
+    const deleteIconUrl = "{{ asset('images/delete-icon.png') }}";
+</script>
+
         @endsection
     
 </div>

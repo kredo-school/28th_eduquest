@@ -2,13 +2,9 @@
 @section('content')
 <div class="container mt-5">
     <div class="create-container">
-            {{-- <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <!-- Navbar content -->
-            </nav> --}}
 
             <!-- Form Start -->
-            <form action="{{ route('quests.update', $quest->id)}}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('quests.update', $quest->id)}}" method="POST"            enctype="multipart/form-data">
                 @csrf
 
                 <!-------------------[Create a Quest: クエスト作成]-------------------------->
@@ -53,28 +49,49 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="video_image">Thumbnail URL:</label>
-                                <div class="thumbnail-container">
-                                
-                                    <!-- URL入力欄 -->
-                                    <input type="url" class="form-control" id="video_image" name="thumbnail" value="{{ old('thumbnail', $quest->thumbnail) }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
-                                    @error('video_image')
-                                    <div class="alert alert-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                @php
+                                    use Illuminate\Support\Str;
+                                    $thumbnailType = old('thumbnail_type', (Str::startsWith($quest->thumbnail, ['http://', 'https://']) ? 'url' : 'image'));
+                                @endphp
+                                <label for="video_image">Thumbnail:</label>
 
-                                <!-- 画像プレビューエリア-->
-                                <label for="image_preview">Thumbnail Preview:</label>
-                                <div id="image_preview_container" class="image-preview-container mt-3">
-                                    
-                                    <img id="image_preview" class="mt-2" style="max-width: 100%; border: 1px solid #ccc; padding: 10px; border-radius: 8px; display: {{ old('thumbnail') ? 'block' : 'none' }};" 
-                                        src="{{ old('thumbnail') }}">
-                                </div>
+                                <!-- サムネイルタイプ選択 -->
+                                <select class="form-select" id="thumbnail_type" name="thumbnail_type" onchange="toggleThumbnailInput()">
+                                    <option value="url" {{ $thumbnailType == 'url' ? 'selected' : '' }}>YouTube URL</option>
+                                    <option value="image" {{ $thumbnailType == 'image' ? 'selected' : '' }}>Upload image</option>
+                                </select>
+
+                                <!-- URL入力欄 -->
+                                <input type="url" class="form-control mt-2" id="thumbnail_url" name="thumbnail" 
+                                    value="{{ $thumbnailType == 'url' ? old('thumbnail', $quest->thumbnail) : '' }}" 
+                                    placeholder="Enter YouTube thumbnail URL" onchange="previewThumbnail()" required>
 
 
+                                <!-- 画像アップロード -->
+                                <input type="file" class="form-control mt-2" id="thumbnail_image" name="thumbnail"
+                                       accept="image/*" onchange="previewThumbnail()" style="display: none;">
+                        
+                                @error('thumbnail')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+
+                                <!-- サムネイルプレビューエリア -->
+                                <div id="thumbnail_preview_container" class="mt-3">
+                                    <label>Thumbnail Preview:</label>
+                                    <div>
+                                        <img id="thumbnail_preview" 
+                                             style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px;" 
+                                             src="{{ $thumbnailType == 'url' ? $quest->thumbnail : asset($quest->thumbnail) }}"
+                                             data-thumbnail="{{ $thumbnailType == 'image' ? asset($quest->thumbnail) : '' }}">
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- questform.js を読み込む -->
+                    <script src="{{ asset('js/questform.js') }}"></script>
+
 
                     <!-- Category -->
                     <div class="row">
@@ -131,7 +148,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="video_{{ $index + 1 }}">YouTube Video URL:</label>
-                                        <input type="url" class="form-control" id="video_{{ $index + 1 }}" name="sub_items[{{ $index + 1 }}][video]" value="{{ old('sub_items.' . ($index + 1) . '.video', $chapter->video) }}" placeholder="Enter YouTube video URL" required onchange="updateVideoPreview({{ $index + 1 }})">
+                                        <input type="url" class="form-control" id="video_{{ $index + 1 }}" name="sub_items[{{ $index + 1 }}][video]" 
+                                            value="{{ old('sub_items.' . ($index + 1) . '.video', $chapter->video) }}" 
+                                            placeholder="Enter YouTube video URL" required onchange="updateVideoPreview(this)">
                                         <div class="video-preview-container">
                                             <iframe id="video_preview_{{ $index + 1 }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                         </div>
@@ -144,34 +163,34 @@
                         </div>
                         @endforeach
                     </div>
-                </div>
-                <!-- Add more chaptersボタン -->
-                <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
-                    <div class="button-content">
-                        <img src="{{ asset('images/tatefuda_yajirushi_01_beige 1.png') }}">
-                        Add more chapters
-                    </div>
-                </button>
-            </div>
-                        <!-- Form Buttons -->
-                        <div class="btn-container">
-                            <div class="form-group form-btn mt-4">
-                                <a href="{{ route('quests.index')}}" class="btn-design">Cancel</a>
+                
+                    <!-- Add more chaptersボタン -->
+                    <button type="button" class="btn-add-chapter mt-3" id="add_sub_item" onclick="addSubItem()">
+                        <div class="button-content">
+                            <img src="{{ asset('images/tatefuda_yajirushi_01_beige 1.png') }}">
+                            Add more chapters
+                        </div>
+                    </button>
+            
+                    <!-- Form Buttons -->
+                    <div class="btn-container">
+                        <div class="form-group form-btn mt-4">
+                            <a href="{{ route('quests.index')}}" class="btn-design">Cancel</a>
                                 <button type="submit" class="btn-design">Save<img src="{{ asset('images/te_yubisashi_right 3.png') }}"></button>
-                            </div>
                         </div>
                     </div>
-                    </form>
                 </div>
+            </div>
+        </form>
     </div>
         <div class="bg-img-container">
             <img src="{{ asset('images/Group 235.png') }}" alt="background-img">
         </div>
     </div>
 @endsection
-@section('scripts')
-<script src="{{ asset('js/questform.js') }}"></script>
-<script src="script.js"></script>
+        @section('scripts')
+        <script src="{{ asset('js/questform.js') }}"></script>
+        <script src="script.js"></script>
         @endsection
     </div>
 </div>
