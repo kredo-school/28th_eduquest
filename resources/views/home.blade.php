@@ -9,7 +9,6 @@
     <div class="col-5 text-start">
         <div class="row align-items-start mb-3 bg-white shadow-sm round-10 py-2 border-color">
             <div class="col-auto">
-                {{-- えー、リンクつける？ --}}
                 @if (Auth::user()->image)
                     <a href="{{ route('player.mypage', Auth::user()->id) }}">
                         <img src="{{ asset(Auth::user()->image) }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">
