@@ -154,6 +154,7 @@ footer{
     width: 3.5rem;
     height: 3.5rem;
     object-fit: cover;
+    border: 1px solid #261C11;
 }
 
 .icon-md{
@@ -290,6 +291,8 @@ margin-right: 4px;        /* Spacing between badges */
     object-fit: cover; 
     margin-top: 30px;
     margin-bottom: 15px;
+    border: 1px solid #261C11;
+
 }
 /* 3. Text below "Select File" */
 .Accetable{
@@ -1531,11 +1534,12 @@ pointer-events: none;
     margin-left: 30px; /* 大画面用 */
 }
 /* 2 剣持った画像の事 */
-.player-image{
+.m-player-image{
     height: 100px;
     width: 100px;
     margin-top: 30px;
     margin-bottom: 10px;
+    border: 1px solid #261C11;
 }
 /* パチンコみたいな画像 */
 .Batch-image{

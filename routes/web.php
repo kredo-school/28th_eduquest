@@ -35,7 +35,7 @@ Route::group(['middleware' => 'auth'], function(){
     # To store Creator Info in Switch ~ Creator page
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
 
-    Route::post('/upload-creator-image', [UserController::class, 'uploadCreatorImage'])->name('upload.creator.image');
+    Route::post('/upload-player-image', [UserController::class, 'editPlayerImage'])->name('upload.player.image');
 
 
     //Quest
@@ -101,7 +101,7 @@ Route::group(['middleware' => 'auth'], function(){
     
     # player mypage
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/test', [UserController::class, 'viewTestSwitch']);
+    // Route::get('/test', [UserController::class, 'viewTestSwitch']);
     Route::get('/player/{id}/mypage', [MypageController::class, 'viewMyPage'])->name('player.mypage');
 
     //Favorite Creator button on creator's profile page

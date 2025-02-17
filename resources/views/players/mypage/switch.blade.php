@@ -10,19 +10,19 @@
         {{-- 2 --}}
         <div>
             @if(auth()->user()->image)
-                <img src="{{ asset(auth()->user()->image) }}" alt="playerimage" class="player-image">
+                <img src="{{ auth()->user()->image }}" alt="playerimage" class="player-image">
             @else
                 <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image">
             @endif
         </div>
         
-        <form action="{{ route('upload.creator.image') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('upload.player.image') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <!-- nameをplayer_imageにし、errorもplayer_imageに統一 -->
                 <input 
                     type="file" 
-                    name="player_image" 
+                    name="image" 
                     id="image" 
                     class="form-control form-control-sm mt-1"
                     aria-describedby="avatar-info"
