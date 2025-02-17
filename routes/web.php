@@ -138,7 +138,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::delete('/player/quest-status/remove/{userQuestId}', [StatusController::class, 'removeQuest']) ->name('quest.status.remove');
 
 
-
     /**
      * For Creators
      */

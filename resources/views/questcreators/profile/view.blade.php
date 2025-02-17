@@ -50,33 +50,48 @@
                         @endif
                 </div>
 
-                {{-- Main Profile --}}
+                
                 <div class="creator-profile-view col-8 p-4 d-flex flex-column">
-                    <div class="job_title">
-                        <p class="profile-title-s">Job Title:</p>
-                        <p class="ms-3 fs-3">{{ $questcreator->job_title}}</p>
+                    {{-- Main Profile --}}
+                    <div class="bg-light border border-black rounded h-100 w-100 px-2">
+                        <div class="job_title">
+                            <p class="profile-title-s">Job Title:</p>
+                            <p class="ms-3 fs-3">{{ $questcreator->job_title}}</p>
+                        </div>
+                        <div class="Qualification">
+                            <p class="profile-title-s">Qualification:</p>
+                            <p class="ms-3 fs-3">
+                                @if($questcreator->qualifications)
+                                    {{ $questcreator->qualifications }}
+                                @else
+                                    <span class="mute-text">Not set yet.</span>
+                                @endif
+                            </p>
+                        </div>
+                        <div class="Introduction">
+                            <p class="profile-title-s">Introduction:</p>
+                            <p class="ms-3 fs-3">
+                                @if($questcreator->description)
+                                    {{ $questcreator->description }}
+                                @else
+                                    <span class="mute-text">Not set yet.</span>
+                                @endif
+                            </p>
+                        </div>
                     </div>
-                    <div class="Qualification">
-                        <p class="profile-title-s">Qualification:</p>
-                        <p class="ms-3 fs-3">
-                            @if($questcreator->qualifications)
-                                {{ $questcreator->qualifications }}
-                            @else
-                                <span class="mute-text">Not set yet.</span>
-                            @endif
-                        </p>
+
+                    {{-- Creator's Quests --}}
+                    <div class="my-4">
+                        <h2><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green"> This Creator's Quests</h2>
+
                     </div>
-                    <div class="Introduction">
-                        <p class="profile-title-s">Introduction:</p>
-                        <p class="ms-3 fs-3">
-                            @if($questcreator->description)
-                                {{ $questcreator->description }}
-                            @else
-                                <span class="mute-text">Not set yet.</span>
-                            @endif
-                        </p>
-                    </div>
+
+                
                 </div>
+
+                
+
+
                
             </div>
         </div>
