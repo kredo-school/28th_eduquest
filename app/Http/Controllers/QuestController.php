@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Quest;
@@ -24,13 +25,25 @@ class QuestController extends Controller
     public function viewCreateQuest()
     {
         $categories = Category::all();
-        return view('quests.create')->with('categories', $categories);
+        // 新規作成時は空の配列、もしくは初期状態で１件の空データを渡す
+        // $chapters = []; // もしくは
+        $chapters = [new QuestChapter()];
+        
+        return view('quests.create')
+                ->with('categories', $categories)
+                ->with('chapters', $chapters);
     }
 
     public function create(Request $request)
     {
-        $categories = Category::all(); //カテゴリーデータを全て取得
-        return view('quests.create')->with('categories', $categories);
+        // 章のデータを取得
+        $chapters = QuestChapter::all();
+
+        // カテゴリーのデータを取得
+        $categories = Category::all();
+
+        // 変数をビューに渡す
+        return view('quests.create', compact('chapters', 'categories'));
     }
 
     public function store(Request $request)
@@ -39,17 +52,35 @@ class QuestController extends Controller
             'quest_title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'total_hours' => 'required|numeric|min:0.5|max:10',
-            'thumbnail' => 'required|url',
+            'thumbnail_type' => 'required|string|in:url,image',
+            'thumbnail' => [
+            'nullable',
+            function ($attribute, $value, $fail) use ($request) {
+                if ($request->thumbnail_type === 'url' && !filter_var($value, FILTER_VALIDATE_URL)) {
+                    $fail('サムネイルのURLが無効です');
+                }
+                if ($request->thumbnail_type === 'image' && !$request->hasFile('thumbnail')) {
+                    $fail('画像ファイルを選択してください');
+                }
+            },
+        ],
             'category' => 'required|array|min:1|max:3',   //カテゴリーの選択を必須(最大3つ)(最低1つ)
             'category.*' => 'exists:categories,id', //カテゴリーIDが有効か確認
             'sub_items' => 'required|array|min:1',  //少なくとも1つのチャプター
-            // 'sub_items.*.quest_chapter_title' => 'required|string|max:255',
-            // 'sub_items.*.description' => 'required|string|max:1000',
-            // 'sub_items.*.video' => 'required|url',  // 動画URL
+            'sub_items' => 'required|array|min:1',
+            'sub_items.*.quest_chapter_title' => 'required|string|max:255',
+            'sub_items.*.description' => 'nullable|string|max:1000',
         ]);
 
         // 画像の保存
-        // $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
+        $thumbnailPath = null;
+
+        if ($request->thumbnail_type === 'image' && $request->hasFile('thumbnail')) {
+            $thumbnailPath = 'storage/' . $request->file('thumbnail')->store('thumbnails', 'public');
+        } elseif ($request->thumbnail_type === 'url') {
+            $youtubeId = $this->extractYoutubeId($request->thumbnail);
+            $thumbnailPath = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
+        }
 
         // YouTubeのURLから動画IDを抽出
         $youtubeId = $this->extractYoutubeId($request->thumbnail);
@@ -62,20 +93,20 @@ class QuestController extends Controller
             'quest_title' => $request->quest_title,
             'description' => $request->description,
             'total_hours' => $request->total_hours,
-            // 'thumbnail' => $thumbnailPath,  // 保存した画像のパス
-            'thumbnail' => $thumbnailUrl,  // 生成したサムネイルURLを保存
+            'thumbnail' => $thumbnailPath,  // 保存した画像のパス
             'quest_creator_id' => Auth::id(),   // ログイン中のユーザーID設定
         ]);
 
 
         foreach ($request->sub_items as $index => $subItem) {
             QuestChapter::create([
-                'quest_chapter_title' => $subItem['quest_chapter_title'], 
-                'description' => $subItem['description'] ?? null, 
-                'video' => $subItem['video'] ?? null,
-                'quest_id' => $quest->id,             
+                'quest_chapter_title' => $subItem['quest_chapter_title'],
+                'description' => $subItem['description'] ?? null,  // null許容
+                'video' => $subItem['video'] ?? null,  // null許容
+                'quest_id' => $quest->id,
             ]);
         }
+        
         
         //選択されたカテゴリーを関連付ける
         foreach ($request->category as $categoryId) {
@@ -85,7 +116,7 @@ class QuestController extends Controller
             ]);
         }
 
-        return redirect()->route('quests.index');
+        return redirect()->route('quests.index')->with('success', 'Questが作成されました！');
     }
 
     // YouTubeのURLから動画IDを抽出するヘルパーメソッド
@@ -117,21 +148,44 @@ class QuestController extends Controller
             'quest_title' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'total_hours' => 'required|numeric|min:0.5|max:10',
-            'thumbnail' => 'required|url',  // 画像が選ばれている場合のみバリデーション
-            'category' => 'required|array|min:1|max:3',
-            'category.*' => 'exists:categories,id',
-            'sub_items' => 'required|array|min:1',
-            // 'sub_items.*.quest_chapter_title' => 'required|string|max:255',
-            // 'sub_items.*.description' => 'required|string|max:1000',
-            // 'sub_items.*.video' => 'required|url',
+            'thumbnail_type' => 'required|string|in:url,image',
+            'thumbnail' => [
+            'nullable',
+            function ($attribute, $value, $fail) use ($request) {
+                if ($request->thumbnail_type === 'url' && !filter_var($value, FILTER_VALIDATE_URL)) {
+                    $fail('サムネイルのURLが無効です');
+                }
+                if ($request->thumbnail_type === 'image' && !$request->hasFile('thumbnail')) {
+                    $fail('画像ファイルを選択してください');
+                }
+            },
+        ],
+            'category' => 'required|array|min:1|max:3',   //カテゴリーの選択を必須(最大3つ)(最低1つ)
+            'category.*' => 'exists:categories,id', //カテゴリーIDが有効か確認
+            'sub_items' => 'required|array|min:1',  //少なくとも1つのチャプター
         ]);
+
+        // 画像の保存
+        $thumbnailPath = null;
+
+        if ($request->thumbnail_type === 'image' && $request->hasFile('thumbnail')) {
+            $thumbnailPath = 'storage/' . $request->file('thumbnail')->store('thumbnails', 'public');
+        } elseif ($request->thumbnail_type === 'url') {
+            $youtubeId = $this->extractYoutubeId($request->thumbnail);
+            $thumbnailPath = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
+        }
+
+        // YouTubeのURLから動画IDを抽出
+        $youtubeId = $this->extractYoutubeId($request->thumbnail);
+        $thumbnailUrl = "https://img.youtube.com/vi/{$youtubeId}/0.jpg";
+
 
         // Questの更新
         $quest->update([
             'quest_title' => $request->quest_title,
             'description' => $request->description,
             'total_hours' => $request->total_hours,
-            'thumbnail' => $request->thumbnailUrl,  // 生成したサムネイルURLを保存
+            'thumbnail' => $thumbnailPath,  // 保存した画像のパス
             'quest_creator_id' => Auth::id(),
         ]);
 

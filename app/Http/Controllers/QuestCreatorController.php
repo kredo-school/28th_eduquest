@@ -195,5 +195,4 @@ class QuestCreatorController extends Controller
         ->with('success', 'Profile updated successfully!');
 
     }
-
 }
