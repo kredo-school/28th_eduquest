@@ -3,9 +3,9 @@
     {{-- 2 --}}
     <div>
         @if(auth()->user()->image)
-            <img src="{{ asset(Auth::user()->image) }}" alt="playerimage" class="player-image">
+            <img src="{{ asset(Auth::user()->image) }}" alt="playerimage" class="player-image rounded-circle">
         @else
-            <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image">
+            <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image rounded-circle">
         @endif
     </div>
     
@@ -44,18 +44,18 @@
     {{-- 4 --}}
     <div style="text-align: left">
         <img src={{ asset('images/sword.png') }} alt="sword" class="homeSword">
-        <a href="#" class="text-decoration-none fs-6 text-dark">Account Securlty</a>
+        <a href="{{ route('account.security', Auth::user()->id) }}" class="text-decoration-none fs-6 text-dark">Account Securlty</a>
     </div>
         @auth
             @if ( auth()->user()->role_id === 1)
                 <div style="text-align: left">
                     <img src={{ asset('images/sword.png') }} alt="sword" class="homeSword">
-                    <a href="#" class="text-decoration-none fs-6 text-dark">Switch to Quest Creator Account</a>
+                    <a href="{{ route('player.switch', Auth::user()->id) }}" class="text-decoration-none fs-6 text-dark">Switch to Quest Creator Account</a>
                 </div>
             @endif
         @endauth
     <div style="text-align: left">
         <img src={{ asset('images/sword.png') }} alt="sword" class="homeSword">
-        <a href="#" class="text-decoration-none fs-6 text-dark">Delete My Account</a>
+        <a href="{{ route('delete.account', Auth::user()->id) }}" class="text-decoration-none fs-6 text-dark">Delete My Account</a>
     </div>
 </div>
