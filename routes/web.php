@@ -12,6 +12,7 @@ use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\StudyPlanController;
 
 
 use App\Http\Controllers\FavoriteCreatorController;
@@ -33,6 +34,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/switch/{id}', [UserController::class, 'viewSwitchToCreator'])->name('player.switch');
     # To store Creator Info in Switch ~ Creator page
     Route::post('/questcreator/store',[QuestCreatorController::class,'store'])->name('questcreator.store');
+
 
     //Quest
     Route::get('/quests/{id}', [QuestController::class, 'show'])->name('quest.show');
@@ -69,9 +71,24 @@ Route::group(['middleware' => 'auth'], function(){
     // Chapter viewing (next, prev)
     Route::get('/chapter/{id}', [ChapterController::class, 'viewing'])->name('chapter.viewing');
 
+    // Studyplan 
+    Route::get('/player/{id}/studyplan', [StudyPlanController::class, 'show'])->name('player.studyplan');
+    Route::delete('/schedule/{id}/delete', [StudyPlanController::class, 'deleteSchedule'])->name('player.schedule.delete');
+    Route::delete('/player/watchlater/{id}', [StudyPlanController::class, 'deleteWatchLater'])
+        ->name('player.watchlater.delete');
+    Route::get('/player/{id}/watchlater', [StudyPlanController::class, 'watchLater'])->name('player.watchlater');
+    Route::post('/player/schedule/{userQuest}', [StudyPlanController::class, 'schedule'])
+        ->name('player.schedule');
+    Route::put('/player/schedule/{userQuestStatus}', [StudyPlanController::class, 'updateSchedule'])
+        ->name('player.schedule.update');
+
+    
     //QuestStatus
     Route::post('/start-quest', [ChapterlistController::class, 'startQuest'])->name('startQuest');
     Route::post('/quest/complete', [ChapterController::class, 'completeQuest'])->name('quest.complete');
+
+    # To go to StudyPlan page
+    Route::get('/player/{id}/studyplan', [StudyPlanController::class, 'show'])->name('player.studyplan');
 
     # To go to Chapterlist page
     Route::get('/quests/{id}/chapters', [ChapterlistController::class, 'viewChapterList'])
@@ -79,6 +96,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     # To go to viewing page
     Route::get('/quests/{questId}/chapters/{chapterId}', [ChapterController::class, 'viewing'])->name('chapters.viewing');
+    
     # player mypage
     // Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/test', [UserController::class, 'viewTestSwitch']);

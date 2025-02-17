@@ -1067,13 +1067,88 @@ pointer-events: none;
 
 .review-section textarea {
     background-color: white;
-    color: black;
+    color: #261C11;
 }
 
 .review-section button {
     margin-top: 10px;
 }
-/* ↑↑ For for players.quests.reviews.blade.php ↑↑ */
+/* ↑↑ For for players.modals.reviews.blade.php ↑↑ */
+
+/* ↓↓↓ for players.quests.studyplan / watch later.blade.php ↓↓↓ */
+.schedule-section {
+    position: relative; 
+    margin-bottom: 30px;
+    color: #261C11;
+    height: 80px;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+@media (max-width: 800px) {
+    .schedule-section {
+        background-size: contain;
+        margin-bottom: 8px;
+    }
+}
+
+  
+  .section-title {
+    position: absolute;
+    left: 180px; 
+    top: 50%;    
+    transform: translateY(-50%);  
+    margin: 0;   
+  }
+
+  @media (max-width: 800px) {
+    .header-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .add-schedule-btn {
+        margin-top: 0px; 
+        margin-bottom: 10px; 
+    }
+}
+
+  .section-title-2 {
+    position: absolute;
+    left: 115px; 
+    top: 50%;    
+    transform: translateY(-50%);  
+    margin: 0;   
+  }
+
+.quest-img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 15px;
+}
+
+.schedule-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+
+.schedule-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.calendar-btn {
+    background: none;
+    border: none;
+    align-items: center;
+}
+
+/* ↑↑ For for players.quests.studyplan / watch later.blade.php ↑↑ */
+
 
 /*-----------------------------------------[58:Favorite Quest Creator List]--------------------------------------*/
 

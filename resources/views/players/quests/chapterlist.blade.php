@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Player Chapterlist')
     @section('content')
+    
     <div class="container mt-1">
         <!-- 上部背景 -->
         <div class="p-4 position-relative" style="background: url('{{ asset('images/Group 209.png') }}') no-repeat center center; background-size:cover; height: 168px;">
@@ -85,7 +86,7 @@
                     <ul class="list-group"> 
                         @foreach ($quests_chapters as $quests_chapter) 
                             <li class=""> 
-                                <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $quests_chapter->id]) }}" class="text-decoration-none border  d-flex justify-content-between align-items-center mb-3 p-4" style="color :#261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"> 
+                                <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $quests_chapter->id]) }}" class="chapter-link text-decoration-none border  d-flex justify-content-between align-items-center mb-3 p-4" style="color :#261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"> 
                                     <div class="d-flex">
                                         <!-- 完了したチャプターには画像を表示 -->
                                         <div class="me-3 rounded border d-flex align-items-center justify-content-center bg-white" style="width: 30px !important; height: 25px !important; min-width: 30px; min-height: 25px; border-color: #261C11 !important; border-radius: 13px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
@@ -333,15 +334,18 @@
             </div>
         </div>
     </div>
+    @include('players.modals.tostart')
 @endsection
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/chapterlist.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // クエストID を Blade から取得
             const questId = "{{ $quest->id }}";
+            const userId = "{{ auth()->id() }}";
             // クエストごとに固有の localStorage キーを作成
-            const storageKey = "completed_chapters_" + questId;
+            const storageKey = "completed_chapters_" + userId + "_" + questId;
             
             // PHP で渡されたチャプター数
             const totalChapters = {{ count($quests_chapters) }};
@@ -358,70 +362,76 @@
         });
     </script>
     <script>
-    document.getElementById('startButton').addEventListener('click', function(e) {
-    e.preventDefault(); // デフォルトの動作をキャンセル
-    const button = e.currentTarget;
-    const questId = button.getAttribute('data-quest-id');
-
-    // ボタンが既に無効化されている場合は何もしない
-    if (button.disabled || button.textContent.trim() === 'In Progress' || button.textContent.trim() === 'Completed') {
-        return;
-    }
-
-    // ボタンの状態を一旦「In Progress」に変更
-    button.disabled = true;
-    button.style.backgroundColor = "#f0f0f0";
-    button.style.color = "#d3d3d3";
-    button.textContent = 'In Progress';
-
-    // ステータス更新用のリクエストを送信
-    fetch('{{ route('startQuest') }}', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({
-            quest_id: questId
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // タイムスタンプの表示
-            const timestampElement = document.getElementById('timestampDisplay');
-            timestampElement.textContent = data.timestamp;
-
-            // ステータスが 2（完了） なら「Completed」に変更
-            if (data.status === 2) {
-                button.textContent = 'Completed';
-                button.style.backgroundColor = "#d3d3d3";
-                button.style.color = "#f0f0f0";
-                button.disabled = true;
+        document.getElementById('startButton').addEventListener('click', function(e) {
+            e.preventDefault(); // デフォルトの動作をキャンセル
+            const button = e.currentTarget;
+            const questId = button.getAttribute('data-quest-id');
+        
+            // ボタンが既に無効化されている場合は何もしない
+            if (button.disabled || button.textContent.trim() === 'In Progress' || button.textContent.trim() === 'Completed') {
+                return;
             }
-
-            // 返ってきたステータスに応じた処理
-            if (data.status === 1) {  // 進行中の場合
-                // 既に「In Progress」になっているので、そのままにする
-                button.textContent = 'In Progress';
-                // 必要なら追加のスタイル調整
-            } else if (data.status === 2) {  // 完了の場合
-                button.textContent = 'Completed';
-                button.style.backgroundColor = "#d3d3d3";
-                button.style.color = "#f0f0f0";
-            }
-            // ボタンは無効化のままにする
+        
+            // ボタンの状態を一旦「In Progress」に変更
             button.disabled = true;
-        }
-    })
-    .catch(error => console.error('Error:', error));
-});
+            button.style.backgroundColor = "#f0f0f0";
+            button.style.color = "#d3d3d3";
+            button.textContent = 'In Progress';
+        
+            // ステータス更新用のリクエストを送信
+            fetch('{{ route('startQuest') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({
+                    quest_id: questId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // タイムスタンプの表示
+                    const timestampElement = document.getElementById('timestampDisplay');
+                    timestampElement.textContent = data.timestamp;
+        
+                    // ステータスが 2（完了） なら「Completed」に変更
+                    if (data.status === 2) {
+                        button.textContent = 'Completed';
+                        button.style.backgroundColor = "#d3d3d3";
+                        button.style.color = "#f0f0f0";
+                        button.disabled = true;
+                    }
+        
+                    // 返ってきたステータスに応じた処理
+                    if (data.status === 1) {  // 進行中の場合
+                        // 既に「In Progress」になっているので、そのままにする
+                        button.textContent = 'In Progress';
+                        // 必要なら追加のスタイル調整
+                    } else if (data.status === 2) {  // 完了の場合
+                        button.textContent = 'Completed';
+                        button.style.backgroundColor = "#d3d3d3";
+                        button.style.color = "#f0f0f0";
+                    }
+                    // ボタンは無効化のままにする
+                    button.disabled = true;
+        
+                    // 成功時にページをリロードして最新状態を反映する
+                    window.location.reload();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+    
 
     </script>
     <script>
         // クエストごとに固有のキーを作成
         const questId = "{{ $quest->id }}"; // BladeからクエストIDを取得
-        const storageKey = "completed_chapters_" + questId;
+        const userId = "{{ auth()->id() }}";
+        const storageKey = "completed_chapters_" + userId + "_" + questId;
         // クエストごとの完了チャプターを取得
         const completedChapters = JSON.parse(localStorage.getItem(storageKey) || '[]');
     
@@ -488,7 +498,7 @@
                 }
             });
         });
-        </script>
+    </script>
     <script>
         function deleteReview(reviewId) {
             // 確認ダイアログを削除
@@ -508,6 +518,26 @@
             })
             .catch(error => console.error('Error:', error));
         }
-    </script>        
-@endsection
+    </script>
+   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const questId = "{{ $quest->id }}";
+        const questStatus = {!! json_encode($questStatus) !!};
+        
+        // チャプターリンクがクリックされたときの処理
+        document.querySelectorAll('.chapter-link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                if (questStatus === 0 || questStatus === null) {
+                    e.preventDefault(); // リンクのデフォルト動作をキャンセル
+                    
+                    // Bootstrap 5でのモーダル表示
+                    var myModal = new bootstrap.Modal(document.getElementById('startModal'));
+                    myModal.show(); // モーダルを表示
+                }
+            });
+        });
+    });
+</script>
+@include('players.modals.tostart')
+    @endsection
 
