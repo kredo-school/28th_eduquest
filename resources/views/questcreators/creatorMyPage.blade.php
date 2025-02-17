@@ -128,10 +128,9 @@
                                 <h4>Quests:{{ $questCount }}</h4>
                             </div>
                             <div class="quest-management-bg2 m-1">
-                                <h4>Public Quests:</h4>
-                                <h4>Private Quests:</h4>
+                                <h4>Favorited Quests:</h4>
                             </div>
-                            <a href="#">
+                            <a href="{{ route('quests.index')}}">
                                 <img src="{{ asset('images/castle-image.png') }}" class="bg-image">
                             </a>
                         </div>
