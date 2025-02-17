@@ -27,18 +27,20 @@ class UserController extends Controller
 
     public function uploadCreatorImage(Request $request)
     {
+        // 「player_image」でバリデーション
         $request->validate([
             'player_image' => 'required|image|mimes:jpeg,jpg,png,gif|max:1048',
         ]);
 
         $user = Auth::user();
-        
-        // 画像を `storage/app/public/creator_images/` に保存
+
+        // ファイル保存
         if ($request->hasFile('player_image')) {
+            // storage/app/public/player_images に保存 → 戻り値は "player_images/ファイル名"
             $path = $request->file('player_image')->store('player_images', 'public');
-            $user->image = 'storage/' . $path; // パスをDBに保存
+            // DBには "storage/player_images/ファイル名" という形で保存
+            $user->image = 'storage/'.$path;
             $user->save();
-            
         }
 
         return redirect()->back()->with('success', 'Image uploaded successfully.');

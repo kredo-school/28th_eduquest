@@ -15,11 +15,19 @@
                 <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image">
             @endif
         </div>
+        
         <form action="{{ route('upload.creator.image') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
-                <input type="file" name="player_image" id="image" class="form-control form-control-sm mt-1" aria-describedby="avatar-info">
-                @error('player-image')
+                <!-- nameをplayer_imageにし、errorもplayer_imageに統一 -->
+                <input 
+                    type="file" 
+                    name="player_image" 
+                    id="image" 
+                    class="form-control form-control-sm mt-1"
+                    aria-describedby="avatar-info"
+                >
+                @error('player_image')
                     <p class="text-danger small">{{ $message }}</p>
                 @enderror
         
@@ -28,9 +36,14 @@
                     <p>Max file size: 1048kB</p>
                 </div>
         
-                <!-- Uploadボタン -->
                 <div class="text-center mt-2">
-                    <button type="submit" class="btn btn-sm border rounded px-3 py-2" style="color: #261C11; background-color:#fffff3; border-color: #261C11 !important; border-radius: 20px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">Upload</button>
+                    <button 
+                        type="submit" 
+                        class="btn btn-sm border rounded px-3 py-2"
+                        style="color: #261C11; background-color:#fffff3; border-color: #261C11 !important; border-radius: 20px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"
+                    >
+                        Upload
+                    </button>
                 </div>
             </div>
         </form>
