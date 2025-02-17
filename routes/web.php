@@ -12,6 +12,7 @@ use App\Http\Controllers\QuestsChapterController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\MypageController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\StudyPlanController;
 use App\Http\Controllers\FavoriteCreatorController;
 use App\Http\Controllers\UserQuestStatusController;
@@ -159,6 +160,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/guide-explanation', [QuestCreatorController::class, 'guideExplanation'])->name('questcreators.guide-explanation');
 
 });
+
+Route::get('/', [WelcomeController::class, 'show'])->name('welcome');
 
 # NEWS
 Route::get('/news', [NewsController::class, 'index']);

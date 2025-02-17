@@ -2,39 +2,47 @@
 nav{
     background-color: #261C11;
 }
+
 .navbar a{
     color: white;
     font-family: 'DotGothic16', sans-serif;
     
 }
+
 /*App title EduQuest*/
 .h5:hover,
 .h5:focus{
     color: #fff !important;
 }
+
 /*News Category FAQ*/
 .nav-item a:hover,
 .nav-item a:focus{
     color: #fff !important;
 }
+
 .nav-item a:active {
     color: #aaa !important;
     transform: translateY(2px);
 }
+
 /* Category Dropdown Menu */
 .nav-item-dropdown a{
     color: #261C11 !important;
     font-family: 'DotGothic16', sans-serif;
 }
+
 .nav-item-dropdown a:hover,
 .nav-item-dropdown a:focus {
     color: #261C11 !important;
     background-color: transparent;
 }
+
 .nav-item-dropdown a:active {
     color: #261C11 !important;
     transform: translateY(2px);
 }
+
 /*Sign in & Register*/
 .custom-btn {
     background-color: #588157;
@@ -50,10 +58,12 @@ nav{
     outline: none;
 
 }
+
 /* For Resistarion By Yudai  */
 .resistration-card .card-header {
     border-bottom: none;
 }
+
 .resistration .card-body {
     border-top: none;
  }
@@ -80,36 +90,43 @@ nav{
     background-position: center; /* Center the image */ 
     background-repeat: no-repeat; /* Disable image repetition */ 
 }
+
 /* Icon dropdown menu */
 .dropdown-menu {
     font-family: 'DotGothic16', sans-serif;
     color: #261C11;
 }
+
 .nav-item-2 a{
     color: #261C11;
     font-family: 'DotGothic16', sans-serif;
 }
+
 .nav-item-2 a:hover,
 .nav-item-2 a:focus {
     color: #261C11;
     background-color: transparent;
 }
+
 .nav-item-2 a:active {
     color: #261C11 !important;
     transform: translateY(2px);
 }
+
 /*hr*/
 .dropdown-menu .dropdown-divider {
     border-color: #aaa;
     opacity: 0.5;
     margin: 0.5rem 0;
 }
+
 /* Dropdown sword image */
 .sword{
     width: 1.5rem;
     height: 1.5rem;
     margin-right: 10px;
 }
+
  /* Default icon when no image is added */
 .icon {
     width:3rem;
@@ -120,12 +137,14 @@ nav{
     justify-content: center;
     align-items: center;
 }
+
 /* Icon when an image is added */
 .img-icon {
     width:3rem;
     height:3rem;
     object-fit: cover;
 }
+
 main{
     background-color: #fffff3;
     font-family: 'DotGothic16', sans-serif;
@@ -205,10 +224,180 @@ footer{
     text-overflow: ellipsis;          /* Add ellipsis (Chrome, etc.) */
 }
 
-/* queststatusでも使用 */
-.quests-row {
+.ranking-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.creator-ranking-container,
+.player-ranking-container {
+    background: #d0e0b3;
+    width: 50%;
+    height: auto;
+    padding: 1rem;
+    position: relative;
+}
+
+.ranking-content-wrapper {
+    max-height: 25rem;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+.creator-ranking-container h4,
+.player-ranking-container h4 {
+    background: #fff;
+    border: solid 1px black;
+    width: 12rem;
+    margin: 1rem 5rem;
+    padding: 0.5rem;
+}
+
+.ranking-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.ranking-content img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.ranking-list {
+    border: solid 1px black;
+    background-color: white;
+    width: 60%;
+}
+
+.ranking-list a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.ranking-list img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0.7rem 1rem;
+}
+
+.ranking-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.creator-ranking-container,
+.player-ranking-container {
+    background: #d0e0b3;
+    width: 50%;
+    height: auto;
+    padding: 1rem;
+    position: relative;
+}
+
+.ranking-content-wrapper {
+    max-height: 25rem;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+.creator-ranking-container h4,
+.player-ranking-container h4 {
+    background: #fff;
+    border: solid 1px black;
+    width: 12rem;
+    margin: 1rem 5rem;
+    padding: 0.5rem;
+}
+
+.ranking-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem;
+}
+
+.ranking-content img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.ranking-list {
+    border: solid 1px black;
+    background-color: white;
+    width: 60%;
+}
+
+.ranking-list a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.5rem;
+}
+
+.ranking-list img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0.7rem 1rem;
+}
+
+/*--------------------------[welcome.blade.php]---------------------------------------------------*/
+
+/* 拡大アニメーション */
+@keyframes zoomIn {
+    0% {
+      transform: scale(0.9);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
+.animated-logo {
+    animation: zoomIn 1.5s ease-in-out;
+    transition: transform 0.3s ease-out;
+}
+
+.animated-logo:hover {
+    transform: scale(1.05); /* 少し拡大する */
+}
+
+/* 画像が少し浮き上がる for [welcome message]　*/
+.hover-effect {
+    transition: transform 0.3s ease-out;
+}
+  
+.hover-effect:hover {
+    transform: translateY(-5px);
+}
+
+/* スクロールし続ける指定 for [new quests] */
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
     background-color: #FCFCE7;
 }
+  
+.marquee {
+    display: inline-block;
+}
+  /* queststatusでも使用 */
+.quests-row {
+    background-color: #FCFCE7;
+    overflow: visible !important;
+}
+
 
 /* queststatusでも使用 */
 .horizontal-scroll {
@@ -222,6 +411,8 @@ footer{
     flex: 0 0 auto;
     width: 200px;
     background-color: #fff;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    position: relative;
     /*  #EDEBEB */
 }
 
@@ -229,6 +420,34 @@ footer{
 .quest-item a {
     color: black;
     text-decoration: none;
+}
+
+.quest-item:hover {
+    transform: scale(1.05); /* 1.05倍に拡大 */
+    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.3); /* 影を強調して浮かせる */
+}
+
+.quests-row-category {
+    background-color: #FCFCE7;
+    overflow: hidden;
+}
+
+.horizontal-scroll-category {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    /* 必要に応じてスクロールバーやギャップの調整 */
+}
+
+/* もしスクロールバーが必要なら */
+.horizontal-scroll-category::-webkit-scrollbar {
+    height: 8px;
+}
+.horizontal-scroll-category::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
 }
 
 .aspect-ratio-16-9 {
@@ -351,6 +570,7 @@ text-align: center;
 width: 130px;
 }
 
+
 /* =============================== */
 /*        General Styles          */
 /* =============================== */
@@ -425,7 +645,7 @@ creator-profile-view{
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
-/* nana edit */
+
 .creator-edit-button a {
     color: black;
     text-decoration: none;
@@ -729,7 +949,8 @@ creator-profile-view{
 }
 /* For Quest-list page end */
 
-/* For Create Quest start */
+/*-----------------------------------------[75:Create Quest]-------------------------------------------*/
+
 /*-------------[form全体のデザイン]---------*/
 form {
     font-family: 'DotGothic16';
@@ -755,6 +976,8 @@ form {
     align-items: center;
     margin: auto;
 }
+
+/*-----------------------------------------[75: Creat Quest]--------------------------------------*/
 
 
 /*-----------[Create a Quest]---------------*/

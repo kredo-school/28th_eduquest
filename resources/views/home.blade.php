@@ -32,10 +32,82 @@
 @include('modals.news')
 
 {{-- Ranking --}}
-{{-- <div class="row gx-5">
-    <div class="h2 h3 mt-3"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Ranking</div>
+<div class="row gx-5">
+    <div class="h2 h3 mt-3">
+        <img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Ranking
+    </div>
 
-</div> --}}
+    <div class="ranking-container">
+
+        {{-- creator ranking --}}
+        <div class="creator-ranking-container">
+            <h4>Creator Ranking</h4>
+            <div class="ranking-content-wrapper">
+                @foreach ($rankingCreators as $index => $creator)
+                    {{-- １位, 2位, 3位に画像を追加 --}}
+                <div class="ranking-content">
+                    <div class="top3-image">
+                        @if ($index == 0)
+                            <img src="{{ asset('images/ingot_gold 1.png')}}" alt="gold">
+                        @elseif ($index == 1)
+                            <img src="{{ asset('images/ingot_silver 1.png')}}" alt="silver">
+                        @elseif ($index == 2)
+                            <img src="{{ asset('images/ingot_copper 1.png')}}" alt="bronze">
+                        @else
+                            <div style="width: 3rem; height: 3rem;"></div>
+                        @endif
+                    </div>
+                    
+                    <div class="ranking-list">
+                        <a href="{{ route('questcreators.profile.view', ['id' => $creator->id]) }}">
+                            @if ($creator && $creator->creator_image)
+                                <img src="{{ $creator->creator_image }}" alt="icon_image">
+                            @else  
+                                <img src="{{ asset('images/User icon.png') }}" alt="icon_image">
+                            @endif
+                            <span class="ms-1">{{ $creator->creator_name }}</span> (<i class="fa-solid fa-star text-warning fa-1x"></i>{{ $creator->favorites_count }})
+                        </a>  
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- player ranking --}}
+        <div class="player-ranking-container">
+            <h4>Player Ranking</h4>
+            <div class="ranking-content-wrapper">
+                @foreach ($rankingCreators as $index => $creator)
+                    {{-- １位, 2位, 3位に画像を追加 --}}
+                <div class="ranking-content">
+                    <div class="top3-image">
+                        @if ($index == 0)
+                            <img src="{{ asset('images/ingot_gold 1.png')}}" alt="gold">
+                        @elseif ($index == 1)
+                            <img src="{{ asset('images/ingot_silver 1.png')}}" alt="silver">
+                        @elseif ($index == 2)
+                            <img src="{{ asset('images/ingot_copper 1.png')}}" alt="bronze">
+                        @else
+                            <div style="width: 3rem; height: 3rem;"></div>
+                        @endif
+                    </div>
+                    
+                    <div class="ranking-list">
+                        <a href="{{ route('questcreators.profile.view', ['id' => $creator->id])}}">
+                            @if ($creator && $creator->creator_image)
+                                <img src="{{ $creator->creator_image }}" alt="icon_image">
+                            @else  
+                                <img src="{{ asset('images/User icon.png') }}" alt="icon_image">
+                            @endif
+                            <span class="ms-1"><img src="{{ asset('images/Polygon 15.png') }}" alt="バッチ"></span> 
+                        </a>  
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
 
 
 {{-- Quest list each Categories--}}
@@ -46,10 +118,8 @@
         {{--  Category Title  --}}
         <div class="mt-3">
             <h4><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="flag_green">{{ $category->category_name }}</h4>
-        
-        
         {{-- Quests Scroll --}}
-        <div class="horizontal-scroll quests-row px-3">
+        <div class="horizontal-scroll-category quests-row-category p-3">
             <!-- Thumbnail with spacing -->
             @forelse ($category->categoryQuests as $catQuest)
             @php
@@ -178,7 +248,6 @@
             @empty
                 <p>No quests in this category</p>
             @endforelse
-           
         </div>
     @endforeach    
 </div>
