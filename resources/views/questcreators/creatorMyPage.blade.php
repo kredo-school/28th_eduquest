@@ -101,7 +101,7 @@
                             <img src="{{ asset('images/shield_kiteshield_01_blue 2.png')}}" alt="house" style="width: 2.5rem; height: auto;">
                             <h3 class="m-2">Quest Management</h3>
                         </div>
-                        <div class="quest-manegement-container position-relative">
+                        <div class="quest-manegement-container" style="position: relative;">
                             <div class="quest-management-bg1 m-1">
                                 <h4>Quests:{{ $questCount }}</h4>
                             </div>
@@ -109,7 +109,7 @@
                                 <h4>Public Quests:</h4>
                                 <h4>Private Quests:</h4>
                             </div>
-                            <img src="{{ asset('images/castle.png')}}" class="position-absolute z-index-0" style="width: 30%; height: auto; right: 0; top: -50px;">
+                            <img src="{{ asset('images/castle.png') }}" class="position-absolute bg-image" style="width: 30%; height: auto; right: 0; bottom: 0;">
                         </div>
                     </div>
                 </div>
