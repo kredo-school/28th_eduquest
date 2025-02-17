@@ -11,9 +11,13 @@
             <div class="col-auto">
                 {{-- えー、リンクつける？ --}}
                 @if (Auth::user()->image)
-                    <img src="{{ Auth::user()->image }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">    
+                    <a href="{{ route('player.mypage', Auth::user()->id) }}">
+                        <img src="{{ Auth::user()->image }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">
+                    </a>    
                 @else
-                    <i class="fa-solid fa-circle-user text-secondary icon-md"></i>
+                    <a href="{{ route('player.mypage', Auth::user()->id) }}">
+                        <i class="fa-solid fa-circle-user text-secondary icon-md"></i>
+                    </a>
                 @endif
             </div>
             <div class="col">

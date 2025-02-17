@@ -1,5 +1,7 @@
 @extends('layouts.app')
+
 @section('title', 'Player My page')
+
 @section('content')
 <div class="container">
   <!-- flex-column (モバイルでは縦並び) & flex-md-row (中サイズ以上は横並び)
@@ -55,15 +57,15 @@
       <div class="row pb-2 justify-content-cente mt-4">
         <!-- Watch Later の下 -->
         <div class="col text-center" style="color: #261C11;">
-          <a href="#" class="text-decoration-none fs-1" style="color: #261C11;">{{ $watchlaterCount }}</a>
+          <a href="{{ route('quest.status', Auth::user()->id) }}" class="text-decoration-none fs-1" style="color: #261C11;">{{ $watchlaterCount }}</a>
         </div>
         <!-- In Progress の下 -->
         <div class="col text-center" style="color: #261C11;">
-          <a href="#" class="text-decoration-none fs-1" style="color: #261C11;">{{ $inProgressCount }}</a>
+          <a href="{{ route('quest.status', Auth::user()->id) }}" class="text-decoration-none fs-1" style="color: #261C11;">{{ $inProgressCount }}</a>
         </div>
         <!-- Completed の下 -->
         <div class="col text-center" style="color: #261C11;">
-          <a href="#" class="text-decoration-none fs-1" style="color: #261C11;">{{ $clearedQuestsCount }}</a>
+          <a href="{{ route('quest.status', Auth::user()->id) }}" class="text-decoration-none fs-1" style="color: #261C11;">{{ $clearedQuestsCount }}</a>
         </div>
       </div><!-- /row -->
     </div><!-- /m-side-bar-right -->
