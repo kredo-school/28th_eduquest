@@ -10,7 +10,7 @@
       <!-- Player Icon -->
       <div class="text-center">
         @if(auth()->user()->image)
-            <img src="{{ asset(auth()->user()->image) }}" alt="playerimage" class="player-image">
+            <img src="{{ auth()->user()->image }}" alt="playerimage" class="m-player-image rounded-circle">
         @else
             <img src="{{ asset('images/User icon.png') }}" alt="playerimage" class="player-image">
         @endif

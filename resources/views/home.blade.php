@@ -11,7 +11,7 @@
             <div class="col-auto">
                 {{-- えー、リンクつける？ --}}
                 @if (Auth::user()->image)
-                    <img src="{{ Auth::user()->image }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">                            
+                    <img src="{{ Auth::user()->image }}" alt=" {{ Auth::user()->name }} " class="rounded-circle image-md">    
                 @else
                     <i class="fa-solid fa-circle-user text-secondary icon-md"></i>
                 @endif

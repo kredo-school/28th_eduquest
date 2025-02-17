@@ -109,41 +109,28 @@ class UserController extends Controller
         return redirect('/')->with('status','Your account has been deleted.');
     }
 
-    // public function uploadCreatorImage(Request $request)
-    // {
-    //     $request->validate([
-    //         'player_image' => 'required|image|mimes:jpeg,jpg,png,gif|max:1048',
-    //     ]);
 
-    //     $user = Auth::user();
-        
-    //     // 画像を `storage/app/public/creator_images/` に保存
-    //     if ($request->hasFile('player_image')) {
-    //         $path = $request->file('player_image')->store('player_images', 'public');
-    //         $user->image = 'storage/' . $path; // パスをDBに保存
-    //         $user->save();
-            
-    //     }
 
-    //     return redirect()->back()->with('success', 'Image uploaded successfully.');
-    // }
-
-    // public function uploadPlayerImage(Request $request)
-    // {
-    //     $request->validate([
-    //         'player_image' => 'required|image|mimes:jpeg,jpg,png,gif|max:2048',
-    //     ]);
+    public function editPlayerImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif|max:1048',
+        ]);
     
-    //     // ファイルをstorageに保存 (public直下)
-    //     $path = $request->file('player_image')->store('public/player_images');
-        
-    //     // DB更新： 'image' カラムにパスをセット
-    //     $this->user->update([
-    //         // 'public/' を 'storage/' に置き換え（asset()で表示可能に）
-    //         'image' => str_replace('public/', 'storage/', $path),
-    //     ]);
+        $user = Auth::user();
     
-    //     return back()->with('status', 'Image uploaded successfully!');
-    // }
+        if ($request->hasFile('image')) {
+            // storage/app/public/player_images 以下に保存
+            // 戻り値は「player_images/ファイル名.jpg」のような相対パスになります
+            $path = $request->file('image')->store('player_images', 'public');
+    
+            // ★ DBに保存する時は「storage/player_images/xxx.jpg」にするか「player_images/xxx.jpg」のみにするか統一しましょう
+            // 例：DBには "player_images/xxx.jpg" だけを保存する
+            $user->image = $path;
+            $user->save();
+        }
+    
+        return redirect()->back()->with('success', 'Image uploaded successfully.');
+    }
 
 }
