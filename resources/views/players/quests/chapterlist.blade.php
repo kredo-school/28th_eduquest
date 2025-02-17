@@ -250,7 +250,7 @@
                                         <!-- アイコン -->
                                         <div class="me-3">
                                             @if(Auth::user()->image)
-                                            <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+                                            <img src="{{ asset(auth()->user()->image) }}" alt="" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
                                             @else
                                             <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
                                             @endif
