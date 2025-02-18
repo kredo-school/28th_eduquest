@@ -215,7 +215,7 @@
                 </div>
             </div>
         </nav>
-        <main class="@yield('main-class', 'py-0')">
+        <main class="@yield('main-class', 'pt-4')">
             <div class="container">
                 <div class="row justify-content-center">
                     @yield('content')
