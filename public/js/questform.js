@@ -101,6 +101,7 @@
         // 空の場合はプレビューをリセットして終了
         if (videoUrl === "") {
             videoPreview.src = "";
+            input.value = "";
             return;
         }
         
@@ -108,11 +109,12 @@
         if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
             const videoId = getYouTubeVideoId(videoUrl);
             if (videoId) {
-                videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
+                const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                videoPreview.src = embedUrl;
+                input.value = embedUrl;
             } else {
-                // 必ずしも alert を出さず、単にプレビューをクリアする方法もあります
-                // alert('Invalid YouTube URL');
                 videoPreview.src = "";
+                input.value = "";
             }
         }
     }

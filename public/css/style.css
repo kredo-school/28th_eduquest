@@ -1331,10 +1331,34 @@ form {
     transform: translateY(2px);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
 .disabled-chapter-btn {
 opacity: 0.5;         
 pointer-events: none; 
 }
+
+
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 700px; /* 動画エリアの最大幅を調整 (任意で変更) */
+    aspect-ratio: 16 / 9; /* CSSのアスペクト比を直接指定 */
+    overflow: hidden;
+    margin: 0 auto;
+    background-color: #000;
+    border-radius: 10px;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
 
 /* ↑↑ For for players.quests.viewingchapter.blade.php ↑↑ */
 
