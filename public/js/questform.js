@@ -3,13 +3,15 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             toggleThumbnailInput();
-        });
         
-        function toggleThumbnailInput() {
-            const type = document.getElementById('thumbnail_type').value;
-            document.getElementById('thumbnail_url').style.display = type === 'url' ? 'block' : 'none';
-            document.getElementById('thumbnail_image').style.display = type === 'image' ? 'block' : 'none';
-        }
+            // sub_items の入力値がある場合に動画プレビューを更新
+            document.querySelectorAll("input[name^='sub_items']").forEach(input => {
+                if (input.value.trim() !== "") {
+                    updateVideoPreview(input);
+                }
+            });
+        });
+
         
         function previewThumbnail() {
             const type = document.getElementById('thumbnail_type').value;
@@ -54,24 +56,30 @@
        // -----------------------------------[動画表示]-------------------------------------------
 
        function updateVideoPreview(input) {
-        const videoPreviewContainer = document.querySelector('.video-preview-container');
-        const videoPreview = document.getElementById('video_preview');
+        const index = input.id.split('_').pop(); // IDからインデックスを取得
+        const videoPreview = document.getElementById(`video_preview_${index}`);
         const videoUrl = input.value.trim();
-    
+        
+        // 空の場合はプレビューをリセットして終了
+        if (videoUrl === "") {
+            videoPreview.src = "";
+            return;
+        }
+        
+        // youtube.com または youtu.be を含む場合のみ処理
         if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
             const videoId = getYouTubeVideoId(videoUrl);
-    
             if (videoId) {
                 videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
-                videoPreviewContainer.style.display = 'block';  // プレビューを表示
             } else {
-                alert('Invalid YouTube URL');
-                resetVideoPreview();
+                // 必ずしも alert を出さず、単にプレビューをクリアする方法もあります
+                // alert('Invalid YouTube URL');
+                videoPreview.src = "";
             }
-        } else {
-            resetVideoPreview();
         }
     }
+    
+    
     
     // 動画プレビューをリセットする関数
     function resetVideoPreview() {
@@ -158,42 +166,39 @@
 
             // 小項目のHTML内容をinnerHTMLで指定
             newSubItem.innerHTML = `
-                    <div class="chapter-bg">
-                        <h5><i class="fa-solid fa-play m-1"></i>Chapter ${subItemCount}</h5>
+            <div class="chapter-bg">
+                <h5><i class="fa-solid fa-play m-1"></i>Chapter ${subItemCount}</h5>
+            </div>
+            <div class="row">
+                <div class="col-md-6 chapter-title">
+                    <div class="form-group">
+                        <label for="sub_item_title_${subItemCount}">Title:</label>
+                        <input type="text" class="form-control" id="sub_item_title_${subItemCount}" name="sub_items[${subItemCount}][quest_chapter_title]" required>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6 chapter-title">
-                            <div class="form-group">
-                                <label for="sub_item_title_${subItemCount}">Title:</label>
-                                <input type="text" class="form-control" id="sub_item_title_${subItemCount}" name="sub_items[${subItemCount}][quest_chapter_title]" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="sub_item_description_${subItemCount}">Description:</label>
-                                <textarea class="form-control" id="sub_item_description_${subItemCount}" name="sub_items[${subItemCount}][description]" rows="4" required></textarea>
-                            </div>
+                    <div class="form-group">
+                        <label for="sub_item_description_${subItemCount}">Description:</label>
+                        <textarea class="form-control" id="sub_item_description_${subItemCount}" name="sub_items[${subItemCount}][description]" rows="4" required></textarea>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="sub_item_video_${subItemCount}">Video Link:</label>
+                        <input type="url" class="form-control" id="sub_item_video_${subItemCount}" name="sub_items[${subItemCount}][video]" onchange="updateVideoPreview(this)">
+                        
+                        <!-- 動画埋め込みプレイヤー -->
+                        <div id="video_preview_container_${subItemCount}" >
+                            <iframe id="video_preview_${subItemCount}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-
-                                <label for="sub_item_video_${subItemCount}">Video Link:</label>
-                                <input type="url" class="form-control" id="sub_item_video_${subItemCount}" name="sub_items[${subItemCount}][video]" onchange="loadVideo(${subItemCount})">
-                                
-                                <!-- 動画埋め込みプレイヤー -->
-                                <div id="video_preview_container_${subItemCount}" class="video-preview-container mt-3" style="display: block;">
-                                    <iframe id="video_preview_${subItemCount}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-                                </div>
-
-                                <div class="d-flex justify-content-end">
-                                    <button type="button" class="btn-design mt-2" onclick="removeSubItem(1)">
-                                            Delete this chapter<img src="/images/delete-icon.png" style="width: 1.5rem; height: 1.3rem;">
-                                    </button>
-                                </div>
-
-                            </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn-design mt-2" onclick="removeSubItem(${subItemCount})">
+                                Delete this chapter<img src="/images/delete-icon.png" style="width: 1.5rem; height: 1.3rem;">
+                            </button>
                         </div>
                     </div>
-                `;
+                </div>
+            </div>
+        `;
+
 
             // 新しい小項目をページに追加
             document.getElementById('sub_item_section').appendChild(newSubItem);
@@ -232,7 +237,8 @@
                 const videoField = subItem.querySelector('input[type="url"]');  // Video URLのフィールド
                 videoField.id = `video_${newCount}`;
                 videoField.name = `sub_items[${newCount}][video]`;
-                videoField.setAttribute('onchange', `loadThumbnail(${newCount})`);    
+                videoField.setAttribute('onchange', 'updateVideoPreview(this)');
+
 
                 const thumbnail = subItem.querySelector('img');      // サムネイル画像
                 thumbnail.id = `thumbnail_${newCount}`;

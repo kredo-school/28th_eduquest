@@ -49,16 +49,23 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                @php
+                                    use Illuminate\Support\Str;
+                                    $thumbnailType = old('thumbnail_type', (Str::startsWith($quest->thumbnail, ['http://', 'https://']) ? 'url' : 'image'));
+                                @endphp
                                 <label for="video_image">Thumbnail:</label>
 
                                 <!-- サムネイルタイプ選択 -->
                                 <select class="form-select" id="thumbnail_type" name="thumbnail_type" onchange="toggleThumbnailInput()">
-                                    <option value="url" {{ old('thumbnail_type') == 'url' ? 'selected' : '' }}>YouTube URL</option>
-                                    <option value="image" {{ old('thumbnail_type') == 'image' ? 'selected' : '' }}>Upload image</option>
+                                    <option value="url" {{ $thumbnailType == 'url' ? 'selected' : '' }}>YouTube URL</option>
+                                    <option value="image" {{ $thumbnailType == 'image' ? 'selected' : '' }}>Upload image</option>
                                 </select>
 
                                 <!-- URL入力欄 -->
-                                <input type="url" class="form-control mt-2" id="thumbnail_url" name="thumbnail" value="{{ old('thumbnail', $quest->thumbnail) }}" placeholder="Enter YouTube thumbnail URL" onchange="previewImage(event)" required>
+                                <input type="url" class="form-control mt-2" id="thumbnail_url" name="thumbnail" 
+                                    value="{{ $thumbnailType == 'url' ? old('thumbnail', $quest->thumbnail) : '' }}" 
+                                    placeholder="Enter YouTube thumbnail URL" onchange="previewThumbnail()" required>
+
 
                                 <!-- 画像アップロード -->
                                 <input type="file" class="form-control mt-2" id="thumbnail_image" name="thumbnail"
@@ -73,14 +80,15 @@
                                     <label>Thumbnail Preview:</label>
                                     <div>
                                         <img id="thumbnail_preview" 
-                                            style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px;" 
-                                            src="{{ $quest->thumbnail ? asset($quest->thumbnail) : '' }}">
+                                             style="width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px;" 
+                                             src="{{ $thumbnailType == 'url' ? $quest->thumbnail : asset($quest->thumbnail) }}"
+                                             data-thumbnail="{{ $thumbnailType == 'image' ? asset($quest->thumbnail) : '' }}">
                                     </div>
-                                </div>
-
+                                </div>                                
                             </div>
                         </div>
                     </div>
+     
                     
                     <!-- Category -->
                     <div class="row">
@@ -138,10 +146,11 @@
                                     <div class="form-group">
                                         <!-- YouTube動画URL入力欄 -->
                                         <label for="video_{{ $index + 1 }}">YouTube Video URL:</label>
-                                        <input type="url" class="form-control" id="video_{{ $index + 1 }}" name="sub_items[{{ $index + 1 }}][video]" value="{{ old('sub_items.' . ($index + 1) . '.video', $chapter->video) }}" placeholder="Enter YouTube video URL" required onchange="updateVideoPreview({{ $index + 1 }})">
-
-                                        <!-- 動画プレビューエリア -->
-                                        <div class="video-preview-container mt-3">
+                                        <input type="url" class="form-control" id="video_{{ $index + 1 }}" name="sub_items[{{ $index + 1 }}][video]" 
+                                            value="{{ old('sub_items.' . ($index + 1) . '.video', $chapter->video) }}" 
+                                            placeholder="Enter YouTube video URL" required onchange="updateVideoPreview(this)">
+                                        <!-- Video Preview -->
+                                        <div class="video-preview-container">
                                             <iframe id="video_preview_{{ $index + 1 }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                         </div>
                                         <div class="d-flex justify-content-end">
