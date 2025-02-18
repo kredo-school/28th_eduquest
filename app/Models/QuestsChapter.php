@@ -40,4 +40,8 @@ class QuestsChapter extends Model
         ->first();;
     }
     
+
+    public function userQuests(){
+        return $this->hasMany(UserQuest::class, 'quest_chapter_id');
+    }
 }

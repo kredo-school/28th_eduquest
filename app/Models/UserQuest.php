@@ -43,4 +43,8 @@ class UserQuest extends Model
     {
         return $this->hasMany(UserQuestStatus::class);
     }
+    public function userQuestStatus()
+    {
+        return $this->hasMany(UserQuestStatus::class);  // UserQuestStatusモデルとのリレーション
+    }
 }

@@ -38,7 +38,7 @@ class QuestCreatorController extends Controller
         $this->questcreator->job_title = $request->job_title;
         $this->questcreator->description = $request->description;
         $this->questcreator->creator_image = 'data:image/' . $request->file('creator_image')->extension() . ';base64,' . base64_encode(file_get_contents($request->creator_image));
-        $this->questcreator->qualifications = $request->qualificationss;
+        $this->questcreator->qualifications = $request->qualifications;
         $this->questcreator->youtube = $request->youtube;
         $this->questcreator->facebook = $request->facebook;
         $this->questcreator->x_twitter = $request->x_twitter;

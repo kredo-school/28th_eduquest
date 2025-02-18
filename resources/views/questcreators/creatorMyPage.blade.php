@@ -12,7 +12,7 @@
             {{-- Creator Profile --}}
             <div class="creator-profile">
                 <div class="d-flex justify-content-center">
-                    <h3 class="creator-name fs-1 mx-auto my-3">{{ $questcreator->creator_name}}</h3>
+                    <h3 class="creator-name fs-2 mx-auto m-3">{{ $questcreator->creator_name}}</h3>
                 </div>
                 <div class="creator-profile-image">
                     <img src={{ $questcreator->creator_image }} alt="Creator Example" class="creator-avatar my-3">

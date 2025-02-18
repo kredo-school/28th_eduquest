@@ -33,7 +33,6 @@ class HomeController extends Controller
         //
     }
 
-    // ★★★★★ 1/28 要確認！！！　★★★★★
     # Show the news & categoriesin home page
     public function show()
     {
@@ -55,7 +54,7 @@ class HomeController extends Controller
             ->limit(10)  // 上位10人を取得
             ->get();
          
-        return view('players.home', compact('news_lists', 'categories','quests', 'rankingCreators', 'questcreator'));
+        return view('home', compact('news_lists', 'categories','quests', 'rankingCreators', 'questcreator'));
     }
 
     /**

@@ -14,7 +14,7 @@
         <!-- Modal window -->
         <div class="modal fade" id="newsModal" tabindex="-1" aria-labelledby="newsModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content news-modal-bg">
                     <div class="modal-header">
                         <h5 class="modal-title" id="newsModalLabel"><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green"> News List</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
