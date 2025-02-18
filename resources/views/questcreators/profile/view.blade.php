@@ -83,6 +83,7 @@
                     {{-- Creator's Quests --}}
                     <div class="my-4">
                         <h2><img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green"> This Creator's Quests</h2>
+                        
 
                     </div>
 
