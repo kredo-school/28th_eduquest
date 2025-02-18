@@ -9,9 +9,11 @@ use App\Models\Quest;
 class QuestCreatorController extends Controller
 {
     private $questcreator;
+
     public function __construct(QuestCreator $questcreator){
         $this->questcreator = $questcreator;
     }
+
     public function store(Request $request)
     {
         #1. Validate your data first
@@ -63,7 +65,9 @@ class QuestCreatorController extends Controller
  
 
     public function viewCreatorProfile($id){
-        $questcreator = QuestCreator::findOrFail($id);  // 指定のIDのcreatorを取得
+        $questcreator = $this->questcreator
+            ->with('quests')
+            ->findOrFail($id);  // 指定のIDのcreatorを取得
     
         // ログイン中のユーザー情報を取得
         $user = Auth::user();
