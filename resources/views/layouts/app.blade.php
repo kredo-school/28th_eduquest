@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm mb-1">
             <div class="container">
                 @guest
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -48,7 +48,7 @@
                     
                     {{-- Search bar here. Show it only to the login user. --}}
                     <ul class="navbar-nav mx-auto">
-                        <form action="#" method="GET" class="position-relative" style="width: 300px;">
+                        <form action="{{ route('quest.search') }}" method="GET" class="position-relative" style="width: 300px;">
                             <input type="search" name="search" class="form-control form-control-sm ps-4" placeholder="Search..." aria-label="Search">
                             <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-2 text-secondary"></i>
                         </form>
@@ -69,7 +69,9 @@
                                     $categories = DB::table('categories')->get();
                                 @endphp
                                 @foreach ($categories as $category)
-                                    <li><a class="dropdown-item" href="#"><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">{{ $category->category_name }}</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('quest.search', ['category' => $category->id]) }}"><img src="{{ asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">{{ $category->category_name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </li>
@@ -98,7 +100,8 @@
                                         <div class="rounded-circle icon">
                                             {{-- avatar/icon --}}
                                             @if( Auth::user()->image )
-                                                <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
+                                                {{-- <img src="{{ asset(Auth::user()->image) }}" alt="" class="rounded-circle img-icon"> --}}
+                                                <img src="{{ asset(Auth::user()->image) }}" alt="" class="rounded-circle img-icon">
                                             @else
                                                 <i class="fas fa-user"></i>
                                             @endif
@@ -110,7 +113,7 @@
                                             <div class="rounded-circle icon">
                                                 {{-- avatar/icon --}}
                                                 @if( Auth::user()->image )
-                                                    <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle img-icon">
+                                                    <img src="{{ asset(Auth::user()->image) }}" alt="" class="rounded-circle img-icon">
                                                 @else
                                                     <i class="fas fa-user"></i>
                                                 @endif
@@ -121,14 +124,14 @@
                                             </div>
                                         </div>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="{{ route('player.mypage', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My page</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Go to Quest Creator page</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('player.mypage', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Page</a></li>
+                                        {{-- <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Go to Quest Creator page</a></li>
+                                        <li><hr class="dropdown-divider"></li> --}}
+                                        <li><a class="dropdown-item" href="{{ route('quest.status', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Quest Status</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('player.studyplan', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Study Plan</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('favorites.index') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Favorite Quest Creator</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Quests</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Study Plan</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('favorites.index') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Favorite Quest Creator</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Setting</a></li>
+                                        <li><a class="dropdown-item" href="{{route('account.security', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Setting</a></li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -181,22 +184,21 @@
                                         <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Quest Data Overview</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Quests</a></li>
-                                        <li><a class="dropdown-item" href="#"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Study Plan</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('favorites.index') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">My Favorite Quest Creator</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('quest.status', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Quest Status</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('player.studyplan', Auth::user()->id) }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Study Plan</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('favorites.index') }}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword'" class="sword">Favorite Quest Creator</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="{{ route('questcreators.profile.view', ['id' => Auth::id()])}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">My Profile as Creator</a></li>
                                         <li><a class="dropdown-item" href="{{route('questcreators.profile.edit', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Edit My Creater Profile</a></li>
 
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="{{route('player.switch', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
+                                        <li><a class="dropdown-item" href="{{route('account.security', Auth::user()->id)}}"><img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Account Settitng</a></li>
                                         <li>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                                        <img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">
-                                                Logout
+                                                        <img src="{{asset('images/Sword Icon 02.png') }}" alt="sword" class="sword">Logout
                                             </a>
                                             <!-- ログアウト用フォーム -->
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -213,14 +215,14 @@
                 </div>
             </div>
         </nav>
-        <main class="py-0">
+        <main class="@yield('main-class', 'py-4')">
             <div class="container">
                 <div class="row justify-content-center">
                     @yield('content')
                 </div>
             </div>
         </main>
-        <footer class="footer text-white py-4">
+        <footer class="text-white py-4" style="margin: 0;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 mb-3">

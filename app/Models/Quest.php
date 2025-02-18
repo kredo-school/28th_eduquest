@@ -43,31 +43,37 @@ class Quest extends Model
         return $this->hasMany(QuestChapter::class, 'quest_id');
     }
 
-    // ユーザーとのリレーション
+    // UserUser
     public function users()
     {
         return $this->hasMany(User::class);
     }
-    // クエストチャプターとのリレーション
+    // QuestChapter
     public function questsChapters()
     {
         return $this->hasMany(QuestsChapter::class);
     }
-    // レビューレーティングとのリレーション
+    //ReviewsRating
     public function reviews_ratings()
     {
         return $this->hasMany(ReviewsRating::class);
     }
 
-    //レーティング平均
-    public function averageRating()
+    //Average(chapterlist)
+    public function getAverageRatingAttribute()
     {
         return $this->reviews_ratings()->avg('rating');
     }
     
-    // クエストが持つユーザークエスト
+    
     public function userQuests()
     {
         return $this->hasMany(UserQuest::class);
+    }
+
+    //schedule
+    public function planning()
+    {
+        return $this->hasMany(Planning::class);
     }
 }

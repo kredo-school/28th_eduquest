@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title', 'Create Quest')
+
 @section('content')
 <div class="container mt-5">
     <div class="create-container">
