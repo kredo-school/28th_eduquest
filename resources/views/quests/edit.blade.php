@@ -151,7 +151,7 @@
                                             placeholder="Enter YouTube video URL" required onchange="updateVideoPreview(this)">
                                         <!-- Video Preview -->
                                         <div class="video-preview-container">
-                                            <iframe id="video_preview_{{ $index + 1 }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                            <iframe id="video_preview_{{ $index + 1 }}"></iframe>
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="btn-design mt-2" onclick="removeSubItem({{ $index + 1 }})">Delete<img src="{{ asset('images/Group 206.png') }}" style="width: 1.5rem; height: 1.3rem;"></button>

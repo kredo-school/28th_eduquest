@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light shadow-sm mb-1">
+        <nav class="navbar navbar-expand-md navbar-light shadow-sm mb-0">
             <div class="container">
                 @guest
                     <a class="navbar-brand" href="{{ url('/') }}">
@@ -215,7 +215,7 @@
                 </div>
             </div>
         </nav>
-        <main class="@yield('main-class', 'py-4')">
+        <main class="@yield('main-class', 'py-0')">
             <div class="container">
                 <div class="row justify-content-center">
                     @yield('content')

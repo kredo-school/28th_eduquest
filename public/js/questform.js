@@ -12,23 +12,60 @@
             });
         });
 
-        
-        function previewThumbnail() {
-            const type = document.getElementById('thumbnail_type').value;
-            const previewImage = document.getElementById('thumbnail_preview');
+        function toggleThumbnailInput() {
+            let type = document.getElementById('thumbnail_type').value;
+            let urlInput = document.getElementById('thumbnail_url');
+            let fileInput = document.getElementById('thumbnail_image');
+            let previewImage = document.getElementById('thumbnail_preview');
         
             if (type === 'url') {
-                const url = document.getElementById('thumbnail_url').value;
-                const youtubeId = extractYoutubeId(url);
+                urlInput.style.display = 'block';
+                fileInput.style.display = 'none';
+                if (urlInput.value.trim() !== '') {
+                    previewImage.src = urlInput.value;
+                } else {
+                    previewImage.src = "/images/default-thumbnail.png";
+                }
+            } else { // imageの場合
+                urlInput.style.display = 'none';
+                fileInput.style.display = 'block';
+                // data-thumbnail 属性に保存された完全なURLを利用する
+                let savedThumbnail = previewImage.getAttribute('data-thumbnail');
+                if (savedThumbnail && savedThumbnail.trim() !== '') {
+                    previewImage.src = savedThumbnail;
+                } else {
+                    previewImage.src = "/images/default-thumbnail.png";
+                }
+        
+                fileInput.onchange = function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImage.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+            }
+        }
+        
+        function previewThumbnail() {
+            let type = document.getElementById('thumbnail_type').value;
+            let previewImage = document.getElementById('thumbnail_preview');
+        
+            if (type === 'url') {
+                let url = document.getElementById('thumbnail_url').value;
+                let youtubeId = extractYoutubeId(url);
                 if (youtubeId) {
                     previewImage.src = `https://img.youtube.com/vi/${youtubeId}/0.jpg`;
                 } else {
                     previewImage.src = "/images/default-thumbnail.png";
                 }
-            } else if (type === 'image') {
-                const fileInput = document.getElementById('thumbnail_image');
+            } else {
+                let fileInput = document.getElementById('thumbnail_image');
                 if (fileInput.files && fileInput.files[0]) {
-                    const reader = new FileReader();
+                    let reader = new FileReader();
                     reader.onload = function (e) {
                         previewImage.src = e.target.result;
                     };
@@ -37,7 +74,8 @@
                     previewImage.src = "/images/default-thumbnail.png";
                 }
             }
-        }        
+        }
+        
         function extractYoutubeId(url) {
             let match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
             return match ? match[1] : null;
@@ -186,8 +224,8 @@
                         <input type="url" class="form-control" id="sub_item_video_${subItemCount}" name="sub_items[${subItemCount}][video]" onchange="updateVideoPreview(this)">
                         
                         <!-- 動画埋め込みプレイヤー -->
-                        <div id="video_preview_container_${subItemCount}" >
-                            <iframe id="video_preview_${subItemCount}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        <div id="video_preview_container_${subItemCount}">
+                            <iframe id="video_preview_${subItemCount}"></iframe>
                         </div>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn-design mt-2" onclick="removeSubItem(${subItemCount})">
