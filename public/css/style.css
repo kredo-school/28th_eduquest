@@ -505,6 +505,24 @@ font-size: 0.7rem;        /* Fine-tuned size */
 margin-right: 4px;        /* Spacing between badges */
 }
 
+.quest-categories {
+    /* 1. 横並びにするが、幅が足りなければ折り返す */
+    display: flex;
+    flex-wrap: wrap;
+  
+    /* 2. カテゴリ同士の隙間。好みに応じて調整 */
+    gap: 4px;  
+    /*  あるいは row-gap / column-gap でもOK */
+  }
+  
+  .category-badge {
+    display: inline-block; /* すでに .category-badge に指定済みのことも多い */
+    /* 必要に応じてmargin調整。以下は例 */
+    margin: 0;
+    /* すでに .category-badge { background-color, padding, etc... } があるなら上書き不要 */
+  }
+  
+
 .flag_transparent {
     width: 2rem !important;
     height: auto !important; 

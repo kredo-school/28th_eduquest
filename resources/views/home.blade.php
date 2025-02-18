@@ -138,10 +138,11 @@
                                 </div>
                             </a>
                         </div>
+
                         {{-- Categories --}}
-                        <div>
+                        <div class="quest-categories">
                             @foreach ($catQuest->quest->categoryQuests as $qCat)
-                                <span class="category-badge">
+                                <span class="category-badge mx-1">
                                     {{ $qCat->category->category_name }}
                                 </span>
                             @endforeach
