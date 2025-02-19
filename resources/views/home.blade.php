@@ -32,8 +32,8 @@
 
 {{-- Ranking --}}
 <div class="row gx-5">
-    <h2 class="h3 mt-3">
-        <img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">Ranking
+    <h2 class="h3 mt-2">
+        <img src="{{ asset('images/crown_01_gold_red 1.png') }}" alt="flag_green" class="flag_green">Ranking
     </h2>
 
     <div class="ranking-container">
