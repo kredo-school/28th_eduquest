@@ -47,13 +47,13 @@ class HomeController extends Controller
         $categories = $this->category->with('categoryQuests.quest.questCreator')->get();
 
         $rankingCreators = QuestCreator::leftJoin('favorites', 'quest_creators.id', '=', 'favorites.quest_creator_id')
-            ->select('quest_creators.*')
-            ->selectRaw('COUNT(favorites.quest_creator_id) as favorites_count')
-            ->groupBy('quest_creators.id')
-            ->orderByDesc('favorites_count')
-            ->limit(10)  // 上位10人を取得
-            ->get();
-         
+                ->select('quest_creators.id', 'quest_creators.creator_name', 'quest_creators.creator_image')
+                ->selectRaw('COUNT(favorites.quest_creator_id) as favorites_count')
+                ->groupBy('quest_creators.id', 'quest_creators.creator_name', 'quest_creators.creator_image')
+                ->orderByDesc('favorites_count')
+                ->limit(10)
+                ->get();
+                     
         return view('home', compact('news_lists', 'categories','quests', 'rankingCreators', 'questcreator'));
     }
 

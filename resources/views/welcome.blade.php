@@ -47,10 +47,10 @@
                             @endif
 
                             {{-- Categories Badge --}}
-                            <div class="mt-1">
+                            <div class="quest-categories">
                                 @foreach ($quest->categoryQuests as $qCat)
                                     @if($qCat->category)
-                                        <span class="category-badge">
+                                        <span class="category-badge mx-1">
                                             {{ $qCat->category->category_name }}
                                         </span>
                                     @endif

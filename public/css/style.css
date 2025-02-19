@@ -382,7 +382,7 @@ footer{
   /* queststatusでも使用 */
 .quests-row {
     background-color: #FCFCE7;
-    overflow: visible !important;
+    /* overflow: visible !important; */
 }
 
 
@@ -401,6 +401,7 @@ footer{
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
     position: relative;
     /*  #EDEBEB */
+    overflow: visible;
 }
 
 /* queststatusでも使用 */
