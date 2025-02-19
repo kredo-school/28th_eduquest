@@ -50,34 +50,114 @@
                         @endif
                 </div>
 
-                {{-- Main Profile --}}
+                
                 <div class="creator-profile-view col-8 p-4 d-flex flex-column">
-                    <div class="job_title">
-                        <p class="profile-title-s">Job Title:</p>
-                        <p class="ms-3 fs-3">{{ $questcreator->job_title}}</p>
+                    {{-- Main Profile --}}
+                    <div class="bg-light border border-black rounded h-100 w-100 px-2">
+                        <div class="job_title">
+                            <p class="profile-title-s">Job Title:</p>
+                            <p class="ms-3 fs-3">{{ $questcreator->job_title}}</p>
+                        </div>
+                        <div class="Qualification">
+                            <p class="profile-title-s">Qualification:</p>
+                            <p class="ms-3 fs-3">
+                                @if($questcreator->qualifications)
+                                    {{ $questcreator->qualifications }}
+                                @else
+                                    <span class="mute-text">Not set yet.</span>
+                                @endif
+                            </p>
+                        </div>
+                        <div class="Introduction">
+                            <p class="profile-title-s">Introduction:</p>
+                            <p class="ms-3 fs-3">
+                                @if($questcreator->description)
+                                    {{ $questcreator->description }}
+                                @else
+                                    <span class="mute-text">Not set yet.</span>
+                                @endif
+                            </p>
+                        </div>
                     </div>
-                    <div class="Qualification">
-                        <p class="profile-title-s">Qualification:</p>
-                        <p class="ms-3 fs-3">
-                            @if($questcreator->qualifications)
-                                {{ $questcreator->qualifications }}
-                            @else
-                                <span class="mute-text">Not set yet.</span>
-                            @endif
-                        </p>
-                    </div>
-                    <div class="Introduction">
-                        <p class="profile-title-s">Introduction:</p>
-                        <p class="ms-3 fs-3">
-                            @if($questcreator->description)
-                                {{ $questcreator->description }}
-                            @else
-                                <span class="mute-text">Not set yet.</span>
-                            @endif
-                        </p>
+
+                    {{-- Creator's Quests --}}
+                    <div class="my-4">
+                        <h2>
+                            <img src="{{ asset('images/flag_green.png') }}" alt="flag_green" class="flag_green">
+                            This Creator's Quests
+                        </h2>
+
+                        <div class="creator-quests-scrollbox">
+                            <div class="horizontal-scroll quests-row px-3">
+                                @forelse ($questcreator->quests as $quest)
+                                    <div class="card quest-item mx-1" style="width: 200px;">
+                                        <!-- 1) Thumbnail -->
+                                        @if ($quest->thumbnail)
+                                            <div class="aspect-ratio-16-9">
+                                                <a href="{{ route('quests.chapters', ['id' => $quest->id]) }}">
+                                                    <div class="aspect-ratio-16-9-inner">
+                                                        <img src="{{ $quest->thumbnail }}" alt="Quest Thumbnail">
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        @else
+                                            <a href="{{ route('quests.chapters', ['id' => $quest->id]) }}">
+                                                <div class="aspect-ratio-16-9 no-image-box">
+                                                    <span class="no-image-text-center">No Image</span>
+                                                </div>
+                                            </a>
+                                        @endif
+
+                                        <!-- 2) Quest Title + Red Flag Icon -->
+                                        @php
+                                            $record = Auth::user()->userQuests
+                                                ->where('quest_id', $quest->id)
+                                                ->first();
+                                            $status = $record ? $record->status : null;
+                                        @endphp
+
+                                        <div class="d-flex justify-content-between align-items-center px-2 mt-2">
+                                            <!-- タイトル -->
+                                            <a href="{{ route('quests.chapters', ['id' => $quest->id]) }}"
+                                            class="text-dark text-decoration-none">
+                                            <span>{{ $quest->quest_title }}</span>
+                                            </a>
+
+                                            <!-- Watch Later アイコン (status別) -->
+                                            @if (is_null($status))
+                                                {{-- status=null → 透明旗を表示、クリックしたらWatchLater=0登録 --}}
+                                                <form action="{{ route('watch.later.toggle', $quest->id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-light" style="border:none;">
+                                                        <img src="{{ asset('images/flag_transparent.png') }}" alt="flag_transparent" class="flag_transparent">
+                                                    </button>
+                                                </form>
+                                            @elseif ($status == 0)
+                                                {{-- status=0(WatchLater) → 赤旗を表示、クリックでトグルOFF(削除) or InProgressへ変更 --}}
+                                                <form action="{{ route('watch.later.toggle', $quest->id) }}"
+                                                    method="POST" style="display:inline;">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-sm btn-light" style="border:none;">
+                                                        <img src="{{ asset('images/flag_red.png') }}" alt="flag_red" class="flag_green">
+                                                    </button>
+                                                </form>
+                                            @elseif ($status == 1)
+                                                {{-- status=1(InProgress) → 赤旗固定(クリック不可) --}}
+                                                <img src="{{ asset('images/flag_red.png') }}" alt="flag_red" class="flag_green">
+                                            @elseif ($status == 2)
+                                                {{-- status=2(Completed) → 赤旗固定(クリック不可) --}}
+                                                <img src="{{ asset('images/flag_red.png') }}" alt="flag_red" class="flag_green">
+                                            @endif
+                                        </div>
+                                    </div>
+                                @empty
+                                    <p>No quests created by this creator yet.</p>
+                                @endforelse
+                            </div>
+                        </div>
                     </div>
                 </div>
-               
             </div>
         </div>
     </body>

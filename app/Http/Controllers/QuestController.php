@@ -271,6 +271,4 @@ class QuestController extends Controller
         // ビューにデータを渡す
         return view('players.quests.chapterlist', compact('quest', 'user_review', 'other_reviews'));
     }
-
-
 }

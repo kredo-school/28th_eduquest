@@ -67,9 +67,18 @@
                                 <img src="..\images\mark_diamond_red.png" alt="diamond"
                                     style="width: 20px; height: 20px; margin: 5px;">
                                 {{ __('Login') }}
-                            </button>
+                                </button>
 
-                            </div>
+                                <!-- ②Registrationボタンを追加する -->
+                              <a href="{{ route('register') }}"
+                                  class="btn w-100 bg-white text-dark fw-bold rounded-pill border border-dark" 
+                                  style="text-decoration: none;">
+                                   <img src="..\images\mark_diamond_yellow.png" alt="diamond"
+                                        style="width: 20px; height: 20px; margin: 5px;">
+                                   {{ __('Register') }}
+                               </a>
+
+                                </div>
                         </div>
                     </form>
                 </div>
