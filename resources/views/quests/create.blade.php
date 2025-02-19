@@ -85,9 +85,6 @@
                             </div>
                         </div>
                         
-                        <!-- questform.js を読み込む -->
-                        <script src="{{ asset('js/questform.js') }}"></script>
-                        
                     </div>
                     <div class="row">
                         <div class="form-group">
@@ -151,7 +148,7 @@
 
 
                                                 <div class="video-preview-container">
-                                                    <iframe id="video_preview_{{ $subItemId }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                                    <iframe id="video_preview_{{ $subItemId }}"></iframe>
                                                 </div>
                                                 <div class="d-flex justify-content-end">
                                                     <button type="button" class="btn-design mt-2" onclick="removeSubItem({{ $subItemId }})">Delete<img src="{{ asset('images/Group 206.png') }}" style="width: 1.5rem; height: 1.3rem;"></button>
