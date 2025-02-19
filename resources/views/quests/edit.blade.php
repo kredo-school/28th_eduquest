@@ -88,11 +88,8 @@
                             </div>
                         </div>
                     </div>
+     
                     
-                    <!-- questform.js を読み込む -->
-                    <script src="{{ asset('js/questform.js') }}"></script>
-
-
                     <!-- Category -->
                     <div class="row">
                         <div class="form-group">
@@ -147,12 +144,14 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <!-- YouTube動画URL入力欄 -->
                                         <label for="video_{{ $index + 1 }}">YouTube Video URL:</label>
                                         <input type="url" class="form-control" id="video_{{ $index + 1 }}" name="sub_items[{{ $index + 1 }}][video]" 
                                             value="{{ old('sub_items.' . ($index + 1) . '.video', $chapter->video) }}" 
                                             placeholder="Enter YouTube video URL" required onchange="updateVideoPreview(this)">
+                                        <!-- Video Preview -->
                                         <div class="video-preview-container">
-                                            <iframe id="video_preview_{{ $index + 1 }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                            <iframe id="video_preview_{{ $index + 1 }}"></iframe>
                                         </div>
                                         <div class="d-flex justify-content-end">
                                             <button type="button" class="btn-design mt-2" onclick="removeSubItem({{ $index + 1 }})">Delete<img src="{{ asset('images/Group 206.png') }}" style="width: 1.5rem; height: 1.3rem;"></button>

@@ -4,9 +4,11 @@
 <div class="container">
     <div class="w-100" >
         <div class="video-player text-center">
-            <iframe width="85%" height="400px" src="{{ $chapter->video }}" frameborder="0" allowfullscreen></iframe>
+            <div class="video-wrapper">
+                <iframe src="{{ $chapter->video }}" frameborder="0" allowfullscreen></iframe>
+            </div>
         </div>
-    
+            
         <div class="d-flex justify-content-between align-items-center mt-3">
             <div class="d-flex align-items-center gap-3 mt-3">
                 <h2 class="m-0 mb-1">{{ $chapter->quest_chapter_title }}</h2>

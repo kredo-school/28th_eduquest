@@ -101,6 +101,7 @@
         // 空の場合はプレビューをリセットして終了
         if (videoUrl === "") {
             videoPreview.src = "";
+            input.value = "";
             return;
         }
         
@@ -108,11 +109,12 @@
         if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
             const videoId = getYouTubeVideoId(videoUrl);
             if (videoId) {
-                videoPreview.src = `https://www.youtube.com/embed/${videoId}`;
+                const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                videoPreview.src = embedUrl;
+                input.value = embedUrl;
             } else {
-                // 必ずしも alert を出さず、単にプレビューをクリアする方法もあります
-                // alert('Invalid YouTube URL');
                 videoPreview.src = "";
+                input.value = "";
             }
         }
     }
@@ -224,8 +226,8 @@
                         <input type="url" class="form-control" id="sub_item_video_${subItemCount}" name="sub_items[${subItemCount}][video]" onchange="updateVideoPreview(this)">
                         
                         <!-- 動画埋め込みプレイヤー -->
-                        <div id="video_preview_container_${subItemCount}" class="video-preview-container mt-3" style="display: block;">
-                            <iframe id="video_preview_${subItemCount}" width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                        <div id="video_preview_container_${subItemCount}">
+                            <iframe id="video_preview_${subItemCount}"></iframe>
                         </div>
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn-design mt-2" onclick="removeSubItem(${subItemCount})">
