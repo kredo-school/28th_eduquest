@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title', 'Player Chapterlist')
-    @section('content')
+@section('content')
     
     <div class="container mt-1">
         <!-- 上部背景 -->
@@ -106,7 +106,20 @@
                         @endforeach 
                     </ul>
                 </div>
-                <div class="mt-3 d-flex justify-content-between">
+                <div id="startModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #588157;">
+                                <h5 class="modal-title">Let's Start!</h5>
+                            </div>
+                            <div class="modal-body text-center" style="background-color: #fffff3;">
+                                <p>To start this quest, you must first press the start button.</p>
+                                <button type="button" class="btn btn-secondary border rounded px-3 py-2 bg-white" style="color :#261C11; border-color: #261C11 !important; border-radius : 20px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);" data-bs-dismiss="modal"><img src="{{{asset('images/shield_kiteshield_02_red 1.png') }}}" alt="treasure box" class="me-2" style="width: 23px; height: 23px;">Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 mb-3 d-flex justify-content-between">
                     <div>
                         @if($userQuest)
                             @if($userQuest->status == 2)
@@ -250,7 +263,7 @@
                                         <!-- アイコン -->
                                         <div class="me-3">
                                             @if(Auth::user()->image)
-                                            <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+                                            <img src="{{ asset(Auth::user()->image) }}" alt="" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
                                             @else
                                             <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
                                             @endif
@@ -300,8 +313,8 @@
                                             
                                             <!-- アイコン -->
                                             <div class="me-3">
-                                                @if($review->user->avatar)
-                                                    <img src="{{ $review->user->avatar }}" alt="" class="rounded-circle" width="40" height="40"
+                                                @if($review->user->image)
+                                                    <img src="{{ asset($review->user->image) }}" alt="" class="rounded-circle" width="40" height="40"
                                                         style="object-fit: cover;">
                                                 @else
                                                     <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
@@ -334,10 +347,8 @@
             </div>
         </div>
     </div>
-    @include('players.modals.tostart')
 @endsection
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/chapterlist.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -425,8 +436,6 @@
         });
     </script>
     
-
-    </script>
     <script>
         // クエストごとに固有のキーを作成
         const questId = "{{ $quest->id }}"; // BladeからクエストIDを取得
@@ -519,25 +528,25 @@
             .catch(error => console.error('Error:', error));
         }
     </script>
-   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const questId = "{{ $quest->id }}";
-        const questStatus = {!! json_encode($questStatus) !!};
-        
-        // チャプターリンクがクリックされたときの処理
-        document.querySelectorAll('.chapter-link').forEach(function(link) {
-            link.addEventListener('click', function(e) {
-                if (questStatus === 0 || questStatus === null) {
-                    e.preventDefault(); // リンクのデフォルト動作をキャンセル
-                    
-                    // Bootstrap 5でのモーダル表示
-                    var myModal = new bootstrap.Modal(document.getElementById('startModal'));
-                    myModal.show(); // モーダルを表示
-                }
-            });
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const questStatus = {!! json_encode($questStatus) !!};
+
+    document.querySelectorAll('.chapter-link').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+            if (questStatus === 0 || questStatus === null) {
+                e.preventDefault();
+                const startModal = document.getElementById('startModal');
+                const modal = new bootstrap.Modal(startModal);
+                modal.show();
+            }
         });
     });
-</script>
-@include('players.modals.tostart')
-    @endsection
+});
 
+    </script>
+   
+@endsection
+{{-- @section('modals')
+    @include('players.modals.tostart')
+@endsection --}}
