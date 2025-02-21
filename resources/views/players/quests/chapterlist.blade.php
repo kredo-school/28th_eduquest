@@ -250,7 +250,7 @@
                                         <!-- アイコン -->
                                         <div class="me-3">
                                             @if(Auth::user()->image)
-                                            <img src="{{ Auth::user()->image }}" alt="" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
+                                            <img src="{{ asset(Auth::user()->image) }}" alt="" class="rounded-circle" width="40" height="40" style="object-fit: cover;">
                                             @else
                                             <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
                                             @endif
@@ -300,8 +300,8 @@
                                             
                                             <!-- アイコン -->
                                             <div class="me-3">
-                                                @if($review->user->avatar)
-                                                    <img src="{{ $review->user->avatar }}" alt="" class="rounded-circle" width="40" height="40"
+                                                @if($review->user->image)
+                                                    <img src="{{ asset($review->user->image) }}" alt="" class="rounded-circle" width="40" height="40"
                                                         style="object-fit: cover;">
                                                 @else
                                                     <i class="fas fa-user rounded-circle" style="font-size: 20px; color: #261C11;"></i>
