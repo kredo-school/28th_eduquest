@@ -337,7 +337,6 @@
     @include('players.modals.tostart')
 @endsection
 @section('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('js/chapterlist.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -519,25 +518,33 @@
             .catch(error => console.error('Error:', error));
         }
     </script>
-   <script>
+ <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const questId = "{{ $quest->id }}";
         const questStatus = {!! json_encode($questStatus) !!};
-        
-        // チャプターリンクがクリックされたときの処理
+
         document.querySelectorAll('.chapter-link').forEach(function(link) {
             link.addEventListener('click', function(e) {
-                if (questStatus === 0 || questStatus === null) {
-                    e.preventDefault(); // リンクのデフォルト動作をキャンセル
-                    
-                    // Bootstrap 5でのモーダル表示
-                    var myModal = new bootstrap.Modal(document.getElementById('startModal'));
-                    myModal.show(); // モーダルを表示
+                if (questStatus == 0 || questStatus == null) {
+                    e.preventDefault();
+                    const startModal = document.getElementById('startModal');
+                    startModal.classList.add('show');
+                    startModal.style.display = 'block';
+                    startModal.removeAttribute('aria-hidden');
+                    startModal.setAttribute('aria-modal', 'true');
+
+                    // モーダルを閉じる処理
+                    startModal.querySelectorAll('[data-bs-dismiss="modal"]').forEach(function(btn) {
+                        btn.addEventListener('click', function() {
+                            startModal.classList.remove('show');
+                            startModal.style.display = 'none';
+                            startModal.setAttribute('aria-hidden', 'true');
+                        });
+                    });
                 }
             });
         });
     });
 </script>
-@include('players.modals.tostart')
+
     @endsection
 
