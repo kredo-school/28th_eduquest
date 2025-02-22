@@ -121,4 +121,40 @@ class ChapterlistController extends Controller
         ]);
     }
 
+    public function completeQuest(Request $request)
+    {
+        $user = auth()->user();
+        $questId = $request->input('quest_id');
+
+        // ユーザーのクエスト情報を取得
+        $userQuest = UserQuest::where('user_id', $user->id)
+            ->where('quest_id', $questId)
+            ->first();
+
+        if ($userQuest && $userQuest->status == 1) {
+            // ステータスを2（完了）に変更し、date_ended に現在時刻をセット
+            $userQuest->status = 2;
+            $userQuest->date_ended = now();
+            $userQuest->save();
+
+            // user_quest_status テーブルに完了ステータスの履歴を追加
+            UserQuestStatus::create([
+                'user_quest_id' => $userQuest->id,
+                'status' => 2,  // 完了
+                'status_date' => now(),
+            ]);
+
+            return response()->json([
+                'success'   => true,
+                'timestamp' => $userQuest->date_started->format('Y-m-d H:i:s'),
+                'status'    => $userQuest->status,  // 2（完了）
+                'date_ended' => $userQuest->date_ended->format('Y-m-d H:i:s') // 完了時刻
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Quest already completed or not found.'
+        ], 400);
+    }
 }

@@ -37,7 +37,7 @@
                             style="color: #261C11; border: 1px solid #261C11; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); 
                                 max-width: 100%; width: 88%; height: auto; min-height: 100px; overflow: hidden;">
                             
-                            <img src="{{ $schedule->userQuest->quest->thumbnail }}" alt="quest image" class="quest-img"
+                            <img src="{{ asset($schedule->userQuest->quest->thumbnail) }}" alt="quest image" class="quest-img"
                                 style="max-width: 100px; height: auto; object-fit: cover; flex-shrink: 0;">
                             
                             <div class="schedule-info d-flex flex-grow-1 align-items-center ms-2" style="min-width: 0; flex-shrink: 1;">

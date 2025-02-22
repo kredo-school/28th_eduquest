@@ -2,7 +2,7 @@
 @section('title', 'Player viewingchapter')
 @section('content')
 <div class="container">
-    <div class="w-100" >
+    <div class="w-100 mb-3" >
         <div class="video-player text-center">
             <div class="video-wrapper">
                 <iframe src="{{ $chapter->video }}" frameborder="0" allowfullscreen></iframe>
@@ -54,7 +54,11 @@
                 @endif
             </div>
         </div>
-        <p class="mt-2">{{ $chapter->description }}</p>
+        <div class="w-50 text-wrap text-center mt-3" style="max-height: 3em; overflow-y: auto;">
+            <p class="text-break mb-0" style="word-break: break-word; overflow-wrap: break-word; white-space: normal; max-width: 100%; line-height: 1.5em;">
+                {{ $chapter->description }}
+            </p>
+        </div>
     </div>
 </div>
 
