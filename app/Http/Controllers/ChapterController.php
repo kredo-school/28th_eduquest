@@ -54,32 +54,33 @@ class ChapterController extends Controller
         return view('players.quests.viewingchapter', compact('quest', 'quest_creator', 'chapter', 'nextChapter', 'prevChapter', 'otherChapters', 'isLastChapter', 'quests_chapters', 'userQuestId','userQuest'));
     }
    // クエスト完了
-    public function completeQuest(Request $request)
-    {
-        $userQuest = UserQuest::where('user_id', auth()->id())
-            ->where('quest_id', $request->quest_id)
-            ->first();
-
-        if ($userQuest && $userQuest->status == 1) {
-            // ステータスを2（完了）に変更
-            $userQuest->status = 2;
-            $userQuest->save();
-
-            // user_quest_status テーブルに完了ステータスを履歴として追加
-            UserQuestStatus::create([
-                'user_quest_id' => $userQuest->id,
-                'status' => 2,  // 完了
-                'status_date' => now(),
-            ]);
-
-            return response()->json([
-                'success' => true,
-                'status' => 'Completed',
-            ]);
-        }
-
-        return response()->json(['success' => false], 400);
-    }
-
+   public function completeQuest(Request $request)
+   {
+       $userQuest = UserQuest::where('user_id', auth()->id())
+           ->where('quest_id', $request->quest_id)
+           ->first();
+   
+       if ($userQuest && $userQuest->status == 1) {
+           // ステータスを2（完了）に変更し、date_ended に現在時刻をセット
+           $userQuest->status = 2;
+           $userQuest->date_ended = now();  // この行を追加
+           $userQuest->save();
+   
+           // user_quest_status テーブルに完了ステータスを履歴として追加
+           UserQuestStatus::create([
+               'user_quest_id' => $userQuest->id,
+               'status' => 2,  // 完了
+               'status_date' => now(),
+           ]);
+   
+           return response()->json([
+               'success' => true,
+               'status' => 'Completed',
+           ]);
+       }
+   
+       return response()->json(['success' => false], 400);
+   }
+   
     }
 

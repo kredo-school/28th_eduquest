@@ -8,7 +8,7 @@
             <!-- アイコンと名前 詳細-->
             <div class="d-flex flex-column align-items-start position-absolute" style="top: 10%; left: 5%;">
                 <div class="d-flex align-items-center">
-                    <a href="#" class="nav-link d-flex align-items-center  p-3" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="nav-link d-flex align-items-center p-3" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="rounded-circle icon">
                             {{-- avatar/icon --}}
                             @if( $quest_creator->creator_image )
@@ -18,14 +18,17 @@
                             @endif
                         </div>
                     </a>
-                    <span class="">{{ $quest_creator->creator_name }}</span>
+                    <span>{{ $quest_creator->creator_name }}</span>
                 </div>
-                <div class="w-50 text-wrap text-center">
-                    <p class="text-break mb-0" style="word-break: break-word; overflow-wrap: break-word; white-space: normal; display: block; max-width: 100%;">
+                <!-- 高さを2行分（例：line-height 1.5emの場合、2行で3em）に固定し、overflow-y: auto; を設定 -->
+                <div class="w-50 text-wrap text-center mt-3" style="max-height: 3em; overflow-y: auto;">
+                    <p class="text-break mb-0" style="word-break: break-word; overflow-wrap: break-word; white-space: normal; max-width: 100%; line-height: 1.5em;">
                         {{ $quest->description }}
                     </p>
                 </div>
             </div>
+
+
             <!-- クエスト名 -->
             <div class="d-flex justify-content-center align-items-center text-center" style="height: 100%;;">
                 <h1>{{ $quest->quest_title }}</h1>
@@ -74,7 +77,7 @@
             </button>
             <div id="timestampDisplay" class="ms-2">
                 @if ($startTimestamp)
-                    {{ \Carbon\Carbon::parse($startTimestamp)->format('Y-m-d H:i') }}
+                    {{ \Carbon\Carbon::parse($startTimestamp)->format('Y-m-d') }}
                 @endif
             </div>
         </div>
@@ -86,27 +89,30 @@
                     <ul class="list-group"> 
                         @foreach ($quests_chapters as $quests_chapter) 
                             <li class=""> 
-                                <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $quests_chapter->id]) }}" class="chapter-link text-decoration-none border  d-flex justify-content-between align-items-center mb-3 p-4" style="color :#261C11; border-color: #261C11 !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);"> 
+                                <a href="{{ route('chapters.viewing', ['questId' => $quest->id, 'chapterId' => $quests_chapter->id]) }}" class="chapter-link text-decoration-none border d-flex justify-content-between align-items-center mb-3 p-4" style="color:#261C11; border-color:#261C11 !important; box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
                                     <div class="d-flex">
                                         <!-- 完了したチャプターには画像を表示 -->
-                                        <div class="me-3 rounded border d-flex align-items-center justify-content-center bg-white" style="width: 30px !important; height: 25px !important; min-width: 30px; min-height: 25px; border-color: #261C11 !important; border-radius: 13px !important; box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);">
+                                        <div class="me-3 rounded border d-flex align-items-center justify-content-center bg-white" style="width:30px; height:25px; min-width:30px; min-height:25px; border-color:#261C11 !important; border-radius:13px !important; box-shadow:2px 2px 5px rgba(0,0,0,0.1);">
                                             <h6 class="mb-0"><span class="roman-number"></span></h6>
                                         </div>
                                         <div>
                                             <h6 class="fw-bold">{{ $quests_chapter->quest_chapter_title }}</h6>
-                                            <small>{{ $quests_chapter->description }}</small>
+                                            <!-- description部分をラップし、2行分の高さとスクロールを設定 -->
+                                            <div style="max-height: 3em; overflow-y: auto; line-height: 1.5em;">
+                                                <small style="display: block;">{{ $quests_chapter->description }}</small>
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- 右側：完了状態の画像 -->
                                     <div class="chapter-status" id="chapter-status-{{ $quests_chapter->id }}">
                                         <!-- JavaScriptで画像を挿入 -->
                                     </div>
-                                </a>
+                                </a>                                
                             </li> 
                         @endforeach 
                     </ul>
                 </div>
-                <div class="mt-3 d-flex justify-content-between">
+                <div class="mt-3 mb-3 d-flex justify-content-between">
                     <div>
                         @if($userQuest)
                             @if($userQuest->status == 2)
