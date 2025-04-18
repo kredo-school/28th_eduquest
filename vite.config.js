@@ -1,5 +1,6 @@
-import { defineConfig } from 'vite';
-import laravel from 'laravel-vite-plugin';
+// vite.config.js
+import { defineConfig } from 'vite'
+import laravel from 'laravel-vite-plugin'
 
 export default defineConfig({
     plugins: [
@@ -10,10 +11,8 @@ export default defineConfig({
     ],
     build: {
         manifest: true,
-        outDir: 'public/build',     // ✅ ここはOK！
+        outDir: 'public/build',
         emptyOutDir: true,
     },
-    // cacheDir: 'node_modules/.vite', // ✅ これを明示して .vite フォルダ外に出さないようにする
-});
-
-
+    cacheDir: 'node_modules/.vite', // ← これも有効にしよう！
+})
