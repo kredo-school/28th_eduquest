@@ -13,7 +13,7 @@ export default defineConfig({
         outDir: 'public/build',     // ✅ ここはOK！
         emptyOutDir: true,
     },
-    cacheDir: 'node_modules/.vite', // ✅ これを明示して .vite フォルダ外に出さないようにする
+    // cacheDir: 'node_modules/.vite', // ✅ これを明示して .vite フォルダ外に出さないようにする
 });
 
 
