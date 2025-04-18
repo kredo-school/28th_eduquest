@@ -10,7 +10,10 @@ export default defineConfig({
     ],
     build: {
         manifest: true,
-        outDir: 'public/build', // 👈 これがないと manifest.json 出ない！
+        outDir: 'public/build',     // ✅ ここはOK！
+        emptyOutDir: true,
     },
+    cacheDir: 'node_modules/.vite', // ✅ これを明示して .vite フォルダ外に出さないようにする
 });
+
 
