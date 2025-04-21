@@ -5,9 +5,8 @@
         "node": "18.x"
     },
     "scripts": {
-  "install": "npm install --legacy-peer-deps",
   "build": "vite build",
-  "heroku-postbuild": "npm run build"
+  "heroku-postbuild": "npm install --legacy-peer-deps && npm run build"
 },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
