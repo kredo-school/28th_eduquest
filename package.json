@@ -5,8 +5,7 @@
         "node": "18.x"
     },
     "scripts": {
-  "preinstall": "npm install --legacy-peer-deps",
-  "install": "echo skipping default install",
+  "install": "npm install --legacy-peer-deps",
   "build": "vite build",
   "heroku-postbuild": "npm run build"
 },
