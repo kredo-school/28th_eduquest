@@ -11,8 +11,9 @@ export default defineConfig({
     ],
     build: {
         manifest: true,
-        outDir: 'public/build',
+        outDir: 'public/build',       // Laravelが探す場所
         emptyOutDir: true,
     },
-    cacheDir: 'node_modules/.vite', // ← これも有効にしよう！
+    // 👇 これがあると ".vite" の中に入ってしまう
+    // cacheDir: 'node_modules/.vite' ← これ削除 or コメントアウト！！
 })
