@@ -5,10 +5,10 @@
         "node": "18.x"
     },
     "scripts": {
-        "build": "vite build",
-        "dev": "vite",
-        "heroku-postbuild": "npm install --legacy-peer-deps --include=dev && npm run build"
-    },
+  "build": "vite build",
+  "heroku-prebuild": "npm install --legacy-peer-deps",
+  "heroku-postbuild": "npm run build"
+  },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",
         "autoprefixer": "^10.4.20",
