@@ -6,13 +6,13 @@ export default defineConfig({
         laravel({
             input: ['resources/sass/app.scss', 'resources/js/app.js'],
             refresh: true,
+            buildDirectory: 'build',
         }),
     ],
     build: {
-        outDir: 'public/build',     // Laravel が探すディレクトリ
         manifest: true,
+        outDir: 'public/build',
         emptyOutDir: true,
     },
-    // cacheDir は不要！コメントアウトまたは削除！
-    // cacheDir: 'node_modules/.vite',
+    cacheDir: 'node_modules/.vite', // ← ここを明示する！
 })
