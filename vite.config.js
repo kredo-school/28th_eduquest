@@ -1,4 +1,3 @@
-// vite.config.js
 import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 
@@ -10,10 +9,10 @@ export default defineConfig({
         }),
     ],
     build: {
+        outDir: 'public/build',     // Laravel が探すディレクトリ
         manifest: true,
-        outDir: 'public/build',       // Laravelが探す場所
         emptyOutDir: true,
     },
-    // 👇 これがあると ".vite" の中に入ってしまう
-    // cacheDir: 'node_modules/.vite' ← これ削除 or コメントアウト！！
+    // cacheDir は不要！コメントアウトまたは削除！
+    // cacheDir: 'node_modules/.vite',
 })
