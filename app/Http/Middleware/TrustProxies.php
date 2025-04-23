@@ -2,22 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Middleware\TrustProxies as Middleware;
+use Symfony\Component\HttpFoundation\Request;
 
 class TrustProxies extends Middleware
 {
-    /**
-     * 信頼するプロキシ（Herokuはすべて信頼してOK）
-     *
-     * @var array|string|null
-     */
-    protected $proxies = '*';
+    protected $proxies = '*'; // ← すべてのプロキシを信頼！
 
-    /**
-     * 信頼するヘッダー
-     *
-     * @var int
-     */
     protected $headers = Request::HEADER_X_FORWARDED_ALL;
 }
+
