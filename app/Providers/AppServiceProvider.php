@@ -20,12 +20,12 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {
-        if (env('APP_ENV') === 'production') {
-            \Illuminate\Support\Facades\URL::forceScheme('https');
-    
-            // 👉 manifest.json の場所を上書き設定！
-            Vite::useBuildDirectory('.vite');
-        }
+{
+    if (env('APP_ENV') === 'production') {
+        URL::forceScheme('https');
+
+        // ↓↓↓ これを削除 or コメントアウト
+        // Vite::useBuildDirectory('.vite');
     }
+}
 }
